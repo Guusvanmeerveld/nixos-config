@@ -4,8 +4,13 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../modules/essential.nix
-      ../modules/xfce.nix
+      ../../modules/essential.nix
+      ../../modules/programs/git.nix
+      ../../modules/programs/shell.nix
+      ../../modules/programs/basic.nix
+      ../../modules/programs/docker.nix
+      ../../modules/xfce.nix
+      ../../home-manager/home.nix
     ];
 
   # Bootloader.
@@ -22,7 +27,7 @@
 
   boot.initrd.luks.devices."luks-71953553-4c8d-4cf2-a380-025fd7178f47".keyFile = "/crypto_keyfile.bin";
 
-  networking.hostname = "nixos-qemu";
+  networking.hostName = "qemu";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -31,6 +36,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
 
