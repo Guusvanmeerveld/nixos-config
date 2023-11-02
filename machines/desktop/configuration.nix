@@ -18,6 +18,8 @@
       ../../modules/xfce.nix
     ];
 
+  boot.plymouth.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
