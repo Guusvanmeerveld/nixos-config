@@ -5,8 +5,10 @@
     ./gtk.nix
     ./programs/zsh.nix
     ./programs/graphical/librewolf.nix
+    ./programs/graphical/discord.nix
     ./programs/graphical/vscode.nix
     ./programs/services/syncthing.nix
+    ./programs/cli/git.nix
     ./programs/cli/neovim.nix
   ];
 
@@ -17,7 +19,18 @@
   programs.home-manager.enable = true;
 
   home.username = "guus";
-  home.homeDirectory = "/home/guus/";
+  home.homeDirectory = "/home/guus";
+
+  nixpkgs = {
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+      # Workaround for https://github.com/nix-community/home-manager/issues/2942
+      allowUnfreePredicate = _: true;
+    };
+  };
+
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

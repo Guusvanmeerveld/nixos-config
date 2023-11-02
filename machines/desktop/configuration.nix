@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -14,7 +14,16 @@
       ../../modules/programs/shell.nix
       ../../modules/programs/docker.nix
       ../../modules/xfce.nix
+      inputs.home-manager.nixosModules.home-manager
     ];
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      guus = import ../../home-manager/home.nix;
+    };
+  };
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
