@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/essential.nix
       ../../modules/programs/basic.nix
@@ -14,15 +15,15 @@
       ../../modules/programs/shell.nix
       ../../modules/programs/docker.nix
       ../../modules/xfce.nix
-      inputs.home-manager.nixosModules.home-manager
+      # inputs.home-manager.nixosModules.home-manager
     ];
 
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      guus = import ../../home-manager/home.nix;
-    };
-  };
+  # home-manager = {
+  #   extraSpecialArgs = { inherit inputs; };
+  #   users = {
+  #     guus = import ../../home-manager/home.nix;
+  #   };
+  # };
 
 
   # Bootloader.

@@ -13,6 +13,7 @@
       "workbench.colorTheme" = "One Dark Pro Darker";
       "explorer.confirmDragAndDrop" = false;
       "window.zoomLevel" = 1;
+      "git.autofetch" = true;
     };
 
     extensions = with pkgs.vscode-extensions; [
