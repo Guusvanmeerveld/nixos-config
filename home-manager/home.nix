@@ -9,6 +9,7 @@
     ./programs/graphical/vscode.nix
     ./programs/graphical/psst.nix
     ./programs/graphical/games/minecraft.nix
+    ./programs/graphical/games/heroic.nix
     ./programs/services/syncthing.nix
     ./programs/cli/git.nix
     ./programs/cli/neovim.nix
