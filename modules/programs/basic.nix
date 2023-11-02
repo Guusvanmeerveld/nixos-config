@@ -5,5 +5,6 @@
     bottom
     htop
     vim
+    plymouth
   ];
 }

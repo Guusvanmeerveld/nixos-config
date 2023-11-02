@@ -1,11 +1,13 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 {
+  imports = [ ./sound.nix ];
+
   environment = {
     systemPackages = with pkgs; [
-       librewolf
-       evince
-       pavucontrol
+      librewolf
+      evince
+      pavucontrol
     ];
   };
 
@@ -28,17 +30,6 @@
 
   services = {
     gnome.gnome-keyring.enable = true;
-
-    pipewire = {
-      enable = true;
-
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-
-      pulse.enable = true;
-    };
 
     xserver = {
       enable = true;
@@ -65,10 +56,5 @@
         };
       };
     };
-  };
-
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
   };
 }
