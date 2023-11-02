@@ -14,6 +14,9 @@
       "explorer.confirmDragAndDrop" = false;
       "window.zoomLevel" = 1;
       "git.autofetch" = true;
+      "git.enableSmartCommit" = true;
+      "editor.fontFamily" = "'Fira Code', 'Meslo', 'Droid Sans Mono', 'monospace', monospace";
+      "editor.fontLigatures" = true;
     };
 
     extensions = with pkgs.vscode-extensions; [

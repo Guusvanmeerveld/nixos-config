@@ -14,17 +14,9 @@
       ../../modules/programs/git.nix
       ../../modules/programs/shell.nix
       ../../modules/programs/docker.nix
+      ../../modules/programs/steam.nix
       ../../modules/xfce.nix
-      # inputs.home-manager.nixosModules.home-manager
     ];
-
-  # home-manager = {
-  #   extraSpecialArgs = { inherit inputs; };
-  #   users = {
-  #     guus = import ../../home-manager/home.nix;
-  #   };
-  # };
-
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
