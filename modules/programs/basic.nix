@@ -3,6 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
     bottom
-    home-manager
+    htop
+    # home-manager
+    vim
   ];
 }
