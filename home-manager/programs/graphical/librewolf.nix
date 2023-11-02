@@ -1,10 +1,10 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.librewolf = {
     enable = true;
 
-    # extensions = with inputs.nur.repos; [
+    # extensions = with nur-no-packages.repos.firefox-addons; [
     #   bitwarden
     # ];
   };
