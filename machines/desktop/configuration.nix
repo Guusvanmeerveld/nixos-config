@@ -7,7 +7,7 @@
 {
   imports =
     [
-      # Include the results of the hardware scan.
+      # Include the results of the hardware scan. 
       ./hardware-configuration.nix
       ../../modules/essential.nix
       ../../modules/programs/basic.nix
@@ -15,14 +15,27 @@
       ../../modules/programs/shell.nix
       ../../modules/programs/docker.nix
       ../../modules/programs/steam.nix
+      ../../modules/plymouth.nix
       ../../modules/xfce.nix
     ];
 
-  boot.plymouth.enable = true;
-
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+
+    grub = {
+      enable = true;
+
+      efiSupport = true;
+      theme = pkgs.nixos-grub2-theme;
+      useOSProber = true;
+      device = "nodev";
+
+    };
+  };
 
   networking.hostName = "desktop"; # Define your hostname.
 
