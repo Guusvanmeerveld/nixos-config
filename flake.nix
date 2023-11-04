@@ -7,6 +7,11 @@
     nur.url = github:nix-community/NUR;
     agenix.url = "github:ryantm/agenix";
 
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.05";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
@@ -32,18 +37,16 @@
       };
 
       homeConfigurations = {
-
         "guus@desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
           extraSpecialArgs = { inherit inputs outputs; };
 
           modules = [
+            inputs.nixvim.homeManagerModules.nixvim
             ./home-manager/home.nix
           ];
         };
       };
-
-
     };
 }

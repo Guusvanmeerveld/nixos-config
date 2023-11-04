@@ -11,10 +11,6 @@
     ];
   };
 
-  hardware = {
-    pulseaudio.enable = false;
-  };
-
   programs = {
     gnupg.agent = {
       enable = true;

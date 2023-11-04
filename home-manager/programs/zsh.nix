@@ -21,16 +21,16 @@ in
       plugins = [ "git" "sudo" "yarn" "vscode" "colorize" ];
     };
 
-      zplug = {
-        enable = true;
-        plugins = [
-          { name = "zsh-users/zsh-autosuggestions"; }
-          { name = "zsh-users/zsh-syntax-highlighting"; }
-          { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-        ];
-      };
-
+    zplug = {
+      enable = true;
       plugins = [
+        { name = "zsh-users/zsh-autosuggestions"; }
+        { name = "zsh-users/zsh-syntax-highlighting"; }
+        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+      ];
+    };
+
+    plugins = [
       {
         name = "powerlevel10k";
         src = pkgs.zsh-powerlevel10k;

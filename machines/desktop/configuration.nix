@@ -16,7 +16,8 @@
       ../../modules/programs/docker.nix
       ../../modules/programs/steam.nix
       ../../modules/plymouth.nix
-      ../../modules/xfce.nix
+      ../../modules/input-devices.nix
+      ../../modules/i3.nix
     ];
 
   # Bootloader.
@@ -36,6 +37,8 @@
 
     };
   };
+
+  hardware.ckb-next.enable = true;
 
   networking.hostName = "desktop"; # Define your hostname.
 

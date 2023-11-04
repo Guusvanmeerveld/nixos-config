@@ -3,7 +3,9 @@
 {
   imports = [
     ./gtk.nix
+    ./i3.nix
     ./programs/zsh.nix
+    ./programs/graphical/kitty.nix
     ./programs/graphical/librewolf.nix
     ./programs/graphical/discord.nix
     ./programs/graphical/vscode.nix

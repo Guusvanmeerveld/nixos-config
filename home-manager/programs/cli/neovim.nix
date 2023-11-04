@@ -1,9 +1,26 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  programs.neovim = {
+  programs.nixvim = {
     enable = true;
+
     viAlias = true;
-    vimAlias = true;
+
+    colorschemes.onedark.enable = true;
+    plugins.lightline.enable = true;
+
+    options = {
+      number = true;
+      relativenumber = true;
+      ignorecase = true;
+      smartcase = true;
+
+      mouse = "a";
+
+      termguicolors = true;
+
+      shiftwidth = 2;
+    };
+
   };
 }
