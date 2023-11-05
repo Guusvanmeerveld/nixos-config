@@ -17,6 +17,7 @@
       ../../modules/programs/steam.nix
       ../../modules/plymouth.nix
       ../../modules/input-devices.nix
+      ../../modules/video/amd.nix
       ../../modules/i3.nix
     ];
 
