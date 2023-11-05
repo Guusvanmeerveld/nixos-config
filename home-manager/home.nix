@@ -10,6 +10,7 @@
     ./programs/graphical/discord.nix
     ./programs/graphical/vscode.nix
     ./programs/graphical/spotify.nix
+    ./programs/graphical/libreoffice.nix
     ./programs/graphical/games/minecraft.nix
     ./programs/graphical/games/heroic.nix
     ./programs/services/syncthing.nix
