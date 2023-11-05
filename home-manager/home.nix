@@ -9,7 +9,7 @@
     ./programs/graphical/librewolf.nix
     ./programs/graphical/discord.nix
     ./programs/graphical/vscode.nix
-    ./programs/graphical/psst.nix
+    ./programs/graphical/spotify.nix
     ./programs/graphical/games/minecraft.nix
     ./programs/graphical/games/heroic.nix
     ./programs/services/syncthing.nix
