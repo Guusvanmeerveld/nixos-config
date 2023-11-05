@@ -1,7 +1,6 @@
 { configs, pkgs, ... }: {
   programs.kitty = {
     enable = true;
-
-    theme = "One Dark";
+    theme = "Neutron";
   };
 }
