@@ -17,6 +17,7 @@
       "git.enableSmartCommit" = true;
       "editor.fontFamily" = "'Fira Code', 'Meslo', 'Droid Sans Mono', 'monospace', monospace";
       "editor.fontLigatures" = true;
+      "extensions.autoUpdate" = false;
     };
 
     extensions = with pkgs.vscode-extensions; [
@@ -27,6 +28,7 @@
       jnoortheen.nix-ide
       rust-lang.rust-analyzer
       esbenp.prettier-vscode
+      ms-toolsai.jupyter
       # ms-vscode.atom-keybindings
     ];
   };
