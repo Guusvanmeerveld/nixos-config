@@ -18,7 +18,7 @@
       ../../modules/plymouth.nix
       ../../modules/input-devices.nix
       ../../modules/video/amd.nix
-      ../../modules/i3.nix
+      ../../modules/wm/i3.nix
     ];
 
   # Bootloader.
@@ -41,6 +41,8 @@
 
   hardware.ckb-next.enable = true;
 
+  networking.networkmanager.enable = true;
+  networking.nameservers = [ "192.168.2.119" ];
   networking.hostName = "desktop"; # Define your hostname.
 
   # This value determines the NixOS release from which the default

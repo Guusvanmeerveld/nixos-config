@@ -31,10 +31,12 @@
         enable = true;
         extraPackages = with pkgs; [
           rofi
-          i3status
-          i3lock
+          polybar
+          i3lock-fancy-rapid
           i3blocks
-          lxappearance
+          killall
+          dunst
+          pavucontrol
         ];
       };
 
