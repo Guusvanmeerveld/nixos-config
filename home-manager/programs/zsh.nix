@@ -15,6 +15,11 @@ in
       EDITOR = "nvim";
     };
 
+    shellAliases = {
+      hms = "home-manager switch --flake ~/nixos-config";
+      nbs = "sudo nixos-rebuild switch --flake ~/nixos-config";
+    };
+
     oh-my-zsh = {
       enable = true;
 
