@@ -5,12 +5,15 @@
     ./gtk.nix
     ./i3.nix
     ./programs/zsh.nix
+    ./programs/dev/python.nix
     ./programs/graphical/kitty.nix
+    ./programs/graphical/flameshot.nix
     ./programs/graphical/librewolf.nix
     ./programs/graphical/discord.nix
     ./programs/graphical/vscode.nix
     ./programs/graphical/spotify.nix
     ./programs/graphical/libreoffice.nix
+    ./programs/graphical/matrix.nix
     ./programs/graphical/games/minecraft.nix
     ./programs/graphical/games/heroic.nix
     ./programs/services/syncthing.nix
