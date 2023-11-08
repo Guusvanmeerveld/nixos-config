@@ -134,11 +134,11 @@ in
           module-margin-right = 0;
 
           font-0 = "${font.primary}:fontformat=truetype:size=12;1";
-          font-1 = "FontAwesome:fontformat=truetype:size=9;1";
+          font-1 = "Font Awesome 6 Free,Font Awesome 6 Free Solid:style=Solid:size=12;1";
 
-          modules-left = "i3 xwindow";
+          modules-left = "i3";
           modules-center = "date";
-          modules-right = "battery";
+          modules-right = "pulseaudio wired-network wireless-network battery";
 
           tray-position = "\${env:TRAY_POS:right}";
           tray-padding = 9;
@@ -188,6 +188,51 @@ in
           label = "%date%, %time%";
         };
 
+        "module/wired-network" =
+          {
+            type = "internal/network";
+            interface-type = "wired";
+
+            interval = 3;
+
+            format-connected = "<label-connected>";
+
+            label-connected = "";
+            label-connected-padding = 2;
+            label-connected-foreground = colors.text.primary;
+
+            format-disconnected = "<label-disconnected>";
+
+            label-disconnected = "";
+            label-disconnected-padding = 2;
+            label-disconnected-foreground = colors.warn;
+          };
+
+        "module/wireless-network" =
+          {
+            type = "internal/network";
+            interface-type = "wireless";
+
+            interval = 3;
+          };
+
+        "module/pulseaudio" = {
+          type = "internal/pulseaudio";
+
+          use-ui-max = false;
+          interval = 5;
+
+          format-volume = "<ramp-volume> <label-volume>";
+          format-volume-padding = 2;
+
+          label-muted = "";
+
+          ramp-volume-0 = "";
+          ramp-volume-1 = "";
+          ramp-volume-2 = "";
+
+          click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
+        };
       };
     };
   };
@@ -324,6 +369,8 @@ in
           "XF86AudioPause" = "exec playerctl play-pause";
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
+
+          "Print" = "exec flameshot gui";
 
           # Applications
           "${mod}+z" = "[ class=^${prog.discord}$ ] focus";

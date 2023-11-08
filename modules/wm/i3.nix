@@ -35,6 +35,7 @@
           i3lock-fancy-rapid
 
           dunst
+          flameshot
           rofi
           polybar
           pavucontrol
