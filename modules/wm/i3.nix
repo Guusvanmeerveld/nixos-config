@@ -30,15 +30,15 @@
       windowManager.i3 = {
         enable = true;
         extraPackages = with pkgs; [
-          rofi
-          polybar
           xorg.xprop
           xcolor
           i3lock-fancy-rapid
-          i3blocks
-          killall
+
           dunst
+          rofi
+          polybar
           pavucontrol
+          playerctl
         ];
       };
 

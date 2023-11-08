@@ -18,11 +18,11 @@ let
   colors = {
     background = {
       primary = "#191919";
-      secondary = "#383838";
+      secondary = "#212121";
 
       alt = {
-        primary = "#232323";
-        secondary = "#212121";
+        primary = "#141414";
+        secondary = "#0f0f0f";
       };
     };
 
@@ -35,7 +35,7 @@ let
     warn = "#e06c75";
     error = "#be5046";
 
-    primary = "#e5c07b";
+    primary = "#61afef";
 
   };
 
@@ -45,99 +45,150 @@ let
 
 in
 {
-  services.polybar = {
-    enable = true;
-    package = pkgs.polybarFull;
-    script = ''
-      # Terminate already running bar instances
-      ${pkgs.killall}/bin/killall -q ${pkgs.polybarFull}/bin/polybar
 
-      # Wait until the processes have been shut down
-      while ${pkgs.procps}/bin/pgrep -x ${pkgs.polybarFull}/bin/polybar > /dev/null; do sleep 1; done
+  systemd.user.services.polybar = {
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
-      screens=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f6)
+  services = {
+    dunst = {
+      enable = true;
 
-      if [[ $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f4 | cut -d"+" -f2- | uniq | wc -l) == 1 ]]; then
-        MONITOR=$(${pkgs.polybarFull}/bin/polybar --list-monitors | ${pkgs.gnugrep}/bin/grep -d":" -f1) TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
-      else
-        primary=$(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep primary | ${pkgs.coreutils}/bin/cut -d" " -f1)
+      settings = {
+        global = {
+          width = 500;
+          height = 300;
 
-        for m in $screens; do
-          if [[ $primary == $m ]]; then
-          MONITOR=$m TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
-          else
-          MONITOR=$m TRAY_POS=none ${pkgs.polybarFull}/bin/polybar top &
-          fi
-        done
-      fi
-    '';
+          offset = "10x53";
+          origin = "top-right";
 
-    settings = {
-      "bar/top" = {
-        monitor = "\${env:MONITOR:primary}";
-        width = "100%";
-        height = 43;
-        offset-x = "0%";
-        offset-y = "0%";
-        radius = "0.0";
-        fixed-center = true;
+          transparency = 10;
+          frame_width = 1;
 
-        background = colors.background.primary;
-        foreground = colors.text.primary;
+          frame_color = colors.background.secondary;
+          font = font.primary;
 
-        line-size = 4;
-        line-color = colors.text.primary;
+          mouse_left = "do_action";
+          mouse_middle = "close_current";
+          mouse_right = "context";
+        };
 
-        border-size = 0;
-        border-color = colors.background.secondary;
+        urgency_normal = {
+          background = colors.background.primary;
+          foreground = colors.text.primary;
+          timeout = 10;
+        };
+      };
+    };
 
-        padding-left = 0;
-        padding-right = 0;
+    polybar = {
+      enable = true;
+      package = pkgs.polybarFull;
+      script = ''
+        # Terminate already running bar instances
+        ${pkgs.killall}/bin/killall -q ${pkgs.polybarFull}/bin/polybar
 
-        module-margin-left = 0;
-        module-margin-right = 0;
+        # Wait until the processes have been shut down
+        while ${pkgs.procps}/bin/pgrep -x ${pkgs.polybarFull}/bin/polybar > /dev/null; do sleep 1; done
 
-        font-0 = "${font.primary}:fontformat=truetype:size=12;1";
-        font-1 = "FontAwesome:fontformat=truetype:size=9;1";
+        screens=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f6)
 
-        modules-left = "i3 xwindow";
-        modules-center = "date";
-        modules-right = "battery";
+        if [[ $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f4 | cut -d"+" -f2- | uniq | wc -l) == 1 ]]; then
+          MONITOR=$(${pkgs.polybarFull}/bin/polybar --list-monitors | ${pkgs.gnugrep}/bin/grep -d":" -f1) TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
+        else
+          primary=$(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep primary | ${pkgs.coreutils}/bin/cut -d" " -f1)
 
-        tray-position = "\${env:TRAY_POS:right}";
-        tray-padding = 9;
-        tray-offset-y = "0%";
-        tray-offset-x = "0%";
-        tray-maxsize = 18;
-        tray-detached = false;
-        tray-background = colors.background.primary;
-        tray-underline = colors.primary;
+          for m in $screens; do
+            if [[ $primary == $m ]]; then
+            MONITOR=$m TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
+            else
+            MONITOR=$m TRAY_POS=none ${pkgs.polybarFull}/bin/polybar top &
+            fi
+          done
+        fi
+      '';
 
-        wm-restack = "i3";
+      settings = {
+        "bar/top" = {
+          monitor = "\${env:MONITOR:primary}";
+          width = "100%";
+          height = 43;
+          offset-x = "0%";
+          offset-y = "0%";
+          radius = "0.0";
+          fixed-center = true;
+
+          background = colors.background.primary;
+          foreground = colors.text.primary;
+
+          line-size = 4;
+          line-color = colors.text.primary;
+
+          border-size = 0;
+          border-color = colors.background.secondary;
+
+          padding-left = 0;
+          padding-right = 0;
+
+          module-margin-left = 0;
+          module-margin-right = 0;
+
+          font-0 = "${font.primary}:fontformat=truetype:size=12;1";
+          font-1 = "FontAwesome:fontformat=truetype:size=9;1";
+
+          modules-left = "i3 xwindow";
+          modules-center = "date";
+          modules-right = "battery";
+
+          tray-position = "\${env:TRAY_POS:right}";
+          tray-padding = 9;
+          tray-offset-y = "0%";
+          tray-offset-x = "0%";
+          tray-maxsize = 18;
+          tray-detached = false;
+          tray-background = colors.background.primary;
+          tray-underline = colors.primary;
+
+          wm-restack = "i3";
+        };
+
+        "module/i3" = {
+          type = "internal/i3";
+
+          index-sort = true;
+          strip-wsnumbers = true;
+          pin-workspaces = true;
+
+          format = "<label-state> <label-mode>";
+
+          label-focused = "%index%";
+          label-focused-foreground = colors.text.primary;
+          label-focused-background = colors.background.secondary;
+          label-focused-underline = colors.primary;
+          label-focused-padding = 2;
+
+          label-mode = "%mode%";
+          label-mode-padding = 2;
+          label-mode-background = colors.primary;
+
+          label-unfocused = "%index%";
+          label-unfocused-padding = 2;
+        };
+
+        "module/date" = {
+          type = "internal/date";
+          interval = 5;
+
+          date = "%a %b %d";
+          time = "%H:%M";
+
+          format-prefix-foreground = colors.text.primary;
+          format-underline = colors.primary;
+
+          label = "%date%, %time%";
+        };
 
       };
-
-      "module/i3" = {
-        type = "internal/i3";
-
-        label-mode = "%mode%";
-        label-mode-padding = 2;
-        label-mode-background = colors.primary;
-      };
-
-      "module/date" = {
-        type = "internal/date";
-        interval = 5;
-
-        date = "%a %b %d";
-        time = "%H:%M";
-
-        format-prefix-foreground = colors.text.primary;
-        format-underline = colors.primary;
-
-        label = "%date%, %time%";
-      };
-
     };
   };
 
@@ -266,6 +317,13 @@ in
           "${mod}+Shift+j" = "move down";
           "${mod}+Shift+k" = "move up";
           "${mod}+Shift+l" = "move right";
+
+          # Media keys
+          "XF86AudioPlay" = "exec playerctl play";
+          "XF86AudioStop" = "exec playerctl pause";
+          "XF86AudioPause" = "exec playerctl play-pause";
+          "XF86AudioNext" = "exec playerctl next";
+          "XF86AudioPrev" = "exec playerctl previous";
 
           # Applications
           "${mod}+z" = "[ class=^${prog.discord}$ ] focus";
