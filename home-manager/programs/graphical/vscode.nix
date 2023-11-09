@@ -3,7 +3,7 @@
 {
   programs.vscode = {
     enable = true;
-    # package = pkgs.vscodium;
+    package = pkgs.vscodium;
 
     userSettings = {
       "editor.formatOnSave" = true;
@@ -28,6 +28,7 @@
       scalameta.metals
       pkief.material-icon-theme
       rust-lang.rust-analyzer
+      arrterian.nix-env-selector
       esbenp.prettier-vscode
       ms-toolsai.jupyter
       redhat.java
