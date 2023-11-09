@@ -32,17 +32,32 @@
       enable = true;
 
       efiSupport = true;
-      theme = pkgs.nixos-grub2-theme;
       useOSProber = true;
       device = "nodev";
+    };
 
+    grub2-theme = {
+      enable = true;
+      theme = "stylish";
+      footer = true;
     };
   };
+
+  services.xserver.xrandrHeads = [
+    "DisplayPort-1"
+    {
+      output = "HDMI-A-0";
+      primary = true;
+    }
+  ];
 
   hardware.ckb-next.enable = true;
 
   networking.networkmanager.enable = true;
-  networking.nameservers = [ "192.168.2.119" ];
+
+  # DNS
+  networking.networkmanager.insertNameservers = [ "192.168.2.119" ];
+
   networking.hostName = "desktop"; # Define your hostname.
 
   # This value determines the NixOS release from which the default
