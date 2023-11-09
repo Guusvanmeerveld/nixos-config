@@ -17,12 +17,12 @@ let
 
   colors = {
     background = {
-      primary = "#191919";
+      primary = "#151515";
       secondary = "#212121";
 
       alt = {
-        primary = "#141414";
-        secondary = "#0f0f0f";
+        primary = "#232323";
+        secondary = "#353535";
       };
     };
 
@@ -56,6 +56,13 @@ in
     )
     (
       import ./programs/services/dunst.nix
+        (
+          args
+          // { colors = colors; font = font; }
+        )
+    )
+    (
+      import ./programs/graphical/rofi.nix
         (
           args
           // { colors = colors; font = font; }
@@ -169,7 +176,7 @@ in
 
       keybindings = lib.mkOptionDefault
         {
-          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          "${mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show combi";
           "${mod}+Return" = "exec ${pkgs.kitty}/bin/kitty";
 
           "${mod}+w" = "kill";
@@ -203,7 +210,7 @@ in
           "${mod}+z" = "[ class=^${prog.discord}$ ] focus";
           "${mod}+x" = "[ class=^${prog.spotify}$ ] focus";
           "${mod}+c" = "[ class=^${prog.librewolf}$ ] focus";
-          "${mod}+v" = "[ class=^${prog.vscode}$ ] focus";
+          "${mod}+v" = "[ class=^${prog.vscodium}$ ] focus";
           "${mod}+b" = "[ class=^${prog.steam}$ ] focus";
         };
 
