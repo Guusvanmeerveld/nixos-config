@@ -1,11 +1,15 @@
 { config, pkgs, ... }:
 
+
 {
   programs.librewolf = {
     enable = true;
+    package = pkgs.librewolf;
 
-    # extensions = with nur-no-packages.repos.firefox-addons; [
-    #   bitwarden
-    # ];
+    settings = {
+      "webgl.disabled" = false;
+      "privacy.clearOnShutdown.history" = false;
+      "privacy.clearOnShutdown.downloads" = false;
+    };
   };
 }
