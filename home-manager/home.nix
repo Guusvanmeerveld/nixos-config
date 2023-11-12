@@ -6,7 +6,10 @@
     ./i3.nix
     ./programs/zsh.nix
     ./programs/dev/python.nix
+    # ./programs/dev/rust.nix
     ./programs/graphical/kitty.nix
+    ./programs/graphical/thunar.nix
+    ./programs/graphical/evince.nix
     ./programs/graphical/flameshot.nix
     ./programs/graphical/librewolf.nix
     ./programs/graphical/discord.nix
