@@ -5,6 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
 
     nur.url = github:nix-community/NUR;
+    grub2-themes.url = "github:vinceliuice/grub2-themes";
+
     agenix.url = "github:ryantm/agenix";
 
     nixvim = {
@@ -19,7 +21,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, agenix, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
     let
       inherit (self) outputs;
     in
@@ -31,7 +33,8 @@
           specialArgs = { inherit inputs outputs; };
           modules = [
             ./machines/desktop/configuration.nix
-            agenix.nixosModules.default
+            inputs.agenix.nixosModules.default
+            inputs.grub2-themes.nixosModules.default
           ];
         };
       };
@@ -44,6 +47,7 @@
 
           modules = [
             inputs.nixvim.homeManagerModules.nixvim
+            inputs.nur.nixosModules.nur
             ./home-manager/home.nix
           ];
         };

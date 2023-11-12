@@ -136,6 +136,24 @@
         "type": "github"
       }
     },
+    "grub2-themes": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1694949342,
+        "narHash": "sha256-KYwOOYAWsFNM5EGdauew5HOVj9HdWWGcjGy7mLX+V6w=",
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "rev": "000171da277b8d0219f90782708d42c700081a44",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -212,6 +230,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1699451767,
+        "narHash": "sha256-ns2cYb7gG9GMVRF+EBi6Z/8Gs5Fw8nKxMFRDH9/9I8c=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d9cc44b51e9b333fd67e2c77eda010cc6c9552cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1698846319,
         "narHash": "sha256-4jyW/dqFBVpWFnhl0nvP6EN4lP7/ZqPxYRjl6var0Oc=",
         "owner": "nixos",
@@ -252,11 +286,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1698944992,
-        "narHash": "sha256-ZjhUQ8VnUJj2Q52JgSDgaRLBUj1RZR8IEuq0rWE3Oxk=",
+        "lastModified": 1699466124,
+        "narHash": "sha256-EDyxmgwQQX5smNumtejEnMmQtrI57x/7WoaSmm/bNhw=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "78dbc71089049f99086fd69c74ad87ae1d418a0d",
+        "rev": "a44fbc7d60527d436a5f4100fbd89e01ba9db74e",
         "type": "github"
       },
       "original": {
@@ -320,8 +354,9 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "grub2-themes": "grub2-themes",
         "home-manager": "home-manager_2",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
         "nur": "nur"
       }
