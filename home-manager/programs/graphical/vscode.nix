@@ -20,6 +20,8 @@
       "security.workspace.trust.banner" = "never";
       "telemetry.telemetryLevel" = "off";
       "extensions.autoUpdate" = false;
+      "editor.minimap.showSlider" = "always";
+      "git.openRepositoryInParentFolders" = "always";
     };
 
     extensions = with pkgs.vscode-extensions; [
@@ -31,6 +33,8 @@
       arrterian.nix-env-selector
       esbenp.prettier-vscode
       ms-toolsai.jupyter
+      tamasfe.even-better-toml
+      james-yu.latex-workshop
       redhat.java
       # ms-vscode.atom-keybindings
     ];
