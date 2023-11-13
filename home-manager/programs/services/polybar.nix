@@ -3,17 +3,10 @@
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-
   services.polybar = {
     enable = true;
     package = pkgs.polybarFull;
     script = ''
-      # Terminate already running bar instances
-      ${pkgs.killall}/bin/killall -q ${pkgs.polybarFull}/bin/polybar
-
-      # Wait until the processes have been shut down
-      while ${pkgs.procps}/bin/pgrep -x ${pkgs.polybarFull}/bin/polybar > /dev/null; do sleep 1; done
-
       screens=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f6)
 
       if [[ $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f4 | cut -d"+" -f2- | uniq | wc -l) == 1 ]]; then
@@ -61,7 +54,7 @@
 
         modules-left = "i3";
         modules-center = "date";
-        modules-right = "pulseaudio wired-network wireless-network battery";
+        modules-right = "pulseaudio wired-network wireless-network backlight battery";
 
         tray-position = "\${env:TRAY_POS:right}";
         tray-padding = 9;
@@ -98,6 +91,14 @@
         label-unfocused-padding = 2;
       };
 
+      # "module/media-player" = {
+
+      #   type = "custom/script";
+      #   exec = "./mpris-tail.py -f '{artist} - {title}'"
+      #     tail = true
+
+      #   };
+
       "module/date" = {
         type = "internal/date";
         interval = 5;
@@ -121,20 +122,34 @@
           format-connected = "<label-connected>";
 
           label-connected = "";
-          label-connected-padding = 2;
           label-connected-foreground = colors.text.primary;
+          format-connected-padding = 1;
 
           format-disconnected = "<label-disconnected>";
 
           label-disconnected = "";
-          label-disconnected-padding = 2;
           label-disconnected-foreground = colors.warn;
+          format-disconnected-padding = 1;
         };
 
       "module/wireless-network" =
         {
           type = "internal/network";
           interface-type = "wireless";
+
+          format-connected-padding = 1;
+          format-connected = "<label-connected>";
+
+          label-connected = "";
+          label-connected-foreground = colors.text.primary;
+
+          format-disconnected = "<label-disconnected>";
+          format-disconnected-padding = 1;
+
+          label-disconnected = "";
+          label-disconnected-foreground = colors.warn;
+
+          click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 
           interval = 3;
         };
@@ -146,15 +161,73 @@
         interval = 5;
 
         format-volume = "<ramp-volume> <label-volume>";
-        format-volume-padding = 2;
+        format-volume-padding = 1;
 
         label-muted = "";
+        format-muted-padding = 1;
 
         ramp-volume-0 = "";
         ramp-volume-1 = "";
         ramp-volume-2 = "";
 
         click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
+      };
+
+      "module/battery" = {
+        type = "internal/battery";
+
+        low-at = 10;
+
+        # $ ls -1 /sys/class/power_supply/
+        battery = "BAT1";
+        adapter = "ACAD";
+
+        time-format = "%H:%M";
+
+        format-charging = "<animation-charging> <label-charging>";
+        format-charging-padding = 1;
+
+        format-discharging = "<ramp-capacity> <label-discharging>";
+        format-discharging-padding = 1;
+
+        label-charging = "%percentage%%";
+
+        label-discharging = "%percentage%%";
+
+        label-low = "%percentage% - %time% left";
+
+        ramp-capacity-0 = "";
+        ramp-capacity-1 = "";
+        ramp-capacity-2 = "";
+        ramp-capacity-3 = "";
+        ramp-capacity-4 = "";
+
+        animation-charging-0 = "";
+        animation-charging-1 = "";
+        animation-charging-2 = "";
+        animation-charging-3 = "";
+        animation-charging-4 = "";
+        # Framerate in milliseconds
+        animation-charging-framerate = 750;
+
+        animation-low-0 = "!";
+        animation-low-1 = "";
+        animation-low-framerate = 1000;
+      };
+
+      "module/backlight" = {
+        type = "internal/backlight";
+
+        card = "amdgpu_bl0";
+
+        enable-scroll = true;
+
+        format = " <label>";
+
+        format-padding = 1;
+
+        label = "%percentage%%";
+
       };
     };
   };
