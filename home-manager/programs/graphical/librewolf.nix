@@ -10,6 +10,7 @@
       "webgl.disabled" = false;
       "privacy.clearOnShutdown.history" = false;
       "privacy.clearOnShutdown.downloads" = false;
+      "browser.toolbars.bookmarks.visibility" = "never";
     };
   };
 }
