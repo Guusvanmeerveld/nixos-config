@@ -37,9 +37,29 @@
             inputs.grub2-themes.nixosModules.default
           ];
         };
+        laptop = nixpkgs.lib.nixosSystem {
+           system = "x86_64-linux";
+
+           specialArgs = { inherit inputs outputs; };
+
+           modules = [
+             ./machines/laptop/configuration.nix
+           ];
+        };
       };
 
       homeConfigurations = {
+        "guus@laptop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+       
+          extraSpecialArgs = { inherit inputs outputs; };
+ 
+          modules = [
+            inputs.nixvim.homeManagerModules.nixvim
+            inputs.nur.nixosModules.nur
+            ./home-manager/home.nix
+	  ];
+        };
         "guus@desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
