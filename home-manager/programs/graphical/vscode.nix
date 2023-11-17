@@ -22,6 +22,9 @@
       "extensions.autoUpdate" = false;
       "editor.minimap.showSlider" = "always";
       "git.openRepositoryInParentFolders" = "always";
+      "update.mode" = "manual";
+
+      "nixEnvSelector.suggestion" = false;
     };
 
     extensions = with pkgs.vscode-extensions; [
@@ -36,6 +39,9 @@
       tamasfe.even-better-toml
       james-yu.latex-workshop
       redhat.java
+      vscjava.vscode-maven
+      vscjava.vscode-java-debug
+      vscjava.vscode-java-dependency
       # ms-vscode.atom-keybindings
     ];
   };
