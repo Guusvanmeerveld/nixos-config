@@ -2,36 +2,26 @@
 
 {
   imports = [
-    ./gtk.nix
-    ./i3.nix
-    ./programs/zsh.nix
-    ./programs/dev/python.nix
-    # ./programs/dev/rust.nix
-    ./programs/graphical/kitty.nix
-    ./programs/graphical/thunar.nix
-    ./programs/graphical/evince.nix
-    ./programs/graphical/flameshot.nix
-    ./programs/graphical/librewolf.nix
-    ./programs/graphical/discord.nix
-    ./programs/graphical/vscode.nix
-    ./programs/graphical/spotify.nix
-    ./programs/graphical/libreoffice.nix
-    ./programs/graphical/matrix.nix
-    ./programs/graphical/games/minecraft.nix
-    ./programs/graphical/games/heroic.nix
-    ./programs/services/syncthing.nix
-    ./programs/cli/git.nix
-    ./programs/cli/neovim.nix
+    ../../../home-manager/gtk.nix
+    ../../../home-manager/i3.nix
+    ../../../home-manager/programs/zsh.nix
+    ../../../home-manager/programs/cli
+    ../../../home-manager/programs/graphical
+    ../../../home-manager/programs/graphical/spotify.nix
+    ../../../home-manager/programs/graphical/games
+    ../../../home-manager/programs/services/syncthing.nix
   ];
 
   home.file = {
-    ".background-image".source = ../wallpaper.jpg;
+    ".background-image".source = ../../../wallpaper.jpg;
   };
 
   programs.home-manager.enable = true;
 
   home.username = "guus";
   home.homeDirectory = "/home/guus";
+
+  age.secrets.spotifyd.file = ./secrets/spotifyd.age;
 
   nixpkgs = {
     # Configure your nixpkgs instance

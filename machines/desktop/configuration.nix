@@ -10,6 +10,7 @@
       # Include the results of the hardware scan. 
       ./hardware-configuration.nix
       ../../modules/essential.nix
+      ../../modules/sshd.nix
       ../../modules/programs/basic.nix
       ../../modules/programs/git.nix
       ../../modules/programs/shell.nix
