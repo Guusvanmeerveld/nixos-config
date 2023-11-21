@@ -204,6 +204,9 @@ in
           "XF86AudioNext" = "exec playerctl next";
           "XF86AudioPrev" = "exec playerctl previous";
 
+          "XF86MonBrightnessUp" = "exec light -A 5";
+          "XF86MonBrightnessDown" = "exec light -U 5";
+
           "Print" = "exec flameshot gui";
 
           # Applications
