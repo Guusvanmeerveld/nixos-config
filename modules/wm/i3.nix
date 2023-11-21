@@ -6,7 +6,10 @@
 
   security.pam.services.gdm.enableGnomeKeyring = true;
 
-  programs.dconf.enable = true;
+  programs = {
+    dconf.enable = true;
+    light.enable = true;
+  };
 
   services = {
     gnome.gnome-keyring.enable = true;
