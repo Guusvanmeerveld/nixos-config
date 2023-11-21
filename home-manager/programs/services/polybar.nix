@@ -5,20 +5,26 @@
 
   services.polybar = {
     enable = true;
-    package = pkgs.polybarFull;
+    package = pkgs.polybar.override
+      {
+        i3Support = true;
+        alsaSupport = true;
+        pulseSupport = true;
+      };
+
     script = ''
       screens=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f6)
 
       if [[ $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f4 | cut -d"+" -f2- | uniq | wc -l) == 1 ]]; then
-        MONITOR=$(${pkgs.polybarFull}/bin/polybar --list-monitors | ${pkgs.gnugrep}/bin/grep -d":" -f1) TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
+        MONITOR=$(polybar --list-monitors | ${pkgs.gnugrep}/bin/grep -d":" -f1) TRAY_POS=right polybar top &
       else
         primary=$(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep primary | ${pkgs.coreutils}/bin/cut -d" " -f1)
 
         for m in $screens; do
           if [[ $primary == $m ]]; then
-          MONITOR=$m TRAY_POS=right ${pkgs.polybarFull}/bin/polybar top &
+          MONITOR=$m TRAY_POS=right polybar top &
           else
-          MONITOR=$m TRAY_POS=none ${pkgs.polybarFull}/bin/polybar top &
+          MONITOR=$m TRAY_POS=none polybar top &
           fi
         done
       fi
@@ -65,7 +71,7 @@
         tray-background = colors.background.primary;
         tray-underline = colors.primary;
 
-        wm-restack = "i3";
+        # wm-restack = "i3";
       };
 
       "module/i3" = {
