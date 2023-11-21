@@ -36,6 +36,7 @@
       arrterian.nix-env-selector
       esbenp.prettier-vscode
       ms-toolsai.jupyter
+      ms-python.python
       tamasfe.even-better-toml
       james-yu.latex-workshop
       redhat.java
