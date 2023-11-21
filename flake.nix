@@ -56,7 +56,7 @@
           modules = [
             inputs.nixvim.homeManagerModules.nixvim
             inputs.nur.nixosModules.nur
-            ./home-manager/home.nix
+            ./machines/laptop/guus/home.nix
           ];
         };
         "guus@desktop" = home-manager.lib.homeManagerConfiguration {
