@@ -4,6 +4,7 @@
   imports = [
     ../../../home-manager/gtk.nix
     ../../../home-manager/i3.nix
+    ./i3.nix
     ../../../home-manager/programs/zsh.nix
     ../../../home-manager/programs/cli
     ../../../home-manager/programs/graphical
