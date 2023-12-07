@@ -43,6 +43,7 @@
       vscjava.vscode-maven
       vscjava.vscode-java-debug
       vscjava.vscode-java-dependency
+      vadimcn.vscode-lldb
       # ms-vscode.atom-keybindings
     ];
   };
