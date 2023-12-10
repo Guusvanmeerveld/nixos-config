@@ -77,6 +77,7 @@
 
           "element-icon" = {
             padding = mkLiteral "10px 10px";
+            size = mkLiteral "3ch";
           };
 
           "element-text" = {
