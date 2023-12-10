@@ -11,7 +11,7 @@ let
     psst = "Psst-gui";
     spotify = "Spotify";
     cinny = "Cinny";
-    discord = "discord";
+    discord = "ArmCord";
     steam = "steam";
   };
 
@@ -70,6 +70,7 @@ in
     )
   ];
 
+  services.picom.enable = true;
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -183,7 +184,7 @@ in
 
           "${mod}+f" = "fullscreen toggle";
 
-          "${mod}+0" = "exec --no-startup-id i3lock 3 5";
+          "${mod}+0" = "exec --no-startup-id i3lock --clock";
 
           # Focus
           "${mod}+h" = "focus left";
