@@ -5,8 +5,8 @@
     enable = true;
 
     iconTheme = {
-      name = "elementary-Xfce-dark";
-      package = pkgs.elementary-xfce-icon-theme;
+      name = "WhiteSur-dark";
+      package = pkgs.whitesur-icon-theme;
     };
 
     cursorTheme = {
