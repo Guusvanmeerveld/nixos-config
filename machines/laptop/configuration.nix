@@ -30,6 +30,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  services.logind = {
+    lidSwitch = "hibernate";
+    # powerKeyLongPress = "reboot";
+    # powerKey = "poweroff";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
