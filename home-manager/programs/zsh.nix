@@ -16,8 +16,8 @@ in
     };
 
     shellAliases = {
-      hms = "home-manager switch --flake ~/nixos-config";
-      nbs = "sudo nixos-rebuild switch --flake ~/nixos-config";
+      hms = "home-manager switch --flake ~/nix/config";
+      nbs = "sudo nixos-rebuild switch --flake ~/nix/config";
 
       code = "codium";
     };
