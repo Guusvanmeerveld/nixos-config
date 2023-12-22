@@ -184,6 +184,8 @@ in
 
           "${mod}+f" = "fullscreen toggle";
 
+          "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
+
           "${mod}+0" = "exec --no-startup-id i3lock --clock";
 
           # Focus
