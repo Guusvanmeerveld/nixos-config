@@ -4,6 +4,8 @@ let
   p10kTheme = ./p10k.zsh;
 in
 {
+  home.packages = with pkgs; [ zoxide ];
+
   programs.zsh = {
     initExtra = ''
       [[ ! -f ${p10kTheme} ]] || source ${p10kTheme}
@@ -33,6 +35,7 @@ in
       plugins = [
         { name = "zsh-users/zsh-autosuggestions"; }
         { name = "zsh-users/zsh-syntax-highlighting"; }
+        { name = "ajeetdsouza/zoxide"; }
         { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
       ];
     };
