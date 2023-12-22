@@ -23,8 +23,8 @@
       "editor.minimap.showSlider" = "always";
       "git.openRepositoryInParentFolders" = "always";
       "update.mode" = "manual";
-
       "nixEnvSelector.suggestion" = false;
+      "security.workspace.trust.enabled" = false;
     };
 
     extensions = with pkgs.vscode-extensions; [

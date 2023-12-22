@@ -9,8 +9,10 @@
     [
       # Include the results of the hardware scan. 
       ./hardware-configuration.nix
+      ./autorandr.nix
       ../../modules/essential.nix
       ../../modules/sshd.nix
+      ../../modules/qemu.nix
       ../../modules/programs/basic.nix
       ../../modules/programs/git.nix
       ../../modules/programs/shell.nix
@@ -43,14 +45,6 @@
       footer = true;
     };
   };
-
-  services.xserver.xrandrHeads = [
-    "DisplayPort-1"
-    {
-      output = "HDMI-A-0";
-      primary = true;
-    }
-  ];
 
   hardware.ckb-next.enable = true;
 

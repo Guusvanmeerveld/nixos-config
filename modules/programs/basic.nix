@@ -5,5 +5,9 @@
     bottom
     htop
     vim
+    unzip
+    zip
+    doggo
+    jq
   ];
 }

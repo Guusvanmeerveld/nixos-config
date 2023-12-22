@@ -14,7 +14,7 @@
   ];
 
   home.file = {
-    ".background-image".source = ../../../wallpaper.jpg;
+    ".background-image".source = ../../../wallpaper-wide.png;
   };
 
   programs.home-manager.enable = true;

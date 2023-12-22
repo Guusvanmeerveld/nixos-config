@@ -35,12 +35,11 @@
         extraPackages = with pkgs; [
           xorg.xprop
           xcolor
-          i3lock-fancy-rapid
+          i3lock-color
 
           dunst
           flameshot
           rofi
-          polybar
           pavucontrol
           playerctl
         ];
