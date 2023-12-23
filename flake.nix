@@ -2,7 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     nur.url = github:nix-community/NUR;
     grub2-themes.url = "github:vinceliuice/grub2-themes";
@@ -10,13 +10,13 @@
     agenix.url = "github:ryantm/agenix";
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.05";
+      url = "github:nix-community/nixvim/nixos-23.11";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
