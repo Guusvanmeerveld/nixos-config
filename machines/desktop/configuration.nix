@@ -10,9 +10,10 @@
       # Include the results of the hardware scan. 
       ./hardware-configuration.nix
       ./autorandr.nix
-      ../../modules/essential.nix
+      ../../modules
       ../../modules/sshd.nix
       ../../modules/qemu.nix
+      ../../modules/kdeconnect.nix
       ../../modules/programs/basic.nix
       ../../modules/programs/git.nix
       ../../modules/programs/shell.nix
@@ -51,7 +52,7 @@
   networking.networkmanager.enable = true;
 
   # DNS
-  networking.networkmanager.insertNameservers = [ "192.168.2.119" ];
+  # networking.networkmanager.insertNameservers = [ "192.168.2.119" ];
 
   networking.hostName = "desktop"; # Define your hostname.
 
