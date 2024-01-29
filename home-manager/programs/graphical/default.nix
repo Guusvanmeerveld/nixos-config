@@ -9,5 +9,6 @@
     ./vscode.nix
     ./libreoffice.nix
     ./matrix.nix
+    ./teams.nix
   ];
 }
