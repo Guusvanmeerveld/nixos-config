@@ -70,7 +70,10 @@ in
     )
   ];
 
-  services.picom.enable = true;
+  services = {
+    picom.enable = true;
+    betterlockscreen = { enable = true; };
+  };
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -83,6 +86,18 @@ in
     config = {
       modifier = mod;
       workspaceAutoBackAndForth = true;
+
+      startup = [
+        {
+          command = "systemctl --user restart polybar";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "betterlockscreen -l blur";
+          notification = false;
+        }
+      ];
 
       menu = "${pkgs.rofi}/bin/rofi";
 
@@ -186,7 +201,7 @@ in
 
           "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
 
-          "${mod}+0" = "exec --no-startup-id i3lock --clock";
+          "${mod}+0" = "exec --no-startup-id betterlockscreen -l dim";
 
           # Focus
           "${mod}+h" = "focus left";

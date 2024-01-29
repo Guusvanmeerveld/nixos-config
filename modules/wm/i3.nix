@@ -35,8 +35,7 @@
         extraPackages = with pkgs; [
           xorg.xprop
           xcolor
-          i3lock-color
-
+          feh
           dunst
           flameshot
           rofi

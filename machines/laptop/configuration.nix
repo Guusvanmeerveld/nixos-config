@@ -9,7 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../modules/essential.nix
+      ../../modules
       ../../modules/plymouth.nix
       ../../modules/programs/basic.nix
       ../../modules/programs/docker.nix
