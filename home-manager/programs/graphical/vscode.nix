@@ -24,7 +24,12 @@
       "git.openRepositoryInParentFolders" = "always";
       "update.mode" = "manual";
       "nixEnvSelector.suggestion" = false;
+
+      "spellright.notificationClass" = "warning";
+      "spellright.configurationScope" = "user";
+      "spellright.suggestionsInHints" = false;
       "security.workspace.trust.enabled" = false;
+      "spellright.language" = [ "en_US" "nl_NL" ];
     };
 
     extensions = with pkgs.vscode-extensions; [
@@ -44,11 +49,15 @@
       vscjava.vscode-java-debug
       vscjava.vscode-java-dependency
       vadimcn.vscode-lldb
+      ban.spellright
       # ms-vscode.atom-keybindings
     ];
   };
 
   home.packages = with pkgs; [
     nixpkgs-fmt
+    hunspell
+    hunspellDicts.en_US
+    hunspellDicts.nl_nl
   ];
 }
