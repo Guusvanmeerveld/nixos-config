@@ -13,21 +13,7 @@
       };
 
     script = ''
-      screens=$(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f6)
-
-      if [[ $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f4 | cut -d"+" -f2- | uniq | wc -l) == 1 ]]; then
-        MONITOR=$(polybar --list-monitors | ${pkgs.gnugrep}/bin/grep -d":" -f1) TRAY_POS=right polybar top &
-      else
-        primary=$(${pkgs.xorg.xrandr}/bin/xrandr --query | ${pkgs.gnugrep}/bin/grep primary | ${pkgs.coreutils}/bin/cut -d" " -f1)
-
-        for m in $screens; do
-          if [[ $primary == $m ]]; then
-          MONITOR=$m TRAY_POS=right polybar top &
-          else
-          MONITOR=$m TRAY_POS=none polybar top &
-          fi
-        done
-      fi
+      MONITOR=$(polybar -m|${pkgs.coreutils}/bin/tail -1|${pkgs.gnused}/bin/sed -e 's/:.*$//g') TRAY_POS=right polybar top &
     '';
 
     settings = {
