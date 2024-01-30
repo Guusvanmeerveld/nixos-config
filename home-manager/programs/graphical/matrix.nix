@@ -1,10 +1,11 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    cinny-desktop
+    schildichat-desktop
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
+    "schildichat-web-1.11.30-sc.2"
+    "electron-25.9.0"
   ];
 
 }

@@ -10,7 +10,7 @@ let
     vscode = "Code";
     psst = "Psst-gui";
     spotify = "Spotify";
-    cinny = "Cinny";
+    schildichat = "SchildiChat";
     discord = "ArmCord";
     steam = "steam";
   };
@@ -159,7 +159,7 @@ in
               class = "^${prog.discord}$";
             }
             {
-              class = "^${prog.cinny}$";
+              class = "^${prog.schildichat}$";
             }
           ];
 
@@ -198,6 +198,9 @@ in
           "${mod}+w" = "kill";
 
           "${mod}+f" = "fullscreen toggle";
+          "${mod}+g" = "layout toggle splitv splith";
+          "${mod}+s" = "floating toggle";
+          "${mod}+t" = "split toggle";
 
           "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
 
@@ -224,6 +227,9 @@ in
 
           "XF86MonBrightnessUp" = "exec light -A 5";
           "XF86MonBrightnessDown" = "exec light -U 5";
+
+          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
 
           "Print" = "exec flameshot gui";
 
