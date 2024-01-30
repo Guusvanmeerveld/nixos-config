@@ -10,5 +10,6 @@
     ./libreoffice.nix
     ./matrix.nix
     ./teams.nix
+    ./gtk.nix
   ];
 }
