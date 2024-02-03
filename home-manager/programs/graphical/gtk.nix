@@ -1,1 +1,1 @@
-{ pkgs, ... }: { home.packages = with pkgs; [ gnome-frog gradience ]; }
+{ pkgs, ... }: { home.packages = with pkgs; [ gnome-frog gnome.file-roller iotas gradience ]; }
