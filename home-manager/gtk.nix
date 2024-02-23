@@ -1,12 +1,25 @@
 { config, pkgs, lib, ... }:
 
 {
+  home.packages = with pkgs; [
+    dconf
+  ];
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+  };
+
   gtk = {
     enable = true;
 
     iconTheme = {
-      name = "WhiteSur-dark";
-      package = pkgs.whitesur-icon-theme;
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
     };
 
     cursorTheme = {
