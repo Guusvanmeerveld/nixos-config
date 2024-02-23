@@ -10,6 +10,13 @@ in
     atuin = {
       enable = true;
       enableZshIntegration = true;
+      settings = {
+        sync_address = "https://atuin.guusvanmeerveld.dev";
+        auto_sync = true;
+        sync_frequency = "5m";
+        search_mode = "prefix";
+        enter_accept = false;
+      };
     };
 
     zsh = {
@@ -24,7 +31,7 @@ in
       };
 
       shellAliases = {
-        hms = "home-manager switch --flake ~/nix/config";
+        hms = "home-manager switch --flake ~/nix/config -b backup";
         nbs = "sudo nixos-rebuild switch --flake ~/nix/config";
 
         down = "poweroff";
