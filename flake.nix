@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    unstable.url = "nixpkgs/nixos-unstable";
 
     nur.url = github:nix-community/NUR;
     grub2-themes.url = "github:vinceliuice/grub2-themes";
@@ -21,8 +22,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, unstable, ... } @ inputs:
     let
+      unstableOverlay = final: prev: { unstable = unstable.legacyPackages.${prev.system}; };
+      unstableModule = ({ config, pkgs, ... }: { nixpkgs.overlays = [ unstableOverlay ]; });
       inherit (self) outputs;
     in
     {
@@ -56,6 +59,7 @@
           modules = [
             inputs.nixvim.homeManagerModules.nixvim
             inputs.nur.nixosModules.nur
+            unstableModule
             ./machines/laptop/guus/home.nix
           ];
         };
@@ -68,6 +72,7 @@
             inputs.nixvim.homeManagerModules.nixvim
             inputs.nur.nixosModules.nur
             inputs.agenix.homeManagerModules.default
+            unstableModule
             ./machines/desktop/guus/home.nix
           ];
         };

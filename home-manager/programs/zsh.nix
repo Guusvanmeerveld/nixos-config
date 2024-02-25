@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 let
   p10kTheme = ./p10k.zsh;
@@ -9,6 +9,7 @@ in
   programs = {
     atuin = {
       enable = true;
+      package = pkgs.unstable.atuin;
       enableZshIntegration = true;
       settings = {
         sync_address = "https://atuin.guusvanmeerveld.dev";
@@ -39,6 +40,7 @@ in
         rr = "reboot";
 
         code = "codium";
+        nxvsc = "nix-shell --command 'codium .'";
       };
 
       oh-my-zsh = {
@@ -53,6 +55,7 @@ in
           { name = "zsh-users/zsh-autosuggestions"; }
           { name = "zsh-users/zsh-syntax-highlighting"; }
           { name = "ajeetdsouza/zoxide"; }
+          { name = "chisui/zsh-nix-shell"; }
           { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
         ];
       };
