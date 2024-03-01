@@ -7,7 +7,7 @@
     };
 
     touchpad = {
-      naturalScrolling = true;
+      naturalScrolling = false;
       accelProfile = "flat";
     };
   };
