@@ -6,29 +6,33 @@
     package = pkgs.vscodium;
 
     userSettings = {
-      "editor.formatOnSave" = true;
       "explorer.confirmDelete" = false;
-      "git.confirmSync" = false;
       "workbench.iconTheme" = "material-icon-theme";
       "explorer.confirmDragAndDrop" = false;
       "window.zoomLevel" = 1;
-      "git.autofetch" = true;
-      "git.enableSmartCommit" = true;
-      "editor.fontFamily" = "'Fira Code', 'Meslo', 'Droid Sans Mono', 'monospace', monospace";
-      "editor.fontLigatures" = true;
       "workbench.colorTheme" = "One Dark Pro";
       "security.workspace.trust.banner" = "never";
       "telemetry.telemetryLevel" = "off";
       "extensions.autoUpdate" = false;
-      "editor.minimap.showSlider" = "always";
-      "git.openRepositoryInParentFolders" = "always";
+      "security.workspace.trust.enabled" = false;
       "update.mode" = "manual";
+
       "nixEnvSelector.suggestion" = false;
+
+      "git.confirmSync" = false;
+      "git.autofetch" = true;
+      "git.enableSmartCommit" = true;
+      "git.openRepositoryInParentFolders" = "always";
+      "git.autoStash" = true;
+
+      "editor.formatOnSave" = true;
+      "editor.fontFamily" = "'Fira Code', 'Meslo', 'Droid Sans Mono', 'monospace', monospace";
+      "editor.fontLigatures" = true;
+      "editor.minimap.showSlider" = "always";
 
       "spellright.notificationClass" = "warning";
       "spellright.configurationScope" = "user";
       "spellright.suggestionsInHints" = false;
-      "security.workspace.trust.enabled" = false;
       "spellright.language" = [ "en_US" "nl_NL" ];
     };
 
