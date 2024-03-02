@@ -41,6 +41,8 @@ in
 
         code = "codium";
         nxvsc = "nix-shell --command 'codium .'";
+
+        nxp = "nix-shell -p ";
       };
 
       oh-my-zsh = {
