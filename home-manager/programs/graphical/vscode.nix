@@ -36,7 +36,7 @@
       "spellright.language" = [ "en_US" "nl_NL" ];
     };
 
-    extensions = with pkgs.vscode-extensions; [
+    extensions = with pkgs.unstable.vscode-extensions; [
       zhuangtongfa.material-theme
       jnoortheen.nix-ide
       scalameta.metals
