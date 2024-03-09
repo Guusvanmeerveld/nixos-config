@@ -29,11 +29,12 @@ in
 
       sessionVariables = {
         EDITOR = "nvim";
+        NIX_CONFIG_LOCATION = "$HOME/nix/config";
       };
 
       shellAliases = {
-        hms = "home-manager switch --flake ~/nix/config -b backup";
-        nbs = "sudo nixos-rebuild switch --flake ~/nix/config";
+        hms = "home-manager switch --flake $NIX_CONFIG_LOCATION -b backup";
+        nbs = "sudo nixos-rebuild switch --flake $NIX_CONFIG_LOCATION";
 
         down = "poweroff";
         lsa = "ls -ah";
@@ -41,8 +42,9 @@ in
 
         code = "codium";
         nxvsc = "nix-shell --command 'codium .'";
-
         nxp = "nix-shell -p ";
+
+        dc = "docker compose up -d";
       };
 
       oh-my-zsh = {
