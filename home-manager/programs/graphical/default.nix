@@ -10,6 +10,7 @@
     ./libreoffice.nix
     ./matrix.nix
     ./teams.nix
+    ./gimp.nix
     ./gtk.nix
   ];
 }
