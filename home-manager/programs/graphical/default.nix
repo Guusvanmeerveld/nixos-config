@@ -12,5 +12,6 @@
     ./teams.nix
     ./gimp.nix
     ./gtk.nix
+    ./bruno.nix
   ];
 }
