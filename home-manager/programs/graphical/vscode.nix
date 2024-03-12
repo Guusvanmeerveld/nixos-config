@@ -30,6 +30,26 @@
       "editor.fontLigatures" = true;
       "editor.minimap.showSlider" = "always";
 
+      "[typescriptreact]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
+      "[typescript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
+      "[javascript]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
+      "[scss]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
+      "[json]" = {
+        "editor.defaultFormatter" = "esbenp.prettier-vscode";
+      };
+
       "spellright.notificationClass" = "warning";
       "spellright.configurationScope" = "user";
       "spellright.suggestionsInHints" = false;
