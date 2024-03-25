@@ -74,6 +74,8 @@
       vscjava.vscode-java-dependency
       vadimcn.vscode-lldb
       ban.spellright
+      bradlc.vscode-tailwindcss
+      dbaeumer.vscode-eslint
       # ms-vscode.atom-keybindings
     ];
   };
