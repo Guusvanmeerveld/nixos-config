@@ -4,7 +4,8 @@
     ./thunar.nix
     ./evince.nix
     ./flameshot.nix
-    ./librewolf.nix
+    # ./librewolf.nix
+    ./firefox.nix
     ./discord.nix
     ./vscode.nix
     ./libreoffice.nix
