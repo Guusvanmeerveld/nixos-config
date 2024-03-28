@@ -30,6 +30,7 @@
             libredirect
             clearurls
             darkreader
+            canvasblocker
             buster-captcha-solver
 
             react-devtools
@@ -132,6 +133,9 @@
           "security.ssl.require_safe_negotiation" = true;
           "security.pki.crlite_mode" = 2;
 
+          # Extension for webgl privacy is installed.
+          "webgl.disabled" = false;
+
           # Privacy
           "privacy.clearOnShutdown.history" = false;
           "privacy.clearOnShutdown.downloads" = false;
@@ -142,6 +146,8 @@
 
           "browser.newtabpage.activity-stream.feeds.telemetry" = false;
           "browser.newtabpage.activity-stream.telemetry" = false;
+          "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.ping-centre.telemetry" = false;
           "datareporting.healthreport.service.enabled" = false;
           "datareporting.healthreport.uploadEnabled" = false;
@@ -165,6 +171,8 @@
 
           # UI
           "ui.prefersReducedMotion" = 1;
+          "toolkit.cosmeticAnimations.enabled" = false;
+          "browser.tabs.tabMinWidth" = 100;
           "browser.compactmode.show" = true;
 
           # Performance
