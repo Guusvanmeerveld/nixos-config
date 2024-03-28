@@ -6,6 +6,7 @@ let
 
   prog = {
     librewolf = "librewolf";
+    firefox = "firefox";
     vscodium = "VSCodium";
     vscode = "Code";
     psst = "Psst-gui";
@@ -42,6 +43,13 @@ let
     primary = "Fira Code";
   };
 
+  player = "spotify";
+
+  betterlockscreen = {
+    pkg = pkgs.betterlockscreen;
+    command = "${pkgs.betterlockscreen}/bin/betterlockscreen";
+  };
+
 in
 {
 
@@ -72,7 +80,16 @@ in
 
   services = {
     picom.enable = true;
-    betterlockscreen = { enable = true; };
+
+    betterlockscreen = {
+      enable = true;
+      package = betterlockscreen.pkg;
+    };
+
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
   };
 
   xsession.windowManager.i3 = {
@@ -94,7 +111,7 @@ in
           notification = false;
         }
         {
-          command = "betterlockscreen -l blur";
+          command = "${betterlockscreen.command} -l blur";
           notification = false;
         }
       ];
@@ -172,9 +189,14 @@ in
             }
           ];
 
-          "3: web" = [{
-            class = "^${prog.librewolf}$";
-          }];
+          "3: web" = [
+            {
+              class = "^${prog.librewolf}$";
+            }
+            {
+              class = "^${prog.firefox}$";
+            }
+          ];
 
           "4: code" = [
             {
@@ -204,7 +226,7 @@ in
 
           "${mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
 
-          "${mod}+0" = "exec --no-startup-id betterlockscreen -l dim";
+          "${mod}+0" = "exec --no-startup-id ${betterlockscreen.command} -l dim";
 
           # Focus
           "${mod}+h" = "focus left";
@@ -219,11 +241,11 @@ in
           "${mod}+Shift+l" = "move right";
 
           # Media keys
-          "XF86AudioPlay" = "exec playerctl play";
-          "XF86AudioStop" = "exec playerctl pause";
-          "XF86AudioPause" = "exec playerctl play-pause";
-          "XF86AudioNext" = "exec playerctl next";
-          "XF86AudioPrev" = "exec playerctl previous";
+          "XF86AudioPlay" = "exec playerctl play -p ${player}";
+          "XF86AudioStop" = "exec playerctl pause -p ${player}";
+          "XF86AudioPause" = "exec playerctl play-pause -p ${player}";
+          "XF86AudioNext" = "exec playerctl next -p ${player}";
+          "XF86AudioPrev" = "exec playerctl previous -p ${player}";
 
           "XF86MonBrightnessUp" = "exec light -A 5";
           "XF86MonBrightnessDown" = "exec light -U 5";
@@ -236,7 +258,7 @@ in
           # Applications
           "${mod}+z" = "[ class=^${prog.discord}$ ] focus";
           "${mod}+x" = "[ class=^${prog.spotify}$ ] focus";
-          "${mod}+c" = "[ class=^${prog.librewolf}$ ] focus";
+          "${mod}+c" = "[ class=^${prog.firefox}$ ] focus";
           "${mod}+v" = "[ class=^${prog.vscodium}$ ] focus";
           "${mod}+b" = "[ class=^${prog.steam}$ ] focus";
         };
