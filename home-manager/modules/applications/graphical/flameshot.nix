@@ -1,5 +1,5 @@
 { lib, config, ... }:
-let cfg = config.custom.applications.graphical.flameshot; in
+let cfg = config.custom.applications.graphical.flameshot; theme = config.custom.theme; in
 {
   options = {
     custom.applications.graphical.flameshot = {
@@ -10,6 +10,15 @@ let cfg = config.custom.applications.graphical.flameshot; in
   config = lib.mkIf cfg.enable {
     services.flameshot = {
       enable = true;
+      settings = {
+        General = {
+          disabledTrayIcon = true;
+          showHelp = false;
+
+          uiColor = theme.primary;
+          contrastUiColor = theme.text.primary;
+        };
+      };
     };
   };
 }
