@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 let cfg = config.custom.video.amd; in
 {
   options = {
@@ -8,6 +8,10 @@ let cfg = config.custom.video.amd; in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      radeontop
+    ];
+
     services.xserver = {
       deviceSection = ''
         Option "TearFree" "true"
