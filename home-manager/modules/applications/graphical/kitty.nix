@@ -1,5 +1,5 @@
 { lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.kitty; in
+let cfg = config.custom.applications.graphical.kitty; theme = config.custom.theme; in
 {
   options = {
     custom.applications.graphical.kitty = {
@@ -10,7 +10,20 @@ let cfg = config.custom.applications.graphical.kitty; in
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       enable = true;
-      theme = "Broadcast";
+
+      shellIntegration = {
+        enableZshIntegration = config.custom.applications.shell.zsh.enable;
+      };
+
+      settings = {
+        foreground = theme.text.primary;
+        background = theme.background.primary;
+
+        background_opacity = "0.9";
+
+        selection_foreground = theme.text.primary;
+        selection_background = theme.primary;
+      };
 
       font = {
         size = 14;
