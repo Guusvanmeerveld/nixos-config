@@ -2,20 +2,26 @@
   description = "A very basic flake";
 
   inputs = {
+    # Latest stable packages
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    unstable.url = "nixpkgs/nixos-unstable";
 
+    # Unstable packages
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+
+    # Nix user repository
     nur.url = github:nix-community/NUR;
+
+    # Grub themes
     grub2-themes.url = "github:vinceliuice/grub2-themes";
 
-    agenix.url = "github:ryantm/agenix";
-
+    # Configure neovim in Nix
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,56 +30,68 @@
 
   outputs = { self, nixpkgs, home-manager, unstable, ... } @ inputs:
     let
-      unstableOverlay = final: prev: { unstable = unstable.legacyPackages.${prev.system}; };
-      unstableModule = ({ config, pkgs, ... }: { nixpkgs.overlays = [ unstableOverlay ]; });
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
       inherit (self) outputs;
     in
     {
+      # Your custom packages
+      # Accessible through 'nix build', 'nix shell', etc
+      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
+      # Your custom packages and modifications, exported as overlays
+      overlays = import ./overlays { inherit inputs; };
+
+      # Reusable nixos modules you might want to export
+      # These are usually stuff you would upstream into nixpkgs
+      nixosModules = import ./modules/nixos;
+
+      # Reusable home-manager modules you might want to export
+      # These are usually stuff you would upstream into home-manager
+      homeManagerModules = import ./modules/home-manager;
+
+      # NixOS configuration entrypoint
+      # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
           specialArgs = { inherit inputs outputs; };
           modules = [
-            ./machines/desktop/configuration.nix
-            inputs.grub2-themes.nixosModules.default
+            ./nixos/desktop/configuration.nix
           ];
         };
+
         laptop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-
           specialArgs = { inherit inputs outputs; };
-
           modules = [
-            ./machines/laptop/configuration.nix
+            ./nixos/laptop/configuration.nix
           ];
         };
       };
 
+      # Standalone home-manager configuration entrypoint
+      # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "guus@laptop" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-          extraSpecialArgs = { inherit inputs outputs; };
-
-          modules = [
-            inputs.nixvim.homeManagerModules.nixvim
-            inputs.nur.nixosModules.nur
-            unstableModule
-            ./machines/laptop/guus/home.nix
-          ];
-        };
         "guus@desktop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
           extraSpecialArgs = { inherit inputs outputs; };
-
           modules = [
-            inputs.nixvim.homeManagerModules.nixvim
-            inputs.nur.nixosModules.nur
-            inputs.agenix.homeManagerModules.default
-            unstableModule
-            ./machines/desktop/guus/home.nix
+            ./home-manager/desktop/home.nix
+          ];
+        };
+
+        "guus@laptop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = { inherit inputs outputs; };
+          modules = [
+            ./home-manager/laptop/home.nix
           ];
         };
       };

@@ -1,0 +1,4 @@
+{ ... }:
+{
+  imports = [ ./shell ./services ./graphical ];
+}

@@ -1,0 +1,73 @@
+{ lib, config, pkgs, ... }:
+
+let
+  p10kTheme = ./p10k.zsh;
+  cfg = config.custom.applications.shell.zsh;
+in
+{
+  options = {
+    custom.applications.shell.zsh = {
+      enable = lib.mkEnableOption "Enable zsh shell";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ zoxide thefuck meslo-lgs-nf ];
+
+    programs = {
+      zsh = {
+        initExtra = ''
+          [[ ! -f ${p10kTheme} ]] || source ${p10kTheme}
+        '';
+
+        enable = true;
+
+        sessionVariables = {
+          EDITOR = "nvim";
+          NIX_CONFIG_LOCATION = "${config.home.homeDirectory}/nix/config";
+        };
+
+        shellAliases = {
+          hms = "home-manager switch --flake $NIX_CONFIG_LOCATION -b backup";
+          nbs = "sudo nixos-rebuild switch --flake $NIX_CONFIG_LOCATION";
+
+          down = "poweroff";
+          lsa = "ls -ah";
+          rr = "reboot";
+
+          code = "codium";
+          nxvsc = "nix-shell --command 'codium .'";
+          nxp = "nix-shell -p ";
+
+          dc = "docker compose up -d";
+        };
+
+        oh-my-zsh = {
+          enable = true;
+
+          plugins = [ "git" "sudo" "yarn" "vscode" "colorize" ];
+        };
+
+        zplug = {
+          enable = true;
+          plugins = [
+            { name = "zsh-users/zsh-autosuggestions"; }
+            { name = "zsh-users/zsh-syntax-highlighting"; }
+            { name = "ajeetdsouza/zoxide"; }
+            { name = "chisui/zsh-nix-shell"; }
+            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+          ];
+        };
+
+        plugins = [
+          {
+            name = "powerlevel10k";
+            src = pkgs.zsh-powerlevel10k;
+            file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          }
+        ];
+      };
+    };
+  };
+
+}
