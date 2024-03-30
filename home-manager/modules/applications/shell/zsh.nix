@@ -8,6 +8,11 @@ in
   options = {
     custom.applications.shell.zsh = {
       enable = lib.mkEnableOption "Enable zsh shell";
+
+      editor = lib.mkOption {
+        type = lib.types.str;
+        description = "The editor to use by default";
+      };
     };
   };
 
@@ -23,13 +28,15 @@ in
         enable = true;
 
         sessionVariables = {
-          EDITOR = "nvim";
+          EDITOR = cfg.editor;
           NIX_CONFIG_LOCATION = "${config.home.homeDirectory}/nix/config";
         };
 
         shellAliases = {
           hms = "home-manager switch --flake $NIX_CONFIG_LOCATION -b backup";
           nbs = "sudo nixos-rebuild switch --flake $NIX_CONFIG_LOCATION";
+
+          edit = "$EDITOR";
 
           down = "poweroff";
           lsa = "ls -ah";

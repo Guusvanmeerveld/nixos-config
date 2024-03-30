@@ -100,7 +100,7 @@
       warn = "#e06c75";
       error = "#be5046";
 
-      primary = "#61afef";
+      primary = "#2997f2";
     };
 
     wm.i3 = {
@@ -113,7 +113,10 @@
       };
 
       shell = {
-        zsh.enable = true;
+        zsh = {
+          enable = true;
+          editor = "nvim";
+        };
         git.enable = true;
         neovim.enable = true;
 
