@@ -24,6 +24,10 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
         "security.workspace.trust.enabled" = false;
         "update.mode" = "manual";
 
+        "terminal.integrated.cursorBlinking" = true;
+
+        "editor.cursorBlinking" = "smooth";
+
         "nixEnvSelector.suggestion" = false;
 
         "git.confirmSync" = false;
@@ -63,10 +67,10 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
         "spellright.language" = [ "en_US" "nl_NL" ];
       };
 
-      extensions = with pkgs.unstable.vscode-extensions; [
+      extensions = with pkgs.vscode-extensions; [
         zhuangtongfa.material-theme
         jnoortheen.nix-ide
-        scalameta.metals
+        # scalameta.metals
         pkief.material-icon-theme
         rust-lang.rust-analyzer
         arrterian.nix-env-selector
