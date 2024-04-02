@@ -9,7 +9,7 @@ let cfg = config.custom.applications.vm; in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ qemu libvirt virt-manager ];
+    environment.systemPackages = with pkgs; [ qemu libvirt (lib.mkIf cfg.graphical virt-manager) ];
   };
 
 }
