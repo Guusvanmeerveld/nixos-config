@@ -117,6 +117,7 @@
           enable = true;
           editor = "nvim";
         };
+        eza.enable = true;
         git.enable = true;
         neovim.enable = true;
 

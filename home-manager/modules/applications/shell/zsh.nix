@@ -3,6 +3,7 @@
 let
   p10kTheme = ./p10k.zsh;
   cfg = config.custom.applications.shell.zsh;
+  shell = config.custom.applications.shell;
 in
 {
   options = {
@@ -41,6 +42,8 @@ in
           down = "poweroff";
           lsa = "ls -ah";
           rr = "reboot";
+
+          ls = lib.mkIf shell.eza.enable "eza";
 
           code = "codium";
           nxvsc = "nix-shell --command 'codium .'";
