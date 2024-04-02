@@ -117,7 +117,7 @@ let cfg = config.custom.applications.graphical.firefox; in
             "browser.tabs.warnOnClose" = false;
             "browser.tabs.warnOnQuit" = false;
 
-            "browser.search.suggest.enabled" = false;
+            "browser.search.suggest.enabled" = true;
             "browser.translations.enable" = false;
             "browser.formfill.enable" = false;
             "browser.formautofill.enabled" = false;
