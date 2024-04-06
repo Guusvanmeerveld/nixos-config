@@ -49,11 +49,6 @@
       shell.zsh.enable = true;
 
       docker.enable = true;
-
-      vm = {
-        enable = true;
-        graphical = true;
-      };
     };
 
     video.amd.enable = true;
