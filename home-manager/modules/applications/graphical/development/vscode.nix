@@ -37,7 +37,7 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
         "git.autoStash" = true;
 
         "editor.formatOnSave" = true;
-        "editor.fontFamily" = "'${theme.font.name}', 'Meslo', 'Droid Sans Mono', 'monospace', monospace";
+        "editor.fontFamily" = "'${theme.font.name}', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
         "editor.fontLigatures" = true;
         "editor.minimap.showSlider" = "always";
 
