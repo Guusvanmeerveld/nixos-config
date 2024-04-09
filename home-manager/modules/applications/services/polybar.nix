@@ -5,10 +5,8 @@
   ...
 }: let
   cfg = config.custom.applications.services.polybar;
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
 in {
-  imports = [../../theme];
-
   options = {
     custom.applications.services.polybar = {
       enable = lib.mkEnableOption "Enable Polybar";

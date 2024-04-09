@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
   cfg = config.custom.applications.graphical.rofi;
 in {
   options = {

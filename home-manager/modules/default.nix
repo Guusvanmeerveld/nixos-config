@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./theme ./wm ./applications];
+  imports = [./wm ./applications];
 }

@@ -5,7 +5,7 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.kitty;
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.kitty = {
@@ -33,7 +33,7 @@ in {
 
       font = {
         size = 14;
-        name = config.custom.theme.font.name;
+        name = config.custom.wm.theme.font.name;
       };
     };
   };

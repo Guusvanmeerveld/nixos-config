@@ -4,10 +4,8 @@
   ...
 }: let
   cfg = config.custom.applications.services.dunst;
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
 in {
-  imports = [../../theme];
-
   options = {
     custom.applications.services.dunst = {
       enable = lib.mkEnableOption "Enable Dunst notification service";

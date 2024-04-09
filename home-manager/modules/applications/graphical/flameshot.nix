@@ -4,7 +4,7 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.flameshot;
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.flameshot = {

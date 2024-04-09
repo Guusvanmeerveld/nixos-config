@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
   cfg = config.custom.wm.i3;
 
   prog = {
@@ -24,8 +24,6 @@
     command = "${pkgs.betterlockscreen}/bin/betterlockscreen";
   };
 in {
-  imports = [../theme];
-
   options = {
     custom.wm.i3 = {
       enable = lib.mkEnableOption "Enable i3 wm";

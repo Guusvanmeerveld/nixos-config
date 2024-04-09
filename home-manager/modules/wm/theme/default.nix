@@ -3,12 +3,12 @@
   config,
   ...
 }: let
-  cfg = config.custom.theme;
+  cfg = config.custom.wm.theme;
 in {
   imports = [./gtk.nix];
 
   options = {
-    custom.theme = {
+    custom.wm.theme = {
       font = {
         name = lib.mkOption {
           type = lib.types.str;
@@ -80,6 +80,6 @@ in {
   };
 
   config = {
-    home.packages = [cfg.font.package];
+    home.packages = [(lib.mkIf (cfg.font.package != null) cfg.font.package)];
   };
 }

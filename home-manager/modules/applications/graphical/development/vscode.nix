@@ -5,7 +5,7 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.development.vscode;
-  theme = config.custom.theme;
+  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.development.vscode = {
@@ -102,6 +102,7 @@ in {
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
         kamadorueda.alejandra
+        # jeanp413.open-remote-ssh
         # ms-vscode.atom-keybindings
       ];
     };
