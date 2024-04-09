@@ -14,6 +14,8 @@
     # Grub themes
     grub2-themes.url = "github:vinceliuice/grub2-themes";
 
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
+
     # Configure neovim in Nix
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";

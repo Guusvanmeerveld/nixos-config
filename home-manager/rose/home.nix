@@ -7,6 +7,8 @@
   ...
 }: {
   imports = [
+    inputs.vscode-server.homeModules.default
+
     ../modules
   ];
 
@@ -36,6 +38,11 @@
   systemd.user.startServices = "sd-switch";
 
   programs.kitty.enable = true;
+
+  services.vscode-server = {
+    enable = true;
+    installPath = "~/.vscodium-server";
+  };
 
   custom = {
     theme = {
