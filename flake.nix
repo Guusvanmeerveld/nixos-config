@@ -12,9 +12,15 @@
     nur.url = github:nix-community/NUR;
 
     # Grub themes
-    grub2-themes.url = "github:vinceliuice/grub2-themes";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -24,7 +30,6 @@
     # Configure neovim in Nix
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";
-
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
