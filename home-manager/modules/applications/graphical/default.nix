@@ -19,6 +19,7 @@ in {
     ./flameshot.nix
     ./thunar.nix
     ./spotify.nix
+    ./jellyfin.nix
   ];
 
   options = {

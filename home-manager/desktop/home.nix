@@ -129,6 +129,8 @@
       graphical = {
         enable = true;
 
+        jellyfin.enable = true;
+
         messaging.enable = true;
         games.enable = true;
         office.enable = true;
