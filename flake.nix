@@ -76,6 +76,13 @@
         ];
       };
 
+      rose = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./nixos/rose/configuration.nix
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -92,6 +99,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home-manager/desktop/home.nix
+        ];
+      };
+
+      "guus@rose" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/rose/home.nix
         ];
       };
 
