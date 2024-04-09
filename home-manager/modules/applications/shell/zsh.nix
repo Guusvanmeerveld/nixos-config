@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
@@ -8,6 +9,8 @@
   cfg = config.custom.applications.shell.zsh;
   shell = config.custom.applications.shell;
 in {
+  imports = [inputs.nix-index-database.hmModules.nix-index];
+
   options = {
     custom.applications.shell.zsh = {
       enable = lib.mkEnableOption "Enable zsh shell";
@@ -23,6 +26,8 @@ in {
     home.packages = with pkgs; [zoxide thefuck meslo-lgs-nf];
 
     programs = {
+      nix-index.enable = true;
+
       zsh = {
         initExtra = ''
           [[ ! -f ${p10kTheme} ]] || source ${p10kTheme}
@@ -52,6 +57,7 @@ in {
           nxp = "nix-shell -p ";
 
           dc = "docker compose up -d";
+          dcd = "docker compose down --remove-orphans";
         };
 
         oh-my-zsh = {

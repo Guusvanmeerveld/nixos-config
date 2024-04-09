@@ -16,6 +16,11 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Configure neovim in Nix
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";
