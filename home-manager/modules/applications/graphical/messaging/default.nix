@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.graphical.messaging;
-in
 {
-  imports = [ ./schildichat.nix ./discord.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.messaging;
+in {
+  imports = [./schildichat.nix ./discord.nix];
 
   options = {
     custom.applications.graphical.messaging = {

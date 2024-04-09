@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.office.latex; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.office.latex;
+in {
   options = {
     custom.applications.graphical.office.latex = {
       enable = lib.mkEnableOption "Enable Latex";
@@ -13,4 +18,3 @@ let cfg = config.custom.applications.graphical.office.latex; in
     ];
   };
 }
-

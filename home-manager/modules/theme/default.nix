@@ -1,7 +1,11 @@
-{ lib, config, ... }:
-let cfg = config.custom.theme; in
 {
-  imports = [ ./gtk.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.theme;
+in {
+  imports = [./gtk.nix];
 
   options = {
     custom.theme = {
@@ -76,6 +80,6 @@ let cfg = config.custom.theme; in
   };
 
   config = {
-    home.packages = [ cfg.font.package ];
+    home.packages = [cfg.font.package];
   };
 }

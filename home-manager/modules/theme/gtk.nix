@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.theme.gtk; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.theme.gtk;
+in {
   options = {
     custom.theme.gtk = {
       enable = lib.mkEnableOption "Enable GTK 3/4 theming";

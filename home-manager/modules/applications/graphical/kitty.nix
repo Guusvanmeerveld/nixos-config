@@ -1,6 +1,12 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.kitty; theme = config.custom.theme; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.kitty;
+  theme = config.custom.theme;
+in {
   options = {
     custom.applications.graphical.kitty = {
       enable = lib.mkEnableOption "Enable Kitty terminal emulator";

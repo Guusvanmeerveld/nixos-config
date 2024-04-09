@@ -1,10 +1,13 @@
-{ lib, config, pkgs, ... }:
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.custom.applications.services.polybar;
   theme = config.custom.theme;
-in
-{
-  imports = [ ../../theme ];
+in {
+  imports = [../../theme];
 
   options = {
     custom.applications.services.polybar = {
@@ -22,12 +25,13 @@ in
     ];
 
     systemd.user.services.polybar = {
-      Install.WantedBy = [ "graphical-session.target" ];
+      Install.WantedBy = ["graphical-session.target"];
     };
 
     services.polybar = {
       enable = true;
-      package = pkgs.polybar.override
+      package =
+        pkgs.polybar.override
         {
           i3Support = true;
           alsaSupport = true;
@@ -126,47 +130,45 @@ in
           label = "%date%, %time%";
         };
 
-        "module/wired-network" =
-          {
-            type = "internal/network";
-            interface-type = "wired";
+        "module/wired-network" = {
+          type = "internal/network";
+          interface-type = "wired";
 
-            interval = 3;
+          interval = 3;
 
-            format-connected = "<label-connected>";
+          format-connected = "<label-connected>";
 
-            label-connected = "";
-            label-connected-foreground = theme.text.primary;
-            format-connected-padding = 1;
+          label-connected = "";
+          label-connected-foreground = theme.text.primary;
+          format-connected-padding = 1;
 
-            format-disconnected = "<label-disconnected>";
+          format-disconnected = "<label-disconnected>";
 
-            label-disconnected = "";
-            label-disconnected-foreground = theme.warn;
-            format-disconnected-padding = 1;
-          };
+          label-disconnected = "";
+          label-disconnected-foreground = theme.warn;
+          format-disconnected-padding = 1;
+        };
 
-        "module/wireless-network" =
-          {
-            type = "internal/network";
-            interface-type = "wireless";
+        "module/wireless-network" = {
+          type = "internal/network";
+          interface-type = "wireless";
 
-            format-connected-padding = 1;
-            format-connected = "<label-connected>";
+          format-connected-padding = 1;
+          format-connected = "<label-connected>";
 
-            label-connected = "";
-            label-connected-foreground = theme.text.primary;
+          label-connected = "";
+          label-connected-foreground = theme.text.primary;
 
-            format-disconnected = "<label-disconnected>";
-            format-disconnected-padding = 1;
+          format-disconnected = "<label-disconnected>";
+          format-disconnected-padding = 1;
 
-            label-disconnected = "";
-            label-disconnected-foreground = theme.warn;
+          label-disconnected = "";
+          label-disconnected-foreground = theme.warn;
 
-            click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
+          click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 
-            interval = 3;
-          };
+          interval = 3;
+        };
 
         "module/pulseaudio" = {
           type = "internal/pulseaudio";
@@ -241,7 +243,6 @@ in
           format-padding = 1;
 
           label = "%percentage%%";
-
         };
       };
     };

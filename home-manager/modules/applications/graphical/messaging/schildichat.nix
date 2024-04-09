@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.messaging.schildichat; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.messaging.schildichat;
+in {
   options = {
     custom.applications.graphical.messaging.schildichat = {
       enable = lib.mkEnableOption "Enable Schildichat matrix client";
@@ -18,4 +23,3 @@ let cfg = config.custom.applications.graphical.messaging.schildichat; in
     ];
   };
 }
-

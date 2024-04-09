@@ -1,17 +1,17 @@
-{ lib
-, config
-, pkgs
-, ...
-}:
-let cfg = config.custom.wm.i3; in
 {
-  imports = [ ../sound.nix ];
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.wm.i3;
+in {
+  imports = [../sound.nix];
 
   options = {
-    custom.wm.i3 =
-      {
-        enable = lib.mkEnableOption "Enable i3 wm";
-      };
+    custom.wm.i3 = {
+      enable = lib.mkEnableOption "Enable i3 wm";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -46,9 +46,7 @@ let cfg = config.custom.wm.i3; in
         windowManager.i3 = {
           enable = true;
         };
-
       };
     };
   };
-
 }

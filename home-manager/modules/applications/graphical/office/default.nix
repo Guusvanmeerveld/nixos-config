@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.graphical.office;
-in
 {
-  imports = [ ./gimp.nix ./libreoffice.nix ./teams.nix ./latex.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.office;
+in {
+  imports = [./gimp.nix ./libreoffice.nix ./teams.nix ./latex.nix];
 
   options = {
     custom.applications.graphical.office = {

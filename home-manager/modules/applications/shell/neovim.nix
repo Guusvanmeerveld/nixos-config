@@ -1,9 +1,12 @@
-{ lib, config, inputs, ... }:
-let
-  cfg = config.custom.applications.shell.neovim;
-in
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  lib,
+  config,
+  inputs,
+  ...
+}: let
+  cfg = config.custom.applications.shell.neovim;
+in {
+  imports = [inputs.nixvim.homeManagerModules.nixvim];
 
   options = {
     custom.applications.shell.neovim = {
@@ -35,4 +38,3 @@ in
     };
   };
 }
-

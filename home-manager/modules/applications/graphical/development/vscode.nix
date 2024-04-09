@@ -1,6 +1,12 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.development.vscode; theme = config.custom.theme; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.development.vscode;
+  theme = config.custom.theme;
+in {
   options = {
     custom.applications.graphical.development.vscode = {
       enable = lib.mkEnableOption "Enable VSCode development IDE";
@@ -61,10 +67,18 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
 
+        "[nix]" = {
+          "editor.defaultFormatter" = "kamadorueda.alejandra";
+          "editor.formatOnPaste" = true;
+          "editor.formatOnSave" = true;
+          "editor.formatOnType" = false;
+        };
+        "alejandra.program" = "alejandra";
+
         "spellright.notificationClass" = "warning";
         "spellright.configurationScope" = "user";
         "spellright.suggestionsInHints" = false;
-        "spellright.language" = [ "en_US" "nl_NL" ];
+        "spellright.language" = ["en_US" "nl_NL"];
       };
 
       extensions = with pkgs.vscode-extensions; [
@@ -87,6 +101,7 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
         ban.spellright
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
+        kamadorueda.alejandra
         # ms-vscode.atom-keybindings
       ];
     };
@@ -96,7 +111,7 @@ let cfg = config.custom.applications.graphical.development.vscode; theme = confi
       hunspell
       hunspellDicts.en_US
       hunspellDicts.nl_nl
+      alejandra
     ];
   };
-
 }

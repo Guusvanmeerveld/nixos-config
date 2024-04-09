@@ -1,7 +1,13 @@
-{ lib, config, pkgs, inputs, ... }:
-let cfg = config.custom.applications.graphical.firefox; in
 {
-  imports = [ inputs.nur.nixosModules.nur ];
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.firefox;
+in {
+  imports = [inputs.nur.nixosModules.nur];
 
   options = {
     custom.applications.graphical.firefox = {
@@ -31,42 +37,41 @@ let cfg = config.custom.applications.graphical.firefox; in
         default = {
           isDefault = true;
 
-          extensions = with config.nur.repos.rycee.firefox-addons;
-            [
-              ublock-origin
-              bitwarden
-              translate-web-pages
-              libredirect
-              clearurls
-              darkreader
-              canvasblocker
-              buster-captcha-solver
+          extensions = with config.nur.repos.rycee.firefox-addons; [
+            ublock-origin
+            bitwarden
+            translate-web-pages
+            libredirect
+            clearurls
+            darkreader
+            canvasblocker
+            buster-captcha-solver
 
-              react-devtools
-            ];
+            react-devtools
+          ];
 
           bookmarks = [
             {
               name = "Wikipedia";
-              tags = [ "wiki" ];
+              tags = ["wiki"];
               keyword = "wiki";
               url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&amp;go=Go";
             }
             {
               name = "Git";
-              tags = [ "git" ];
+              tags = ["git"];
               keyword = "git";
               url = "https://git.guusvanmeerveld.dev/explore/repos?sort=recentupdate&language=&q=%s";
             }
             {
               name = "Github";
-              tags = [ "git" ];
+              tags = ["git"];
               keyword = "github";
               url = "https://github.com/search?q=%s&type=repositories";
             }
             {
               name = "MaterialTube";
-              tags = [ "youtube" ];
+              tags = ["youtube"];
               keyword = "yt";
               url = "https://materialtube.guusvanmeerveld.dev/results?search_query=%s";
             }
@@ -89,18 +94,23 @@ let cfg = config.custom.applications.graphical.firefox; in
           search = {
             force = true;
             default = "DuckDuckGo";
-            order = [ "DuckDuckGo" ];
+            order = ["DuckDuckGo"];
 
             engines = {
               "DuckDuckGo" = {
-                urls = [{
-                  template = "https://duckduckgo.com/";
-                  params = [
-                    { name = "q"; value = "{searchTerms}"; }
-                  ];
-                }];
+                urls = [
+                  {
+                    template = "https://duckduckgo.com/";
+                    params = [
+                      {
+                        name = "q";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
 
-                definedAliases = [ "@ddg" ];
+                definedAliases = ["@ddg"];
               };
             };
           };
@@ -196,11 +206,9 @@ let cfg = config.custom.applications.graphical.firefox; in
             "media.block-play-until-document-interaction" = true;
             "media.block-play-until-visible" = true;
             "media.autoplay.blocking_policy" = 2;
-
           };
         };
       };
     };
-
   };
 }

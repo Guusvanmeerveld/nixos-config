@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.games.mangohud; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.games.mangohud;
+in {
   options = {
     custom.applications.graphical.games.mangohud = {
       enable = lib.mkEnableOption "Enable MangoHud game overlay";
@@ -33,4 +38,3 @@ let cfg = config.custom.applications.graphical.games.mangohud; in
     };
   };
 }
-

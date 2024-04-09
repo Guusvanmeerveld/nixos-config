@@ -1,10 +1,13 @@
-{ lib, config, pkgs, ... }:
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.custom.applications.shell.atuin;
   shell = config.custom.applications.shell;
-in
-{
-  imports = [ ./zsh.nix ];
+in {
+  imports = [./zsh.nix];
 
   options = {
     custom.applications.shell.atuin = {

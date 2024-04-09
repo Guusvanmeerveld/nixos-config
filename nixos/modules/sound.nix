@@ -1,7 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.sound; in
 {
-
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.sound;
+in {
   options = {
     custom.sound = {
       enable = lib.mkEnableOption "Enable sound support";
@@ -29,6 +33,6 @@ let cfg = config.custom.sound; in
       pulseaudio.enable = false;
     };
 
-    environment.systemPackages = with pkgs; [ pulseaudio ];
+    environment.systemPackages = with pkgs; [pulseaudio];
   };
 }

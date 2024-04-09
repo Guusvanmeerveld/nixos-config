@@ -1,4 +1,3 @@
-{ ... }:
-{
-  imports = [ ./syncthing.nix ./dunst.nix ./polybar.nix ];
+{...}: {
+  imports = [./syncthing.nix ./dunst.nix ./polybar.nix];
 }

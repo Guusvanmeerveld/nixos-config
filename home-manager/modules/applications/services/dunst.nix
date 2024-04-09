@@ -1,10 +1,12 @@
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   cfg = config.custom.applications.services.dunst;
   theme = config.custom.theme;
-in
-{
-  imports = [ ../../theme ];
+in {
+  imports = [../../theme];
 
   options = {
     custom.applications.services.dunst = {

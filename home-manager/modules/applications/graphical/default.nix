@@ -1,6 +1,10 @@
-{ lib, config, ... }:
-let cfg = config.custom.applications.graphical; in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical;
+in {
   imports = [
     ./development
     ./office

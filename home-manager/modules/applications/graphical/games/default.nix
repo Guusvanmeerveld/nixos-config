@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.graphical.games;
-in
 {
-  imports = [ ./heroic.nix ./minecraft.nix ./mangohud.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.games;
+in {
+  imports = [./heroic.nix ./minecraft.nix ./mangohud.nix];
 
   options = {
     custom.applications.graphical.games = {

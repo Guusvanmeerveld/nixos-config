@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.video.amd; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.video.amd;
+in {
   options = {
     custom.video.amd = {
       enable = lib.mkEnableOption "Enable AMD gpu support";
@@ -18,10 +23,10 @@ let cfg = config.custom.video.amd; in
         Option "VariableRefresh" "true"
       '';
 
-      videoDrivers = [ "amdgpu" ];
+      videoDrivers = ["amdgpu"];
     };
 
-    boot.initrd.kernelModules = [ "amdgpu" ];
+    boot.initrd.kernelModules = ["amdgpu"];
 
     hardware.opengl.driSupport = true;
     # For 32 bit applications

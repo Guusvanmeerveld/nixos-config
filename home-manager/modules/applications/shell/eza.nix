@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.shell.eza;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.shell.eza;
+in {
   options = {
     custom.applications.shell.eza = {
       enable = lib.mkEnableOption "Enable Eza ls replacement";

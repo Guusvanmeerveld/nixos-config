@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.office.teams; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.office.teams;
+in {
   options = {
     custom.applications.graphical.office.teams = {
       enable = lib.mkEnableOption "Enable Microsoft Teams for Linux";
@@ -8,7 +13,6 @@ let cfg = config.custom.applications.graphical.office.teams; in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ teams-for-linux ];
+    home.packages = with pkgs; [teams-for-linux];
   };
 }
-

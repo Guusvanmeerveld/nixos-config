@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.librewolf; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.librewolf;
+in {
   options = {
     custom.applications.graphical.librewolf = {
       enable = lib.mkEnableOption "Enable Librewolf browser";

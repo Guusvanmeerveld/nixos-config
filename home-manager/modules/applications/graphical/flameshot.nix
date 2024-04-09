@@ -1,6 +1,11 @@
-{ lib, config, ... }:
-let cfg = config.custom.applications.graphical.flameshot; theme = config.custom.theme; in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.flameshot;
+  theme = config.custom.theme;
+in {
   options = {
     custom.applications.graphical.flameshot = {
       enable = lib.mkEnableOption "Enable Flameshot screenshot program";

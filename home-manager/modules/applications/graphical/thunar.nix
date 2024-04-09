@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.thunar; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.thunar;
+in {
   options = {
     custom.applications.graphical.thunar = {
       enable = lib.mkEnableOption "Enable Thunar file explorer";
@@ -8,12 +13,12 @@ let cfg = config.custom.applications.graphical.thunar; in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ xfce.thunar ];
+    home.packages = with pkgs; [xfce.thunar];
 
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        "inode/directory" = [ "thunar.desktop" ];
+        "inode/directory" = ["thunar.desktop"];
       };
     };
   };

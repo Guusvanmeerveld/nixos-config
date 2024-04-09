@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.games.minecraft; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.games.minecraft;
+in {
   options = {
     custom.applications.graphical.games.minecraft = {
       enable = lib.mkEnableOption "Enable Minecraft launcher";
@@ -8,7 +13,6 @@ let cfg = config.custom.applications.graphical.games.minecraft; in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ prismlauncher ];
+    home.packages = with pkgs; [prismlauncher];
   };
 }
-

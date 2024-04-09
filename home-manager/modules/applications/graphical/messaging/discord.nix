@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.messaging.discord; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.messaging.discord;
+in {
   options = {
     custom.applications.graphical.messaging.discord = {
       enable = lib.mkEnableOption "Enable Discord client";
@@ -8,7 +13,6 @@ let cfg = config.custom.applications.graphical.messaging.discord; in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ armcord ];
+    home.packages = with pkgs; [armcord];
   };
 }
-

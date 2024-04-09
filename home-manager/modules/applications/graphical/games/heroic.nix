@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.games.heroic; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.games.heroic;
+in {
   options = {
     custom.applications.graphical.games.heroic = {
       enable = lib.mkEnableOption "Enable Heroic games launcher";
@@ -8,7 +13,6 @@ let cfg = config.custom.applications.graphical.games.heroic; in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ heroic gamemode ];
+    home.packages = with pkgs; [heroic gamemode];
   };
 }
-

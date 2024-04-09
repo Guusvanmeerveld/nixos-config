@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.graphical.development;
-in
 {
-  imports = [ ./vscode.nix ./bruno.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.development;
+in {
+  imports = [./vscode.nix ./bruno.nix];
 
   options = {
     custom.applications.graphical.development = {

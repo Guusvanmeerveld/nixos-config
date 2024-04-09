@@ -1,21 +1,19 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, ...
-}:
-
 {
-  imports =
-    [
-      inputs.grub2-themes.nixosModules.default
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    inputs.grub2-themes.nixosModules.default
 
-      ../modules
+    ../modules
 
-      # Include the results of the hardware scan. 
-      ./hardware-configuration.nix
-    ];
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs = {
     overlays = [
@@ -31,16 +29,16 @@
 
   # This will add each flake input as a registry
   # To make nix3 commands consistent with your flake
-  nix.registry = (lib.mapAttrs (_: flake: { inherit flake; })) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
+  nix.registry = (lib.mapAttrs (_: flake: {inherit flake;})) ((lib.filterAttrs (_: lib.isType "flake")) inputs);
 
-  nix.nixPath = [ "/etc/nix/path" ];
+  nix.nixPath = ["/etc/nix/path"];
   environment.etc =
     lib.mapAttrs'
-      (name: value: {
-        name = "nix/path/${name}";
-        value.source = value.flake;
-      })
-      config.nix.registry;
+    (name: value: {
+      name = "nix/path/${name}";
+      value.source = value.flake;
+    })
+    config.nix.registry;
 
   networking.hostName = "desktop";
 
@@ -101,8 +99,8 @@
     wm.i3.enable = true;
   };
 
-  networking.firewall.allowedTCPPorts = [ 22000 ];
-  networking.firewall.allowedUDPPorts = [ 22000 21027 ];
+  networking.firewall.allowedTCPPorts = [22000];
+  networking.firewall.allowedUDPPorts = [22000 21027];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
-  cfg = config.custom.applications.shell.git;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.shell.git;
+in {
   options = {
     custom.applications.shell.git = {
       enable = lib.mkEnableOption "Enable Git version control manager client";

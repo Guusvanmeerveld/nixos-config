@@ -1,5 +1,9 @@
-{ lib, config, pkgs, ... }:
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   theme = config.custom.theme;
   cfg = config.custom.wm.i3;
 
@@ -19,10 +23,8 @@ let
     pkg = pkgs.betterlockscreen;
     command = "${pkgs.betterlockscreen}/bin/betterlockscreen";
   };
-
-in
-{
-  imports = [ ../theme ];
+in {
+  imports = [../theme];
 
   options = {
     custom.wm.i3 = {
@@ -38,7 +40,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ playerctl ];
+    home.packages = with pkgs; [playerctl];
 
     custom.applications = {
       graphical = {
@@ -87,11 +89,11 @@ in
         menu = "${pkgs.rofi}/bin/rofi";
 
         fonts = {
-          names = [ theme.font.name ];
+          names = [theme.font.name];
           size = 12.0;
         };
 
-        bars = [ ];
+        bars = [];
 
         gaps = {
           inner = 5;
@@ -119,7 +121,6 @@ in
             indicator = theme.warn;
             text = theme.text.primary;
           };
-
         };
 
         workspaceOutputAssign = [
@@ -174,9 +175,11 @@ in
             }
           ];
 
-          "5: games" = [{
-            class = "^${prog.steam}$";
-          }];
+          "5: games" = [
+            {
+              class = "^${prog.steam}$";
+            }
+          ];
         };
 
         keybindings = lib.mkOptionDefault {

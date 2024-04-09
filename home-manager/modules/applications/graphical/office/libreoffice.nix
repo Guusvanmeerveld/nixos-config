@@ -1,6 +1,11 @@
-{ lib, config, pkgs, ... }:
-let cfg = config.custom.applications.graphical.office.libreoffice; in
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.graphical.office.libreoffice;
+in {
   options = {
     custom.applications.graphical.office.libreoffice = {
       enable = lib.mkEnableOption "Enable Libre office suite";
@@ -15,4 +20,3 @@ let cfg = config.custom.applications.graphical.office.libreoffice; in
     ];
   };
 }
-

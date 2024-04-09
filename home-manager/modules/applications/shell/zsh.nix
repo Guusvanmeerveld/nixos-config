@@ -1,11 +1,13 @@
-{ lib, config, pkgs, ... }:
-
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   p10kTheme = ./p10k.zsh;
   cfg = config.custom.applications.shell.zsh;
   shell = config.custom.applications.shell;
-in
-{
+in {
   options = {
     custom.applications.shell.zsh = {
       enable = lib.mkEnableOption "Enable zsh shell";
@@ -18,7 +20,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ zoxide thefuck meslo-lgs-nf ];
+    home.packages = with pkgs; [zoxide thefuck meslo-lgs-nf];
 
     programs = {
       zsh = {
@@ -55,17 +57,20 @@ in
         oh-my-zsh = {
           enable = true;
 
-          plugins = [ "git" "sudo" "yarn" "vscode" "colorize" ];
+          plugins = ["git" "sudo" "yarn" "vscode" "colorize"];
         };
 
         zplug = {
           enable = true;
           plugins = [
-            { name = "zsh-users/zsh-autosuggestions"; }
-            { name = "zsh-users/zsh-syntax-highlighting"; }
-            { name = "ajeetdsouza/zoxide"; }
-            { name = "chisui/zsh-nix-shell"; }
-            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+            {name = "zsh-users/zsh-autosuggestions";}
+            {name = "zsh-users/zsh-syntax-highlighting";}
+            {name = "ajeetdsouza/zoxide";}
+            {name = "chisui/zsh-nix-shell";}
+            {
+              name = "romkatv/powerlevel10k";
+              tags = [as:theme depth:1];
+            }
           ];
         };
 
@@ -79,5 +84,4 @@ in
       };
     };
   };
-
 }
