@@ -7,8 +7,6 @@
   ...
 }: {
   imports = [
-    inputs.vscode-server.homeModules.default
-
     ../modules
   ];
 
@@ -39,22 +37,11 @@
 
   programs.kitty.enable = true;
 
-  services.vscode-server = {
-    enable = true;
-    installPath = "~/.vscodium-server";
-  };
-
   custom = {
-    theme = {
-      font = {
-        name = "Fira Code";
-        package = pkgs.fira-code;
-      };
-    };
-
     applications = {
       services = {
         syncthing.enable = true;
+        vscode-server.enable = true;
       };
 
       shell = {
