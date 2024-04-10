@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  nginx:
+    image: netfloex/nginx:latest
+    container_name: nginx
+
+    restart: unless-stopped
+    
+    ports:
+      - 80:80
+      - 443:443
+
+    networks:
+      - nginx
+    
+    volumes:
+      - ./config.yaml:/app/config/config.yaml
+      - ./custom:/etc/nginx/user_conf.d
+      - data:/app/data
+      - logs:/var/log/nginx
+      - letsencrypt:/etc/letsencrypt
+      - configs:/etc/nginx/conf.d
+
+    environment:
+      CERTBOT_EMAIL: ${CERTBOT_EMAIL}
+
+networks:
+  nginx:
+    name: nginx
+    external: true
+
+volumes:
+  data:
+  logs:
+  letsencrypt:
+  configs:

@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: "vaultwarden"
+
+    depends_on:
+      - db
+
+    restart: unless-stopped
+
+    networks:
+      - vaultwarden
+      - nginx
+
+    volumes:
+      - data:/data/
+
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}"
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+
+  db:
+    image: postgres:16
+    container_name: "vaultwarden-db"
+
+    restart: unless-stopped
+
+    networks:
+      - vaultwarden
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+networks:
+  vaultwarden:
+    external: false
+  
+  nginx:
+    external: true
+    name: nginx
+
+volumes:
+  data:
+  db_data:

@@ -12,6 +12,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      # autoPrune = true;
+    };
   };
 }

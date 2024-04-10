@@ -19,7 +19,7 @@
   # Bootloader.
   boot.loader = {
     grub = {
-     device = "/dev/vda";
+      device = "/dev/vda";
     };
   };
 
@@ -30,14 +30,14 @@
 
   services.openssh = {
     enable = true;
-    
+
     openFirewall = true;
-    
+
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
-  };  
+  };
 
   custom = {
     user = "guus";
@@ -47,6 +47,10 @@
 
       docker.enable = true;
     };
+  };
+
+  networking.firewall = {
+    allowedTCPPorts = [80 443];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

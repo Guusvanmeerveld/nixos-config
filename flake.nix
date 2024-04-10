@@ -44,7 +44,6 @@
     self,
     nixpkgs,
     home-manager,
-    unstable,
     ...
   } @ inputs: let
     systems = [
