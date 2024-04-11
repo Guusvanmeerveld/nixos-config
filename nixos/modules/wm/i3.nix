@@ -37,7 +37,7 @@ in {
         displayManager = {
           autoLogin = {
             enable = true;
-            user = config.custom.user;
+            user = config.custom.user.name;
           };
 
           lightdm.enable = true;
