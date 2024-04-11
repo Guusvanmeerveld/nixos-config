@@ -76,7 +76,7 @@
   };
 
   custom = {
-    user = "guus";
+    user.name = "guus";
 
     applications = {
       shell.zsh.enable = true;
