@@ -3,4 +3,4 @@ cloudflare: true
 servers:
   guusvanmeerveld.dev:
     subdomains:
-      vaultwarden: "http://vaultwarden:80"
+      bitwarden: "http://vaultwarden:80"

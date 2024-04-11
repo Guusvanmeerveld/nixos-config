@@ -53,12 +53,8 @@
     applications = {
       shell.zsh.enable = true;
 
-      docker.enable = true;
+      # docker.enable = true;
     };
-  };
-
-  networking.firewall = {
-    allowedTCPPorts = [80 443];
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
