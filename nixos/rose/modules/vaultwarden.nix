@@ -12,9 +12,9 @@
 
         ROCKET_LOG = "critical";
 
-        SMTP_PORT = 465;
-        # SMTP_SECURITY = "starttls";
-        SMTP_SSL = true;
+        SMTP_PORT = 587;
+        SMTP_SECURITY = "starttls";
+        SMTP_SSL = false;
 
         SMTP_FROM = "vaultwarden@guusvanmeerveld.dev";
         SMTP_FROM_NAME = "Guus' Vaultwarden server";
