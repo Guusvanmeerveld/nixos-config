@@ -9,7 +9,10 @@
         in {
           addSSL = true;
           enableACME = true;
-          locations."/".proxyPass = "http://localhost:${port}/";
+          locations."/" = {
+            proxyPass = "http://localhost:${port}/";
+            proxyWebsockets = true;
+          };
         };
       };
     };

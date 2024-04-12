@@ -1,6 +1,7 @@
 {
   imports = [
-    # ./mailserver.nix
+    ./mailserver.nix
+    # ./syncthing.nix
     ./nginx.nix
     ./vaultwarden.nix
   ];
