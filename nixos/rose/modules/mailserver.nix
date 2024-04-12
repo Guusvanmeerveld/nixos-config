@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   config,
   pkgs,
   ...
@@ -20,6 +21,23 @@
       };
     };
 
+    enableManageSieve = true;
+
     certificateScheme = "acme-nginx";
+  };
+
+  services.radicale = {
+    enable = true;
+    settings = {
+      auth = {
+        type = "htpasswd";
+        htpasswd_filename = config.age.secrets.radicale-htpasswd.path;
+        htpasswd_encryption = "bcrypt";
+      };
+
+      storage = {
+        filesystem_folder = "/var/lib/radicale/collections";
+      };
+    };
   };
 }
