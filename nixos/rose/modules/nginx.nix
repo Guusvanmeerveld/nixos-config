@@ -25,11 +25,22 @@
           enableACME = true;
           locations."/" = {
             proxyPass = "http://localhost:5232/";
-            recommendedProxySettings = true;
             extraConfig = ''
               proxy_set_header  X-Script-Name /;
               proxy_pass_header Authorization;
             '';
+            recommendedProxySettings = true;
+          };
+        };
+
+        "search.guusvanmeerveld.dev" = lib.mkIf config.services.searx.enable {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = let
+              port = toString config.services.searx.settings.server.port;
+            in "http://localhost:${port}/";
+            recommendedProxySettings = true;
           };
         };
       };
