@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.shell.eza;
@@ -17,5 +18,7 @@ in {
       icons = true;
       git = true;
     };
+
+    home.packages = lib.mkIf config.programs.eza.icons (with pkgs; [font-awesome]);
   };
 }
