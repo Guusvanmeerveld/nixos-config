@@ -9,7 +9,7 @@
 
   mailserver = {
     enable = true;
-    fqdn = "mail2.guusvanmeerveld.dev";
+    fqdn = "mail.guusvanmeerveld.dev";
     domains = ["guusvanmeerveld.dev"];
 
     # A list of all login accounts. To create the password hashes, use
@@ -17,11 +17,26 @@
     loginAccounts = {
       "mail@guusvanmeerveld.dev" = {
         hashedPasswordFile = config.age.secrets.email-password.path;
-        aliases = ["postmaster@guusvanmeerveld.dev"];
+        aliases = ["@guusvanmeerveld.dev"];
       };
     };
 
     enableManageSieve = true;
+
+    backup = lib.mkIf config.services.syncthing.enable {
+      enable = true;
+
+      cronIntervals = {
+        daily = "30  3  *  *  *";
+      };
+
+      retain.daily = 7;
+
+      # Backup to Syncthing directory
+      snapshotRoot = lib.concatStringsSep "/" [config.services.syncthing.dataDir "mail-server-backup"];
+    };
+
+    certificateDomains = ["smtp.guusvanmeerveld.dev" "imap.guusvanmeerveld.dev"];
 
     certificateScheme = "acme-nginx";
   };

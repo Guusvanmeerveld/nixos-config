@@ -16,6 +16,7 @@
               port = toString config.services.vaultwarden.config.ROCKET_PORT;
             in "http://localhost:${port}/";
             proxyWebsockets = true;
+            recommendedProxySettings = true;
           };
         };
 
@@ -24,9 +25,9 @@
           enableACME = true;
           locations."/" = {
             proxyPass = "http://localhost:5232/";
+            recommendedProxySettings = true;
             extraConfig = ''
               proxy_set_header  X-Script-Name /;
-              proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
               proxy_pass_header Authorization;
             '';
           };
