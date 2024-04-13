@@ -93,14 +93,14 @@ in {
 
           search = {
             force = true;
-            default = "DuckDuckGo";
-            order = ["DuckDuckGo"];
+            default = "SearX";
+            order = ["SearX"];
 
             engines = {
-              "DuckDuckGo" = {
+              "SearX" = {
                 urls = [
                   {
-                    template = "https://duckduckgo.com/";
+                    template = "https://search.guusvanmeerveld.dev/search";
                     params = [
                       {
                         name = "q";
@@ -110,7 +110,7 @@ in {
                   }
                 ];
 
-                definedAliases = ["@ddg"];
+                definedAliases = ["@sx"];
               };
             };
           };
