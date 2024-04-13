@@ -37,7 +37,7 @@ in {
 
         sessionVariables = {
           EDITOR = cfg.editor;
-          NIX_CONFIG_LOCATION = "${config.home.homeDirectory}/nix/config";
+          NIX_CONFIG_LOCATION = config.custom.nixConfigLocation;
         };
 
         shellAliases = {
