@@ -10,6 +10,7 @@
       zip
       doggo
       jq
+      home-manager
     ];
   };
 }
