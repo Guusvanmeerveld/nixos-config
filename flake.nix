@@ -104,6 +104,13 @@
         ];
       };
 
+      daisy = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./nixos/daisy/configuration.nix
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -128,6 +135,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home-manager/rose/home.nix
+        ];
+      };
+
+      "guus@daisy" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/daisy/home.nix
         ];
       };
 
