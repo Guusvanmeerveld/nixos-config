@@ -23,7 +23,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide thefuck meslo-lgs-nf];
+    home.packages = with pkgs; [zoxide meslo-lgs-nf];
 
     programs = {
       nix-index.enable = true;
