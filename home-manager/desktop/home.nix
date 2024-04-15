@@ -114,13 +114,7 @@
       };
 
       shell = {
-        zsh = {
-          enable = true;
-          editor = "nvim";
-        };
-        eza.enable = true;
-        git.enable = true;
-        neovim.enable = true;
+        default.enable = true;
 
         atuin = {
           enable = true;
@@ -129,7 +123,7 @@
       };
 
       graphical = {
-        enable = true;
+        default.enable = true;
 
         jellyfin.enable = true;
 
