@@ -33,17 +33,6 @@
           };
         };
 
-        "search.guusvanmeerveld.dev" = lib.mkIf config.services.searx.enable {
-          forceSSL = true;
-          enableACME = true;
-          locations."/" = {
-            proxyPass = let
-              port = toString config.services.searx.settings.server.port;
-            in "http://localhost:${port}/";
-            recommendedProxySettings = true;
-          };
-        };
-
         "miniflux.guusvanmeerveld.dev" = lib.mkIf config.services.miniflux.enable {
           forceSSL = true;
           enableACME = true;

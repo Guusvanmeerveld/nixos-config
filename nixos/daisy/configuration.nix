@@ -40,6 +40,9 @@
     };
   };
 
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "security@guusvanmeerveld.dev";
+
   custom = {
     user = {
       name = "guus";
@@ -50,6 +53,16 @@
     };
 
     applications = {
+      services = {
+        nginx.enable = true;
+
+        searx = {
+          enable = true;
+          port = 8081;
+          domain = "search.guusvanmeerveld.dev";
+        };
+      };
+
       shell.zsh.enable = true;
       # docker.enable = true;
     };
