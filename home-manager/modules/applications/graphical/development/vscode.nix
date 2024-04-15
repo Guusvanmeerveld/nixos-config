@@ -84,7 +84,6 @@ in {
       extensions = with pkgs.vscode-extensions; [
         zhuangtongfa.material-theme
         jnoortheen.nix-ide
-        # scalameta.metals
         pkief.material-icon-theme
         rust-lang.rust-analyzer
         arrterian.nix-env-selector
