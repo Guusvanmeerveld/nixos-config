@@ -9,14 +9,13 @@
   cfg = config.custom.applications.shell.zsh;
   shell = config.custom.applications.shell;
 in {
-  imports = [inputs.nix-index-database.hmModules.nix-index];
-
   options = {
     custom.applications.shell.zsh = {
       enable = lib.mkEnableOption "Enable zsh shell";
 
       editor = lib.mkOption {
         type = lib.types.str;
+        default = "nvim";
         description = "The editor to use by default";
       };
     };
@@ -26,8 +25,6 @@ in {
     home.packages = with pkgs; [zoxide meslo-lgs-nf];
 
     programs = {
-      nix-index.enable = true;
-
       zsh = {
         initExtra = ''
           [[ ! -f ${p10kTheme} ]] || source ${p10kTheme}
@@ -50,10 +47,10 @@ in {
           lsa = "ls -ah";
           rr = "reboot";
 
-          ls = lib.mkIf shell.eza.enable "eza";
+          ls = lib.mkIf config.programs.eza.enable "eza";
 
-          code = "codium";
-          nxvsc = "nix-shell --command 'codium .'";
+          code = lib.mkIf config.programs.vscode.enable "codium";
+          nxvsc = lib.mkIf config.programs.vscode.enable "nix-shell --command 'codium .'";
           nxp = "nix-shell -p ";
 
           dc = "docker compose up -d";

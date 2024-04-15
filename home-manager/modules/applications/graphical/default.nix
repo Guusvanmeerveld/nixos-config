@@ -24,11 +24,11 @@ in {
 
   options = {
     custom.applications.graphical = {
-      enable = lib.mkEnableOption "Enable default applications";
+      default.enable = lib.mkEnableOption "Enable default applications";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.default.enable {
     custom.applications.graphical = {
       evince.enable = true;
       firefox.enable = true;

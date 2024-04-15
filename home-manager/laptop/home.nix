@@ -84,12 +84,7 @@
       };
 
       shell = {
-        zsh = {
-          enable = true;
-          editor = "nvim";
-        };
-        git.enable = true;
-        neovim.enable = true;
+        default.enable = true;
 
         atuin = {
           enable = true;
@@ -98,7 +93,7 @@
       };
 
       graphical = {
-        enable = true;
+        default.enable = true;
 
         messaging.enable = true;
         office.enable = true;
