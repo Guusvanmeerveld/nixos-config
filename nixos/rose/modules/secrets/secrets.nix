@@ -3,4 +3,5 @@ let
 in {
   "email-password.age".publicKeys = [rose];
   "radicale-htpasswd.age".publicKeys = [rose];
+  "miniflux.age".publicKeys = [rose];
 }

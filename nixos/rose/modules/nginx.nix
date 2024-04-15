@@ -43,6 +43,15 @@
             recommendedProxySettings = true;
           };
         };
+
+        "miniflux.guusvanmeerveld.dev" = lib.mkIf config.services.miniflux.enable {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://localhost:8082/";
+            recommendedProxySettings = true;
+          };
+        };
       };
     };
 

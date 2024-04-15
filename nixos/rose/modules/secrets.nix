@@ -6,4 +6,5 @@
     file = ./secrets/radicale-htpasswd.age;
     owner = "radicale";
   };
+  age.secrets.miniflux.file = ./secrets/miniflux.age;
 }
