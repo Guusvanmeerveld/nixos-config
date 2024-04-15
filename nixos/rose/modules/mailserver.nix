@@ -23,7 +23,7 @@
 
     enableManageSieve = true;
 
-    backup = lib.mkIf config.services.syncthing.enable {
+    backup = {
       enable = true;
 
       cronIntervals = {
