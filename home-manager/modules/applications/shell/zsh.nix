@@ -5,7 +5,6 @@
   pkgs,
   ...
 }: let
-  p10kTheme = ./p10k.zsh;
   cfg = config.custom.applications.shell.zsh;
   shell = config.custom.applications.shell;
 in {
@@ -15,7 +14,7 @@ in {
 
       editor = lib.mkOption {
         type = lib.types.str;
-        default = "nvim";
+        default = "vi";
         description = "The editor to use by default";
       };
     };
@@ -26,14 +25,36 @@ in {
 
     programs = {
       zsh = {
-        initExtra = ''
-          [[ ! -f ${p10kTheme} ]] || source ${p10kTheme}
-        '';
-
         enable = true;
 
+        initExtraBeforeCompInit = ''
+          local P10K_INSTANT_PROMPT="${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
+        '';
+
+        initExtra =
+          if config.programs.vscode.enable
+          then ''
+            if [ "$TERM_PROGRAM" = "vscode" ]
+            then
+                export EDITOR=codium
+            else
+                export EDITOR=${cfg.editor}
+            fi
+          ''
+          else ''export EDITOR=${cfg.editor}'';
+
+        dotDir = ".config/zsh";
+        enableAutosuggestions = true;
+        syntaxHighlighting.enable = true;
+
+        history = {
+          size = 1000000;
+          save = 1000000;
+          ignoreSpace = false;
+        };
+
         sessionVariables = {
-          EDITOR = cfg.editor;
           NIX_CONFIG_LOCATION = config.custom.nixConfigLocation;
         };
 
@@ -60,15 +81,12 @@ in {
         oh-my-zsh = {
           enable = true;
 
-          plugins = ["git" "sudo" "yarn" "vscode" "colorize"];
+          plugins = ["git" "sudo" "yarn" "vscode" "colorize" "zoxide"];
         };
 
         zplug = {
           enable = true;
           plugins = [
-            {name = "zsh-users/zsh-autosuggestions";}
-            {name = "zsh-users/zsh-syntax-highlighting";}
-            {name = "ajeetdsouza/zoxide";}
             {name = "chisui/zsh-nix-shell";}
             {
               name = "romkatv/powerlevel10k";
@@ -82,6 +100,11 @@ in {
             name = "powerlevel10k";
             src = pkgs.zsh-powerlevel10k;
             file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+          }
+          {
+            name = "powerlevel10k-config";
+            file = "p10k.zsh";
+            src = ./.;
           }
         ];
       };
