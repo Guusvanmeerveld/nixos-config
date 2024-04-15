@@ -40,18 +40,11 @@
   custom = {
     applications = {
       services = {
-        syncthing.enable = true;
         vscode-server.enable = true;
       };
 
       shell = {
-        zsh = {
-          enable = true;
-          editor = "nvim";
-        };
-        eza.enable = true;
-        git.enable = true;
-        neovim.enable = true;
+        default.enable = true;
 
         atuin = {
           enable = true;
