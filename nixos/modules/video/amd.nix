@@ -9,6 +9,8 @@ in {
   options = {
     custom.video.amd = {
       enable = lib.mkEnableOption "Enable AMD gpu support";
+
+      vrr.enable = lib.mkEnableOption "Enable Variable Refresh Rate support";
     };
   };
 
@@ -18,7 +20,7 @@ in {
     ];
 
     services.xserver = {
-      deviceSection = ''
+      deviceSection = lib.mkIf cfg.vrr.enable ''
         Option "TearFree" "true"
         Option "VariableRefresh" "true"
       '';

@@ -40,7 +40,7 @@
   };
 
   custom = {
-    user = "guus";
+    user.name = "guus";
 
     applications = {
       shell.zsh.enable = true;
@@ -48,7 +48,10 @@
       docker.enable = true;
     };
 
-    video.amd.enable = true;
+    video.amd = {
+      enable = true;
+      vrr.enable = true;
+    };
 
     wm.i3.enable = true;
   };
