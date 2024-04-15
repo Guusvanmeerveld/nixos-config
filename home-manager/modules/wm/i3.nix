@@ -40,14 +40,18 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [playerctl];
 
-    custom.applications = {
-      graphical = {
-        rofi.enable = true;
-      };
+    custom = {
+      wm.theme.default.enable = true;
 
-      services = {
-        dunst.enable = true;
-        polybar.enable = true;
+      applications = {
+        graphical = {
+          rofi.enable = true;
+        };
+
+        services = {
+          dunst.enable = true;
+          polybar.enable = true;
+        };
       };
     };
 

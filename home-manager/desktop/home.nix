@@ -70,42 +70,8 @@
   systemd.user.startServices = "sd-switch";
 
   custom = {
-    wm = {
-      theme = {
-        gtk = {
-          enable = true;
-        };
-
-        font = {
-          name = "Fira Code";
-          package = pkgs.fira-code;
-        };
-
-        background = {
-          primary = "#151515";
-          secondary = "#212121";
-
-          alt = {
-            primary = "#232323";
-            secondary = "#353535";
-          };
-        };
-
-        text = {
-          primary = "#eeeeee";
-          secondary = "#cecece";
-        };
-
-        ok = "#98c379";
-        warn = "#e06c75";
-        error = "#be5046";
-
-        primary = "#2997f2";
-      };
-
-      i3 = {
-        enable = true;
-      };
+    wm.i3 = {
+      enable = true;
     };
 
     applications = {
