@@ -12,7 +12,7 @@
   imports = [
     ../modules
 
-    ./modules
+    ./secrets.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -41,6 +41,9 @@
     };
   };
 
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "security@guusvanmeerveld.dev";
+
   custom = {
     user = {
       name = "guus";
@@ -51,6 +54,41 @@
     };
 
     applications = {
+      services = {
+        nginx.enable = true;
+
+        mailserver = {
+          enable = true;
+          baseDomain = "guusvanmeerveld.dev";
+          accounts = {
+            primary = {
+              passwordFile = config.age.secrets.mailserver-mail-password.path;
+            };
+          };
+        };
+
+        radicale = {
+          enable = true;
+          port = 5232;
+          htpasswdFile = config.age.secrets.radicale-htpasswd.path;
+          domain = "webdav.guusvanmeerveld.dev";
+        };
+
+        miniflux = {
+          enable = true;
+          port = 8082;
+          adminCredentialsFile = config.age.secrets.miniflux.path;
+          domain = "miniflux.guusvanmeerveld.dev";
+        };
+
+        vaultwarden = {
+          enable = true;
+          port = 8222;
+          environmentFile = config.age.secrets.vaultwarden.path;
+          domain = "bitwarden.guusvanmeerveld.dev";
+        };
+      };
+
       shell.zsh.enable = true;
 
       # docker.enable = true;
