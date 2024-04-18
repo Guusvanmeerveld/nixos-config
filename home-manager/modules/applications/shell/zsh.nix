@@ -32,17 +32,16 @@ in {
           [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
         '';
 
-        initExtra =
-          if config.programs.vscode.enable
-          then ''
-            if [ "$TERM_PROGRAM" = "vscode" ]
-            then
-                export EDITOR=codium
-            else
-                export EDITOR=${cfg.editor}
-            fi
-          ''
-          else ''export EDITOR=${cfg.editor}'';
+        initExtra = ''
+          if [ "$TERM_PROGRAM" = "vscode" ]
+          then
+              export EDITOR=codium
+          else
+              export EDITOR=${cfg.editor}
+          fi
+
+          bindkey '^H' backward-kill-word
+        '';
 
         dotDir = ".config/zsh";
         enableAutosuggestions = true;
