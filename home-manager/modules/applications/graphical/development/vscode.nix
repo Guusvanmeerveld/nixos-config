@@ -101,6 +101,7 @@ in {
         bradlc.vscode-tailwindcss
         dbaeumer.vscode-eslint
         kamadorueda.alejandra
+        # muhammad-sammy.csharp
         # jeanp413.open-remote-ssh
         # ms-vscode.atom-keybindings
       ];

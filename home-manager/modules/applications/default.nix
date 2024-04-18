@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./shell ./services ./graphical];
+  imports = [./shell ./services ./graphical ./development];
 }

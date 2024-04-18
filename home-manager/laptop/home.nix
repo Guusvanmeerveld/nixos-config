@@ -16,6 +16,7 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      inputs.rust-overlay.overlays.default
     ];
     config = {
       allowUnfree = true;
@@ -45,6 +46,10 @@
     };
 
     applications = {
+      development = {
+        rust.enable = true;
+      };
+
       services = {
         syncthing.enable = true;
       };

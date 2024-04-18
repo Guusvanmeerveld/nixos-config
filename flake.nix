@@ -43,6 +43,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    rust-overlay.url = "github:oxalica/rust-overlay";
+
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
