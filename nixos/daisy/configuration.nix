@@ -26,7 +26,7 @@
   networking.networkmanager.enable = true;
 
   services.logind.extraConfig = ''
-    RuntimeDirectorySize=1G
+    RuntimeDirectorySize=2G
   '';
 
   services.openssh = {
@@ -60,6 +60,12 @@
           enable = true;
           port = 8081;
           domain = "search.guusvanmeerveld.dev";
+        };
+
+        invidious = {
+          enable = true;
+          port = 8082;
+          domain = "yt.guusvanmeerveld.dev";
         };
       };
 
