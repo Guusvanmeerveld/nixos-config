@@ -1,11 +1,4 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [
     ../modules
   ];
@@ -45,14 +38,7 @@
       };
 
       shell = {
-        zsh = {
-          enable = true;
-          editor = "nvim";
-        };
-        eza.enable = true;
-        git.enable = true;
-        neovim.enable = true;
-
+        default.enable = true;
         atuin = {
           enable = true;
           server = "https://atuin.guusvanmeerveld.dev";
