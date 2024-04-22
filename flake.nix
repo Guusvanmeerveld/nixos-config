@@ -9,7 +9,7 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
     # Nix user repository
-    nur.url = github:nix-community/NUR;
+    nur.url = "github:nix-community/NUR";
 
     # Grub themes
     grub2-themes = {
@@ -44,6 +44,11 @@
     };
 
     rust-overlay.url = "github:oxalica/rust-overlay";
+
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Home manager
     home-manager = {

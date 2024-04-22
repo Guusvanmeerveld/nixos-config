@@ -1,11 +1,4 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [
     ../modules
   ];
@@ -16,6 +9,8 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
+      outputs.overlays.vscode-marketplace
+      outputs.overlays.rust
     ];
     config = {
       allowUnfree = true;
@@ -60,8 +55,6 @@
 
   services.autorandr.enable = true;
 
-  # xsession.initExtra = "autorandr -c";
-
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
@@ -75,6 +68,10 @@
     };
 
     applications = {
+      development = {
+        rust.enable = true;
+      };
+
       services = {
         syncthing.enable = true;
       };

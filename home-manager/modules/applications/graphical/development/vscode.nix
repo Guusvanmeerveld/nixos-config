@@ -18,35 +18,46 @@ in {
       enable = true;
       package = pkgs.vscodium;
 
+      mutableExtensionsDir = false;
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
+
       userSettings = {
-        "explorer.confirmDelete" = false;
-        "workbench.iconTheme" = "material-icon-theme";
-        "explorer.confirmDragAndDrop" = false;
         "window.zoomLevel" = 1;
-        "workbench.colorTheme" = "One Dark Pro";
-        "security.workspace.trust.banner" = "never";
+
+        # Privacy
         "telemetry.telemetryLevel" = "off";
-        "extensions.autoUpdate" = false;
         "security.workspace.trust.enabled" = false;
-        "update.mode" = "manual";
 
-        "terminal.integrated.cursorBlinking" = true;
-
-        "editor.cursorBlinking" = "smooth";
+        # Set themes
+        "workbench.colorTheme" = "One Dark Pro";
+        "workbench.iconTheme" = "material-icon-theme";
 
         "nixEnvSelector.suggestion" = false;
 
+        # Git integration config
         "git.confirmSync" = false;
         "git.autofetch" = true;
         "git.enableSmartCommit" = true;
         "git.openRepositoryInParentFolders" = "always";
         "git.autoStash" = true;
 
+        # Editor config
         "editor.formatOnSave" = true;
+        "editor.fontLigature" = true;
         "editor.fontFamily" = "'${theme.font.name}', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
-        "editor.fontLigatures" = true;
         "editor.minimap.showSlider" = "always";
+        "editor.inlayHints.enabled" = "offUnlessPressed";
+        "editor.cursorBlinking" = "smooth";
 
+        # Explorer config
+        "explorer.confirmDelete" = false;
+        "explorer.confirmDragAndDrop" = false;
+
+        # Integrated terminal config
+        "terminal.integrated.cursorBlinking" = true;
+
+        # Language specific
         "[typescriptreact]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
@@ -69,11 +80,21 @@ in {
 
         "[nix]" = {
           "editor.defaultFormatter" = "kamadorueda.alejandra";
-          "editor.formatOnPaste" = true;
-          "editor.formatOnSave" = true;
-          "editor.formatOnType" = false;
         };
+
         "alejandra.program" = "alejandra";
+
+        "nix" = {
+          "enableLanguageServer" = true;
+          "serverPath" = "nil";
+          "serverSettings" = {
+            "nil" = {
+              "flake" = {
+                "autoEvalInputs" = true;
+              };
+            };
+          };
+        };
 
         "spellright.notificationClass" = "warning";
         "spellright.configurationScope" = "user";
@@ -81,30 +102,31 @@ in {
         "spellright.language" = ["en_US" "nl_NL"];
       };
 
-      extensions = with pkgs.vscode-extensions; [
-        zhuangtongfa.material-theme
-        jnoortheen.nix-ide
-        pkief.material-icon-theme
-        rust-lang.rust-analyzer
-        arrterian.nix-env-selector
-        esbenp.prettier-vscode
-        ms-toolsai.jupyter
-        ms-python.python
-        tamasfe.even-better-toml
-        james-yu.latex-workshop
-        redhat.java
-        vscjava.vscode-maven
-        vscjava.vscode-java-debug
-        vscjava.vscode-java-dependency
-        vadimcn.vscode-lldb
-        ban.spellright
-        bradlc.vscode-tailwindcss
-        dbaeumer.vscode-eslint
-        kamadorueda.alejandra
-        # muhammad-sammy.csharp
-        # jeanp413.open-remote-ssh
-        # ms-vscode.atom-keybindings
-      ];
+      extensions = with pkgs.vscode-marketplace;
+        [
+          zhuangtongfa.material-theme
+          jnoortheen.nix-ide
+          pkief.material-icon-theme
+          rust-lang.rust-analyzer
+          arrterian.nix-env-selector
+          esbenp.prettier-vscode
+          ms-toolsai.jupyter
+          ms-python.python
+          tamasfe.even-better-toml
+          james-yu.latex-workshop
+          redhat.java
+          vscjava.vscode-maven
+          vscjava.vscode-java-debug
+          vscjava.vscode-java-dependency
+          vadimcn.vscode-lldb
+          ban.spellright
+          bradlc.vscode-tailwindcss
+          dbaeumer.vscode-eslint
+          # ms-dotnettools.csharp
+          # ms-vscode-remote.remote-ssh
+          ms-vscode.atom-keybindings
+        ]
+        ++ (with pkgs.open-vsx; [jeanp413.open-remote-ssh muhammad-sammy.csharp kamadorueda.alejandra]);
     };
 
     home.packages = with pkgs; [
@@ -112,6 +134,7 @@ in {
       hunspell
       hunspellDicts.en_US
       hunspellDicts.nl_nl
+      nil
       alejandra
     ];
   };

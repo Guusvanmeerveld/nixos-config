@@ -12,6 +12,10 @@
     # });
   };
 
+  vscode-marketplace = inputs.vscode-extensions.overlays.default;
+
+  rust = inputs.rust-overlay.overlays.default;
+
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'
   unstable-packages = final: _prev: {
