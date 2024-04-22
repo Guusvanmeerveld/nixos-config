@@ -21,7 +21,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide meslo-lgs-nf];
+    home.packages = with pkgs; [zoxide meslo-lgs-nf nix-output-monitor];
 
     programs = {
       zsh = {
@@ -59,7 +59,8 @@ in {
 
         shellAliases = {
           hms = "home-manager switch --flake $NIX_CONFIG_LOCATION -b backup";
-          nbs = "sudo nixos-rebuild switch --flake $NIX_CONFIG_LOCATION";
+          nbs = "sudo nixos-rebuild switch --flake $NIX_CONFIG_LOCATION --log-format internal-json -v |& nom --json";
+          nix = "nom";
 
           edit = "$EDITOR";
 
