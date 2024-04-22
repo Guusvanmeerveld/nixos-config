@@ -16,7 +16,8 @@
       outputs.overlays.additions
       outputs.overlays.modifications
       outputs.overlays.unstable-packages
-      inputs.rust-overlay.overlays.default
+      outputs.overlays.vscode-marketplace
+      outputs.overlays.rust
     ];
     config = {
       allowUnfree = true;
