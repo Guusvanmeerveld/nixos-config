@@ -44,7 +44,7 @@ in {
 
         # Editor config
         "editor.formatOnSave" = true;
-        "editor.fontLigature" = true;
+        "editor.fontLigatures" = true;
         "editor.fontFamily" = "'${theme.font.name}', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
         "editor.minimap.showSlider" = "always";
         "editor.inlayHints.enabled" = "offUnlessPressed";
