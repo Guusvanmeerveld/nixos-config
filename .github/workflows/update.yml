@@ -16,8 +16,11 @@ jobs:
 
       - name: Install Nix
         uses: cachix/install-nix-action@v25
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
 
       - name: Update flake lock file
         run: nix flake update --commit-lock-file
