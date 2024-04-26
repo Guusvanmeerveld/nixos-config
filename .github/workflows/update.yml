@@ -1,21 +1,29 @@
 name: Update flake lock file
+
 on:
   schedule:
     - cron: "0 4 * * 6"
   workflow_dispatch:
+
 jobs:
   update:
     name: Update flake inputs
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v25
+      - name: Install Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: nix flake update --commit-lock-file --recreate-lock-file
+      - name: Update flake lock file
+        run: nix flake update --commit-lock-file
 
-      - uses: peter-evans/create-pull-request@v6
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
         with:
           branch: bot/update
           delete-branch: true
