@@ -29,5 +29,7 @@ in {
         openssh.authorizedKeys.keys = cfg.user.authorizedKeys;
       };
     };
+
+    nix.settings.trusted-users = ["root" cfg.user.name];
   };
 }
