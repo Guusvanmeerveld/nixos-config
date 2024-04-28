@@ -20,9 +20,9 @@ in {
   config = lib.mkIf cfg.enable {
     services.vscode-server = {
       enable = true;
-      installPath = "~/.vscodium-server";
+      installPath = "$HOME/.vscodium-server";
     };
 
-    home.packages = with pkgs; [alejandra];
+    home.packages = with pkgs; [alejandra nil];
   };
 }
