@@ -1,11 +1,9 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.kitty;
-  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.kitty = {
@@ -22,18 +20,27 @@ in {
       };
 
       settings = {
-        foreground = theme.text.primary;
-        background = theme.background.primary;
+        foreground = "#${config.colorScheme.palette.base05}";
+        background = "#${config.colorScheme.palette.base00}";
 
-        background_opacity = "0.9";
+        # background_opacity = "0.9";
 
-        selection_foreground = theme.text.primary;
-        selection_background = theme.primary;
+        selection_foreground = "#${config.colorScheme.palette.base06}";
+        selection_background = "#${config.colorScheme.palette.base0D}";
+
+        color0 = "#${config.colorScheme.palette.base01}";
+        color1 = "#${config.colorScheme.palette.base08}";
+        color2 = "#${config.colorScheme.palette.base0B}";
+        color3 = "#${config.colorScheme.palette.base0A}";
+        color4 = "#${config.colorScheme.palette.base0D}";
+        color5 = "#${config.colorScheme.palette.base0E}";
+        color6 = "#${config.colorScheme.palette.base0C}";
+        color7 = "#${config.colorScheme.palette.base07}";
       };
 
       font = {
         size = 14;
-        name = config.custom.wm.theme.font.name;
+        name = "Fira Code";
       };
     };
   };

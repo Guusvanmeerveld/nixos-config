@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  theme = config.custom.wm.theme;
   cfg = config.custom.wm.i3;
 
   prog = {
@@ -17,11 +16,6 @@
     schildichat = "SchildiChat";
     discord = "ArmCord";
     steam = "steam";
-  };
-
-  betterlockscreen = {
-    pkg = pkgs.betterlockscreen;
-    command = "${pkgs.betterlockscreen}/bin/betterlockscreen";
   };
 in {
   options = {
@@ -38,11 +32,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [playerctl];
+    home.packages = with pkgs; [playerctl light pulseaudio];
 
     custom = {
-      wm.theme.default.enable = true;
-
       applications = {
         graphical = {
           rofi.enable = true;
@@ -51,17 +43,13 @@ in {
         services = {
           dunst.enable = true;
           polybar.enable = true;
+          betterlockscreen.enable = true;
         };
       };
     };
 
     services = {
       picom.enable = true;
-
-      betterlockscreen = {
-        enable = true;
-        package = betterlockscreen.pkg;
-      };
     };
 
     xsession.windowManager.i3 = {
@@ -76,22 +64,21 @@ in {
         modifier = cfg.mod;
         workspaceAutoBackAndForth = true;
 
-        startup = [
-          {
+        startup =
+          lib.optional config.services.betterlockscreen.enable {
+            command = "${config.services.betterlockscreen.package}/bin/betterlockscreen -l blur";
+            notification = false;
+          }
+          ++ lib.optional config.services.polybar.enable {
             command = "systemctl --user restart polybar";
             always = true;
             notification = false;
-          }
-          {
-            command = "${betterlockscreen.command} -l blur";
-            notification = false;
-          }
-        ];
+          };
 
-        menu = "${pkgs.rofi}/bin/rofi";
+        menu = lib.mkIf config.programs.rofi.enable "${pkgs.rofi}/bin/rofi";
 
         fonts = {
-          names = [theme.font.name];
+          names = ["Fira Code"];
           size = 12.0;
         };
 
@@ -103,25 +90,25 @@ in {
 
         colors = {
           focused = {
-            background = theme.background.primary;
-            border = theme.background.secondary;
-            childBorder = theme.background.secondary;
-            indicator = theme.background.secondary;
-            text = theme.text.primary;
+            background = "#${config.colorScheme.palette.base00}";
+            border = "#${config.colorScheme.palette.base02}";
+            childBorder = "#${config.colorScheme.palette.base02}";
+            indicator = "#${config.colorScheme.palette.base02}";
+            text = "#${config.colorScheme.palette.base06}";
           };
           unfocused = {
-            background = theme.background.alt.primary;
-            border = theme.background.alt.secondary;
-            childBorder = theme.background.alt.secondary;
-            indicator = theme.background.alt.secondary;
-            text = theme.text.secondary;
+            background = "#${config.colorScheme.palette.base05}";
+            border = "#${config.colorScheme.palette.base01}";
+            childBorder = "#${config.colorScheme.palette.base01}";
+            indicator = "#${config.colorScheme.palette.base01}";
+            text = "#${config.colorScheme.palette.base05}";
           };
           urgent = {
-            background = theme.background.primary;
-            border = theme.warn;
-            childBorder = theme.warn;
-            indicator = theme.warn;
-            text = theme.text.primary;
+            background = "#${config.colorScheme.palette.base00}";
+            border = "#${config.colorScheme.palette.base0A}";
+            childBorder = "#${config.colorScheme.palette.base0A}";
+            indicator = "#${config.colorScheme.palette.base0A}";
+            text = "#${config.colorScheme.palette.base06}";
           };
         };
 
@@ -186,7 +173,7 @@ in {
 
         keybindings = lib.mkOptionDefault {
           "${cfg.mod}+space" = "exec ${pkgs.rofi}/bin/rofi -show combi";
-          "${cfg.mod}+Return" = "exec ${pkgs.kitty}/bin/kitty";
+          "${cfg.mod}+Return" = lib.mkIf config.programs.kitty.enable "exec ${pkgs.kitty}/bin/kitty";
 
           "${cfg.mod}+w" = "kill";
 
@@ -197,7 +184,7 @@ in {
 
           "${cfg.mod}+e" = "exec ${pkgs.xfce.thunar}/bin/thunar";
 
-          "${cfg.mod}+0" = "exec --no-startup-id ${betterlockscreen.command} -l dim";
+          "${cfg.mod}+0" = lib.mkIf config.services.betterlockscreen.enable "exec --no-startup-id ${config.services.betterlockscreen.package}/bin/betterlockscreen -l dim";
 
           # Focus
           "${cfg.mod}+h" = "focus left";
@@ -224,7 +211,7 @@ in {
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5%";
           "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5%";
 
-          "Print" = "exec flameshot gui";
+          "Print" = lib.mkIf config.services.flameshot.enable "exec flameshot gui";
 
           # Applications
           "${cfg.mod}+z" = "[ class=^${prog.discord}$ ] focus";

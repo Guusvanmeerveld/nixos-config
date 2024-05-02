@@ -24,15 +24,8 @@ in {
       pulse.enable = true;
     };
 
-    sound = {
-      enable = true;
-      mediaKeys.enable = true;
-    };
-
     hardware = {
       pulseaudio.enable = false;
     };
-
-    environment.systemPackages = with pkgs; [pulseaudio];
   };
 }

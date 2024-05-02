@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.custom.applications.services.polybar;
-  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.services.polybar = {
@@ -31,7 +30,7 @@ in {
       package =
         pkgs.polybar.override
         {
-          i3Support = true;
+          i3Support = config.xsession.windowManager.i3.enable;
           alsaSupport = true;
           pulseSupport = true;
         };
@@ -50,14 +49,14 @@ in {
           radius = "0.0";
           fixed-center = true;
 
-          background = theme.background.primary;
-          foreground = theme.text.primary;
+          background = "#${config.colorScheme.palette.base00}";
+          foreground = "#${config.colorScheme.palette.base06}";
 
           line-size = 4;
-          line-color = theme.text.primary;
+          line-color = "#${config.colorScheme.palette.base06}";
 
           border-size = 0;
-          border-color = theme.background.secondary;
+          border-color = "#${config.colorScheme.palette.base02}";
 
           padding-left = 0;
           padding-right = 0;
@@ -65,7 +64,7 @@ in {
           module-margin-left = 0;
           module-margin-right = 0;
 
-          font-0 = "${theme.font.name}:fontformat=truetype:size=12;1";
+          font-0 = "Fira Code:fontformat=truetype:size=12;1";
           font-1 = "Font Awesome 6 Free,Font Awesome 6 Free Solid:style=Solid:size=12;1";
 
           modules-left = "i3";
@@ -78,8 +77,6 @@ in {
           tray-offset-x = "0%";
           tray-maxsize = 18;
           tray-detached = false;
-          tray-background = theme.background.primary;
-          tray-underline = theme.primary;
 
           # wm-restack = "i3";
         };
@@ -94,14 +91,14 @@ in {
           format = "<label-state> <label-mode>";
 
           label-focused = "%index%";
-          label-focused-foreground = theme.text.primary;
-          label-focused-background = theme.background.secondary;
-          label-focused-underline = theme.primary;
+          label-focused-foreground = "#${config.colorScheme.palette.base05}";
+          label-focused-background = "#${config.colorScheme.palette.base02}";
+          label-focused-underline = "#${config.colorScheme.palette.base0D}";
           label-focused-padding = 2;
 
           label-mode = "%mode%";
           label-mode-padding = 2;
-          label-mode-background = theme.primary;
+          label-mode-background = "#${config.colorScheme.palette.base0D}";
 
           label-unfocused = "%index%";
           label-unfocused-padding = 2;
@@ -122,8 +119,8 @@ in {
           date = "%a %b %d";
           time = "%H:%M";
 
-          format-prefix-foreground = theme.text.primary;
-          format-underline = theme.primary;
+          format-prefix-foreground = "#${config.colorScheme.palette.base06}";
+          format-underline = "#${config.colorScheme.palette.base0D}";
 
           label = "%date%, %time%";
         };
@@ -137,13 +134,13 @@ in {
           format-connected = "<label-connected>";
 
           label-connected = "";
-          label-connected-foreground = theme.text.primary;
+          label-connected-foreground = "#${config.colorScheme.palette.base06}";
           format-connected-padding = 1;
 
           format-disconnected = "<label-disconnected>";
 
           label-disconnected = "";
-          label-disconnected-foreground = theme.warn;
+          label-disconnected-foreground = "#${config.colorScheme.palette.base0A}";
           format-disconnected-padding = 1;
         };
 
@@ -155,13 +152,13 @@ in {
           format-connected = "<label-connected>";
 
           label-connected = "";
-          label-connected-foreground = theme.text.primary;
+          label-connected-foreground = "#${config.colorScheme.palette.base06}";
 
           format-disconnected = "<label-disconnected>";
           format-disconnected-padding = 1;
 
           label-disconnected = "";
-          label-disconnected-foreground = theme.warn;
+          label-disconnected-foreground = "#${config.colorScheme.palette.base0A}";
 
           click-right = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 

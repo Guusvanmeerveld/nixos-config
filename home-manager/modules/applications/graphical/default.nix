@@ -20,6 +20,7 @@ in {
     ./thunar.nix
     ./spotify.nix
     ./jellyfin.nix
+    ./gtk.nix
   ];
 
   options = {

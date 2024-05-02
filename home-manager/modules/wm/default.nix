@@ -1,3 +1,3 @@
-{...}: {
-  imports = [./i3.nix ./theme];
+{
+  imports = [./i3.nix];
 }

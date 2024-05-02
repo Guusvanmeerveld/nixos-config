@@ -11,6 +11,8 @@
     # Nix user repository
     nur.url = "github:nix-community/NUR";
 
+    nix-colors.url = "github:misterio77/nix-colors";
+
     # Grub themes
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
@@ -60,6 +62,7 @@
   outputs = {
     self,
     nixpkgs,
+    nix-colors,
     home-manager,
     ...
   } @ inputs: let

@@ -4,7 +4,6 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.flameshot;
-  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.flameshot = {
@@ -20,8 +19,8 @@ in {
           disabledTrayIcon = true;
           showHelp = false;
 
-          uiColor = theme.primary;
-          contrastUiColor = theme.text.primary;
+          uiColor = "#${config.colorScheme.palette.base0D}";
+          contrastUiColor = "#${config.colorScheme.palette.base07}";
         };
       };
     };

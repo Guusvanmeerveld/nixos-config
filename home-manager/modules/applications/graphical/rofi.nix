@@ -4,7 +4,6 @@
   pkgs,
   ...
 }: let
-  theme = config.custom.wm.theme;
   cfg = config.custom.applications.graphical.rofi;
 in {
   options = {
@@ -17,7 +16,7 @@ in {
     programs.rofi = {
       enable = true;
 
-      font = "${theme.font.name} 14";
+      font = "Fira Code 14";
 
       cycle = true;
 
@@ -50,8 +49,8 @@ in {
           padding = 0;
           spacing = 0;
 
-          background-color = mkLiteral theme.background.primary;
-          text-color = mkLiteral theme.text.primary;
+          background-color = mkLiteral "#${config.colorScheme.palette.base00}";
+          text-color = mkLiteral "#${config.colorScheme.palette.base06}";
         };
 
         "window" = {
@@ -63,7 +62,7 @@ in {
         };
 
         "inputbar" = {
-          background-color = mkLiteral theme.background.alt.primary;
+          background-color = mkLiteral "#${config.colorScheme.palette.base03}";
           children = map mkLiteral ["prompt" "entry"];
         };
 
@@ -92,11 +91,11 @@ in {
 
         "element-text" = {
           padding = mkLiteral "10px 0";
-          text-color = mkLiteral theme.text.secondary;
+          text-color = mkLiteral "#${config.colorScheme.palette.base05}";
         };
 
         "element-text selected" = {
-          text-color = mkLiteral theme.text.primary;
+          text-color = mkLiteral "#${config.colorScheme.palette.base06}";
         };
       };
 

@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.development.vscode;
-  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.graphical.development.vscode = {
@@ -45,7 +44,7 @@ in {
         # Editor config
         "editor.formatOnSave" = true;
         "editor.fontLigatures" = true;
-        "editor.fontFamily" = "'${theme.font.name}', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
+        "editor.fontFamily" = "'Fira Code', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
         "editor.minimap.showSlider" = "always";
         "editor.inlayHints.enabled" = "offUnlessPressed";
         "editor.cursorBlinking" = "smooth";

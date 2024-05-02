@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.wm.theme.gtk;
+  cfg = config.custom.applications.graphical.gtk;
 in {
   options = {
-    custom.wm.theme.gtk = {
+    custom.applications.graphical.gtk = {
       enable = lib.mkEnableOption "Enable GTK 3/4 theming";
     };
   };

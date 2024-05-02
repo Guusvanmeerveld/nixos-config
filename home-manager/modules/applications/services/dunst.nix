@@ -4,7 +4,6 @@
   ...
 }: let
   cfg = config.custom.applications.services.dunst;
-  theme = config.custom.wm.theme;
 in {
   options = {
     custom.applications.services.dunst = {
@@ -27,8 +26,8 @@ in {
           transparency = 10;
           frame_width = 1;
 
-          frame_color = theme.background.secondary;
-          font = theme.font.name;
+          frame_color = "#${config.colorScheme.palette.base02}";
+          font = "Fira Code";
 
           mouse_left = "do_action";
           mouse_middle = "close_current";
@@ -36,8 +35,8 @@ in {
         };
 
         urgency_normal = {
-          background = theme.background.primary;
-          foreground = theme.text.primary;
+          background = "#${config.colorScheme.palette.base00}";
+          foreground = "#${config.colorScheme.palette.base07}";
           timeout = 10;
         };
       };
