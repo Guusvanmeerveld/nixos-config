@@ -1,11 +1,13 @@
 {
+  outputs,
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.messaging.discord;
 in {
+  imports = [outputs.homeManagerModules.armcord];
+
   options = {
     custom.applications.graphical.messaging.discord = {
       enable = lib.mkEnableOption "Enable Discord client";
@@ -13,6 +15,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [armcord];
+    programs.armcord = {
+      enable = true;
+      settings = {
+        windowStyle = "native";
+        mods = "vencord";
+        minimizeToTray = false;
+        tray = false;
+        doneSetup = true;
+        skipSplash = true;
+      };
+    };
   };
 }
