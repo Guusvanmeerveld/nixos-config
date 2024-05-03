@@ -20,6 +20,8 @@ in {
   config = lib.mkIf cfg.enable {
     services.vscode-server = {
       enable = true;
+      enableFHS = true;
+      
       installPath = "$HOME/.vscodium-server";
     };
 
