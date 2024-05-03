@@ -13,6 +13,11 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Grub themes
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
