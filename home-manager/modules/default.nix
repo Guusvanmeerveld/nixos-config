@@ -11,4 +11,8 @@
       default = "${config.home.homeDirectory}/nix/config";
     };
   };
+
+  config = {
+    news.display = "silent";
+  };
 }
