@@ -87,6 +87,12 @@
           environmentFile = config.age.secrets.vaultwarden.path;
           domain = "bitwarden.guusvanmeerveld.dev";
         };
+
+        syncthing = {
+          enable = true;
+          port = 8384;
+          domain = "rose-sync.guusvanmeerveld.dev";
+        };
       };
 
       shell.zsh.enable = true;
