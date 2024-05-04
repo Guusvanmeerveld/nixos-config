@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.development.vscode;
+  vscodeVersion = config.programs.vscode.package.version;
 in {
   options = {
     custom.applications.graphical.development.vscode = {
@@ -15,7 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      package = pkgs.unstable.vscodium;
 
       mutableExtensionsDir = false;
       enableUpdateCheck = false;
@@ -53,8 +54,11 @@ in {
         "explorer.confirmDelete" = false;
         "explorer.confirmDragAndDrop" = false;
 
+        "update.showReleaseNotes" = false;
+
         # Integrated terminal config
         "terminal.integrated.cursorBlinking" = true;
+        "terminal.integrated.showExitAlert" = false;
 
         # Language specific
         "[typescriptreact]" = {
@@ -78,19 +82,15 @@ in {
         };
 
         "[nix]" = {
-          "editor.defaultFormatter" = "kamadorueda.alejandra";
+          "editor.defaultFormatter" = "jnoortheen.nix-ide";
         };
 
-        "alejandra.program" = "alejandra";
-
-        "nix" = {
-          "enableLanguageServer" = true;
-          "serverPath" = "nil";
-          "serverSettings" = {
-            "nil" = {
-              "flake" = {
-                "autoEvalInputs" = true;
-              };
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
+        "nix.serverSettings" = {
+          nil = {
+            formatting = {
+              command = ["alejandra"];
             };
           };
         };
@@ -101,35 +101,52 @@ in {
         "spellright.language" = ["en_US" "nl_NL"];
       };
 
-      extensions = with pkgs.vscode-marketplace;
+      extensions = with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace;
         [
+          # Theme
           zhuangtongfa.material-theme
-          jnoortheen.nix-ide
           pkief.material-icon-theme
-          rust-lang.rust-analyzer
+
+          # Keybindings
+          ms-vscode.atom-keybindings
+
+          # NixOS
           arrterian.nix-env-selector
-          esbenp.prettier-vscode
+
+          # LSPs
+          jnoortheen.nix-ide
+          rust-lang.rust-analyzer
           ms-toolsai.jupyter
-          ms-python.python
           tamasfe.even-better-toml
-          james-yu.latex-workshop
           redhat.java
           vscjava.vscode-maven
           vscjava.vscode-java-debug
           vscjava.vscode-java-dependency
           vadimcn.vscode-lldb
-          ban.spellright
           bradlc.vscode-tailwindcss
+
+          # Tools
+          esbenp.prettier-vscode
           dbaeumer.vscode-eslint
-          # ms-dotnettools.csharp
-          # ms-vscode-remote.remote-ssh
-          ms-vscode.atom-keybindings
+          james-yu.latex-workshop
+
+          ms-vscode-remote.remote-containers
+
+          # Spelling
+          ban.spellright
         ]
-        ++ (with pkgs.open-vsx; [jeanp413.open-remote-ssh muhammad-sammy.csharp kamadorueda.alejandra]);
+        ++ (with pkgs.open-vsx; [
+          jeanp413.open-remote-ssh
+          # Tools
+
+          ms-python.python
+
+          # LSPs
+          muhammad-sammy.csharp
+        ]);
     };
 
     home.packages = with pkgs; [
-      nixpkgs-fmt
       hunspell
       hunspellDicts.en_US
       hunspellDicts.nl_nl
