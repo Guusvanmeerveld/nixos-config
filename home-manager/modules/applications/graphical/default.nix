@@ -38,6 +38,7 @@ in {
       flameshot.enable = true;
       thunar.enable = true;
       spotify.enable = true;
+      gtk.enable = true;
     };
   };
 }
