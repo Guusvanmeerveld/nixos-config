@@ -12,6 +12,8 @@
   imports = [
     ../modules
 
+    ./secrets.nix
+
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
@@ -66,6 +68,13 @@
           enable = true;
           port = 8082;
           domain = "yt.guusvanmeerveld.dev";
+        };
+
+        jupyter = {
+          enable = true;
+          port = 8083;
+          passwordFile = config.age.secrets.jupyter.path;
+          domain = "jupyter.guusvanmeerveld.dev";
         };
       };
 
