@@ -170,8 +170,8 @@ in {
 
         serviceConfig = {
           Restart = "always";
-          ExecStart = ''            ${package}/bin/${cfg.command} \
-                        --ServerApp.open_browser=False |
+          ExecStart = ''${package}/bin/${cfg.command} \
+                        --no-browser \
                         --ip=${cfg.ip} \
                         --port=${toString cfg.port} --port-retries 0 \
                         --notebook-dir=${cfg.notebookDir} \
