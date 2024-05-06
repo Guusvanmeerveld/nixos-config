@@ -47,17 +47,18 @@ in {
 
         kernels = {
           python3 = let
-            env = (pkgs.python3.withPackages (pythonPackages: with pythonPackages; [
-              pandas
-              numpy
-              scikit-learn
-              matplotlib
-              ipykernel
-              jupyter
-              scipy
-              autopep8
-              seaborn
-            ]));
+            env = pkgs.python3.withPackages (pythonPackages:
+              with pythonPackages; [
+                pandas
+                numpy
+                scikit-learn
+                matplotlib
+                ipykernel
+                jupyter
+                scipy
+                autopep8
+                seaborn
+              ]);
           in {
             displayName = "Python 3 for machine learning";
             argv = [
