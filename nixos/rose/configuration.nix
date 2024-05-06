@@ -93,6 +93,13 @@
           port = 8384;
           domain = "rose-sync.guusvanmeerveld.dev";
         };
+
+        jupyter = {
+          enable = true;
+          port = 8083;
+          passwordFile = config.age.secrets.jupyter.path;
+          domain = "jupyter.guusvanmeerveld.dev";
+        };
       };
 
       shell.zsh.enable = true;

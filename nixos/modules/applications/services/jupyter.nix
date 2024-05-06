@@ -37,30 +37,59 @@ in {
         enable = true;
 
         password = "open(${cfg.passwordFile}, 'r', encoding='utf8').read().strip()";
+        allowRemoteAccess = true;
 
         port = cfg.port;
 
-        notebookConfig = ''
-          c.ServerApp.allow_password_change = False
-          c.ServerApp.allow_remote_access = True
-        '';
-
         kernels = {
           python3 = let
-            env = pkgs.python3.withPackages (pythonPackages:
-              with pythonPackages; [
-                pandas
-                numpy
-                scikit-learn
-                matplotlib
-                ipykernel
-                jupyter
-                scipy
-                autopep8
-                seaborn
-              ]);
+            pyjags = pkgs.python311.pkgs.buildPythonPackage
+              rec {
+                pname = "pyjags";
+                version = "1.3.8";
+                format = "pyproject";
+
+                nativeBuildInputs = with pkgs; [
+                  python311.pkgs.flit-core
+                  pkg-config
+                ];
+
+                propagatedBuildInputs = with pkgs.python311.pkgs;
+                  [
+                    setuptools
+                    numpy
+                    pybind11
+                    arviz
+                    deepdish
+                  ] ++ (with pkgs; [
+                    jags
+                  ]);
+
+                src = pkgs.fetchFromGitHub {
+                  owner = "michaelnowotny";
+                  repo = "pyjags";
+                  rev = "9fc67d2b9d17b629a05ce2edc79567802a95aa1f";
+                  hash = "sha256-LkNUs13feb6p1NZ7Cucy0UDS9VjSP2ytw1G1bKwystI=";
+                };
+              };
+
+              env = pkgs.python3.withPackages (pythonPackages:
+                (with pythonPackages; [
+                  ipykernel
+                  jupyter-collaboration
+                  jupyter
+
+                  pandas
+                  numpy
+                  scipy
+
+                  seaborn
+                  matplotlib
+                  
+                  scikit-learn
+                ]) ++ [pyjags]);
           in {
-            displayName = "Python 3 for machine learning";
+            displayName = "Python 3 for Bayesian statistics";
             argv = [
               "${env.interpreter}"
               "-m"
@@ -83,6 +112,7 @@ in {
             locations."/" = {
               proxyPass = "http://localhost:${toString cfg.port}/";
               recommendedProxySettings = true;
+              proxyWebsockets = true;
             };
           };
         };

@@ -16,11 +16,7 @@ with lib; let
       else pkgs.jupyter-kernel.default;
   };
 
-  notebookConfig = pkgs.writeText "jupyter_config.py" ''
-    ${cfg.notebookConfig}
-
-    c.ServerApp.password = ${cfg.password}
-  '';
+  notebookConfig = pkgs.writeText "jupyter_config.py" cfg.notebookConfig;
 in {
   meta.maintainers = with maintainers; [aborsu];
 
@@ -102,6 +98,8 @@ in {
       example = "'sha1:1b961dc713fb:88483270a63e57d18d43cf337e629539de1436ba'";
     };
 
+    allowRemoteAccess = mkEnableOption "Allow other ip addresses than the one set in the config to access the service";
+
     notebookConfig = mkOption {
       type = types.lines;
       default = "";
@@ -173,13 +171,30 @@ in {
           ExecStart = ''${package}/bin/${cfg.command} \
                         --no-browser \
                         --ip=${cfg.ip} \
+                        ${optionalString cfg.allowRemoteAccess "--ServerApp.allow_remote_access=True \\"}
                         --port=${toString cfg.port} --port-retries 0 \
-                        --notebook-dir=${cfg.notebookDir} \
-                        --JupyterNotebookApp.config_file=${notebookConfig}
+                        --notebook-dir=${cfg.notebookDir}
           '';
           User = cfg.user;
           Group = cfg.group;
           WorkingDirectory = "~";
+
+          ProtectHome = false;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectHostname = true;
+          ProtectClock = true;
+          ProtectKernelTunables = true;
+          ProtectKernelModules = true;
+          ProtectKernelLogs = true;
+          ProtectControlGroups = true;
+          # RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+          RestrictNamespaces = true;
+          LockPersonality = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          RemoveIPC = true;
+          PrivateMounts = true;
         };
       };
     })

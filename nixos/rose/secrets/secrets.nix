@@ -5,4 +5,5 @@ in {
   "radicale-htpasswd.age".publicKeys = [rose];
   "miniflux.age".publicKeys = [rose];
   "vaultwarden.age".publicKeys = [rose];
+  "jupyter.age".publicKeys = [rose];
 }
