@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  miner:
+    image: rdavidoff/twitch-channel-points-miner-v2
+    container_name: twitch-miner
+    restart: unless-stopped
+
+    # stdin_open: true
+    # tty: true
+    # environment:
+    #   - TERM=xterm-256color
+    
+    volumes:
+      - analytics:/usr/src/app/analytics
+      - cookies:/usr/src/app/cookies
+      - logs:/usr/src/app/logs
+      - ./run.py:/usr/src/app/run.py:ro
+
+volumes:
+  logs:
+  analytics:
+  cookies:

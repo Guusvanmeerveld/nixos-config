@@ -72,7 +72,7 @@
       };
 
       shell.zsh.enable = true;
-      # docker.enable = true;
+      docker.enable = true;
     };
   };
 
