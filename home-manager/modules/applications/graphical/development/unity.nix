@@ -13,6 +13,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [unityhub];
+    home.packages = with pkgs; [unityhub ffmpeg];
   };
 }
