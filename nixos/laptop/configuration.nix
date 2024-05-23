@@ -21,6 +21,18 @@
   boot.loader.timeout = 0;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  nixpkgs = {
+    overlays = [
+      outputs.overlays.additions
+      outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+    ];
+
+    config = {
+      allowUnfree = false;
+    };
+  };
+
   networking.hostName = "laptop";
 
   # Enable networking
@@ -46,6 +58,7 @@
       shell.zsh.enable = true;
 
       docker.enable = true;
+      android.enable = true;
     };
 
     video.amd = {
