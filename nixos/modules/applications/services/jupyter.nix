@@ -36,47 +36,51 @@ in {
       jupyter-server = {
         enable = true;
 
-        password = "open(${cfg.passwordFile}, 'r', encoding='utf8').read().strip()";
-        allowRemoteAccess = true;
+        password = "open('${cfg.passwordFile}', 'r', encoding='utf8').read().strip()";
 
         port = cfg.port;
 
+        notebookConfig = ''
+          c.ServerApp.allow_remote_access = True
+        '';
+
         kernels = {
-          python3 = let
-            pyjags = pkgs.python311.pkgs.buildPythonPackage
-              rec {
-                pname = "pyjags";
-                version = "1.3.8";
-                format = "pyproject";
+           deeplearning = let
+              env = pkgs.python3.withPackages (pythonPackages:
+                with pythonPackages; [
+                  ipykernel
+                  jupyter
 
-                nativeBuildInputs = with pkgs; [
-                  python311.pkgs.flit-core
-                  pkg-config
-                ];
+                  pandas
+                  numpy
+                  scipy
 
-                propagatedBuildInputs = with pkgs.python311.pkgs;
-                  [
-                    setuptools
-                    numpy
-                    pybind11
-                    arviz
-                    deepdish
-                  ] ++ (with pkgs; [
-                    jags
-                  ]);
+                  seaborn
+                  matplotlib
+                  
+                  pillow
+                  
+                  scikit-learn
+                  pytorch
+                  torchvision
 
-                src = pkgs.fetchFromGitHub {
-                  owner = "michaelnowotny";
-                  repo = "pyjags";
-                  rev = "9fc67d2b9d17b629a05ce2edc79567802a95aa1f";
-                  hash = "sha256-LkNUs13feb6p1NZ7Cucy0UDS9VjSP2ytw1G1bKwystI=";
-                };
-              };
-
+                  nltk
+                ] ++ [pkgs.textblob]);
+            in {
+              displayName = "Python 3 for Deep learning";
+              argv = [
+                "${env.interpreter}"
+                "-m"
+                "ipykernel_launcher"
+                "-f"
+                "{connection_file}"
+              ];
+              language = "python";
+            };
+          bayesian = let
               env = pkgs.python3.withPackages (pythonPackages:
                 (with pythonPackages; [
                   ipykernel
-                  jupyter-collaboration
                   jupyter
 
                   pandas
@@ -87,7 +91,7 @@ in {
                   matplotlib
                   
                   scikit-learn
-                ]) ++ [pyjags]);
+                ]) ++ [pkgs.pyjags]);
           in {
             displayName = "Python 3 for Bayesian statistics";
             argv = [
@@ -98,8 +102,6 @@ in {
               "{connection_file}"
             ];
             language = "python";
-            # logo32 = "${env.sitePackages}/ipykernel/resources/logo-32x32.png";
-            # logo64 = "${env.sitePackages}/ipykernel/resources/logo-64x64.png";
           };
         };
       };
