@@ -8,5 +8,8 @@
   };
   age.secrets.miniflux.file = ./secrets/miniflux.age;
   age.secrets.vaultwarden.file = ./secrets/vaultwarden.age;
-  age.secrets.jupyter.file = ./secrets/jupyter.age;
+  age.secrets.jupyter = {
+    file = ./secrets/jupyter.age;
+    owner = "jupyter";
+  };
 }
