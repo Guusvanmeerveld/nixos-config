@@ -16,6 +16,8 @@ in {
       enable = true;
       userName = "Guus van Meerveld";
       userEmail = "mail@guusvanmeerveld.dev";
+
+      lfs.enable = true;
     };
   };
 }
