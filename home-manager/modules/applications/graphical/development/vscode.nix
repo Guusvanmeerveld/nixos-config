@@ -99,6 +99,9 @@ in {
         "spellright.configurationScope" = "user";
         "spellright.suggestionsInHints" = false;
         "spellright.language" = ["en_US" "nl_NL"];
+
+        "jupyter.experiments.enabled" = false;
+        "jupyter.themeMatplotlibPlots" = true;
       };
 
       extensions = with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace;
@@ -116,7 +119,6 @@ in {
           # LSPs
           jnoortheen.nix-ide
           rust-lang.rust-analyzer
-          ms-toolsai.jupyter
           tamasfe.even-better-toml
           redhat.java
           vscjava.vscode-maven
@@ -135,12 +137,12 @@ in {
           # Spelling
           ban.spellright
         ]
-        ++ (with pkgs.open-vsx; [
+        ++ (with (pkgs.forVSCodeVersion vscodeVersion).open-vsx; [
           jeanp413.open-remote-ssh
           # Tools
 
+          ms-toolsai.jupyter
           ms-python.python
-
           # LSPs
           muhammad-sammy.csharp
         ]);

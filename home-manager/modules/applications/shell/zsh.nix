@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   config,
   pkgs,
@@ -44,7 +43,7 @@ in {
         '';
 
         dotDir = ".config/zsh";
-        enableAutosuggestions = true;
+        autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
 
         history = {

@@ -23,7 +23,7 @@ in {
       colorschemes.onedark.enable = true;
       plugins.lightline.enable = true;
 
-      options = {
+      opts = {
         number = true;
         relativenumber = true;
         ignorecase = true;

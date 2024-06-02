@@ -93,12 +93,12 @@ in {
           label-focused = "%index%";
           label-focused-foreground = "#${config.colorScheme.palette.base05}";
           label-focused-background = "#${config.colorScheme.palette.base02}";
-          label-focused-underline = "#${config.colorScheme.palette.base0D}";
+          label-focused-underline = "#${config.colorScheme.palette.base0F}";
           label-focused-padding = 2;
 
           label-mode = "%mode%";
           label-mode-padding = 2;
-          label-mode-background = "#${config.colorScheme.palette.base0D}";
+          label-mode-background = "#${config.colorScheme.palette.base0F}";
 
           label-unfocused = "%index%";
           label-unfocused-padding = 2;
@@ -120,7 +120,7 @@ in {
           time = "%H:%M";
 
           format-prefix-foreground = "#${config.colorScheme.palette.base06}";
-          format-underline = "#${config.colorScheme.palette.base0D}";
+          format-underline = "#${config.colorScheme.palette.base0F}";
 
           label = "%date%, %time%";
         };
