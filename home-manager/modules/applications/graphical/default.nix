@@ -21,6 +21,7 @@ in {
     ./spotify.nix
     ./jellyfin.nix
     ./gtk.nix
+    ./thunderbird.nix
   ];
 
   options = {
@@ -39,6 +40,7 @@ in {
       thunar.enable = true;
       spotify.enable = true;
       gtk.enable = true;
+      thunderbird.enable = true;
     };
   };
 }
