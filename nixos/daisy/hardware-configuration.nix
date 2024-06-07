@@ -9,6 +9,7 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
     device = "nodev";
+    configurationLimit = 2;
   };
 
   fileSystems."/boot" = {
