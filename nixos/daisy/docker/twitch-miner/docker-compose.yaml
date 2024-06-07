@@ -1,9 +1,8 @@
-version: "3.9"
-
 services:
   miner:
     image: rdavidoff/twitch-channel-points-miner-v2
     container_name: twitch-miner
+
     restart: unless-stopped
 
     # stdin_open: true

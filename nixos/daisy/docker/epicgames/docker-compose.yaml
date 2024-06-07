@@ -1,0 +1,26 @@
+services:
+  epicgames-freegames-node:
+    image: ghcr.io/claabs/epicgames-freegames-node:debian
+    container_name: epic-games
+
+    restart: unless-stopped
+
+    env_file: .env
+    environment:
+      TZ: "Europe/Amsterdam"
+      EMAIL: "guusvanmeerveld@pm.me"
+      RUN_ON_STARTUP: true
+      BASE_URL: "https://epicgames.guusvanmeerveld.dev"
+      EMAIL_SENDER_ADDRESS: "epicgames@guusvanmeerveld.dev"
+      EMAIL_SENDER_NAME: "Epic Games Captchas"
+      EMAIL_RECIPIENT_ADDRESS: "mail@guusvanmeerveld.dev"
+      SMTP_PORT: 465
+      SMTP_SECURE: true
+
+    ports:
+      - 8800:3000
+      
+    deploy:
+      resources:
+          limits:
+              memory: 2g
