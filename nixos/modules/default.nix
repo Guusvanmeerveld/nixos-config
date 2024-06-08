@@ -8,5 +8,6 @@
     ./nixos.nix
     ./user.nix
     ./locale.nix
+    ./journald.nix
   ];
 }
