@@ -2,7 +2,7 @@
   config = {
     services.journald = {
       extraConfig = ''
-        MaxFileSec=14day
+        MaxRetentionSec=14day
       '';
     };
   };
