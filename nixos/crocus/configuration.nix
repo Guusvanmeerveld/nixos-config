@@ -31,12 +31,16 @@
     openFirewall = true;
 
     settings = {
+      PermitRootLogin = "no";
       PasswordAuthentication = false;
     };
   };
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@guusvanmeerveld.dev";
+
+  networking.firewall.allowedTCPPorts = [25565 80 443];
+  networking.firewall.allowedUDPPorts = [19132 24454];
 
   custom = {
     user = {
@@ -47,10 +51,6 @@
     };
 
     applications = {
-      services = {
-        nginx.enable = true;
-      };
-
       shell.zsh.enable = true;
       docker.enable = true;
     };

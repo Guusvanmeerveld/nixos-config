@@ -1,0 +1,3 @@
+mc.guusvanmeerveld.dev {
+	reverse_proxy vanilla-server:8123
+}

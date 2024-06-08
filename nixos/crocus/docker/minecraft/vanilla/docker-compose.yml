@@ -1,0 +1,58 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    container_name: "vanilla-server"
+
+    restart: unless-stopped
+
+    ports:
+        - "25565:25565"
+        - "19132:19132/udp"
+        - "24454:24454/udp"
+
+    environment:
+      VERSION: "1.20.6"
+      TYPE: "paper"
+      MEMORY: "8G"
+      EULA: "TRUE"
+      RCON_PASSWORD: "minecraft"
+      UID: 1000
+      GID: 1000
+      PLUGINS: |
+        https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+        https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+
+    networks:
+      - internet
+      - minecraft
+
+    # tty: true
+    # stdin_open: true
+    volumes:
+      - /var/lib/minecraft/vanilla/minecraft-data:/data
+
+  backup:
+    image: itzg/mc-backup
+    container_name: "vanilla-server-backup"
+    
+    environment:
+      UID: 1000
+      GID: 1000
+      BACKUP_INTERVAL: "12h"
+      RCON_HOST: mc
+      PAUSE_IF_NO_PLAYERS: "true"
+      PRUNE_BACKUPS_DAYS: "2"
+
+    networks:
+      - minecraft
+      
+    volumes:
+      - /var/lib/minecraft/vanilla/minecraft-data:/data:ro
+      - /var/lib/minecraft/vanilla/backups:/backups
+
+networks:
+  minecraft:
+
+  internet:
+    external: true
+    name: internet
