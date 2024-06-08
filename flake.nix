@@ -126,6 +126,13 @@
         ];
       };
 
+      crocus = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./nixos/crocus/configuration.nix
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -158,6 +165,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./home-manager/daisy/home.nix
+        ];
+      };
+
+      "guus@crocus" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./home-manager/crocus/home.nix
         ];
       };
 
