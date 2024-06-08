@@ -19,7 +19,6 @@ with lib; let
   pythonEnv = pkgs.python3.withPackages(pythonPackages:
                 with pythonPackages; [
                   cfg.package
-                  jupyter-collaboration
                 ]);
 
   notebookConfig = pkgs.writeText "jupyter_lab_config.py" ''

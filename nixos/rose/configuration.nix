@@ -56,6 +56,10 @@
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@guusvanmeerveld.dev";
 
+  networking.firewall = {
+    allowedUDPPorts = [51820];
+  };
+
   custom = {
     user = {
       name = "guus";
@@ -100,23 +104,23 @@
           domain = "bitwarden.guusvanmeerveld.dev";
         };
 
-        syncthing = {
-          enable = true;
-          port = 8384;
-          domain = "rose-sync.guusvanmeerveld.dev";
-        };
+        # syncthing = {
+        #   enable = true;
+        #   port = 8384;
+        #   domain = "rose-sync.guusvanmeerveld.dev";
+        # };
 
-        jupyter = {
-          enable = true;
-          port = 8083;
-          passwordFile = config.age.secrets.jupyter.path;
-          domain = "jupyter.guusvanmeerveld.dev";
-        };
+        # jupyter = {
+        #  enable = true;
+        #  port = 8083;
+        #  passwordFile = config.age.secrets.jupyter.path;
+        #  domain = "jupyter.guusvanmeerveld.dev";
+        # };
       };
 
       shell.zsh.enable = true;
 
-      # docker.enable = true;
+      docker.enable = true;
     };
   };
 
