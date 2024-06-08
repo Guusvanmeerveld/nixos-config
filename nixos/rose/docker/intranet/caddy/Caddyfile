@@ -1,0 +1,4 @@
+adguard.rose {
+	reverse_proxy adguard:80
+	tls internal
+}

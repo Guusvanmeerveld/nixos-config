@@ -1,0 +1,92 @@
+services:
+  wireguard:
+    image: linuxserver/wireguard:latest
+    container_name: "intranet-wireguard"
+
+    depends_on:
+      - adguard
+      - caddy
+
+    restart: unless-stopped
+
+    cap_add:
+      - NET_ADMIN
+      # - SYS_MODULE
+
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Amsterdam
+      SERVERPORT: 51820
+      SERVERURL: ${IP_ADDRESS}
+      PEERS: 5
+      ALLOWEDIPS: 0.0.0.0/0
+      PEERDNS: 10.0.0.3
+      LOG_CONFS: true
+
+    ports:
+      - 51820:51820/udp
+
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+
+    volumes:
+      - /var/lib/intranet/wireguard/config:/config
+      - /lib/modules:/lib/modules
+
+    networks:
+      intranet:
+        ipv4_address: 10.0.0.2
+
+  adguard:
+    image: adguard/adguardhome
+    container_name: "intranet-adguard"
+
+    restart: unless-stopped
+
+    volumes:
+      - adguard-work:/opt/adguardhome/work
+      - /var/lib/intranet/adguard/config:/opt/adguardhome/conf
+
+    networks:
+      intranet:
+        ipv4_address: 10.0.0.3
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: "intranet-caddy"
+
+    restart: unless-stopped
+
+    cap_add:
+      - NET_ADMIN
+
+    environment:
+      UID: 1000
+      GID: 1000
+
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy-site:/srv
+      - caddy-data:/data
+      - caddy-config:/config
+
+    networks:
+      intranet:
+        ipv4_address: 10.0.0.4
+
+networks:
+  intranet:
+    name: intranet
+    driver: bridge 
+    ipam:
+      config:
+        - subnet: 10.0.0.0/16
+          gateway: 10.0.0.1
+
+volumes:
+  adguard-work:
+
+  caddy-site:
+  caddy-data:
+  caddy-config:
