@@ -75,6 +75,7 @@ in {
 
           dc = "docker compose up -d";
           dcd = "docker compose down --remove-orphans";
+          dcl = "docker compose logs -f";
         };
 
         oh-my-zsh = {
