@@ -33,7 +33,6 @@
   custom = {
     applications = {
       services = {
-        syncthing.enable = true;
         vscode-server.enable = true;
       };
 
