@@ -1,0 +1,7 @@
+{
+	admin off
+}
+
+http://adguard.rose {
+	reverse_proxy intranet-adguard:80
+}

@@ -16,10 +16,16 @@ services:
     environment:
       PUID: 1000
       PGID: 1000
-      TZ: Europe/Amsterdam
+
       SERVERPORT: 51820
       SERVERURL: ${IP_ADDRESS}
-      PEERS: 5
+
+      INTERNAL_SUBNET: 10.13.13.0
+
+      PEERS: phone,desktop,laptop,crocus
+
+      SERVER_ALLOWEDIPS_PEER_crocus: 10.13.13.0/32
+
       ALLOWEDIPS: 0.0.0.0/0
       PEERDNS: 10.0.0.3
       LOG_CONFS: true
@@ -33,9 +39,10 @@ services:
     volumes:
       - /var/lib/intranet/wireguard/config:/config
       - /lib/modules:/lib/modules
+      - /etc/localtime:/etc/localtime:ro
 
     networks:
-      intranet:
+      wireguard:
         ipv4_address: 10.0.0.2
 
   adguard:
@@ -49,7 +56,7 @@ services:
       - /var/lib/intranet/adguard/config:/opt/adguardhome/conf
 
     networks:
-      intranet:
+      wireguard:
         ipv4_address: 10.0.0.3
 
   caddy:
@@ -58,26 +65,26 @@ services:
 
     restart: unless-stopped
 
-    cap_add:
-      - NET_ADMIN
-
     environment:
       UID: 1000
       GID: 1000
 
     volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-site:/srv
       - caddy-data:/data
       - caddy-config:/config
 
     networks:
-      intranet:
+      wireguard:
         ipv4_address: 10.0.0.4
+      intranet:
 
 networks:
   intranet:
     name: intranet
+
+  wireguard:
     driver: bridge 
     ipam:
       config:
