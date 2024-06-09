@@ -11,13 +11,16 @@ services:
         - "24454:24454/udp"
 
     environment:
+      UID: 1000
+      GID: 1000
+
       VERSION: "1.20.6"
       TYPE: "paper"
       MEMORY: "8G"
       EULA: "TRUE"
-      RCON_PASSWORD: "minecraft"
-      UID: 1000
-      GID: 1000
+
+      RCON_PASSWORD: ${RCON_PASSWORD}
+
       PLUGINS: |
         https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
         https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
@@ -38,8 +41,12 @@ services:
     environment:
       UID: 1000
       GID: 1000
+
       BACKUP_INTERVAL: "12h"
+
       RCON_HOST: mc
+      RCON_PASSWORD: ${RCON_PASSWORD}
+      
       PAUSE_IF_NO_PLAYERS: "true"
       PRUNE_BACKUPS_DAYS: "2"
 
