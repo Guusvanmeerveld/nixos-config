@@ -102,6 +102,8 @@ in {
 
         "jupyter.experiments.enabled" = false;
         "jupyter.themeMatplotlibPlots" = true;
+
+        "latex-workshop.latex.outDir" = "%DIR%/out";
       };
 
       extensions = with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace;
