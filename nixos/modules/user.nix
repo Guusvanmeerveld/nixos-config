@@ -24,7 +24,7 @@ in {
     users.users = {
       "${cfg.user.name}" = {
         isNormalUser = true;
-        extraGroups = ["networkmanager" "wheel" "video" "docker"] ++ lib.optional config.custom.applications.android.enable "adbusers";
+        extraGroups = ["networkmanager" "wheel" "video" "docker"] ++ lib.optional config.custom.applications.android.enable "adbusers" ++ lib.optional config.custom.applications.qemu.enable "libvirtd";
 
         openssh.authorizedKeys.keys = cfg.user.authorizedKeys;
       };

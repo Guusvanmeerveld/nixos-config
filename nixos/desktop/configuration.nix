@@ -90,7 +90,7 @@
         steam.enable = true;
       };
 
-      vm = {
+      qemu = {
         enable = true;
         graphical = true;
       };
