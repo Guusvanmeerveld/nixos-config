@@ -2,6 +2,7 @@
   outputs,
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.messaging.discord;
@@ -17,9 +18,16 @@ in {
   config = lib.mkIf cfg.enable {
     programs.armcord = {
       enable = true;
+
       settings = {
         windowStyle = "native";
+        channel = "stable";
         mods = "vencord";
+        performanceMode = "none";
+        trayIcon = "default";
+        armcordCSP = true;
+        spellcheck = true;
+        useLegacyCapturer = false;
         minimizeToTray = false;
         tray = false;
         doneSetup = true;
