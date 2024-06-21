@@ -5,9 +5,6 @@ services:
 
     restart: unless-stopped
 
-    cap_add:
-      - NET_ADMIN
-
     environment:
       UID: 1000
       GID: 1000
