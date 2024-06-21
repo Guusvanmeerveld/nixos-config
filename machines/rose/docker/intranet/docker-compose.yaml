@@ -22,9 +22,7 @@ services:
 
       INTERNAL_SUBNET: 10.13.13.0
 
-      PEERS: phone,desktop,laptop,crocus
-
-      SERVER_ALLOWEDIPS_PEER_crocus: 10.13.13.0/32
+      PEERS: phone,desktop,laptop
 
       ALLOWEDIPS: 0.0.0.0/0
       PEERDNS: 10.0.0.3

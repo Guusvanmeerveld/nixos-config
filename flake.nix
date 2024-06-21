@@ -115,7 +115,7 @@
       rose = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/rose/configuration.nix
+          ./machines/rose/configuration.nix
         ];
       };
 
@@ -156,7 +156,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/rose/home.nix
+          ./machines/rose/home.nix
         ];
       };
 
