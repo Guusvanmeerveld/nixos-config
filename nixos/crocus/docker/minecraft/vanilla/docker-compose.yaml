@@ -21,6 +21,8 @@ services:
 
       RCON_PASSWORD: ${RCON_PASSWORD}
 
+      SPIGET_RESOURCES: "18494,81534,82342,102446"
+
       PLUGINS: |
         https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
         https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
