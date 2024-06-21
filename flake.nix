@@ -108,7 +108,7 @@
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/desktop/configuration.nix
+          ./machines/desktop/configuration.nix
         ];
       };
 
@@ -148,7 +148,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/desktop/home.nix
+          ./machines/desktop/home.nix
         ];
       };
 
