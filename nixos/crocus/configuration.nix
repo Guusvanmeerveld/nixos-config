@@ -39,8 +39,7 @@
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@guusvanmeerveld.dev";
 
-  networking.firewall.allowedTCPPorts = [25565 80 443];
-  networking.firewall.allowedUDPPorts = [19132 24454];
+  networking.firewall.allowedTCPPorts = [80 443];
 
   custom = {
     user = {
@@ -51,6 +50,18 @@
     };
 
     applications = {
+      services = {
+        minecraft = {
+          openFirewall = true;
+          openGeyserFirewall = true;
+          openVoiceChatFirewall = true;
+        };
+      };
+
+      wireguard = {
+        openFirewall = true;
+      };
+
       shell.zsh.enable = true;
       docker.enable = true;
     };
