@@ -1,0 +1,7 @@
+{
+	admin off
+}
+
+http://adguard.crocus {
+	reverse_proxy intranet-adguard:80
+}
