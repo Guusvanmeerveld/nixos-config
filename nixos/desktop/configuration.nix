@@ -81,8 +81,6 @@
     applications = {
       shell.zsh.enable = true;
 
-      wireguard.enable = true;
-
       docker.enable = true;
 
       graphical = {

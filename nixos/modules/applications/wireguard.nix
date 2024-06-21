@@ -7,13 +7,15 @@
 in {
   options = {
     custom.applications.wireguard = {
-      enable = lib.mkEnableOption "Enable wireguard client";
+      # enable = lib.mkEnableOption "Enable wireguard client";
+
+      openFirewall = lib.mkEnableOption "Open default port";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     networking.firewall = {
-      allowedUDPPorts = [51820];
+      allowedUDPPorts = lib.optional cfg.openFirewall 51820;
     };
   };
 }
