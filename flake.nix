@@ -112,6 +112,13 @@
         ];
       };
 
+      vm = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/vm/configuration.nix
+        ];
+      };
+
       rose = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -149,6 +156,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/desktop/home.nix
+        ];
+      };
+
+      "guus@vm" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/vm/home.nix
         ];
       };
 
