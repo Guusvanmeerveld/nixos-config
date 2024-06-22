@@ -136,7 +136,7 @@
       crocus = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/crocus/configuration.nix
+          ./machines/crocus/configuration.nix
         ];
       };
 
@@ -187,7 +187,7 @@
         pkgs = nixpkgs.legacyPackages.aarch64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/crocus/home.nix
+          ./machines/crocus/home.nix
         ];
       };
 
