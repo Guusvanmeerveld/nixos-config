@@ -1,13 +1,6 @@
-{
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  ...
-}: {
+{outputs, ...}: {
   imports = [
-    ../modules
+    ../../home-manager/modules
   ];
 
   nixpkgs = {
@@ -66,6 +59,8 @@
 
       graphical = {
         default.enable = true;
+
+        games.minecraft.enable = true;
 
         messaging.enable = true;
         office.enable = true;
