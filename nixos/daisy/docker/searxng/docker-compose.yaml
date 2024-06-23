@@ -1,0 +1,65 @@
+services:
+  # redis:
+  #   image: docker.io/valkey/valkey:7-alpine
+  #   container_name: "searxng-redis"
+
+  #   restart: unless-stopped
+
+  #   command: valkey-server --save 30 1 --loglevel warning
+
+  #   networks:
+  #     - searxng
+
+  #   volumes:
+  #     - redis-data:/data
+  #   cap_drop:
+  #     - ALL
+  #   cap_add:
+  #     - SETGID
+  #     - SETUID
+  #     - DAC_OVERRIDE
+
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "1m"
+  #       max-file: "1"
+
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    container_name: "searxng"
+
+    restart: unless-stopped
+
+    networks:
+      - searxng
+      - internet
+
+    volumes:
+      - /var/lib/searxng/config:/etc/searxng:rw
+
+    environment:
+      SEARXNG_BASE_URL: https://search.guusvanmeerveld.dev/
+
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+networks:
+  searxng:
+    external: false
+  
+  internet:
+    external: true
+
+volumes:
+  redis-data:

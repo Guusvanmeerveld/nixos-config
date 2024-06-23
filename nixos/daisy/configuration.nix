@@ -68,22 +68,6 @@
     };
 
     applications = {
-      services = {
-        nginx.enable = true;
-
-        searx = {
-          enable = true;
-          port = 8081;
-          domain = "search.guusvanmeerveld.dev";
-        };
-
-        invidious = {
-          enable = true;
-          port = 8082;
-          domain = "yt.guusvanmeerveld.dev";
-        };
-      };
-
       shell.zsh.enable = true;
       docker.enable = true;
     };
