@@ -16,6 +16,12 @@ services:
       - logs:/usr/src/app/logs
       - ./run.py:/usr/src/app/run.py:ro
 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
 volumes:
   logs:
   analytics:
