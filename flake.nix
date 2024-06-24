@@ -129,7 +129,7 @@
       daisy = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./nixos/daisy/configuration.nix
+          ./machines/daisy/configuration.nix
         ];
       };
 
@@ -179,7 +179,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./home-manager/daisy/home.nix
+          ./machines/daisy/home.nix
         ];
       };
 

@@ -10,7 +10,7 @@
   ...
 }: {
   imports = [
-    ../modules
+    ../../nixos/modules
 
     ./secrets.nix
 
@@ -42,21 +42,8 @@
     };
   };
 
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "security@guusvanmeerveld.dev";
-
-  services.nginx = {
-    virtualHosts = {
-      "epicgames.guusvanmeerveld.dev" = {
-        forceSSL = true;
-        enableACME = true;
-        locations."/" = {
-          proxyPass = "http://localhost:8800/";
-          recommendedProxySettings = true;
-        };
-      };
-    };
-  };
+  # security.acme.acceptTerms = true;
+  # security.acme.defaults.email = "security@guusvanmeerveld.dev";
 
   custom = {
     user = {
