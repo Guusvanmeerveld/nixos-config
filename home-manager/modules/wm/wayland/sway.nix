@@ -36,24 +36,38 @@ in {
         description = "The default file explorer to use";
       };
 
-      screenshot = {
-        enable = lib.mkOption {
+      keybinds = {
+        screenshot = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            description = "Enable screenshot functionality";
+            default = true;
+          };
+
+          path = lib.mkOption {
+            type = lib.types.str;
+            description = "Path to screenshot program";
+            default = config.custom.applications.graphical.defaultApplications.screenshot.path;
+          };
+        };
+
+        media = lib.mkOption {
           type = lib.types.bool;
-          description = "Enable screenshot functionality";
+          description = "Enable media hotkey configuration";
           default = true;
         };
 
-        path = lib.mkOption {
-          type = lib.types.str;
-          description = "Path to screenshot program";
-          default = config.custom.applications.graphical.defaultApplications.screenshot.path;
+        backlight = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable backlight hotkey configuration";
+          default = true;
         };
-      };
 
-      enableMediaHotkeys = lib.mkOption {
-        type = lib.types.bool;
-        description = "Enable media hotkey configuration";
-        default = true;
+        sound = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable sound hotkey configuration";
+          default = true;
+        };
       };
 
       output = lib.mkOption {
@@ -77,10 +91,13 @@ in {
     };
 
     services.playerctld = {
-      enable = cfg.enableMediaHotkeys;
+      enable = cfg.keybinds.media;
     };
 
-    home.packages = lib.optional cfg.enableMediaHotkeys pkgs.playerctl;
+    home.packages =
+      lib.optional cfg.keybinds.media pkgs.playerctl
+      ++ lib.optional cfg.keybinds.backlight pkgs.light
+      ++ lib.optional cfg.keybinds.sound pkgs.pulseaudio;
 
     wayland.windowManager.sway = {
       enable = true;
@@ -184,13 +201,19 @@ in {
             # File explorer shortcut
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
-            "Print" = lib.mkIf cfg.screenshot.enable "exec ${cfg.screenshot.path}";
+            "Print" = lib.mkIf cfg.keybinds.screenshot.enable "exec ${cfg.keybinds.screenshot.path}";
 
-            "XF86AudioPlay" = lib.mkIf cfg.enableMediaHotkeys "exec ${pkgs.playerctl}/bin/playerctl play";
-            "XF86AudioStop" = lib.mkIf cfg.enableMediaHotkeys "exec ${pkgs.playerctl}/bin/playerctl pause";
-            "XF86AudioPause" = lib.mkIf cfg.enableMediaHotkeys "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-            "XF86AudioNext" = lib.mkIf cfg.enableMediaHotkeys "exec ${pkgs.playerctl}/bin/playerctl next";
-            "XF86AudioPrev" = lib.mkIf cfg.enableMediaHotkeys "exec ${pkgs.playerctl}/bin/playerctl previous";
+            "XF86AudioPlay" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl play";
+            "XF86AudioStop" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl pause";
+            "XF86AudioPause" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+            "XF86AudioNext" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl next";
+            "XF86AudioPrev" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl previous";
+
+            "XF86AudioLowerVolume" = lib.mkIf cfg.keybinds.sound "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+            "XF86AudioRaiseVolume" = lib.mkIf cfg.keybinds.sound "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+
+            "XF86MonBrightnessUp" = lib.mkIf cfg.keybinds.backlight "exec ${pkgs.light}/bin/light -A 5";
+            "XF86MonBrightnessDown" = lib.mkIf cfg.keybinds.backlight "exec ${pkgs.light}/bin/light -U 5";
           }
           # Workspace switchers
           // builtins.listToAttrs (map (value: {

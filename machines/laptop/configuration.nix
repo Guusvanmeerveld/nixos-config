@@ -44,6 +44,9 @@
     # powerKey = "poweroff";
   };
 
+  programs.light.enable = true;
+  services.power-profiles-daemon.enable = true;
+
   custom = {
     user.name = "guus";
 
@@ -54,12 +57,11 @@
       android.enable = true;
     };
 
-    video.amd = {
-      enable = true;
-      vrr.enable = true;
-    };
+    dm.greetd.enable = true;
 
-    wm.i3.enable = true;
+    wm.wayland.sway.enable = true;
+
+    pipewire.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

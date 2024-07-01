@@ -131,6 +131,8 @@ in {
           vadimcn.vscode-lldb
           bradlc.vscode-tailwindcss
 
+          ms-dotnettools.vscode-dotnet-runtime
+
           # Tools
           esbenp.prettier-vscode
           dbaeumer.vscode-eslint

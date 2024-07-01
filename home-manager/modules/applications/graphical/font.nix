@@ -25,6 +25,10 @@ in {
             package = pkgs.fira-code;
           }
           {
+            name = "Material Design Icons";
+            package = pkgs.material-design-icons;
+          }
+          {
             name = "Font Awesome 6 Free Solid";
             package = pkgs.font-awesome;
           }
