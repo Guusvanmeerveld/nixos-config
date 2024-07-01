@@ -32,7 +32,12 @@
 
   custom = {
     wm.wayland = {
-      bars.waybar.enable = true;
+      bars.waybar = {
+        enable = true;
+        features = {
+          media = true;
+        };
+      };
 
       sway = {
         enable = true;

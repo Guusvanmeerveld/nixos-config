@@ -55,7 +55,7 @@ in {
 
         tray = lib.mkOption {
           type = lib.types.bool;
-          default = false;
+          default = true;
           description = "Enable tray support";
         };
       };
@@ -119,18 +119,8 @@ in {
           border-bottom: 2px solid ${focused-color};
         }
 
-        #network, #pulseaudio, #battery, #backlight, #power-profiles-daemon, #custom-power {
-          font-size: 20px;
-          background: ${alt-bg-color};
-          padding: 5px 10px;
-          margin-top: 5px;
-          margin-bottom: 5px;
-        }
-
-
-
-        .not-power {
-          margin-right: 5px;
+        #clock {
+          border-bottom: 2px solid ${focused-color};
         }
 
         #privacy {
@@ -142,25 +132,19 @@ in {
           margin-bottom: 5px;
         }
 
-        #mpris {
+
+        #status-modules, #mpris, #tray {
           background: ${alt-bg-color};
+          padding: 0 5px;
           border-radius: 25px;
-          padding: 5px 10px;
-          margin-right: 10px;
+          margin-right: 5px;
           margin-top: 5px;
           margin-bottom: 5px;
         }
 
-        #tray {
-          background: ${alt-bg-color};
-          border-radius: 3px;
+        #power-profiles-daemon, #backlight, #pulseaudio, #network, #custom-power, #custom-lock, #custom-reboot, #tray {
+          font-size: 20px;
           padding: 0 10px;
-          margin-left: 5px;
-          margin-right: 5px;
-        }
-
-        #clock {
-          border-bottom: 2px solid ${focused-color};
         }
       '';
 
@@ -175,13 +159,8 @@ in {
           modules-center = ["clock"];
           modules-right =
             lib.optional cfg.features.media "mpris"
-            ++ ["privacy"]
-            ++ lib.optional cfg.features.power-profiles "power-profiles-daemon"
-            ++ lib.optional cfg.features.backlight "backlight"
-            ++ ["pulseaudio" "network"]
-            ++ lib.optional cfg.features.battery "battery"
-            ++ lib.optional cfg.features.tray "tray"
-            ++ ["group/group-power"];
+            ++ ["privacy" "group/status-modules"]
+            ++ lib.optional cfg.features.tray "tray";
 
           "sway/workspaces" = {
             disable-scroll = true;
@@ -223,6 +202,16 @@ in {
             #   {type = "screenshare";}
             #   {type = "audio-in";}
             # ];
+          };
+
+          "group/status-modules" = {
+            orientation = "inherit";
+            modules =
+              lib.optional cfg.features.power-profiles "power-profiles-daemon"
+              ++ lib.optional cfg.features.backlight "backlight"
+              ++ ["pulseaudio" "network"]
+              ++ lib.optional cfg.features.battery "battery"
+              ++ ["group/power-drawer"];
           };
 
           "power-profiles-daemon" = {
@@ -281,11 +270,11 @@ in {
             tooltip-format = "{capacity}% | {time} | {power}W";
           };
 
-          "group/group-power" = {
+          "group/power-drawer" = {
             orientation = "inherit";
             drawer = {
+              transition-left-to-right = false;
               transition-duration = 500;
-              children-class = "not-power";
             };
 
             modules = ["custom/power" "custom/lock" "custom/reboot"];
