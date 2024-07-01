@@ -20,7 +20,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide meslo-lgs-nf nix-output-monitor];
+    home.packages = with pkgs; [zoxide nix-output-monitor];
 
     programs = {
       zsh = {

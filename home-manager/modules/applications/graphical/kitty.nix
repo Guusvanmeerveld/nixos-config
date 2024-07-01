@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.kitty;
@@ -12,6 +13,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.applications.graphical.defaultApplications.terminal = {
+      name = "kitty";
+      path = "${pkgs.kitty}/bin/kitty";
+      wm-class = "kitty";
+    };
+
     programs.kitty = {
       enable = true;
 

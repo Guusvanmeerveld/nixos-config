@@ -13,6 +13,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.applications.graphical.defaultApplications.file-explorer = {
+      name = "thunar";
+      path = "${pkgs.xfce.thunar}/bin/thunar";
+      wm-class = "Thunar";
+    };
+
     home.packages = with pkgs; [xfce.thunar];
 
     xdg.mimeApps = {

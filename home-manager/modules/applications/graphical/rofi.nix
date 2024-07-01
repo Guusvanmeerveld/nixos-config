@@ -13,6 +13,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.applications.graphical.defaultApplications.menu = {
+      name = "rofi";
+      path = "${pkgs.rofi}/bin/rofi";
+      wm-class = "Rofi";
+    };
+
     programs.rofi = {
       enable = true;
 

@@ -1,14 +1,13 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
-  cfg = config.custom.sound;
+  cfg = config.custom.pipewire;
 in {
   options = {
-    custom.sound = {
-      enable = lib.mkEnableOption "Enable sound support";
+    custom.pipewire = {
+      enable = lib.mkEnableOption "Enable pipewire sound engine";
     };
   };
 

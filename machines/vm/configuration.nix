@@ -27,6 +27,8 @@
   boot.loader.timeout = 0;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  hardware.opengl.enable = true;
+
   custom = {
     user.name = "guus";
 
@@ -34,7 +36,11 @@
       shell.zsh.enable = true;
     };
 
-    wm.i3.enable = true;
+    dm.greetd.enable = true;
+
+    wm.wayland.sway.enable = true;
+
+    pipewire.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

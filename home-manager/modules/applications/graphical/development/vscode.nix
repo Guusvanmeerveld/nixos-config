@@ -22,7 +22,9 @@ in {
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
 
-      userSettings = {
+      userSettings = let
+        fonts = map (font: "'${font.name}'") config.custom.applications.graphical.font.default;
+      in {
         "window.zoomLevel" = 1;
 
         # Privacy
@@ -45,7 +47,7 @@ in {
         # Editor config
         "editor.formatOnSave" = true;
         "editor.fontLigatures" = true;
-        "editor.fontFamily" = "'Fira Code', 'MesloLGS NF', 'Droid Sans Mono', 'monospace', monospace";
+        "editor.fontFamily" = "${lib.concatStringsSep ", " fonts},  'Droid Sans Mono', monospace";
         "editor.minimap.showSlider" = "always";
         "editor.inlayHints.enabled" = "offUnlessPressed";
         "editor.cursorBlinking" = "smooth";

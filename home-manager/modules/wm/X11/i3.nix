@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.wm.i3;
+  cfg = config.custom.wm.x11.i3;
 
   prog = {
     librewolf = "librewolf";
@@ -19,7 +19,7 @@
   };
 in {
   options = {
-    custom.wm.i3 = {
+    custom.wm.x11.i3 = {
       enable = lib.mkEnableOption "Enable i3 wm";
 
       mod = lib.mkOption {

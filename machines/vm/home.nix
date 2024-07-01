@@ -23,10 +23,6 @@
     homeDirectory = "/home/guus";
   };
 
-  home.file = {
-    ".background-image".source = ./wallpaper.jpg;
-  };
-
   # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
@@ -35,8 +31,18 @@
   systemd.user.startServices = "sd-switch";
 
   custom = {
-    wm.i3 = {
-      enable = true;
+    wm.wayland = {
+      bars.waybar.enable = true;
+
+      sway = {
+        enable = true;
+        output = {
+          "Virtual-1" = {
+            mode = "1920x1080@60Hz";
+            bg = "${./wallpaper.jpg} stretch";
+          };
+        };
+      };
     };
 
     applications = {
@@ -51,6 +57,8 @@
 
       graphical = {
         default.enable = true;
+
+        rofi.enable = true;
 
         office.enable = true;
         development.enable = true;

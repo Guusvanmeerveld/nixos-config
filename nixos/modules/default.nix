@@ -1,9 +1,10 @@
 {...}: {
   imports = [
     ./wm
+    ./dm
     ./applications
     ./video
-    ./sound.nix
+    ./pipewire.nix
     ./networking.nix
     ./nixos.nix
     ./user.nix

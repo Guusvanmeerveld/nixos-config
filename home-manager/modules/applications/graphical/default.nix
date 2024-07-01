@@ -1,9 +1,11 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical;
+  settingsFormat = pkgs.formats.json {};
 in {
   imports = [
     ./development
@@ -22,11 +24,34 @@ in {
     ./jellyfin.nix
     ./gtk.nix
     ./thunderbird.nix
+    ./font.nix
   ];
 
   options = {
     custom.applications.graphical = {
       default.enable = lib.mkEnableOption "Enable default applications";
+
+      defaultApplications = lib.mkOption {
+        default = {};
+
+        type = lib.types.attrsOf (lib.types.submodule ({name, ...}: {
+          freeformType = settingsFormat.type;
+
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+            };
+
+            path = lib.mkOption {
+              type = lib.types.str;
+            };
+
+            wm-class = lib.mkOption {
+              type = lib.types.str;
+            };
+          };
+        }));
+      };
     };
   };
 

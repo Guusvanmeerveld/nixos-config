@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.flameshot;
@@ -12,6 +13,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.applications.graphical.defaultApplications.screenshot = {
+      name = "flameshot";
+      path = "${pkgs.flameshot}/bin/flameshot gui";
+      wm-class = "flameshot";
+    };
+
     services.flameshot = {
       enable = true;
       settings = {
