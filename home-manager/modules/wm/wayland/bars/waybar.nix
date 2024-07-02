@@ -63,7 +63,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [font-awesome];
+    home.packages = with pkgs; [material-design-icons];
 
     services.playerctld = {
       enable = cfg.features.media;
@@ -88,7 +88,7 @@ in {
         * {
           border: none;
           border-radius: 0;
-          font-family: ${lib.concatStringsSep ", " cfg.fonts}, 'Font Awesome 6 Free Solid', monospace;
+          font-family: ${lib.concatStringsSep ", " cfg.fonts}, 'Material Design Icons', monospace;
           font-size: ${font-size};
         }
 
@@ -142,7 +142,7 @@ in {
           margin-bottom: 5px;
         }
 
-        #power-profiles-daemon, #backlight, #pulseaudio, #network, #custom-power, #custom-lock, #custom-reboot, #tray {
+        #power-profiles-daemon, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -282,19 +282,19 @@ in {
 
           "custom/power" = {
             format = "󰐥";
-            tooltip = false;
+            tooltip-format = "Shutdown";
             on-click = "shutdown now";
           };
 
           "custom/lock" = {
             format = "󰌾";
-            tooltip = false;
+            tooltip-format = "Lock";
             on-click = "swaylock";
           };
 
           "custom/reboot" = {
             format = "󰜉";
-            tooltip = false;
+            tooltip-format = "Reboot";
             on-click = "reboot";
           };
         };
