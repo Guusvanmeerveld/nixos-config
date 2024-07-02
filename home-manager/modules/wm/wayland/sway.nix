@@ -60,7 +60,7 @@ in {
         backlight = lib.mkOption {
           type = lib.types.bool;
           description = "Enable backlight hotkey configuration";
-          default = true;
+          default = false;
         };
 
         sound = lib.mkOption {
@@ -91,7 +91,7 @@ in {
     };
 
     services.playerctld = {
-      enable = cfg.keybinds.media;
+      enable = lib.mkDefault cfg.keybinds.media;
     };
 
     home.packages =
@@ -202,18 +202,6 @@ in {
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
             "Print" = lib.mkIf cfg.keybinds.screenshot.enable "exec ${cfg.keybinds.screenshot.path}";
-
-            "XF86AudioPlay" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl play";
-            "XF86AudioStop" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl pause";
-            "XF86AudioPause" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-            "XF86AudioNext" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl next";
-            "XF86AudioPrev" = lib.mkIf cfg.keybinds.media "exec ${pkgs.playerctl}/bin/playerctl previous";
-
-            "XF86AudioLowerVolume" = lib.mkIf cfg.keybinds.sound "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-            "XF86AudioRaiseVolume" = lib.mkIf cfg.keybinds.sound "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-
-            "XF86MonBrightnessUp" = lib.mkIf cfg.keybinds.backlight "exec ${pkgs.light}/bin/light -A 5";
-            "XF86MonBrightnessDown" = lib.mkIf cfg.keybinds.backlight "exec ${pkgs.light}/bin/light -U 5";
           }
           # Workspace switchers
           // builtins.listToAttrs (map (value: {
@@ -226,7 +214,31 @@ in {
               name = "${modifier}+Shift+${toString value}";
               value = "move container to workspace number ${toString value}";
             })
-            workspaces);
+            workspaces)
+          # Audio control keybinds
+          // lib.optionalAttrs cfg.keybinds.sound (let
+            pactl = "${pkgs.pulseaudio}/bin/pactl";
+          in {
+            "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
+            "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+          })
+          # Screen backlight keybinds
+          // lib.optionalAttrs cfg.keybinds.backlight (let
+            light = "${pkgs.light}/bin/light";
+          in {
+            "XF86MonBrightnessUp" = "exec ${light} -A 5";
+            "XF86MonBrightnessDown" = "exec ${light} -U 5";
+          })
+          # Media keybinds
+          // lib.optionalAttrs cfg.keybinds.media (let
+            playerctl = "${pkgs.playerctl}/bin/playerctl";
+          in {
+            "XF86AudioPlay" = "exec ${playerctl} play";
+            "XF86AudioStop" = "exec ${playerctl} pause";
+            "XF86AudioPause" = "exec ${playerctl} play-pause";
+            "XF86AudioNext" = "exec ${playerctl} next";
+            "XF86AudioPrev" = "exec ${playerctl} previous";
+          });
       };
     };
   };
