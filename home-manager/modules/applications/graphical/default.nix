@@ -25,6 +25,7 @@ in {
     ./gtk.nix
     ./thunderbird.nix
     ./font.nix
+    ./grim.nix
   ];
 
   options = {
@@ -61,7 +62,7 @@ in {
       firefox.enable = true;
       kitty.enable = true;
       kdeconnect.enable = true;
-      flameshot.enable = true;
+      grim.enable = true;
       thunar.enable = true;
       spotify.enable = true;
       gtk.enable = true;
