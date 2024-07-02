@@ -9,100 +9,191 @@ in {
   options = {
     custom.applications.graphical.rofi = {
       enable = lib.mkEnableOption "Enable Rofi start menu";
+
+      terminal = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.applications.graphical.defaultApplications.terminal.path;
+        description = "The default terminal to use";
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.defaultApplications.menu = {
       name = "rofi";
-      path = "${pkgs.rofi}/bin/rofi";
+      path = "${pkgs.rofi}/bin/rofi -show drun";
       wm-class = "Rofi";
     };
 
     programs.rofi = {
+      # Config highly inspired by https://github.com/catppuccin/rofi
       enable = true;
 
       font = "Fira Code 14";
 
       cycle = true;
 
+      terminal = cfg.terminal;
+
       extraConfig = {
-        modi = "window,run,drun,filebrowser";
+        modi = "drun,ssh,run,window,filebrowser";
 
         case-sensitive = false;
-
         show-icons = true;
+        steal-focus = false;
 
+        hide-scrollbar = true;
+
+        sidebar-mode = true;
+
+        # Matching settings
+        matching = "fuzzy";
+        tokenize = true;
+
+        # SSH settings
+        ssh-client = "ssh";
+        ssh-command = "{terminal} -e {ssh-client} {host} [-p {port}]";
+
+        parse-hosts = true;
+        parse-known-hosts = true;
+
+        # Drun settings
+        drun-display-format = "{icon} {name}";
+        drun-match-fields = "name,generic,exec,categories,keywords";
+        drun-show-actions = false;
+        drun-url-launcher = "xdg-open";
+        drun-use-desktop-cache = false;
+        # drun = {
+        #   parse-user = true;
+        #   parse-system = true;
+        # };
+
+        # Run settings
         run-command = "{cmd}";
         run-shell-command = "{terminal} -e {cmd}";
 
-        display-window = "Windows";
-        display-windowcd = "Window CD";
-        display-run = "Run";
-        display-ssh = "SSH";
-        display-drun = "Apps";
+        # Display
+        display-window = " Windows";
+        display-windowcd = " Windows CD";
+        display-run = " Run";
+        display-ssh = " SSH";
+        display-drun = "󰀻 Apps";
         display-combi = "Combi";
         display-keys = "Keys";
-        display-filebrowser = "Files";
+        display-filebrowser = "󰉋 Files";
       };
 
       theme = let
         inherit (config.lib.formats.rasi) mkLiteral;
-      in {
-        "*" = {
-          border = 0;
-          margin = 0;
-          padding = 0;
-          spacing = 0;
 
-          background-color = mkLiteral "#${config.colorScheme.palette.base00}";
-          text-color = mkLiteral "#${config.colorScheme.palette.base06}";
-        };
+        height = 360;
+        width = 600;
+
+        bg-color = mkLiteral "#${config.colorScheme.palette.base00}";
+        alt-bg-color = mkLiteral "#${config.colorScheme.palette.base01}";
+
+        font-color = mkLiteral "#${config.colorScheme.palette.base05}";
+        alt-font-color = mkLiteral "#${config.colorScheme.palette.base04}";
+
+        primary-color = mkLiteral "#${config.colorScheme.palette.base0D}";
+      in {
+        # "*" = {
+
+        # };
 
         "window" = {
-          transparency = "real";
+          width = mkLiteral (toString width);
+          height = mkLiteral (toString height);
+
+          border-radius = mkLiteral "5px";
+
+          background-color = bg-color;
         };
 
         "mainbox" = {
-          children = map mkLiteral ["inputbar" "listview"];
+          background-color = bg-color;
         };
 
         "inputbar" = {
-          background-color = mkLiteral "#${config.colorScheme.palette.base03}";
-          children = map mkLiteral ["prompt" "entry"];
-        };
+          children = [(mkLiteral "prompt") (mkLiteral "entry")];
 
-        "entry" = {
-          background-color = "inherit";
-          padding = mkLiteral "12px 3px";
+          background-color = bg-color;
+          border-radius = mkLiteral "5px";
+          padding = mkLiteral "2px";
         };
 
         "prompt" = {
-          background-color = "inherit";
-          padding = mkLiteral "12px";
+          background-color = primary-color;
+          text-color = font-color;
+          padding = mkLiteral "6px";
+          border-radius = mkLiteral "3px";
+          margin = mkLiteral "20px 0 0 20px";
+        };
+
+        "entry" = {
+          background-color = bg-color;
+          text-color = font-color;
+          padding = mkLiteral "6px";
+          margin = mkLiteral "20px 0 0 10px";
         };
 
         "listview" = {
-          lines = 8;
+          background-color = bg-color;
+
+          border = mkLiteral "0 0 0";
+          padding = mkLiteral "6px 0 0";
+          margin = mkLiteral "10px 20px 0 20px";
+
+          columns = mkLiteral "2";
+          lines = mkLiteral "5";
+        };
+
+        "element-text, element-icon, mode-switcher" = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
         };
 
         "element" = {
-          children = map mkLiteral ["element-icon" "element-text"];
+          background-color = bg-color;
+          text-color = font-color;
+
+          # margin = mkLiteral "0 20px 0 0";
+          padding = mkLiteral "5px";
         };
 
         "element-icon" = {
-          padding = mkLiteral "10px 10px";
-          size = mkLiteral "3ch";
+          size = mkLiteral "25px";
         };
 
-        "element-text" = {
-          padding = mkLiteral "10px 0";
-          text-color = mkLiteral "#${config.colorScheme.palette.base05}";
+        "element selected" = {
+          background-color = alt-bg-color;
+          text-color = alt-font-color;
+
+          border-radius = mkLiteral "3px";
         };
 
-        "element-text selected" = {
-          text-color = mkLiteral "#${config.colorScheme.palette.base06}";
+        "mode-switcher" = {
+          spacing = mkLiteral "0";
         };
+
+        "button" = {
+          background-color = alt-bg-color;
+          text-color = alt-font-color;
+
+          vertical-align = mkLiteral "0.5";
+          horizontal-align = mkLiteral "0.5";
+
+          padding = mkLiteral "10px";
+        };
+
+        "button selected" = {
+          background-color = bg-color;
+          text-color = primary-color;
+        };
+
+        # "message" = {
+        #   background-color
+        # }
       };
 
       plugins = with pkgs; [
