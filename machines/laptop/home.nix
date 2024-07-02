@@ -31,7 +31,7 @@
   systemd.user.startServices = "sd-switch";
 
   custom = {
-    wm.wayland = {
+    wm = {
       bars.waybar = {
         enable = true;
         features = {
@@ -40,8 +40,7 @@
           power-profiles = true;
         };
       };
-
-      sway = {
+      wayland.sway = {
         enable = true;
 
         keybinds = {

@@ -36,6 +36,12 @@ in {
         description = "The default file explorer to use";
       };
 
+      lock = lib.mkOption {
+        type = lib.types.bool;
+        description = "Enable screen locking";
+        default = true;
+      };
+
       keybinds = {
         screenshot = {
           enable = lib.mkOption {

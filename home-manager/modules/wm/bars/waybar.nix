@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.wm.wayland.bars.waybar;
+  cfg = config.custom.wm.bars.waybar;
 in {
   options = {
-    custom.wm.wayland.bars.waybar = {
+    custom.wm.bars.waybar = {
       enable = lib.mkEnableOption "Enable waybar status bar";
 
       fonts = lib.mkOption {

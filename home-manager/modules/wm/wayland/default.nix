@@ -1,3 +1,3 @@
 {
-  imports = [./sway.nix ./bars];
+  imports = [./sway.nix];
 }
