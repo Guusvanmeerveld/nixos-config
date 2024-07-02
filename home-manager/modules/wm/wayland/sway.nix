@@ -135,31 +135,39 @@ in {
           outer = gapSize;
         };
 
-        colors = {
-          background = "#${config.colorScheme.palette.base00}";
+        colors = let
+          bg-color = "#${config.colorScheme.palette.base00}";
+          alt-bg-color = "#${config.colorScheme.palette.base01}";
+
+          font-color = "#${config.colorScheme.palette.base05}";
+          alt-font-color = "#${config.colorScheme.palette.base04}";
+
+          urgent-color = "#${config.colorScheme.palette.base08}";
+        in {
+          background = bg-color;
 
           focused = {
-            background = "#${config.colorScheme.palette.base01}";
-            border = "#${config.colorScheme.palette.base01}";
-            childBorder = "#${config.colorScheme.palette.base01}";
-            indicator = "#${config.colorScheme.palette.base01}";
-            text = "#${config.colorScheme.palette.base04}";
+            background = alt-bg-color;
+            border = alt-bg-color;
+            childBorder = alt-bg-color;
+            indicator = alt-bg-color;
+            text = alt-font-color;
           };
 
           unfocused = {
-            background = "#${config.colorScheme.palette.base00}";
-            border = "#${config.colorScheme.palette.base00}";
-            childBorder = "#${config.colorScheme.palette.base00}";
-            indicator = "#${config.colorScheme.palette.base00}";
-            text = "#${config.colorScheme.palette.base05}";
+            background = bg-color;
+            border = bg-color;
+            childBorder = bg-color;
+            indicator = bg-color;
+            text = font-color;
           };
 
           urgent = {
-            background = "#${config.colorScheme.palette.base08}";
-            border = "#${config.colorScheme.palette.base08}";
-            childBorder = "#${config.colorScheme.palette.base08}";
-            indicator = "#${config.colorScheme.palette.base08}";
-            text = "#${config.colorScheme.palette.base05}";
+            background = urgent-color;
+            border = urgent-color;
+            childBorder = urgent-color;
+            indicator = urgent-color;
+            text = font-color;
           };
         };
 
@@ -186,8 +194,6 @@ in {
             "${modifier}+b" = "splith";
             "${modifier}+v" = "splitv";
 
-            "${modifier}+s" = "floating toggle";
-
             "${modifier}+Shift+c" = "reload";
 
             # Essential applications
@@ -196,6 +202,7 @@ in {
 
             # Modify container
             "${modifier}+w" = "kill";
+            "${modifier}+s" = "floating toggle";
             "${modifier}+f" = "fullscreen toggle";
 
             # File explorer shortcut
