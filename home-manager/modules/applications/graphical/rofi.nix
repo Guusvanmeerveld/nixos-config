@@ -107,6 +107,9 @@ in {
 
           border-radius = mkLiteral "5px";
 
+          border = mkLiteral "3px";
+          border-color = alt-bg-color;
+
           background-color = bg-color;
         };
 
