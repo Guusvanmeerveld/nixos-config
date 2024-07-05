@@ -32,6 +32,8 @@
 
   custom = {
     wm = {
+      lockscreens.swaylock.enable = true;
+
       bars.waybar = {
         enable = true;
         features = {
