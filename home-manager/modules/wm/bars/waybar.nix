@@ -53,6 +53,20 @@ in {
           description = "Enable media management via MPRIS";
         };
 
+        lockscreen = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            description = "Enable screen locking";
+            default = true;
+          };
+
+          path = lib.mkOption {
+            type = lib.types.str;
+            description = "The path to the lock screen";
+            default = config.custom.wm.lockscreens.default.path;
+          };
+        };
+
         tray = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -257,8 +271,14 @@ in {
             tooltip-format-disconnected = "Disconnected from the internet";
           };
 
-          "battery" = {
+          "battery" = let
+            default-tooltip = "{capacity}% | {time} | {power}W";
+          in {
             format = "{icon}";
+
+            interval = 5;
+
+            format-charging = "󰂄";
 
             states = {
               warning = 20;
@@ -267,7 +287,8 @@ in {
 
             format-icons = ["󰂎" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰁹"];
 
-            tooltip-format = "{capacity}% | {time} | {power}W";
+            tooltip-format-charging = "Charging | ${default-tooltip}";
+            tooltip-format = default-tooltip;
           };
 
           "group/power-drawer" = {
@@ -277,7 +298,7 @@ in {
               transition-duration = 500;
             };
 
-            modules = ["custom/power" "custom/lock" "custom/reboot"];
+            modules = ["custom/power"] ++ lib.optional cfg.features.lockscreen.enable "custom/lock" ++ ["custom/reboot"];
           };
 
           "custom/power" = {
@@ -289,7 +310,7 @@ in {
           "custom/lock" = {
             format = "󰌾";
             tooltip-format = "Lock";
-            on-click = "swaylock";
+            on-click = cfg.features.lockscreen.path;
           };
 
           "custom/reboot" = {
