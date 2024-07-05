@@ -17,5 +17,7 @@ in {
       name = "sway";
       path = "${pkgs.sway}/bin/sway";
     };
+
+    security.pam.services.swaylock = {};
   };
 }

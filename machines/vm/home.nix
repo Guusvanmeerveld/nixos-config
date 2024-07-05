@@ -31,7 +31,9 @@
   systemd.user.startServices = "sd-switch";
 
   custom = {
-    wm.wayland = {
+    wm = {
+      lockscreens.swaylock.enable = true;
+
       bars.waybar = {
         enable = true;
         features = {
@@ -39,7 +41,7 @@
         };
       };
 
-      sway = {
+      wayland.sway = {
         enable = true;
         output = {
           "Virtual-1" = {

@@ -36,10 +36,18 @@ in {
         description = "The default file explorer to use";
       };
 
-      lock = lib.mkOption {
-        type = lib.types.bool;
-        description = "Enable screen locking";
-        default = true;
+      lockscreen = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable screen locking";
+          default = true;
+        };
+
+        path = lib.mkOption {
+          type = lib.types.str;
+          description = "The path to the lock screen";
+          default = config.custom.wm.lockscreens.default.path;
+        };
       };
 
       keybinds = {
@@ -100,10 +108,31 @@ in {
       enable = lib.mkDefault cfg.keybinds.media;
     };
 
-    home.packages =
-      lib.optional cfg.keybinds.media pkgs.playerctl
-      ++ lib.optional cfg.keybinds.backlight pkgs.light
-      ++ lib.optional cfg.keybinds.sound pkgs.pulseaudio;
+    # home.packages =
+    #   lib.optional cfg.keybinds.media pkgs.playerctl
+    #   ++ lib.optional cfg.keybinds.backlight pkgs.light
+    #   ++ lib.optional cfg.keybinds.sound pkgs.pulseaudio;
+
+    services.swayidle = {
+      enable = true;
+
+      events = lib.optional cfg.lockscreen.enable {
+        event = "before-sleep";
+        command = cfg.lockscreen.path;
+      };
+
+      timeouts =
+        lib.optional cfg.lockscreen.enable {
+          timeout = 60;
+          command = cfg.lockscreen.path;
+        }
+        ++ [
+          {
+            timeout = 90;
+            command = "${pkgs.systemd}/bin/systemctl suspend";
+          }
+        ];
+    };
 
     wayland.windowManager.sway = {
       enable = true;
@@ -228,6 +257,10 @@ in {
               value = "move container to workspace number ${toString value}";
             })
             workspaces)
+          // lib.optionalAttrs cfg.lockscreen.enable {
+            "XF86WakeUp" = "exec ${cfg.lockscreen.path}";
+            "${modifier}+0" = "exec ${cfg.lockscreen.path}";
+          }
           # Audio control keybinds
           // lib.optionalAttrs cfg.keybinds.sound (let
             pactl = "${pkgs.pulseaudio}/bin/pactl";
