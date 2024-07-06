@@ -87,7 +87,17 @@ in {
       output = lib.mkOption {
         type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
         default = {};
-        description = "Attribute set that defines outputs. See {manpage} sway-input(5) for details";
+        description = ''
+          Attribute set that defines outputs. See {manpage} sway-input(5) for details
+        '';
+      };
+
+      input = lib.mkOption {
+        type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
+        default = {};
+        description = ''
+          An attribute set that defines inputs. See {manpage}`sway-input(5)` for details.
+        '';
       };
 
       fonts = lib.mkOption {
@@ -113,27 +123,6 @@ in {
     #   ++ lib.optional cfg.keybinds.backlight pkgs.light
     #   ++ lib.optional cfg.keybinds.sound pkgs.pulseaudio;
 
-    services.swayidle = {
-      enable = true;
-
-      events = lib.optional cfg.lockscreen.enable {
-        event = "before-sleep";
-        command = cfg.lockscreen.path;
-      };
-
-      timeouts =
-        lib.optional cfg.lockscreen.enable {
-          timeout = 60;
-          command = cfg.lockscreen.path;
-        }
-        ++ [
-          {
-            timeout = 90;
-            command = "${pkgs.systemd}/bin/systemctl suspend";
-          }
-        ];
-    };
-
     wayland.windowManager.sway = {
       enable = true;
 
@@ -142,11 +131,22 @@ in {
       };
 
       config = rec {
+        inherit (cfg) output;
+
+        input =
+          cfg.input
+          // {
+            "type:touchpad" = {
+              natural_scroll = "disabled";
+              tap = "enabled";
+            };
+          };
+
         modifier = cfg.modifierKey;
         terminal = cfg.terminal;
         menu = cfg.menu;
 
-        output = cfg.output;
+        window.border = 0;
 
         left = "h";
         up = "k";
@@ -157,9 +157,6 @@ in {
           names = cfg.fonts;
           size = 12.0;
         };
-
-        # input = {
-        # };
 
         gaps = {
           top = gapSize;
@@ -210,6 +207,26 @@ in {
           {
             command = "${pkgs.waybar}/bin/waybar";
           }
+        ];
+
+        startup = [
+          (let
+            sway-idle = "${pkgs.swayidle}/bin/swayidle";
+            systemctl = "${pkgs.systemd}/bin/systemctl";
+
+            lockscreen-timeout = 120;
+            suspend-timeout = lockscreen-timeout + 30;
+
+            lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
+
+            command = pkgs.writeShellScript "run-sway-idle" ''
+              ${sway-idle} -w \
+                ${lockscreen-cfg}
+                timeout ${toString suspend-timeout} '${systemctl} suspend'
+            '';
+          in {
+            command = toString command;
+          })
         ];
 
         keybindings =
@@ -282,6 +299,7 @@ in {
             "XF86AudioPlay" = "exec ${playerctl} play";
             "XF86AudioStop" = "exec ${playerctl} pause";
             "XF86AudioPause" = "exec ${playerctl} play-pause";
+            # "XF86AudioPlayPause" = "exec ${playerctl} play-pause";
             "XF86AudioNext" = "exec ${playerctl} next";
             "XF86AudioPrev" = "exec ${playerctl} previous";
           });

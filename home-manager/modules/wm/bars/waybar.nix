@@ -137,17 +137,7 @@ in {
           border-bottom: 2px solid ${focused-color};
         }
 
-        #privacy {
-          background: ${status-color};
-          border-radius: 25px;
-          padding: 5px 10px;
-          margin-right: 10px;
-          margin-top: 5px;
-          margin-bottom: 5px;
-        }
-
-
-        #status-modules, #mpris, #tray {
+        #status-modules, #privacy, #mpris, #tray {
           background: ${alt-bg-color};
           padding: 0 5px;
           border-radius: 25px;
@@ -156,7 +146,11 @@ in {
           margin-bottom: 5px;
         }
 
-        #power-profiles-daemon, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #tray {
+        #privacy {
+          background: ${status-color};
+        }
+
+        #power-profiles-daemon, #privacy, #mpris, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -317,6 +311,11 @@ in {
             format = "󰜉";
             tooltip-format = "Reboot";
             on-click = "reboot";
+          };
+
+          "tray" = {
+            icon-size = 20;
+            spacing = 10;
           };
         };
       };
