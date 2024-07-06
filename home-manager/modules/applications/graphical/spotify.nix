@@ -22,38 +22,57 @@ in {
     #     "spotify"
     #   ];
 
+    xdg.desktopEntries = {
+      spotify = {
+        name = "Spotify";
+        genericName = "Music Player";
+        icon = "spotify";
+        exec = "spotifywm";
+        comment = "Play music from spotifys library";
+        terminal = false;
+        categories = ["Application" "Network" "Audio"];
+      };
+    };
+
     programs.spicetify = {
       enable = true;
 
       windowManagerPatch = true;
 
       colorScheme = "custom";
-      customColorScheme = {
-        text = config.colorScheme.palette.base07;
-        subtext = config.colorScheme.palette.base06;
-        alt-text = config.colorScheme.palette.base06;
-        main = config.colorScheme.palette.base01;
-        sidebar = config.colorScheme.palette.base00;
-        player = config.colorScheme.palette.base00;
+      customColorScheme = let
+        bg-color = config.colorScheme.palette.base00;
+        alt-bg-color = config.colorScheme.palette.base01;
+
+        font-color = config.colorScheme.palette.base04;
+        alt-font-color = config.colorScheme.palette.base05;
+        # accent-color = ;
+      in {
+        text = font-color;
+        subtext = alt-font-color;
+        alt-text = alt-font-color;
+        main = alt-bg-color;
+        sidebar = bg-color;
+        player = bg-color;
         # player-bar-shadow = "040508";
         # player-bar-bg = "313131";
-        card = config.colorScheme.palette.base00;
-        shadow = config.colorScheme.palette.base01;
+        card = bg-color;
+        shadow = alt-bg-color;
         selected-row = config.colorScheme.palette.base03;
         button = config.colorScheme.palette.base0F;
         button-active = config.colorScheme.palette.base0F;
         button-disabled = config.colorScheme.palette.base0C;
-        tab-active = config.colorScheme.palette.base01;
+        tab-active = alt-bg-color;
         notification = config.colorScheme.palette.base0F;
         notification-error = config.colorScheme.palette.base08;
         notif-bubble-info = config.colorScheme.palette.base0C;
         notif-bubble-error = config.colorScheme.palette.base08;
-        misc = config.colorScheme.palette.base06;
-        not-selected = config.colorScheme.palette.base07;
+        misc = alt-font-color;
+        not-selected = font-color;
         accent = config.colorScheme.palette.base0B;
-        layer-shadow = config.colorScheme.palette.base00;
+        layer-shadow = bg-color;
         contour = config.colorScheme.palette.base02;
-        dark-border = config.colorScheme.palette.base00;
+        dark-border = bg-color;
         light-border = config.colorScheme.palette.base03;
       };
 
