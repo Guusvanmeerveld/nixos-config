@@ -130,6 +130,10 @@ in {
         gtk = true;
       };
 
+      extraConfig = ''
+        title_align center
+      '';
+
       config = rec {
         inherit (cfg) output;
 
@@ -214,7 +218,7 @@ in {
             sway-idle = "${pkgs.swayidle}/bin/swayidle";
             systemctl = "${pkgs.systemd}/bin/systemctl";
 
-            lockscreen-timeout = 120;
+            lockscreen-timeout = 300;
             suspend-timeout = lockscreen-timeout + 30;
 
             lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
