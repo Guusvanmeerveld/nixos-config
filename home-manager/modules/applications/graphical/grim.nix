@@ -11,10 +11,10 @@
   application = pkgs.writeShellApplication {
     name = app-name;
 
-    runtimeInputs = with pkgs; [grim slurp sway jq wl-clipboard];
+    runtimeInputs = with pkgs; [grim slurp wl-clipboard];
 
     text = ''
-      grim -g "$(slurp -d)" -o "$(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')" - | wl-copy -t image/png
+      grim -g "$(slurp -d)" - | wl-copy -t image/png
     '';
   };
 in {
