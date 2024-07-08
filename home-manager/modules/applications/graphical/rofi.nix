@@ -128,7 +128,7 @@ in {
         "prompt" = {
           background-color = primary-color;
           text-color = font-color;
-          padding = mkLiteral "6px";
+          padding = mkLiteral "6px 10px 6px 10px";
           border-radius = mkLiteral "3px";
           margin = mkLiteral "20px 0 0 20px";
         };
