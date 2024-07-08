@@ -10,5 +10,6 @@
     ./user.nix
     ./locale.nix
     ./journald.nix
+    ./security.nix
   ];
 }
