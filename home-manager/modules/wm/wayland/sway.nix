@@ -7,6 +7,8 @@
   cfg = config.custom.wm.wayland.sway;
   workspaces = [1 2 3 4 5 6 7 8 9];
   gapSize = 5;
+
+  playerctl = "${pkgs.playerctl}/bin/playerctl";
 in {
   options = {
     custom.wm.wayland.sway = {
@@ -233,6 +235,12 @@ in {
           })
         ];
 
+        keycodebindings = {
+          # XF86AudioPlayPause: xmodmap -pke | grep XF86AudioPlay
+          # https://github.com/swaywm/sway/issues/4783
+          "172" = lib.mkIf cfg.keybinds.media "exec ${playerctl} play-pause";
+        };
+
         keybindings =
           {
             # Directional focus
@@ -297,16 +305,14 @@ in {
             "XF86MonBrightnessDown" = "exec ${light} -U 5";
           })
           # Media keybinds
-          // lib.optionalAttrs cfg.keybinds.media (let
-            playerctl = "${pkgs.playerctl}/bin/playerctl";
-          in {
+          // lib.optionalAttrs cfg.keybinds.media {
             "XF86AudioPlay" = "exec ${playerctl} play";
             "XF86AudioStop" = "exec ${playerctl} pause";
             "XF86AudioPause" = "exec ${playerctl} play-pause";
             # "XF86AudioPlayPause" = "exec ${playerctl} play-pause";
             "XF86AudioNext" = "exec ${playerctl} next";
             "XF86AudioPrev" = "exec ${playerctl} previous";
-          });
+          };
       };
     };
   };
