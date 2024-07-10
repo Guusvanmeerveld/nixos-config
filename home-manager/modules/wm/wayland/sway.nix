@@ -143,7 +143,7 @@ in {
           cfg.input
           // {
             "type:touchpad" = {
-              natural_scroll = "disabled";
+              natural_scroll = "enabled";
               tap = "enabled";
             };
           };
@@ -287,7 +287,7 @@ in {
             })
             workspaces)
           // lib.optionalAttrs cfg.lockscreen.enable {
-            "XF86WakeUp" = "exec ${cfg.lockscreen.path}";
+            # "XF86WakeUp" = "exec ${cfg.lockscreen.path}";
             "${modifier}+0" = "exec ${cfg.lockscreen.path}";
           }
           # Audio control keybinds
