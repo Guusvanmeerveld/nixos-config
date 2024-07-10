@@ -57,6 +57,7 @@ in {
         "explorer.confirmDragAndDrop" = false;
 
         "update.showReleaseNotes" = false;
+        "workbench.startupEditor" = "none";
 
         # Integrated terminal config
         "terminal.integrated.cursorBlinking" = true;
