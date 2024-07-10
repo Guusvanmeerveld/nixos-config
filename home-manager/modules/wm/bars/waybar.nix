@@ -98,6 +98,8 @@ in {
         status-color = "#${config.colorScheme.palette.base0B}";
 
         font-size = "${toString cfg.font-size}px";
+
+        modules-spacing = 10;
       in ''
         * {
           border: none;
@@ -141,7 +143,7 @@ in {
           background: ${alt-bg-color};
           padding: 0 5px;
           border-radius: 25px;
-          margin-right: 5px;
+          margin-right: ${toString modules-spacing}px;
           margin-top: 5px;
           margin-bottom: 5px;
         }
@@ -153,6 +155,10 @@ in {
         #power-profiles-daemon, #privacy, #mpris, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #tray {
           font-size: 20px;
           padding: 0 10px;
+        }
+
+        #mpris {
+          font-size: ${font-size};
         }
       '';
 
@@ -187,18 +193,19 @@ in {
           };
 
           "mpris" = {
-            format = "{player-icon}";
-            format-paused = "{status_icon}";
+            format = "{player_icon} {title} - {artist}";
+            format-paused = "{status_icon} {title} - {artist}";
 
-            interval = 5;
+            interval = 2;
 
             player-icons = {
               default = "󰐊";
               mpv = "󰝚";
               spotify = "󰓇";
             };
+
             status-icons = {
-              paused = "󰏤";
+              paused = "󰏦";
             };
           };
 
