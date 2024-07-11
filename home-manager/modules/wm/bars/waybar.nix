@@ -97,6 +97,8 @@ in {
 
         status-color = "#${config.colorScheme.palette.base0B}";
 
+        urgent-color = "#${config.colorScheme.palette.base08}";
+
         font-size = "${toString cfg.font-size}px";
 
         modules-spacing = 10;
@@ -133,6 +135,12 @@ in {
           background: ${alt-bg-color};
           color: ${alt-font-color};
           border-bottom: 2px solid ${focused-color};
+        }
+
+        #workspaces button.urgent {
+          background: ${urgent-color};
+          color: ${font-color};
+          border-bottom: 2px solid transparent;
         }
 
         #clock {

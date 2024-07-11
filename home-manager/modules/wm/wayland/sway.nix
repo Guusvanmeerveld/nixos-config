@@ -192,6 +192,14 @@ in {
             text = alt-font-color;
           };
 
+          focusedInactive = {
+            background = alt-bg-color;
+            border = alt-bg-color;
+            childBorder = alt-bg-color;
+            indicator = alt-bg-color;
+            text = alt-font-color;
+          };
+
           unfocused = {
             background = bg-color;
             border = bg-color;
