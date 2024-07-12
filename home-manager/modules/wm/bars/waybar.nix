@@ -118,7 +118,6 @@ in {
 
         window#waybar {
           background: ${bg-color};
-          border-bottom: 2px solid ${alt-bg-color};
           color: ${font-color};
         }
 
