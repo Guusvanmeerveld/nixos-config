@@ -1,9 +1,6 @@
 {
   inputs,
   outputs,
-  lib,
-  config,
-  pkgs,
   ...
 }: {
   imports = [
@@ -55,23 +52,22 @@
     };
   };
 
-  services.xserver.libinput = {
-    mouse = {
-      accelProfile = "flat";
-      accelSpeed = "-0.25";
-    };
-  };
-
   custom = {
     user.name = "guus";
+
+    security.keyring.enable = true;
 
     applications = {
       shell.zsh.enable = true;
 
       docker.enable = true;
+      android.enable = true;
 
       graphical = {
         steam.enable = true;
+
+        gtk.enable = true;
+        openrgb.enable = true;
       };
 
       qemu = {
@@ -80,9 +76,15 @@
       };
     };
 
-    video.amd.enable = true;
+    dm.greetd.enable = true;
 
-    wm.i3.enable = true;
+    wm.wayland = {
+      enable = true;
+
+      sway.enable = true;
+    };
+
+    pipewire.enable = true;
   };
 
   networking.firewall.allowedTCPPorts = [22000];
