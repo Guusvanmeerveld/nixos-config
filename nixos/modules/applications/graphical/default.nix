@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./ckb-next.nix ./steam.nix];
+  imports = [./ckb-next.nix ./steam.nix ./gtk.nix ./openrgb.nix];
 }
