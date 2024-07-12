@@ -52,6 +52,20 @@ in {
         };
       };
 
+      notification = {
+        enable = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable notification service";
+          default = true;
+        };
+
+        path = lib.mkOption {
+          type = lib.types.str;
+          description = "The path to the notification service";
+          default = config.custom.wm.notifications.default.path;
+        };
+      };
+
       keybinds = {
         screenshot = {
           enable = lib.mkOption {
@@ -223,25 +237,29 @@ in {
           }
         ];
 
-        startup = [
-          (let
-            sway-idle = "${pkgs.swayidle}/bin/swayidle";
-            systemctl = "${pkgs.systemd}/bin/systemctl";
+        startup =
+          [
+            (let
+              sway-idle = "${pkgs.swayidle}/bin/swayidle";
+              systemctl = "${pkgs.systemd}/bin/systemctl";
 
-            lockscreen-timeout = 300;
-            suspend-timeout = lockscreen-timeout + 30;
+              lockscreen-timeout = 300;
+              suspend-timeout = lockscreen-timeout + 30;
 
-            lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
+              lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
 
-            command = pkgs.writeShellScript "run-sway-idle" ''
-              ${sway-idle} -w \
-                ${lockscreen-cfg}
-                timeout ${toString suspend-timeout} '${systemctl} suspend'
-            '';
-          in {
-            command = toString command;
-          })
-        ];
+              command = pkgs.writeShellScript "run-sway-idle" ''
+                ${sway-idle} -w \
+                  ${lockscreen-cfg}
+                  timeout ${toString suspend-timeout} '${systemctl} suspend'
+              '';
+            in {
+              command = toString command;
+            })
+          ]
+          ++ lib.optional cfg.notification.enable {
+            command = cfg.notification.path;
+          };
 
         keycodebindings = {
           # XF86AudioPlayPause: xmodmap -pke | grep XF86AudioPlay

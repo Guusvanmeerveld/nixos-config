@@ -67,6 +67,12 @@ in {
           };
         };
 
+        swaync = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable support for swaync notification hub";
+          default = config.custom.wm.notifications.swaync.enable;
+        };
+
         tray = lib.mkOption {
           type = lib.types.bool;
           default = true;
@@ -160,7 +166,7 @@ in {
           background: ${status-color};
         }
 
-        #power-profiles-daemon, #privacy, #mpris, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #tray {
+        #power-profiles-daemon, #privacy, #mpris, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #custom-swaync, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -206,6 +212,8 @@ in {
 
             interval = 2;
 
+            title-len = 24;
+
             player-icons = {
               default = "󰐊";
               mpv = "󰝚";
@@ -234,6 +242,7 @@ in {
               ++ lib.optional cfg.features.backlight "backlight"
               ++ ["pulseaudio" "network"]
               ++ lib.optional cfg.features.battery "battery"
+              ++ lib.optional cfg.features.swaync "custom/swaync"
               ++ ["group/power-drawer"];
           };
 
@@ -299,6 +308,36 @@ in {
             tooltip-format-charging = "Charging | ${default-tooltip}";
             tooltip-format = default-tooltip;
           };
+
+          "custom/swaync" = lib.mkIf cfg.features.swaync (let
+            package = config.services.swaync.package;
+            swaync-client = "${package}/bin/swaync-client";
+          in {
+            format = "{icon}";
+
+            format-icons = {
+              notification = "󰂚<span foreground='red'><sup></sup></span>";
+              none = "󰂚";
+
+              dnd-notification = "󰂛<span foreground='red'><sup></sup></span>";
+              dnd-none = "󰂛";
+
+              inhibited-notification = "󰂚<span foreground='red'><sup></sup></span>";
+              inhibited-none = "󰂚";
+
+              dnd-inhibited-notification = "󰂛<span foreground='red'><sup></sup></span>";
+              dnd-inhibited-none = "󰂛";
+            };
+
+            tooltip-format = "{} notification(s)";
+
+            return-type = "json";
+            exec = "${swaync-client} -swb";
+            on-click = "${swaync-client} -t -sw";
+            on-click-right = "${swaync-client} -d -sw";
+
+            escape = true;
+          });
 
           "group/power-drawer" = {
             orientation = "inherit";
