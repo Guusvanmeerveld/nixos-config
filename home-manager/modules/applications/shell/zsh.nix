@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.custom.applications.shell.zsh;
-  shell = config.custom.applications.shell;
 in {
   options = {
     custom.applications.shell.zsh = {
@@ -64,7 +63,7 @@ in {
           edit = "$EDITOR";
 
           down = "poweroff";
-          lsa = "ls -ah";
+          lsa = "ls -lah";
           rr = "reboot";
 
           ls = lib.mkIf config.programs.eza.enable "eza";
@@ -87,10 +86,12 @@ in {
         zplug = {
           enable = true;
           plugins = [
-            {name = "chisui/zsh-nix-shell";}
+            {
+              name = "chisui/zsh-nix-shell";
+            }
             {
               name = "romkatv/powerlevel10k";
-              tags = [as:theme depth:1];
+              tags = ["as:theme" "depth:1"];
             }
           ];
         };
