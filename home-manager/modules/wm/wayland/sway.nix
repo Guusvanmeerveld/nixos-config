@@ -56,7 +56,7 @@ in {
         enable = lib.mkOption {
           type = lib.types.bool;
           description = "Enable notification service";
-          default = true;
+          default = false;
         };
 
         path = lib.mkOption {

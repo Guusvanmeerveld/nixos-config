@@ -20,15 +20,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.wm.notifications = {
-      default = {
-        name = "swaync";
-        path = "${package}/bin/swaync";
-      };
-
-      hub.path = "${package}/bin/swaync-client -t -sw";
-    };
-
     services.swaync = {
       inherit package;
 
