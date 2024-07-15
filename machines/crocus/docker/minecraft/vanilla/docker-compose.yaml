@@ -39,6 +39,8 @@ services:
   backup:
     image: itzg/mc-backup
     container_name: "vanilla-server-backup"
+
+    restart: unless-stopped
     
     environment:
       UID: 1000
@@ -57,7 +59,7 @@ services:
       
     volumes:
       - /var/lib/minecraft/vanilla/minecraft-data:/data:ro
-      - /var/lib/minecraft/vanilla/backups:/backups
+      - /var/lib/syncthing/minecraft-backups/:/backups
 
 networks:
   minecraft:
