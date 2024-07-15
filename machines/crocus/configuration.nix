@@ -56,10 +56,13 @@
           openGeyserFirewall = true;
           openVoiceChatFirewall = true;
         };
+
+        syncthing.openFirewall = true;
       };
 
       wireguard = {
         openFirewall = true;
+        kernelModules.enable = true;
       };
 
       shell.zsh.enable = true;

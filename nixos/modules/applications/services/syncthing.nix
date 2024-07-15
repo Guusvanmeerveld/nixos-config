@@ -18,6 +18,12 @@ in {
         type = lib.types.str;
         description = "The external domain the service can be reached from";
       };
+
+      openFirewall = lib.mkOption {
+        type = lib.types.bool;
+        default = cfg.enable;
+        description = "Open syncthing ports in firewall";
+      };
     };
   };
 

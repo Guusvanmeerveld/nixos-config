@@ -10,6 +10,8 @@ in {
       # enable = lib.mkEnableOption "Enable wireguard client";
 
       openFirewall = lib.mkEnableOption "Open default port";
+
+      kernelModules.enable = lib.mkEnableOption "Enable wireguard kernel modules";
     };
   };
 
@@ -17,5 +19,7 @@ in {
     networking.firewall = {
       allowedUDPPorts = lib.optional cfg.openFirewall 51820;
     };
+
+    boot.kernelModules = lib.optional cfg.kernelModules.enable "wireguard";
   };
 }
