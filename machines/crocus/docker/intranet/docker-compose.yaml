@@ -25,7 +25,7 @@ services:
       PEERS: phone,desktop,laptop
 
       ALLOWEDIPS: 0.0.0.0/0
-      PEERDNS: 10.0.0.3
+      PEERDNS: 172.20.0.3
       LOG_CONFS: true
 
     ports:
@@ -36,12 +36,12 @@ services:
 
     volumes:
       - /var/lib/intranet/wireguard/config:/config
-      - /lib/modules:/lib/modules
+      - /run/current-system/kernel-modules/lib/modules:/lib/modules:ro
       - /etc/localtime:/etc/localtime:ro
 
     networks:
       wireguard:
-        ipv4_address: 10.0.0.2
+        ipv4_address: 172.20.0.2
 
   adguard:
     image: adguard/adguardhome
@@ -55,7 +55,7 @@ services:
 
     networks:
       wireguard:
-        ipv4_address: 10.0.0.3
+        ipv4_address: 172.20.0.3
 
   caddy:
     image: caddy:2-alpine
@@ -75,7 +75,7 @@ services:
 
     networks:
       wireguard:
-        ipv4_address: 10.0.0.4
+        ipv4_address: 172.20.0.4
       intranet:
 
 networks:
@@ -83,11 +83,11 @@ networks:
     name: intranet
 
   wireguard:
-    driver: bridge 
+    driver: bridge
     ipam:
       config:
-        - subnet: 10.0.0.0/16
-          gateway: 10.0.0.1
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
 
 volumes:
   adguard-work:
