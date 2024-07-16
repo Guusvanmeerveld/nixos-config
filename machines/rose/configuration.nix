@@ -90,12 +90,12 @@
           domain = "webdav.guusvanmeerveld.dev";
         };
 
-        miniflux = {
-          enable = true;
-          port = 8082;
-          adminCredentialsFile = config.age.secrets.miniflux.path;
-          domain = "miniflux.guusvanmeerveld.dev";
-        };
+        # miniflux = {
+        #  enable = true;
+        #  port = 8082;
+        #  adminCredentialsFile = config.age.secrets.miniflux.path;
+        #  domain = "miniflux.guusvanmeerveld.dev";
+        # };
 
         vaultwarden = {
           enable = true;
@@ -104,11 +104,9 @@
           domain = "bitwarden.guusvanmeerveld.dev";
         };
 
-        # syncthing = {
-        #   enable = true;
-        #   port = 8384;
-        #   domain = "rose-sync.guusvanmeerveld.dev";
-        # };
+        syncthing = {
+          openFirewall = true;
+        };
 
         # jupyter = {
         #  enable = true;

@@ -1,0 +1,49 @@
+services:
+  miniflux:
+    image: miniflux/miniflux:${VERSION}
+    container_name: "miniflux"
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    environment:
+      DATABASE_URL: postgres://${DB_USERNAME}:${DB_PASSWORD}@db/${DB_NAME}?sslmode=disable
+      RUN_MIGRATIONS: 1
+      CREATE_ADMIN: 1
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+
+    networks:
+      - intranet
+      - miniflux
+
+  db:
+    image: postgres:15
+    container_name: "miniflux-db"
+
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "miniflux"]
+      interval: 10s
+      start_period: 30s
+
+    networks:
+      - miniflux
+
+volumes:
+  db-data:
+
+networks:
+  intranet:
+    external: true
+    name: intranet
+
+  miniflux:

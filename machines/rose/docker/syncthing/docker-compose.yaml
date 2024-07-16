@@ -1,0 +1,28 @@
+services:
+  syncthing:
+    image: syncthing/syncthing
+    container_name: "syncthing"
+
+    hostname: rose
+
+    restart: unless-stopped
+    
+    environment:
+      PUID: 1000
+      PGID: 1000
+
+    volumes:
+      - /var/lib/syncthing:/var/syncthing
+
+    networks:
+      - intranet
+
+    ports:
+      - 22000:22000/tcp # TCP file transfers
+      - 22000:22000/udp # QUIC file transfers
+      - 21027:21027/udp # Receive local discovery broadcasts
+
+networks:
+  intranet:
+    external: true
+    name: intranet

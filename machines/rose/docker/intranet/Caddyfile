@@ -5,3 +5,11 @@
 http://adguard.rose {
 	reverse_proxy intranet-adguard:80
 }
+
+http://syncthing.rose {
+	reverse_proxy syncthing:8384
+}
+
+http://miniflux.rose {
+	reverse_proxy miniflux:8080
+}
