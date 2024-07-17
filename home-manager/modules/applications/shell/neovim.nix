@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.shell.neovim;
@@ -21,19 +22,153 @@ in {
       viAlias = true;
 
       colorschemes.onedark.enable = true;
-      plugins.lightline.enable = true;
+
+      # Wayland clipboard
+      clipboard.providers.wl-copy.enable = true;
+
+      plugins = {
+        # Start screen
+        alpha = {
+          enable = true;
+          theme = "dashboard";
+        };
+
+        lightline.enable = true;
+
+        # Make `nvim .` look prettier
+        oil.enable = true;
+
+        # Includes all parsers for treesitter
+        treesitter.enable = true;
+
+        # Git integration
+        fugitive.enable = true;
+
+        # Auto-tagging
+        ts-autotag.enable = true;
+
+        # Autopairs for parenthesis, brackets, etc.
+        nvim-autopairs.enable = true;
+
+        # Persistence
+        persistence.enable = true;
+
+        # Search
+        telescope = {
+          enable = true;
+
+          keymaps = {
+            "<leader>p" = "find_files";
+          };
+        };
+
+        # Tab bar
+        barbar.enable = true;
+
+        # Highlight language strings in nix files
+        hmts.enable = true;
+
+        # Notification manager
+        notify.enable = true;
+
+        # Display errors nicely inline with code
+        trouble.enable = true;
+
+        commentary.enable = true;
+
+        # File tree
+        neo-tree = {
+          enable = true;
+          enableDiagnostics = true;
+          enableGitStatus = true;
+          enableModifiedMarkers = true;
+          enableRefreshOnWrite = true;
+          closeIfLastWindow = true;
+
+          popupBorderStyle = "rounded"; # Type: null or one of “NC”, “double”, “none”, “rounded”, “shadow”, “single”, “solid” or raw lua code
+
+          buffers = {
+            bindToCwd = false;
+            followCurrentFile = {
+              enabled = true;
+            };
+          };
+
+          window = {
+            width = 40;
+            height = 15;
+            autoExpandWidth = false;
+            mappings = {
+              "<space>" = "none";
+            };
+          };
+        };
+
+        # Linting
+        lint = {
+          enable = true;
+
+          linters = {
+            jsonlint = {
+              cmd = "${pkgs.nodePackages.jsonlint}/bin/jsonlint";
+            };
+
+            yamllint = {
+              cmd = "${pkgs.yamllint}/bin/yamllint";
+            };
+          };
+
+          lintersByFt = {
+            json = ["jsonlint"];
+            yaml = ["yamllint"];
+          };
+        };
+
+        # Language servers
+        lsp = {
+          enable = true;
+
+          servers = {
+            # Rust
+            # rust-analyzer = {
+            #   enable = true;
+            #   installRustc = true;
+            #   installCargo = true;
+            # };
+          };
+        };
+      };
+
+      # Set mapleader to space
+      globals.mapleader = " ";
 
       opts = {
         number = true;
         relativenumber = true;
+
+        signcolumn = "yes";
+
         ignorecase = true;
         smartcase = true;
 
+        # Tab defaults (might get overwritten by an LSP server)
+        tabstop = 4;
+        shiftwidth = 4;
+        softtabstop = 0;
+        expandtab = true;
+        smarttab = true;
+
+        # Show line and column when searching
+        ruler = true;
+
         mouse = "a";
+
+        # Highlight the current line
+        cursorline = true;
 
         termguicolors = true;
 
-        shiftwidth = 2;
+        clipboard = "unnamedplus";
       };
     };
   };
