@@ -241,16 +241,20 @@ in {
           [
             (let
               sway-idle = "${pkgs.swayidle}/bin/swayidle";
+              swaymsg = "${pkgs.sway}/bin/swaymsg";
               systemctl = "${pkgs.systemd}/bin/systemctl";
 
               lockscreen-timeout = 300;
-              suspend-timeout = lockscreen-timeout + 30;
+              screenoff-timeout = lockscreen-timeout + 60;
+              suspend-timeout = screenoff-timeout + 300;
 
               lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
 
               command = pkgs.writeShellScript "run-sway-idle" ''
                 ${sway-idle} -w \
                   ${lockscreen-cfg}
+                  timeout ${toString screenoff-timeout} '${swaymsg} "output * dpms off"' \
+                    resume '${swaymsg} "output * dpms on"' \
                   timeout ${toString suspend-timeout} '${systemctl} suspend'
               '';
             in {
