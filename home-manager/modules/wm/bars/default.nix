@@ -1,3 +1,3 @@
 {
-  imports = [./waybar.nix];
+  imports = [./waybar];
 }

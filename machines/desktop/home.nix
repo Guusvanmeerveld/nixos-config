@@ -69,6 +69,10 @@
 
       bars.waybar = {
         enable = true;
+
+        features = {
+          wireguard = true;
+        };
       };
 
       wayland.sway = {

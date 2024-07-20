@@ -67,6 +67,8 @@ in {
           };
         };
 
+        wireguard = lib.mkEnableOption "Enable wireguard module";
+
         swaync = lib.mkOption {
           type = lib.types.bool;
           description = "Enable support for swaync notification hub";
@@ -165,7 +167,7 @@ in {
           background: ${status-color};
         }
 
-        #power-profiles-daemon, #privacy, #mpris, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #custom-swaync, #tray {
+        #power-profiles-daemon, #privacy, #mpris, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #custom-swaync, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -237,12 +239,25 @@ in {
           "group/status-modules" = {
             orientation = "inherit";
             modules =
-              lib.optional cfg.features.power-profiles "power-profiles-daemon"
+              lib.optional cfg.features.wireguard "custom/wireguard"
+              ++ lib.optional cfg.features.power-profiles "power-profiles-daemon"
               ++ lib.optional cfg.features.backlight "backlight"
               ++ ["pulseaudio" "network"]
               ++ lib.optional cfg.features.battery "battery"
               ++ lib.optional cfg.features.swaync "custom/swaync"
               ++ ["group/power-drawer"];
+          };
+
+          "custom/wireguard" = lib.mkIf cfg.features.wireguard {
+            format = "󰖂";
+            tooltip = "{}";
+
+            exec = "${./wireguard.sh} short";
+            on-click = "${pkgs.rofi}/bin/rofi -modi 'WireGuard:${./wireguard-rofi.sh}' -show WireGuard; pkill -SIGRTMIN+6 waybar";
+            return-type = "json";
+
+            signal = 6;
+            interval = 60;
           };
 
           "power-profiles-daemon" = {
