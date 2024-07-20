@@ -148,7 +148,7 @@ in {
           jeanp413.open-remote-ssh
           # Tools
 
-          ms-toolsai.jupyter
+          # ms-toolsai.jupyter
           ms-python.python
           # LSPs
           muhammad-sammy.csharp
