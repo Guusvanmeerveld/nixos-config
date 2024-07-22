@@ -8,8 +8,12 @@
   workspaces = [1 2 3 4 5 6 7 8 9];
   gapSize = 5;
 
+  swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
+
   playerctl = "${pkgs.playerctl}/bin/playerctl";
 in {
+  imports = [./osd.nix];
+
   options = {
     custom.wm.wayland.sway = {
       enable = lib.mkEnableOption "Enable sway window manager";
@@ -98,6 +102,12 @@ in {
           description = "Enable sound hotkey configuration";
           default = true;
         };
+
+        osd = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable osd for brightness and volume controls";
+          default = config.custom.wm.wayland.sway.osd.enable;
+        };
       };
 
       output = lib.mkOption {
@@ -169,6 +179,7 @@ in {
         window = {
           border = 0;
 
+          # Prevent idle when fullscreen app is shown
           commands = [
             {
               criteria = {
@@ -340,16 +351,49 @@ in {
           # Audio control keybinds
           // lib.optionalAttrs cfg.keybinds.sound (let
             pactl = "${pkgs.pulseaudio}/bin/pactl";
+
+            raise-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --output-volume +5"
+              else "${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+
+            lower-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --output-volume -5"
+              else "${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
+
+            mute-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --output-volume mute-toggle"
+              else "";
+
+            mic-mute-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --input-volume mute-toggle"
+              else "";
           in {
-            "XF86AudioLowerVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
-            "XF86AudioRaiseVolume" = "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+            "XF86AudioRaiseVolume" = "exec ${raise-command}";
+            "XF86AudioLowerVolume" = "exec ${lower-command}";
+
+            "XF86AudioMute" = "exec ${mute-command}";
+            "XF86AudioMicMute" = "exec ${mic-mute-command}";
           })
           # Screen backlight keybinds
           // lib.optionalAttrs cfg.keybinds.backlight (let
             light = "${pkgs.light}/bin/light";
+
+            up-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --brightness +5"
+              else "${light} -A 5";
+
+            down-command =
+              if cfg.keybinds.osd
+              then "${swayosd-client} --brightness -5"
+              else "${light} -U 5";
           in {
-            "XF86MonBrightnessUp" = "exec ${light} -A 5";
-            "XF86MonBrightnessDown" = "exec ${light} -U 5";
+            "XF86MonBrightnessUp" = "exec ${up-command}";
+            "XF86MonBrightnessDown" = "exec ${down-command}";
           })
           # Media keybinds
           // lib.optionalAttrs cfg.keybinds.media {

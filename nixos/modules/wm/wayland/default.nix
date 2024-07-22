@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.wm.wayland.sway;
 in {
-  imports = [./sway.nix];
+  imports = [./sway];
 
   options = {
     custom.wm.wayland = {
