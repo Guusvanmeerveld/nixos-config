@@ -66,7 +66,6 @@
   outputs = {
     self,
     nixpkgs,
-    nix-colors,
     home-manager,
     ...
   } @ inputs: let

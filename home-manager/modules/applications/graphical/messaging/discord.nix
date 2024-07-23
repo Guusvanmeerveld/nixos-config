@@ -2,7 +2,6 @@
   outputs,
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.messaging.discord;

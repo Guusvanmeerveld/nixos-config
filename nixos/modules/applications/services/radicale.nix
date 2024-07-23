@@ -1,8 +1,6 @@
 {
-  inputs,
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.applications.services.radicale;
