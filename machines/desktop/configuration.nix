@@ -1,8 +1,4 @@
-{
-  inputs,
-  outputs,
-  ...
-}: {
+{inputs, ...}: {
   imports = [
     inputs.grub2-themes.nixosModules.default
 
@@ -11,18 +7,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
-
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-    ];
-
-    config = {
-      allowUnfree = false;
-    };
-  };
 
   networking.hostName = "desktop";
 

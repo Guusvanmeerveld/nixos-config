@@ -1,34 +1,12 @@
-{outputs, ...}: {
+{...}: {
   imports = [
     ../../home-manager/modules
   ];
-
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
-      outputs.overlays.vscode-marketplace
-      outputs.overlays.rust
-    ];
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = _: true;
-    };
-  };
 
   home = {
     username = "guus";
     homeDirectory = "/home/guus";
   };
-
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 
   custom = {
     wm = {

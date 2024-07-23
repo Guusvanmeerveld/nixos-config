@@ -1,4 +1,5 @@
 {
+  outputs,
   config,
   lib,
   ...
@@ -14,5 +15,28 @@
 
   config = {
     news.display = "silent";
+
+    nixpkgs = {
+      # You can add overlays here
+      overlays = [
+        outputs.overlays.additions
+        outputs.overlays.modifications
+        outputs.overlays.unstable-packages
+        outputs.overlays.vscode-marketplace
+        outputs.overlays.rust
+      ];
+      config = {
+        allowUnfree = true;
+        allowUnfreePredicate = _: true;
+      };
+    };
+
+    # Nicely reload system units when changing configs
+    systemd.user.startServices = "sd-switch";
+
+    # Enable home-manager and git
+    # Essential for every install
+    programs.home-manager.enable = true;
+    programs.git.enable = true;
   };
 }
