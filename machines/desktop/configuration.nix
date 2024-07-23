@@ -52,6 +52,11 @@
     };
   };
 
+  # Prevent USB controller from awaking the system from suspend.
+  services.udev.extraRules = ''
+    ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x8086" ATTR{device}=="0x7a60" ATTR{power/wakeup}="disabled"
+  '';
+
   custom = {
     user.name = "guus";
 
@@ -70,6 +75,10 @@
         openrgb.enable = true;
       };
 
+      wireguard.openFirewall = true;
+
+      services.syncthing.openFirewall = true;
+
       qemu = {
         enable = true;
         graphical = true;
@@ -86,10 +95,6 @@
 
     pipewire.enable = true;
   };
-
-  networking.firewall.allowedTCPPorts = [22000];
-  networking.firewall.allowedUDPPorts = [22000 21027];
-
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
 }
