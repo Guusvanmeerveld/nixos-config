@@ -38,10 +38,19 @@
         warn-dirty = false;
       };
 
-      gc = {
-        automatic = true;
-        options = "--delete-older-than 30d";
-        dates = "weekly";
+      # gc = {
+      #   automatic = true;
+      #   options = "--delete-older-than 30d";
+      #   dates = "weekly";
+      # };
+    };
+
+    programs.nh = {
+      enable = true;
+
+      clean = {
+        enable = true;
+        extraArgs = "--keep-since 4d --keep 3";
       };
     };
   };
