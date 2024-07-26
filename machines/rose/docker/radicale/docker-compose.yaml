@@ -1,0 +1,53 @@
+services:
+  radicale:
+    image: tomsquest/docker-radicale
+    container_name: "radicale"
+
+    restart: unless-stopped
+
+    init: true
+
+    user: "1000"
+
+    read_only: true
+
+    security_opt:
+      - no-new-privileges:true
+
+    cap_drop:
+      - ALL
+
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+      - KILL
+
+    volumes:
+      - /var/lib/radicale:/data
+      - ./config:/config
+
+    networks:
+      - internet
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+    deploy:
+      resources:
+        limits:
+          pids: 50
+          memory: 256M
+
+    healthcheck:
+      test: curl --fail http://localhost:5232 || exit 1
+      interval: 30s
+      retries: "3"
+
+networks:
+  internet:
+    external: true
+    name: internet
