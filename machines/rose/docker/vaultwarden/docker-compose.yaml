@@ -1,18 +1,23 @@
-version: "3.3"
-
 services:
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: "vaultwarden"
 
-    depends_on:
-      - db
-
     restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
 
     networks:
       - vaultwarden
-      - nginx
+      - internet
 
     volumes:
       - data:/data/
@@ -27,11 +32,26 @@ services:
 
     restart: unless-stopped
 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
     networks:
       - vaultwarden
 
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
+      - db-backups:/backups
+
+    labels:
+      - docker-volume-backup.archive-pre=/bin/sh -c 'pg_dump -U ${DB_USER} -d ${DB_NAME} > /backups/dump.sql'
+
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+      interval: 10s
+      start_period: 30s
     
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -40,12 +60,15 @@ services:
 
 networks:
   vaultwarden:
-    external: false
   
-  nginx:
+  internet:
     external: true
-    name: nginx
+    name: internet
 
 volumes:
   data:
-  db_data:
+    name: vaultwarden-data
+
+  db-data:
+  db-backups:
+    name: vaultwarden-db-backups
