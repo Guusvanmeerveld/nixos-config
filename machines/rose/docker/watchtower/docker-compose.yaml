@@ -8,5 +8,11 @@ services:
     environment:
       WATCHTOWER_CLEANUP: true
 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
