@@ -24,6 +24,8 @@ services:
       - vaultwarden-db:/backup/vaultwarden/db:ro
       - vaultwarden-data:/backup/vaultwarden/data:ro
 
+      - /var/lib/syncthing/config:/backup/syncthing:ro
+
       - /var/lib/radicale:/backup/radicale:ro
 
       - /var/lib/dms/:/backup/dms:ro
