@@ -193,6 +193,14 @@ in {
               };
               command = "inhibit_idle fullscreen";
             }
+
+            # Show XWayland windows
+            {
+              criteria = {
+                shell = "xwayland";
+              };
+              command = ''title_format "[XWayland] %title"'';
+            }
           ];
         };
 
