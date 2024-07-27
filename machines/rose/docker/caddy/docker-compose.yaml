@@ -24,7 +24,7 @@ services:
 
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - /var/lib/caddy/certs:/data/caddy/certificates
+      - /var/lib/letsencrypt/certs:/data/caddy/certificates
       - caddy-site:/srv
       - caddy-data:/data
       - caddy-config:/config

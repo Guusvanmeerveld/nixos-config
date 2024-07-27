@@ -9,9 +9,4 @@ let
 
   all = users ++ systems;
 in {
-  "mailserver-mail-password.age".publicKeys = all;
-  "radicale-htpasswd.age".publicKeys = all;
-  "miniflux.age".publicKeys = all;
-  "vaultwarden.age".publicKeys = all;
-  "jupyter.age".publicKeys = all;
 }

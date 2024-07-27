@@ -26,6 +26,8 @@ services:
 
       - /var/lib/radicale:/backup/radicale:ro
 
+      - /var/lib/dms/:/backup/dms:ro
+
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
       - /var/lib/syncthing/backups:/archive
