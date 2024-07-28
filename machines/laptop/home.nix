@@ -10,6 +10,7 @@
 
   custom = {
     wm = {
+      notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
 
       bars.waybar = {
@@ -20,6 +21,7 @@
           power-profiles = true;
         };
       };
+
       wayland.sway = {
         enable = true;
 
