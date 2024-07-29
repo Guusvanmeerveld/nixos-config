@@ -14,6 +14,6 @@ http://miniflux.rose {
 	reverse_proxy miniflux:8080
 }
 
-http://portainer.rose {
-	reverse_proxy portainer:9000
+http://dozzle.rose {
+	reverse_proxy dozzle:8080
 }
