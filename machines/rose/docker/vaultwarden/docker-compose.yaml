@@ -1,6 +1,6 @@
 services:
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:${VERSION}
     container_name: "vaultwarden"
 
     restart: unless-stopped
@@ -25,6 +25,17 @@ services:
     environment:
       DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}"
       ADMIN_TOKEN: ${ADMIN_TOKEN}
+
+      SIGNUPS_ALLOWED: false
+
+      DOMAIN: "https://bitwarden.guusvanmeerveld.dev"
+
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_FROM: bitwarden@guusvanmeerveld.dev
+      SMTP_PORT: 587
+      SMTP_SECURITY: starttls
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
 
   db:
     image: postgres:16
