@@ -1,0 +1,24 @@
+services:
+  dashdot:
+    image: mauricenino/dashdot:${VERSION}
+    container_name: 'dashdot'
+
+    restart: unless-stopped
+
+    volumes:
+      - /etc/os-release:/mnt/host/etc/os-release:ro
+      - /proc/1/ns/net:/mnt/host/proc/1/ns/net:ro
+      - /mnt:/mnt/host:ro
+
+    # privileged: true
+
+    environment:
+      DASHDOT_ENABLE_CPU_TEMPS: true
+
+    networks:
+      - intranet
+
+networks:
+  intranet:
+    external: true
+    name: intranet

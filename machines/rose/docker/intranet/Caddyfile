@@ -17,3 +17,11 @@ http://miniflux.rose {
 http://dozzle.rose {
 	reverse_proxy dozzle:8080
 }
+
+http://dashdot.rose {
+	reverse_proxy dashdot:3001
+}
+
+http://uptime.rose {
+	reverse_proxy uptime-kuma:3001
+}

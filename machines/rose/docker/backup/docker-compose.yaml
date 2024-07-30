@@ -30,6 +30,8 @@ services:
 
       - /var/lib/dms/:/backup/dms:ro
 
+      - uptime-kuma:/backup/uptime-kuma:ro
+
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
       - /var/lib/syncthing/backups:/archive
@@ -50,3 +52,7 @@ volumes:
   vaultwarden-db:
     external: true
     name: vaultwarden-db-backups
+
+  uptime-kuma:
+    external: true
+    name: uptime-kuma-data
