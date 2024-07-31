@@ -19,6 +19,7 @@
           battery = true;
           backlight = true;
           power-profiles = true;
+          wireguard = true;
         };
       };
 
@@ -45,6 +46,7 @@
 
       services = {
         syncthing.enable = true;
+        mconnect.enable = true;
       };
 
       shell = {

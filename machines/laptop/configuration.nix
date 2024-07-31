@@ -35,14 +35,21 @@
   programs.light.enable = true;
   services.power-profiles-daemon.enable = true;
 
+  networking.firewall.checkReversePath = false;
+
   custom = {
     user.name = "guus";
+
+    security.keyring.enable = true;
 
     applications = {
       shell.zsh.enable = true;
 
+      mconnect.enable = true;
       docker.enable = true;
       android.enable = true;
+
+      wireguard.openFirewall = true;
     };
 
     dm.greetd.enable = true;
