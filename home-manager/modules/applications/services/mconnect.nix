@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  outputs,
+  inputs,
   ...
 }: let
   cfg = config.custom.applications.services.mconnect;
 in {
-  imports = [outputs.homeManagerModules.mconnect];
+  imports = [inputs.mconnect-nix.homeManagerModules.default];
 
   options = {
     custom.applications.services.mconnect = {
@@ -17,6 +17,15 @@ in {
   config = lib.mkIf cfg.enable {
     programs.mconnect = {
       enable = true;
+
+      settings = {
+        devices = [
+          {
+            id = "pixel";
+            name = "Pixel 8";
+          }
+        ];
+      };
     };
   };
 }

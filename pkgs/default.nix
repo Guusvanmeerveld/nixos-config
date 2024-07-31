@@ -6,5 +6,4 @@
   textblob = pkgs.callPackage ./textblob.nix {};
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
-  mconnect = pkgs.callPackage ./mconnect.nix {};
 }

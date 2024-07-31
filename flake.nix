@@ -61,6 +61,10 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    mconnect-nix = {
+      url = "github:guusvanmeerveld/mconnect-nix";
+    };
   };
 
   outputs = {

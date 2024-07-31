@@ -4,5 +4,4 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   armcord = import ./armcord.nix;
-  mconnect = import ./mconnect.nix;
 }

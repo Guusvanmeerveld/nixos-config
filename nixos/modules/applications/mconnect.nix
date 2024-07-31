@@ -1,12 +1,12 @@
 {
   lib,
   config,
-  outputs,
+  inputs,
   ...
 }: let
   cfg = config.custom.applications.mconnect;
 in {
-  imports = [outputs.nixosModules.mconnect];
+  imports = [inputs.mconnect-nix.nixosModules.default];
 
   options = {
     custom.applications.mconnect = {
@@ -15,6 +15,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.mconnect.enable = true;
+    programs.mconnect = {
+      openFirewall = true;
+    };
   };
 }

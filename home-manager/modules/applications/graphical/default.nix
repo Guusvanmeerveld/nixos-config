@@ -61,7 +61,7 @@ in {
       evince.enable = true;
       firefox.enable = true;
       kitty.enable = true;
-      kdeconnect.enable = true;
+      # kdeconnect.enable = true;
       grim.enable = true;
       thunar.enable = true;
       spotify.enable = true;
