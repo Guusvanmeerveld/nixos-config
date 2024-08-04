@@ -263,14 +263,19 @@ in {
           in {
             exec = pkgs.writeShellScript "mconnect-waybar" ''
               BATTERY=$(${get-battery-level})
+              INFO=$(${mconnectctl} show-device $(${get-primary-device}) | tail -8 | sed ':a;N;$!ba;s/\n/\\n/g')
 
-              printf '{"percentage": "%s"}\n' "$BATTERY"
+              printf '{"percentage": %s, "text": "%s"}\n' "$BATTERY" "$INFO"
             '';
 
             return-type = "json";
 
+            interval = 60;
+
             format = "{icon}";
             format-icons = ["󰤾" "󰤿" "󰥀" "󰥁" "󰥂" "󰥃" "󰥄" "󰥅" "󰥆" "󰥈"];
+
+            tooltip-format = "Battery: {percentage}%\n{}";
           });
 
           "custom/wireguard" = lib.mkIf cfg.features.wireguard {
