@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.docker;
@@ -18,5 +19,7 @@ in {
         enable = true;
       };
     };
+
+    environment.systemPackages = with pkgs; [ctop];
   };
 }
