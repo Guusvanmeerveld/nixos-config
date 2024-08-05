@@ -89,9 +89,9 @@ in {
         };
 
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nil";
+        "nix.serverPath" = "nixd";
         "nix.serverSettings" = {
-          nil = {
+          nixd = {
             formatting = {
               command = ["alejandra"];
             };
@@ -131,6 +131,7 @@ in {
           vscjava.vscode-java-dependency
           vadimcn.vscode-lldb
           bradlc.vscode-tailwindcss
+          prince781.vala
 
           ms-dotnettools.vscode-dotnet-runtime
 
@@ -159,7 +160,7 @@ in {
       hunspell
       hunspellDicts.en_US
       hunspellDicts.nl_nl
-      nil
+      nixd
       alejandra
     ];
   };
