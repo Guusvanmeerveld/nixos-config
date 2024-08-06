@@ -20,6 +20,8 @@ in {
       allowedUDPPorts = lib.optional cfg.openFirewall 51820;
     };
 
+    networking.firewall.checkReversePath = cfg.openFirewall;
+
     boot.kernelModules = lib.optional cfg.kernelModules.enable "wireguard";
   };
 }
