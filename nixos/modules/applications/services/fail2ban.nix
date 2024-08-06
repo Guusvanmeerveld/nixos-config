@@ -12,6 +12,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.fail2ban.enable = true;
+    services.fail2ban = {
+      enable = true;
+
+      bantime = "24h";
+    };
   };
 }
