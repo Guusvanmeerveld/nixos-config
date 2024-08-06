@@ -23,17 +23,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  services.openssh = {
-    enable = true;
-
-    openFirewall = true;
-
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-
   networking.firewall = {
     allowedTCPPorts = [25 143 465 587 993];
     allowedUDPPorts = [51820];
@@ -53,6 +42,9 @@
         syncthing = {
           openFirewall = true;
         };
+
+        openssh.enable = true;
+        fail2ban.enable = true;
       };
 
       shell.zsh.enable = true;
