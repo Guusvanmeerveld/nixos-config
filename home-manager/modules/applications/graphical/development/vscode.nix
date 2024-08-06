@@ -101,7 +101,7 @@ in {
         "spellright.notificationClass" = "warning";
         "spellright.configurationScope" = "user";
         "spellright.suggestionsInHints" = false;
-        "spellright.language" = ["en_US" "nl_NL"];
+        "spellright.language" = ["en-US-10-1."];
 
         "jupyter.experiments.enabled" = false;
         "jupyter.themeMatplotlibPlots" = true;
@@ -109,8 +109,8 @@ in {
         "latex-workshop.latex.outDir" = "%DIR%/out";
       };
 
-      extensions = with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace;
-        [
+      extensions =
+        (with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace; [
           # Theme
           zhuangtongfa.material-theme
           pkief.material-icon-theme
@@ -144,7 +144,7 @@ in {
 
           # Spelling
           ban.spellright
-        ]
+        ])
         ++ (with (pkgs.forVSCodeVersion vscodeVersion).open-vsx; [
           jeanp413.open-remote-ssh
           # Tools
