@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.shell;
 in {
-  imports = [./zsh.nix ./atuin.nix ./git.nix ./neovim.nix ./eza.nix ./utils.nix ./nix-index.nix];
+  imports = [./zsh.nix ./atuin.nix ./git.nix ./neovim.nix ./eza.nix ./utils.nix ./nix-index.nix ./fastfetch.nix];
 
   options = {
     custom.applications.shell = {
@@ -21,6 +21,7 @@ in {
       neovim.enable = true;
       nix-index.enable = true;
       zsh.enable = true;
+      fastfetch.enable = true;
     };
   };
 }
