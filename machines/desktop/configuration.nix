@@ -51,9 +51,11 @@
 
       docker.enable = true;
       android.enable = true;
+      mconnect.enable = true;
 
       graphical = {
         steam.enable = true;
+        teamviewer.enable = true;
 
         gtk.enable = true;
         openrgb.enable = true;
@@ -63,6 +65,8 @@
 
       services.syncthing.openFirewall = true;
 
+      waydroid.enable = true;
+
       qemu = {
         enable = true;
         graphical = true;
@@ -71,11 +75,7 @@
 
     dm.greetd.enable = true;
 
-    wm.wayland = {
-      enable = true;
-
-      sway.enable = true;
-    };
+    wm.wayland.sway.enable = true;
 
     pipewire.enable = true;
   };
