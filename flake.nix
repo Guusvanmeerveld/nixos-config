@@ -17,6 +17,8 @@
     # Nix user repository
     nur.url = "github:nix-community/NUR";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     nix-colors.url = "github:misterio77/nix-colors";
 
     spicetify-nix = {
@@ -64,6 +66,10 @@
 
     mconnect-nix = {
       url = "github:guusvanmeerveld/mconnect-nix";
+    };
+
+    argonone-nix = {
+      url = "github:guusvanmeerveld/argonone-nix";
     };
   };
 
@@ -142,6 +148,13 @@
         ];
       };
 
+      raspberry = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/raspberry/nixos
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -190,6 +203,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/crocus/home.nix
+        ];
+      };
+
+      "guus@raspberry" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/raspberry/home-manager
         ];
       };
 
