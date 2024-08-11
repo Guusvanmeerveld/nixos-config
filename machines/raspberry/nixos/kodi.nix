@@ -1,6 +1,6 @@
 {pkgs, ...}:
 let 
-  kodi = pkgs.kodi.passthru.withPackages (kodiPkgs: with kodiPkgs; [
+  package = pkgs.kodi-gbm.passthru.withPackages (kodiPkgs: with kodiPkgs; [
     jellyfin
     netflix
     keymap
@@ -8,24 +8,59 @@ let
 in
 {
   config = {
+    environment.systemPackages = [ package ];
+
     users.extraUsers.kodi = {
       isNormalUser = true;
       extraGroups = ["video" "input" "audio"];
     };
 
-    services.xserver = {
-      enable = true;
+    systemd.services.kodi = {
+      description = "Kodi media center";
 
-      desktopManager = {
-        kodi.enable = true;
-        kodi.package = kodi;
-      };
+      wantedBy = ["multi-user.target"];
 
-      displayManager = {
-        autoLogin.enable = true;
-        autoLogin.user = "kodi";
+      after = [
+        "network-online.target"
+        "sound.target"
+        "systemd-user-sessions.service"
+      ];
+
+      wants = [
+        "network-online.target"
+      ];
+
+      serviceConfig = {
+        Type = "simple";
+        User = "kodi";
+        ExecStart = "${package}/bin/kodi-standalone";
+        Restart = "always";
+        TimeoutStopSec = "15s";
+        TimeoutStopFailureMode = "kill";
+
+        # Hardening
+        
       };
     };
+
+    # services.xserver = {
+    #  enable = true;
+    #
+    #  desktopManager = {
+    #    session = [{
+    #      name = "kodi";
+    #      start = ''
+    #        LIRC_SOCKET_PATH=/run/lirc/lircd ${kodi}/bin/kodi --standalone --audio-backend=pipewire &
+    #        waitPID=$!
+    #      '';
+    #    }];
+    #  };
+    #
+    #  displayManager = {
+    #    autoLogin.enable = true;
+    #    autoLogin.user = "kodi";
+    #  };
+    # };
 
     # Wayland
     # Wayland is currently only able to operate on one resolution which is not desired.
