@@ -57,7 +57,7 @@ in {
 
         shellAliases = {
           hms = "home-manager switch --flake ${config.custom.nixConfigLocation} -b backup";
-          nbs = "sudo sh -c 'nixos-rebuild switch --flake ${config.custom.nixConfigLocation} --log-format internal-json -v |& nom --json'";
+          nbs = "nixos-rebuild switch --flake ${config.custom.nixConfigLocation} --use-remote-sudo --log-format internal-json -v |& nom --json";
           "nix build" = "nom build";
 
           edit = "$EDITOR";
