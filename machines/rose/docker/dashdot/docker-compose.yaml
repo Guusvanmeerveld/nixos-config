@@ -8,9 +8,9 @@ services:
     volumes:
       - /etc/os-release:/mnt/host/etc/os-release:ro
       - /proc/1/ns/net:/mnt/host/proc/1/ns/net:ro
-      - /mnt:/mnt/host:ro
+      # - /mnt:/mnt/host:ro
 
-    # privileged: true
+    privileged: true
 
     environment:
       DASHDOT_ENABLE_CPU_TEMPS: true
