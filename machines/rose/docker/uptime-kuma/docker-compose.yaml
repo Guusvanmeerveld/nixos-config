@@ -7,12 +7,10 @@ services:
 
     volumes:
       - data:/app/data
+        # - /etc/localtime:/etc/localtime:ro
     
     networks:
       - intranet
-
-    labels:
-      - com.centurylinklabs.watchtower.enable = false
 
 volumes:
   data:
