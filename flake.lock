@@ -116,6 +116,26 @@
         "type": "github"
       }
     },
+    "docker-compose-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1723911211,
+        "narHash": "sha256-/2E/MT0ZFh3d0uAUWXo+zHo7ef+l5i3G71wVVW9tkJM=",
+        "owner": "guusvanmeerveld",
+        "repo": "docker-compose-nix",
+        "rev": "0a0a04ab43ccc56f369c64dbc7236ae822be26fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guusvanmeerveld",
+        "repo": "docker-compose-nix",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "locked": {
         "lastModified": 1696426674,
@@ -762,6 +782,7 @@
       "inputs": {
         "agenix": "agenix",
         "argonone-nix": "argonone-nix",
+        "docker-compose-nix": "docker-compose-nix",
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager_2",
         "mconnect-nix": "mconnect-nix",

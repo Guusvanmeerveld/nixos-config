@@ -45,6 +45,12 @@
 
         openssh.enable = true;
         fail2ban.enable = true;
+
+        docker = {
+          enable = true;
+
+          watchtower.enable = true;
+        };
       };
 
       shell.zsh.enable = true;

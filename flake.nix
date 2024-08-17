@@ -71,6 +71,11 @@
     argonone-nix = {
       url = "github:guusvanmeerveld/argonone-nix";
     };
+
+    docker-compose-nix = {
+      url = "github:guusvanmeerveld/docker-compose-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
