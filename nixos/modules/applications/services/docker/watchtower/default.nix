@@ -6,11 +6,8 @@
     };
 
     config = lib.mkIf cfg.enable {
-        services.docker-compose.services = [
-            {
-                name = "watchtower";
-                file = ./docker-compose.yaml;
-            }
-        ];
+        services.docker-compose.projects."watchtower" = {
+            file = ./docker-compose.yaml;
+        };
     };
 } 
