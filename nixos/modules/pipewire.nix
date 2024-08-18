@@ -22,6 +22,17 @@ in {
 
       jack.enable = true;
       pulse.enable = true;
+
+      # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2669
+      wireplumber.extraConfig = {
+        "10-disable-camera" = {
+          "wireplumber.profiles" = {
+            main = {
+              "monitor.libcamera" = "disabled";
+            };
+          };
+        };
+      };
     };
   };
 }
