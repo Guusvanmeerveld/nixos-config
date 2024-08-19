@@ -27,11 +27,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1723218981,
-        "narHash": "sha256-VFokqdY8IGBs55nUT9MwWFwcOAGg5nkKoAhO+hnQpZ8=",
+        "lastModified": 1723759780,
+        "narHash": "sha256-0rUGGygxZfoQ+KgKF/3Zw94Ak8q9WT6WDj/AYZDmlzg=",
         "owner": "guusvanmeerveld",
         "repo": "argonone-nix",
-        "rev": "56e4462d6d0030f0d198ac862b0a164101b1e152",
+        "rev": "fa51160dd0ea7563240e6380af65e30005997f24",
         "type": "github"
       },
       "original": {

@@ -4,7 +4,7 @@
   ];
 
   config = {
-    programs.argonone = {
+    programs.argon.one = {
       enable = true;
 
       settings = {
