@@ -2,8 +2,6 @@
 let 
   package = pkgs.kodi-gbm.passthru.withPackages (kodiPkgs: with kodiPkgs; [
     jellyfin
-    netflix
-    keymap
   ]);
 in
 {
