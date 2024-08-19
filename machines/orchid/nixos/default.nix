@@ -12,7 +12,7 @@
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-    ./argonone.nix
+    ./argon.nix
   ];
 
   fileSystems = {
