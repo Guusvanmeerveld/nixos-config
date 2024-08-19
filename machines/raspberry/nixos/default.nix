@@ -62,7 +62,6 @@
       };
 
       shell.zsh.enable = true;
-      docker.enable = true;
     };
 
     pipewire.enable = true;
