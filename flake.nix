@@ -153,10 +153,10 @@
         ];
       };
 
-      raspberry = nixpkgs.lib.nixosSystem {
+      lavender = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./machines/raspberry/nixos
+          ./machines/lavender/nixos
         ];
       };
 
@@ -211,11 +211,11 @@
         ];
       };
 
-      "guus@raspberry" = home-manager.lib.homeManagerConfiguration {
+      "guus@lavender" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./machines/raspberry/home-manager
+          ./machines/lavender/home-manager
         ];
       };
 

@@ -36,7 +36,7 @@
     };
   };
 
-  networking.hostName = "raspberry";
+  networking.hostName = "lavender";
 
   # Enable networking
   networking.networkmanager.enable = true;
