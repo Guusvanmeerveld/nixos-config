@@ -160,6 +160,13 @@
         ];
       };
 
+      orchid = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/orchid/nixos
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -216,6 +223,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/lavender/home-manager
+        ];
+      };
+
+      "guus@orchid" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/orchid/home-manager
         ];
       };
 
