@@ -13,6 +13,10 @@
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     ./argon.nix
+
+    ./zfs.nix
+
+    ./samba.nix
   ];
 
   fileSystems = {
