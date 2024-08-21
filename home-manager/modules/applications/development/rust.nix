@@ -16,7 +16,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [gcc pkg-config openssl.dev] ++ [rust];
+    home.packages = (with pkgs; [gcc pkg-config openssl.dev cmake]) ++ [rust];
 
     home.sessionVariables = {
       PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
