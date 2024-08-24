@@ -3,6 +3,7 @@
         inputs.docker-compose-nix.nixosModules.default
 
         ./watchtower
+        ./dashdot
     ];
 
     options = {
