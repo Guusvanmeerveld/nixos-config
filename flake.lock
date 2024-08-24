@@ -125,11 +125,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724522659,
-        "narHash": "sha256-RgxoNOUiv6wq1ePOJpGp7R+wZ1+v4KXhN99JddtsMZk=",
+        "lastModified": 1724523832,
+        "narHash": "sha256-P78UJZIxF1uaPee29nxgT/3NYH6M0m04N/Z3Nq92fpM=",
         "owner": "guusvanmeerveld",
         "repo": "docker-compose-nix",
-        "rev": "819a13c857aca1a76e33170b82b8a8e4e759b762",
+        "rev": "bd11a61123052cb4fef55a442e6f363bbe648b3c",
         "type": "github"
       },
       "original": {

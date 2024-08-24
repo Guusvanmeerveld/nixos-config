@@ -55,8 +55,6 @@
       };
 
       shell.zsh.enable = true;
-
-      docker.enable = true;
     };
   };
 

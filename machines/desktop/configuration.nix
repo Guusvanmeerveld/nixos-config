@@ -49,7 +49,6 @@
     applications = {
       shell.zsh.enable = true;
 
-      docker.enable = true;
       android.enable = true;
       mconnect.enable = true;
 
@@ -63,7 +62,10 @@
 
       wireguard.openFirewall = true;
 
-      services.syncthing.openFirewall = true;
+      services = {
+        syncthing.openFirewall = true;
+        docker.enable = true;
+      };
 
       waydroid.enable = true;
 

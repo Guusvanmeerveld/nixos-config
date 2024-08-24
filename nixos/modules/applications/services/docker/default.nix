@@ -14,5 +14,14 @@
 
     config = lib.mkIf cfg.enable {
         services.docker-compose.enable = true;
+
+        virtualisation.docker = {
+            enable = true;
+            autoPrune = {
+                enable = true;
+            };
+        };
+
+        environment.systemPackages = with pkgs; [ctop];
     };
 }

@@ -52,6 +52,7 @@
         };
 
         syncthing.openFirewall = true;
+        docker.enable = true;
       };
 
       wireguard = {
@@ -60,7 +61,6 @@
       };
 
       shell.zsh.enable = true;
-      docker.enable = true;
     };
   };
 
