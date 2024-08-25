@@ -10,8 +10,12 @@ in {
   imports = [
     inputs.docker-compose-nix.nixosModules.default
 
+    ./networking.nix
+    ./storage.nix
+
     ./watchtower
     ./dashdot
+    ./syncthing
   ];
 
   options = {
@@ -25,6 +29,7 @@ in {
 
     virtualisation.docker = {
       enable = true;
+
       autoPrune = {
         enable = true;
       };
