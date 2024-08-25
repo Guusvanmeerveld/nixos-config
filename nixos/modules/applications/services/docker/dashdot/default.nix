@@ -3,7 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.custom.applications.services.docker.dashdot;
+  dockerConfig = config.custom.applications.services.docker;
+
+  cfg = dockerConfig.dashdot;
+  networking = dockerConfig.networking;
 in {
   options = {
     custom.applications.services.docker.dashdot = {
@@ -17,6 +20,8 @@ in {
 
       env = {
         VERSION = "latest";
+
+        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
       };
     };
   };

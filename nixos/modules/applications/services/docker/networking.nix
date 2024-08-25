@@ -8,7 +8,7 @@
 
       externalNetworkName = lib.mkOption {
         type = lib.types.str;
-        defualt = "internet";
+        default = "internet";
       };
     };
   };
