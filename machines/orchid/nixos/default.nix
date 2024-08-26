@@ -16,8 +16,6 @@
     ./zfs.nix
 
     ./samba.nix
-
-    ./dns.nix
   ];
 
   fileSystems = {
@@ -59,6 +57,17 @@
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
+
+        dnsmasq = {
+          enable = true;
+
+          redirects = {
+            "mijnmodem.kpn" = "192.168.2.254";
+            ".sun" = "192.168.2.119";
+
+            "orchid" = "192.168.2.195";
+          };
+        };
       };
 
       shell.zsh.enable = true;
