@@ -1,11 +1,15 @@
-{lib, config, pkgs, ...}: let 
-    cfg = config.custom.applications.services.dnsmasq;
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
+  cfg = config.custom.applications.services.dnsmasq;
 
-    resolv-file = pkgs.writeText "resolve.conf" ''
-      ${lib.concatStringsSep "\n" (map (server: "nameserver ${server}") cfg.upstream-servers)}
-    '';
-
-  in {
+  resolv-file = pkgs.writeText "resolve.conf" ''
+    ${lib.concatStringsSep "\n" (map (server: "nameserver ${server}") cfg.upstream-servers)}
+  '';
+in {
   options = {
     custom.applications.services.dnsmasq = {
       enable = lib.mkEnableOption "Enable dnsmasq DNS service";
@@ -20,13 +24,13 @@
       upstream-servers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = ["1.1.1.1"];
-        
+
         description = "The servers to reroute the dns requests to";
       };
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     networking.firewall = {
       allowedTCPPorts = [53];
       allowedUDPPorts = [53];
@@ -47,7 +51,7 @@
 
         no-hosts = true;
 
-        resolv-file = toString (resolv-file);
+        resolv-file = toString resolv-file;
       };
     };
   };
