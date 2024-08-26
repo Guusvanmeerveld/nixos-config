@@ -4,7 +4,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }: {
   imports = [
@@ -17,6 +16,8 @@
     ./zfs.nix
 
     ./samba.nix
+
+    ./dns.nix
   ];
 
   fileSystems = {
