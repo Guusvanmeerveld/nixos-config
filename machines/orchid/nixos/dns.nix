@@ -1,19 +1,35 @@
-{pkgs}: {
+{lib, pkgs, ...}: let 
+    upstream-servers = ["1.1.1.1"];
+
+    redirects = {
+      "mijnmodem.kpn" = "192.168.2.254";
+      ".sun" = "192.168.2.119";
+    };
+
+    resolv-file = pkgs.writeText "resolve.conf" ''
+      ${lib.concatStringsSep "\n" (map (server: "nameserver ${server}") upstream-servers)}
+    '';
+  in {
   config = {
+    networking.firewall = {
+      allowedTCPPorts = [53];
+      allowedUDPPorts = [53];
+    };
+
     services.dnsmasq = {
       enable = true;
 
       resolveLocalQueries = false;
 
+      # Add an 'address' line to the config for every redirect.
+      extraConfig = ''
+        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "address=/${name}/${value}") redirects)}
+      '';
+
       settings = {
         domain-needed = true;
 
-        resolv-file = pkgs.writeFile "resolve.conf" ''
-          9.9.9.9
-          149.112.112.112
-          2620:fe::fe
-          2620:fe::9
-        '';
+        resolv-file = toString (resolv-file);
       };
     };
   };
