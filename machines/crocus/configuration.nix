@@ -40,8 +40,6 @@
           openVoiceChatFirewall = true;
         };
 
-        syncthing.openFirewall = true;
-        
         docker = {
           enable = true;
 
@@ -49,6 +47,8 @@
             enable = true;
             schedule = "0 0 5 * * 1";
           };
+
+          syncthing.enable = true;
         };
 
         openssh.enable = true;
