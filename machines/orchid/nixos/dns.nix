@@ -4,6 +4,8 @@
     redirects = {
       "mijnmodem.kpn" = "192.168.2.254";
       ".sun" = "192.168.2.119";
+
+      "orchid" = "192.168.2.195";
     };
 
     resolv-file = pkgs.writeText "resolve.conf" ''
@@ -28,6 +30,8 @@
 
       settings = {
         domain-needed = true;
+
+        no-hosts = true;
 
         resolv-file = toString (resolv-file);
       };
