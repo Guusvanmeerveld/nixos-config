@@ -1,0 +1,32 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: "jellyfin"
+
+    restart: unless-stopped
+
+    group_add:
+      - ${VIDEO_GROUP}
+
+    networks:
+      - intranet
+      - internet
+
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+
+    volumes:
+      - ${LOGS_DIR}:/var/log/jellyfin
+      - ${CONFIG_DIR}:/config
+      - ${TRANSCODES_DIR}:/transcodes
+      - ${CACHE_DIR}:/cache
+      - ${MEDIA_DIR}:/media
+
+networks:
+  intranet:
+    external: true
+    name: ${INTERNAL_NETWORK_NAME}
+
+  internet:
+    external: true
+    name: ${EXTERNAL_NETWORK_NAME}

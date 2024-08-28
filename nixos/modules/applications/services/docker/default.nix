@@ -16,6 +16,7 @@ in {
     ./watchtower
     ./dashdot
     ./syncthing
+    ./jellyfin
   ];
 
   options = {
