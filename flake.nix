@@ -168,6 +168,13 @@
         ];
       };
 
+      tulip = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/tulip/configuration.nix
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -232,6 +239,14 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/orchid/home-manager
+        ];
+      };
+
+      "guus@tulip" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/tulip/home.nix
         ];
       };
 
