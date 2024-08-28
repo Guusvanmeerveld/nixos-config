@@ -49,13 +49,12 @@
         docker = {
           enable = true;
 
+          dashdot.enable = true;
           watchtower.enable = true;
         };
       };
 
       shell.zsh.enable = true;
-
-      docker.enable = true;
     };
   };
 

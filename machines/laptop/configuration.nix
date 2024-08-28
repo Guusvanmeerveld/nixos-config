@@ -46,9 +46,10 @@
       shell.zsh.enable = true;
 
       mconnect.enable = true;
-      docker.enable = true;
       android.enable = true;
 
+      services.docker.enable = true;
+      
       wireguard.openFirewall = true;
     };
 

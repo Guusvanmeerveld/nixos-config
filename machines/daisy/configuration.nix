@@ -49,7 +49,8 @@
 
     applications = {
       shell.zsh.enable = true;
-      docker.enable = true;
+      
+      services.docker.enable = true;
     };
   };
 

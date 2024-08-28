@@ -7,7 +7,7 @@ services:
 
     environment:
       WATCHTOWER_CLEANUP: true
-      WATCHTOWER_SCHEDULE: "@daily"
+      WATCHTOWER_SCHEDULE: ${SCHEDULE}
 
     logging:
       driver: "json-file"

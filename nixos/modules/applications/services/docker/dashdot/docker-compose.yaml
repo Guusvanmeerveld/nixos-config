@@ -1,7 +1,7 @@
 services:
   dashdot:
     image: mauricenino/dashdot:${VERSION}
-    container_name: 'dashdot'
+    container_name: "dashdot"
 
     restart: unless-stopped
 
@@ -21,4 +21,4 @@ services:
 networks:
   intranet:
     external: true
-    name: intranet
+    name: ${INTERNAL_NETWORK_NAME}

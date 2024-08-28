@@ -18,17 +18,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  services.openssh = {
-    enable = true;
-
-    openFirewall = true;
-
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@guusvanmeerveld.dev";
 
@@ -51,7 +40,19 @@
           openVoiceChatFirewall = true;
         };
 
-        syncthing.openFirewall = true;
+        docker = {
+          enable = true;
+
+          watchtower = {
+            enable = true;
+            schedule = "0 0 5 * * 1";
+          };
+
+          syncthing.enable = true;
+        };
+
+        openssh.enable = true;
+        fail2ban.enable = true;
       };
 
       wireguard = {
@@ -60,7 +61,6 @@
       };
 
       shell.zsh.enable = true;
-      docker.enable = true;
     };
   };
 
