@@ -16,11 +16,17 @@ services:
       - /dev/dri/renderD128:/dev/dri/renderD128
 
     volumes:
-      - ${LOGS_DIR}:/var/log/jellyfin
-      - ${CONFIG_DIR}:/config
+      - ${LOGS_DIR}:/config/log
+      - ${CONFIG_DIR}:/config/config
       - ${TRANSCODES_DIR}:/transcodes
       - ${CACHE_DIR}:/cache
       - ${MEDIA_DIR}:/media
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
 
 networks:
   intranet:
