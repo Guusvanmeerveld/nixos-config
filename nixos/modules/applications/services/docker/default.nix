@@ -18,6 +18,7 @@ in {
     ./syncthing
     ./jellyfin
     ./uptime-kuma
+    ./caddy
   ];
 
   options = {
