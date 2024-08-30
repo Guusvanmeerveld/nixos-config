@@ -27,10 +27,24 @@ in {
 
         default = createCaddyDir "certs";
       };
+
+      httpPort = lib.mkOption {
+        type = lib.types.ints.u16;
+        default = 80;
+      };
+
+      httpsPort = lib.mkOption {
+        type = lib.types.ints.u16;
+        default = 443;
+      };
+
+      openFirewall = lib.mkEnableOption "Open needed ports in firewall";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [cfg.httpPort cfg.httpsPort];
+
     services.docker-compose.projects."caddy" = {
       file = ./docker-compose.yaml;
 
@@ -42,6 +56,9 @@ in {
         SITE_DIR = createCaddyDir "site";
         DATA_DIR = createCaddyDir "data";
         CONFIG_DIR = createCaddyDir "config";
+
+        HTTP_PORT = cfg.httpPort;
+        HTTPS_PORT = cfg.httpsPort;
 
         EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
       };
