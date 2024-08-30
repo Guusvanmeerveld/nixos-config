@@ -33,6 +33,8 @@ in {
         CACHE_DIR = createJellyfinDir "cache";
         MEDIA_DIR = cfg.mediaDir;
 
+        HOSTNAME = config.networking.hostName;
+
         VIDEO_GROUP = "998";
 
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;

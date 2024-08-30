@@ -8,6 +8,8 @@ services:
     group_add:
       - ${VIDEO_GROUP}
 
+    hostname: ${HOSTNAME}
+
     networks:
       - intranet
       - internet
