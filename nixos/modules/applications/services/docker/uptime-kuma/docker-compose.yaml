@@ -1,0 +1,18 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:${VERSION}
+    container_name: "uptime-kuma"
+
+    restart: unless-stopped
+
+    volumes:
+      - ${DATA_DIR}:/app/data
+      - /etc/localtime:/etc/localtime:ro
+
+    networks:
+      - intranet
+
+networks:
+  intranet:
+    external: true
+    name: ${INTERNAL_NETWORK_NAME}

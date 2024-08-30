@@ -17,6 +17,7 @@ in {
     ./dashdot
     ./syncthing
     ./jellyfin
+    ./uptime-kuma
   ];
 
   options = {
