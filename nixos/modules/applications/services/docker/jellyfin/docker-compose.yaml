@@ -19,7 +19,7 @@ services:
 
     volumes:
       - ${LOGS_DIR}:/config/log
-      - ${CONFIG_DIR}:/config/config
+      - ${CONFIG_DIR}:/config
       - ${TRANSCODES_DIR}:/transcodes
       - ${CACHE_DIR}:/cache
       - ${MEDIA_DIR}:/media
