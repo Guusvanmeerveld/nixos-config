@@ -20,6 +20,8 @@ in {
       file = ./docker-compose.yaml;
 
       env = {
+        VERSION = "latest";
+
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
 
         DATA_DIR = storage.storageDir + "/uptime-kuma";
