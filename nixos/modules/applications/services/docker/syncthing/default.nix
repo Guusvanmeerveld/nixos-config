@@ -13,6 +13,11 @@ in {
     custom.applications.services.docker.syncthing = {
       enable = lib.mkEnableOption "Enable Syncthing docker service";
 
+      syncDir = lib.mkOption {
+        type = lib.types.str;
+        default = storage.storageDir + "/syncthing";
+      };
+
       fileTransferPort = lib.mkOption {
         type = lib.types.ints.u16;
         default = 22000;
@@ -38,7 +43,7 @@ in {
 
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
 
-        CONFIG_DIR = storage.storageDir + "/syncthing";
+        CONFIG_DIR = cfg.syncDir;
 
         FILE_TRANSFER_PORT = cfg.fileTransferPort;
         DISCOVERY_PORT = cfg.discoveryPort;
