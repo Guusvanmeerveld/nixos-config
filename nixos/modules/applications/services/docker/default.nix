@@ -19,6 +19,7 @@ in {
     ./jellyfin
     ./uptime-kuma
     ./caddy
+    ./ntfy
   ];
 
   options = {
