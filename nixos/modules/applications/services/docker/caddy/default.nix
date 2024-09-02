@@ -61,6 +61,7 @@ in {
         HTTPS_PORT = cfg.httpsPort;
 
         EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
       };
     };
   };
