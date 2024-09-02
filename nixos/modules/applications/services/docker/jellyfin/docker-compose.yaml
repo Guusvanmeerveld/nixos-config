@@ -24,6 +24,8 @@ services:
       - ${CACHE_DIR}:/cache
       - ${MEDIA_DIR}:/media
 
+      - /etc/localtime:/etc/localtime:ro
+
     logging:
       driver: "json-file"
       options:
