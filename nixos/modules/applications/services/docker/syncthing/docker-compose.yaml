@@ -1,6 +1,6 @@
 services:
   syncthing:
-    image: syncthing/syncthing
+    image: syncthing/syncthing:${VERSION}
     container_name: "syncthing"
 
     hostname: ${HOSTNAME}

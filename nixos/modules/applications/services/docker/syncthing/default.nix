@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   dockerConfig = config.custom.applications.services.docker;
@@ -44,6 +45,8 @@ in {
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
 
         CONFIG_DIR = cfg.syncDir;
+
+        VERSION = pkgs.syncthing.version;
 
         FILE_TRANSFER_PORT = cfg.fileTransferPort;
         DISCOVERY_PORT = cfg.discoveryPort;

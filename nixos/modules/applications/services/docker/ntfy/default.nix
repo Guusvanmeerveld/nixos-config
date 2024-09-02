@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   dockerConfig = config.custom.applications.services.docker;
@@ -25,6 +26,8 @@ in {
 
       env = {
         BASE_URL = cfg.baseUrl;
+
+        VERSION = "v${pkgs.ntfy.version}";
 
         DATA_DIR = storage.storageDir + "/ntfy";
 

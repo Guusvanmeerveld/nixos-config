@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   dockerConfig = config.custom.applications.services.docker;
@@ -34,6 +35,8 @@ in {
         MEDIA_DIR = cfg.mediaDir;
 
         HOSTNAME = config.networking.hostName;
+
+        VERSION = pkgs.jellyfin.version;
 
         VIDEO_GROUP = "998";
 

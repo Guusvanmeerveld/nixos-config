@@ -60,6 +60,8 @@ in {
         HTTP_PORT = cfg.httpPort;
         HTTPS_PORT = cfg.httpsPort;
 
+        VERSION = pkgs.caddy.version;
+
         EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
       };
