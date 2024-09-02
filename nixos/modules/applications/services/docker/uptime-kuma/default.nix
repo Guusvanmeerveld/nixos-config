@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   dockerConfig = config.custom.applications.services.docker;
@@ -20,7 +21,7 @@ in {
       file = ./docker-compose.yaml;
 
       env = {
-        VERSION = "latest";
+        VERSION = pkgs.uptime-kuma.version;
 
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
 
