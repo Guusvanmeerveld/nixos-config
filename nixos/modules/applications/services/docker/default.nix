@@ -20,6 +20,7 @@ in {
     ./uptime-kuma
     ./caddy
     ./ntfy
+    ./gitea
   ];
 
   options = {

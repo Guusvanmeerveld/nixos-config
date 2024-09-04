@@ -1,0 +1,63 @@
+services:
+  server:
+    image: codeberg.org/forgejo/forgejo:${VERSION}
+    container_name: "gitea"
+
+    restart: unless-stopped
+
+    environment:
+      USER_UID: ${UID}
+      USER_GID: ${GID}
+      GITEA__database__DB_TYPE: "postgres"
+      GITEA__database__HOST: "database:5432"
+      GITEA__database__NAME: ${DB_NAME}
+      GITEA__database__USER: ${DB_USERNAME}
+      GITEA__database__PASSWD: ${DB_PASSWORD}
+
+    hostname: ${HOSTNAME}
+
+    networks:
+      - gitea
+      - intranet
+      - internet
+
+    volumes:
+      - ${DATA_DIR}:/data
+
+      - ${USER_SSH_DIR}:/data/git/.ssh
+
+      - /etc/localtime:/etc/localtime:ro
+
+    ports:
+      - ${SSH_PORT}:22
+
+    depends_on:
+      - database
+
+  database:
+    image: postgres:14
+    container_name: "gitea-db"
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+
+    networks:
+      - gitea
+
+    volumes:
+      - ${DB_DIR}:/var/lib/postgresql/data
+
+networks:
+  intranet:
+    external: true
+    name: ${INTERNAL_NETWORK_NAME}
+
+  internet:
+    external: true
+    name: ${EXTERNAL_NETWORK_NAME}
+
+  gitea:
