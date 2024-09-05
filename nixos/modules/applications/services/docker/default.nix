@@ -21,6 +21,7 @@ in {
     ./caddy
     ./ntfy
     ./gitea
+    ./nextcloud
   ];
 
   options = {

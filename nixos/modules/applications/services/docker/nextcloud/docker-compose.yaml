@@ -1,0 +1,84 @@
+services:
+  db:
+    image: mariadb:lts
+    container_name: "nextcloud-db"
+
+    restart: unless-stopped
+
+    networks:
+      - nextcloud
+
+    environment:
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+
+    volumes:
+      - ${DB_DIR}:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    container_name: "nextcloud-redis"
+
+    restart: unless-stopped
+
+    networks:
+      - nextcloud
+
+  nextcloud-cron:
+    image: nextcloud:${VERSION}-apache
+    container_name: "nextcloud-cron"
+
+    restart: unless-stopped
+
+    networks:
+      - nextcloud
+
+    entrypoint: /cron.sh
+
+    volumes:
+      - ${DATA_DIR}:/var/www/html
+      - type: tmpfs
+        target: /tmp
+
+    depends_on:
+      - redis
+      - db
+
+  nextcloud:
+    image: nextcloud:${VERSION}-apache
+    container_name: "nextcloud"
+
+    restart: unless-stopped
+
+    networks:
+      - internet
+      - nextcloud
+
+    environment:
+      REDIS_HOST: nextcloud-redis
+
+      MYSQL_HOST: nextcloud-db
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_NAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - 4444:80
+
+    volumes:
+      - ${DATA_DIR}:/var/www/html
+      - type: tmpfs
+        target: /tmp
+
+    depends_on:
+      - redis
+      - db
+
+networks:
+  nextcloud:
+
+  internet:
+    external: true
+    name: ${EXTERNAL_NETWORK_NAME}
