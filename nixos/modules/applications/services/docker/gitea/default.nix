@@ -25,6 +25,15 @@ in {
         type = lib.types.ints.u16;
         default = 4444;
       };
+
+      secretsFile = lib.mkOption {
+        type = lib.types.path;
+
+        description = ''
+          A path to a file that contains the env secrets.
+          The ones that are required are `DB_NAME`, `DB_USERNAME` & `DB_PASSWORD`
+        '';
+      };
     };
   };
 
@@ -49,7 +58,7 @@ in {
       file = ./docker-compose.yaml;
 
       env = [
-        ./.env
+        cfg.secretsFile
         {
           VERSION = pkgs.forgejo.version;
 

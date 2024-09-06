@@ -33,7 +33,10 @@ in {
       secretsFile = lib.mkOption {
         type = lib.types.path;
 
-        description = "A path to a file that contains the env secrets. The ones that are required are `DB_ROOT_PASSWORD` & `DB_PASSWORD`";
+        description = ''
+          A path to a file that contains the env secrets.
+          The ones that are required are `GITEA_CLIENT_ID`, `GITEA_CLIENT_SECRET` & `RPC_SECRET`
+        '';
       };
     };
   };
