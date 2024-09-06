@@ -22,6 +22,7 @@ in {
     ./ntfy
     ./gitea
     ./nextcloud
+    ./drone
   ];
 
   options = {
