@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.applications.graphical.gtk;
+  cfg = config.custom.applications.graphical.theming.gtk;
 in {
   options = {
-    custom.applications.graphical.gtk = {
+    custom.applications.graphical.theming.gtk = {
       enable = lib.mkEnableOption "Enable GTK 3/4 theming";
     };
   };
@@ -19,6 +19,7 @@ in {
 
     dconf = {
       enable = true;
+
       settings = {
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
@@ -30,14 +31,8 @@ in {
       enable = true;
 
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.gnome.adwaita-icon-theme;
-      };
-
-      cursorTheme = {
-        name = "macOS-BigSur";
-        package = pkgs.apple-cursor;
-        size = 2;
+        name = "Pop";
+        package = pkgs.pop-icon-theme;
       };
 
       theme = {

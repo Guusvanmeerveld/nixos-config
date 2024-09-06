@@ -128,7 +128,7 @@ in {
 
       fonts = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = map (font: font.name) config.custom.applications.graphical.font.default;
+        default = map (font: font.name) config.custom.applications.graphical.theming.font.default;
         description = "The font to use for displaying title bar text";
       };
     };

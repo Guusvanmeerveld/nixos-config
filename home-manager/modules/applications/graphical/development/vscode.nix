@@ -23,7 +23,7 @@ in {
       enableExtensionUpdateCheck = false;
 
       userSettings = let
-        fonts = map (font: "'${font.name}'") config.custom.applications.graphical.font.default;
+        fonts = map (font: "'${font.name}'") config.custom.applications.graphical.theming.font.default;
       in {
         "window.zoomLevel" = 1;
 

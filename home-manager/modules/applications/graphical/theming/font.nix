@@ -4,10 +4,12 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.applications.graphical.font;
+  cfg = config.custom.applications.graphical.theming.font;
 in {
   options = {
-    custom.applications.graphical.font = {
+    custom.applications.graphical.theming.font = {
+      enable = lib.mkEnableOption "Enable font theming";
+
       default = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {
           options = {
@@ -19,6 +21,7 @@ in {
             };
           };
         });
+
         default = [
           {
             name = "Fira Code";
@@ -41,7 +44,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     home.packages = map (font: font.package) cfg.default;
   };
 }

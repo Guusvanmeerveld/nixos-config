@@ -11,6 +11,7 @@ in {
     ./development
     ./office
     ./games
+    ./theming
     ./messaging
     ./rofi.nix
     ./librewolf.nix
@@ -22,9 +23,7 @@ in {
     ./thunar.nix
     ./spotify.nix
     ./jellyfin.nix
-    ./gtk.nix
     ./thunderbird.nix
-    ./font.nix
     ./grim.nix
   ];
 
@@ -61,11 +60,9 @@ in {
       evince.enable = true;
       firefox.enable = true;
       kitty.enable = true;
-      # kdeconnect.enable = true;
       grim.enable = true;
       thunar.enable = true;
       spotify.enable = true;
-      gtk.enable = true;
       thunderbird.enable = true;
     };
   };
