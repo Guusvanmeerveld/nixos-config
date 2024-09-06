@@ -39,10 +39,6 @@
 
     applications = {
       services = {
-        syncthing = {
-          openFirewall = true;
-        };
-
         openssh.enable = true;
         fail2ban.enable = true;
 
@@ -51,6 +47,11 @@
 
           dashdot.enable = true;
           watchtower.enable = true;
+
+          syncthing = {
+            enable = true;
+            openFirewall = true;
+          };
         };
       };
 
