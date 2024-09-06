@@ -14,7 +14,7 @@ in {
     custom.applications.services.docker.ntfy = {
       enable = lib.mkEnableOption "Enable Ntfy notification service";
 
-      baseUrl = lib.mkOption {
+      externalDomain = lib.mkOption {
         type = lib.types.str;
       };
     };
@@ -25,7 +25,7 @@ in {
       file = ./docker-compose.yaml;
 
       env = {
-        BASE_URL = cfg.baseUrl;
+        BASE_URL = cfg.externalDomain;
 
         VERSION = "v${pkgs.ntfy.version}";
 
