@@ -8,4 +8,5 @@ let
   all = systems ++ users;
 in {
   "gitea.age".publicKeys = all;
+  "nextcloud.age".publicKeys = all;
 }

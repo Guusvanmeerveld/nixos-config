@@ -56,7 +56,7 @@
           gitea = {
             enable = true;
 
-            # dataDir = "/mnt/share/apps/gitea";
+            dataDir = "/mnt/share/apps/gitea";
 
             secretsFile = config.age.secrets.gitea.path;
           };
@@ -65,6 +65,14 @@
             enable = true;
 
             mediaDir = "/mnt/share/media";
+          };
+
+          nextcloud = {
+            enable = true;
+
+            dataDir = "/mnt/share/apps/nextcloud";
+
+            secretsFile = config.age.secrets.nextcloud.path;
           };
 
           ntfy = {
@@ -107,6 +115,12 @@
                 ${blockExternalVisitors}
 
                 reverse_proxy gitea:3000
+              }
+
+              http://nextcloud.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy nextcloud:80
               }
             '';
           };
