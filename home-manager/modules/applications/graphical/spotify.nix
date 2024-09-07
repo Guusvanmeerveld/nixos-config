@@ -6,9 +6,9 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.spotify;
-  spicePkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+  spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
-  imports = [inputs.spicetify-nix.homeManagerModule];
+  imports = [inputs.spicetify-nix.homeManagerModules.default];
 
   options = {
     custom.applications.graphical.spotify = {
@@ -27,7 +27,7 @@ in {
         name = "Spotify";
         genericName = "Music Player";
         icon = "spotify";
-        exec = "spotifywm";
+        exec = "spotify";
         comment = "Play music from spotifys library";
         terminal = false;
         categories = ["Application" "Network" "Audio"];
