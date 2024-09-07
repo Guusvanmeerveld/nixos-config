@@ -27,7 +27,7 @@ in {
       };
 
       secretsFile = lib.mkOption {
-        type = lib.types.path;
+        type = lib.types.str;
 
         description = ''
           A path to a file that contains the env secrets.
