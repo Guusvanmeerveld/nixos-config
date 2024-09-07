@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../nixos/modules
 
@@ -9,9 +13,9 @@
     ./hardware-configuration.nix
 
     ./shares.nix
-  ];
 
-  hardware.enableAllFirmware = true;
+    ./agenix.nix
+  ];
 
   boot = {
     tmp.cleanOnBoot = true;
@@ -52,13 +56,21 @@
           gitea = {
             enable = true;
 
-            dataDir = "/mnt/share/apps/gitea";
+            # dataDir = "/mnt/share/apps/gitea";
+
+            secretsFile = config.age.secrets.gitea.path;
+          };
+
+          jellyfin = {
+            enable = true;
+
+            mediaDir = "/mnt/share/media";
           };
 
           ntfy = {
             enable = true;
 
-            baseUrl = "https://ntfy.guusvanmeerveld.dev";
+            externalDomain = "https://ntfy.guusvanmeerveld.dev";
           };
 
           caddy = let
@@ -89,6 +101,12 @@
                 ${blockExternalVisitors}
 
                 reverse_proxy uptime-kuma:3001
+              }
+
+              http://gitea.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gitea:3000
               }
             '';
           };
