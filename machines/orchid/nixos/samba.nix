@@ -1,6 +1,16 @@
-{...}: {
+{config, ...}: {
   config = {
-    services.samba = {
+    services.samba = let
+      hostname = config.networking.hostName;
+
+      baseConfig = {
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "no";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+      };
+    in {
       enable = true;
       openFirewall = true;
 
@@ -8,8 +18,8 @@
 
       extraConfig = ''
         workgroup = WORKGROUP
-        server string = orchid
-        netbios name = orchid
+        server string = ${hostname}
+        netbios name = ${hostname}
         security = user
 
         # use sendfile = yes
@@ -24,41 +34,35 @@
       '';
 
       shares = {
-        iso = {
-          path = "/mnt/data/iso";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-        };
+        iso =
+          {
+            path = "/mnt/data/iso";
+          }
+          // baseConfig;
 
-        games = {
-          path = "/mnt/data/games";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-        };
+        games =
+          {
+            path = "/mnt/data/games";
+          }
+          // baseConfig;
 
-        media = {
-          path = "/mnt/data/media";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-        };
+        media =
+          {
+            path = "/mnt/data/media";
+          }
+          // baseConfig;
 
-        apps = {
-          path = "/mnt/data/apps";
-          browseable = "yes";
-          "read only" = "no";
-          "guest ok" = "no";
-          "create mask" = "0644";
-          "directory mask" = "0755";
-        };
+        nextcloud =
+          {
+            path = "/mnt/data/apps/nextcloud";
+          }
+          // baseConfig;
+
+        gitea =
+          {
+            path = "/mnt/data/apps/gitea";
+          }
+          // baseConfig;
       };
     };
 
