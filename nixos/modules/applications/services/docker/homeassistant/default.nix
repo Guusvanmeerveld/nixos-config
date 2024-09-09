@@ -21,7 +21,7 @@ in {
       file = ./docker-compose.yaml;
 
       env = {
-        CONFIG_DIR = storage.storageDir;
+        CONFIG_DIR = storage.storageDir + "/homeassistant/data";
 
         HOSTNAME = config.networking.hostName;
 
