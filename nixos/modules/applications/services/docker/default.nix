@@ -23,6 +23,7 @@ in {
     ./gitea
     ./nextcloud
     ./drone
+    ./homeassistant
   ];
 
   options = {
