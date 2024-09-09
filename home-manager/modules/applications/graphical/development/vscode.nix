@@ -107,6 +107,8 @@ in {
         "jupyter.themeMatplotlibPlots" = true;
 
         "latex-workshop.latex.outDir" = "%DIR%/out";
+
+        "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
       };
 
       extensions =
@@ -153,6 +155,7 @@ in {
           ms-python.python
           # LSPs
           muhammad-sammy.csharp
+          llvm-vs-code-extensions.vscode-clangd
         ]);
     };
 
