@@ -1,9 +1,10 @@
 let
-  users = [];
+  guus-tulip = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHebmVXbaAaLVgRemix3eJGA6RMmW7qwHS5RH6r4Lwa1";
+
+  users = [guus-tulip];
 
   tulip = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICJ86Kx0ApSKwYandpbT6TTorgwN1xTzqnJBub6EeXka";
-  desktop = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF+QqocPEiogC6EJOKiKOCIk93KM8IU49C7YzBZNDJ3H";
-  systems = [tulip desktop];
+  systems = [tulip];
 
   all = systems ++ users;
 in {
