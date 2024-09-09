@@ -16,6 +16,13 @@
         owner = "docker-compose";
         group = "docker";
       };
+
+      drone = {
+        file = ./secrets/drone.age;
+        mode = "770";
+        owner = "docker-compose";
+        group = "docker";
+      };
     };
   };
 }

@@ -75,6 +75,18 @@
             secretsFile = config.age.secrets.nextcloud.path;
           };
 
+          drone = {
+            enable = true;
+
+            externalDomain = "https://ci.guusvanmeerveld.dev";
+
+            gitea.externalDomain = "https://git.guusvanmeerveld.dev";
+
+            adminUsername = "guusvanmeerveld";
+
+            secretsFile = config.age.secrets.drone.path;
+          };
+
           ntfy = {
             enable = true;
 

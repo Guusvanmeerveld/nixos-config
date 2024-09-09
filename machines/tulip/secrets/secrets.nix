@@ -9,4 +9,5 @@ let
 in {
   "gitea.age".publicKeys = all;
   "nextcloud.age".publicKeys = all;
+  "drone.age".publicKeys = all;
 }
