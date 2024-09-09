@@ -64,9 +64,6 @@ services:
       MYSQL_USER: ${DB_NAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
 
-    ports:
-      - 4444:80
-
     volumes:
       - ${DATA_DIR}:/var/www/html
       - type: tmpfs
