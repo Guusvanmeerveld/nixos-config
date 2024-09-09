@@ -11,8 +11,11 @@ services:
       PUID: 1000
       PGID: 1000
 
+      STHOMEDIR: /config
+
     volumes:
-      - ${CONFIG_DIR}:/var/syncthing
+      - ${CONFIG_DIR}:/config
+      - ${SYNC_DIR}:/var/syncthing
 
     networks:
       - intranet

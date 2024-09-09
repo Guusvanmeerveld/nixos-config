@@ -16,7 +16,12 @@ in {
 
       syncDir = lib.mkOption {
         type = lib.types.str;
-        default = storage.storageDir + "/syncthing";
+        default = storage.storageDir + "/syncthing/sync";
+      };
+
+      configDir = lib.mkOption {
+        type = lib.types.str;
+        default = storage.storageDir + "/syncthing/config";
       };
 
       fileTransferPort = lib.mkOption {
@@ -44,7 +49,8 @@ in {
 
         INTERNAL_NETWORK_NAME = networking.internalNetworkName;
 
-        CONFIG_DIR = cfg.syncDir;
+        CONFIG_DIR = cfg.configDir;
+        SYNC_DIR = cfg.syncDir;
 
         VERSION = pkgs.syncthing.version;
 
