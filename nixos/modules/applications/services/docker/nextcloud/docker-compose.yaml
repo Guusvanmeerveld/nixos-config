@@ -38,7 +38,8 @@ services:
     entrypoint: /cron.sh
 
     volumes:
-      - ${DATA_DIR}:/var/www/html
+      - ${DATA_DIR}:/var/www/html/data
+      - ${APP_DIR}:/var/www/html/
       - type: tmpfs
         target: /tmp
 
@@ -65,7 +66,8 @@ services:
       MYSQL_PASSWORD: ${DB_PASSWORD}
 
     volumes:
-      - ${DATA_DIR}:/var/www/html
+      - ${DATA_DIR}:/var/www/html/data
+      - ${APP_DIR}:/var/www/html/
       - type: tmpfs
         target: /tmp
 

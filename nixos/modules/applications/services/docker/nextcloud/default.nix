@@ -21,6 +21,11 @@ in {
         default = createNextcloudDir "data";
       };
 
+      appDir = lib.mkOption {
+        type = lib.types.str;
+        default = createNextcloudDir "app";
+      };
+
       secretsFile = lib.mkOption {
         type = lib.types.str;
 
@@ -37,6 +42,7 @@ in {
         {
           DB_DIR = createNextcloudDir "db";
           DATA_DIR = cfg.dataDir;
+          APP_DIR = cfg.appDir;
 
           VERSION = pkgs.nextcloud29.version;
 
