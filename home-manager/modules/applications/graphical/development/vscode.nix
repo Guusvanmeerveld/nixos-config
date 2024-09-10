@@ -113,17 +113,34 @@ in {
 
       extensions =
         (with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace; [
-          # Theme
-          zhuangtongfa.material-theme
-          pkief.material-icon-theme
+          ms-vscode-remote.remote-containers
+        ])
+        ++ (with (pkgs.forVSCodeVersion vscodeVersion).open-vsx; [
+          # NixOS
+          arrterian.nix-env-selector
 
           # Keybindings
           ms-vscode.atom-keybindings
 
-          # NixOS
-          arrterian.nix-env-selector
+          # Theme
+          zhuangtongfa.material-theme
+          pkief.material-icon-theme
+
+          # Spelling
+          ban.spellright
+
+          # Tools
+          jeanp413.open-remote-ssh
+          james-yu.latex-workshop
+          dbaeumer.vscode-eslint
+          ms-vscode.cmake-tools
+          esbenp.prettier-vscode
 
           # LSPs
+          # ms-toolsai.jupyter
+          ms-python.python
+          muhammad-sammy.csharp
+          llvm-vs-code-extensions.vscode-clangd
           jnoortheen.nix-ide
           rust-lang.rust-analyzer
           tamasfe.even-better-toml
@@ -134,28 +151,6 @@ in {
           vadimcn.vscode-lldb
           bradlc.vscode-tailwindcss
           prince781.vala
-
-          ms-dotnettools.vscode-dotnet-runtime
-
-          # Tools
-          esbenp.prettier-vscode
-          dbaeumer.vscode-eslint
-          james-yu.latex-workshop
-
-          ms-vscode-remote.remote-containers
-
-          # Spelling
-          ban.spellright
-        ])
-        ++ (with (pkgs.forVSCodeVersion vscodeVersion).open-vsx; [
-          jeanp413.open-remote-ssh
-          # Tools
-
-          # ms-toolsai.jupyter
-          ms-python.python
-          # LSPs
-          muhammad-sammy.csharp
-          llvm-vs-code-extensions.vscode-clangd
         ]);
     };
 
