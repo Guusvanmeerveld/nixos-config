@@ -109,6 +109,15 @@ in {
         "latex-workshop.latex.outDir" = "%DIR%/out";
 
         "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
+
+        "cmake.configureOnOpen" = false;
+        "cmake.options.statusBarVisibility" = "hidden";
+        "cmake.showOptionsMovedNotification" = false;
+
+        "cmake.pinnedCommands" = [
+          "workbench.action.tasks.configureTaskRunner"
+          "workbench.action.tasks.runTask"
+        ];
       };
 
       extensions =
@@ -160,6 +169,9 @@ in {
       hunspellDicts.nl_nl
       nixd
       alejandra
+
+      gnumake
+      ninja
     ];
   };
 }
