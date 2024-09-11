@@ -24,6 +24,7 @@ in {
     ./nextcloud
     ./drone
     ./homeassistant
+    ./immich
   ];
 
   options = {
