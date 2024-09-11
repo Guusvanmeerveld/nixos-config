@@ -47,6 +47,7 @@
 
           watchtower.enable = true;
           uptime-kuma.enable = true;
+          homeassistant.enable = true;
 
           syncthing = {
             enable = true;
@@ -93,6 +94,12 @@
             externalDomain = "https://ntfy.guusvanmeerveld.dev";
           };
 
+          immich = {
+            enable = true;
+
+            secretsFile = config.age.secrets.immich.path;
+          };
+
           caddy = let
             modemIp = "192.168.2.254";
 
@@ -133,6 +140,18 @@
                 ${blockExternalVisitors}
 
                 reverse_proxy nextcloud:80
+              }
+
+              http://homeassistant.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy homeassistant:8123
+              }
+
+              http://immich.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy immich-server:3001
               }
             '';
           };

@@ -23,6 +23,13 @@
         owner = "docker-compose";
         group = "docker";
       };
+
+      immich = {
+        file = ./secrets/immich.age;
+        mode = "770";
+        owner = "docker-compose";
+        group = "docker";
+      };
     };
   };
 }
