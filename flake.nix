@@ -171,7 +171,7 @@
       tulip = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
-          ./machines/tulip/configuration.nix
+          ./machines/tulip/nixos
         ];
       };
 
@@ -246,7 +246,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
-          ./machines/tulip/home.nix
+          ./machines/tulip/home-manager
         ];
       };
 

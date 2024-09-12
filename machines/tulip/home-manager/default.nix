@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../../home-manager/modules
+    ../../../home-manager/modules
   ];
 
   home = {
