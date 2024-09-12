@@ -22,7 +22,9 @@ services:
       - internet
 
     volumes:
-      - ${DATA_DIR}:/data
+      - ${DATA_DIR}/gitea:/data/gitea
+      - ${DATA_DIR}/ssh:/data/ssh
+      - ${GIT_DATA_DIR}:/data/git
 
       - ${USER_SSH_DIR}:/data/git/.ssh
 

@@ -21,6 +21,13 @@ in {
         default = createGiteaDir "data";
       };
 
+      gitDataDir = lib.mkOption {
+        type = lib.types.str;
+        default = createGiteaDir "git";
+
+        description = "Path to the directory that the git data will be stored on";
+      };
+
       sshPort = lib.mkOption {
         type = lib.types.ints.u16;
         default = 4444;
@@ -65,6 +72,7 @@ in {
           HOSTNAME = config.networking.hostName;
 
           DATA_DIR = cfg.dataDir;
+          GIT_DATA_DIR = cfg.gitDataDir;
           DB_DIR = createGiteaDir "db";
 
           SSH_PORT = cfg.sshPort;
