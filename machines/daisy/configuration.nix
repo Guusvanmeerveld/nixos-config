@@ -24,17 +24,6 @@
     RuntimeDirectorySize=2G
   '';
 
-  services.openssh = {
-    enable = true;
-
-    openFirewall = true;
-
-    settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
-    };
-  };
-
   # security.acme.acceptTerms = true;
   # security.acme.defaults.email = "security@guusvanmeerveld.dev";
 
@@ -49,8 +38,17 @@
 
     applications = {
       shell.zsh.enable = true;
-      
-      services.docker.enable = true;
+
+      services = {
+        docker = {
+          enable = true;
+
+          watchtower.enable = true;
+        };
+
+        openssh.enable = true;
+        fail2ban.enable = true;
+      };
     };
   };
 
