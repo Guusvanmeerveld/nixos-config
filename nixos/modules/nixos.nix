@@ -60,7 +60,8 @@
 
       clean = {
         enable = true;
-        extraArgs = "--keep-since 4d --keep 3";
+        dates = "Mon *-*-08..14 05:00:00";
+        extraArgs = "--keep-since 14d --keep 3";
       };
     };
   };
