@@ -40,8 +40,7 @@ in {
 
         VIDEO_GROUP = "998";
 
-        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
-        EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

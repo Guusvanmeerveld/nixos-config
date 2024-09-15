@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   dockerConfig = config.custom.applications.services.docker;
@@ -53,7 +52,7 @@ in {
 
           REDIS_HOSTNAME = "immich-redis";
 
-          INTERNAL_NETWORK_NAME = networking.internalNetworkName;
+          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

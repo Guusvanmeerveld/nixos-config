@@ -38,4 +38,4 @@ services:
 networks:
   internet:
     external: true
-    name: ${EXTERNAL_NETWORK_NAME}
+    name: ${DEFAULT_NETWORK_NAME}

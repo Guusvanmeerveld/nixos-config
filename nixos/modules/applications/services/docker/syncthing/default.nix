@@ -47,7 +47,7 @@ in {
       env = {
         HOSTNAME = config.networking.hostName;
 
-        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
 
         CONFIG_DIR = cfg.configDir;
         SYNC_DIR = cfg.syncDir;

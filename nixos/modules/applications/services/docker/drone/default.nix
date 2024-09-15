@@ -57,7 +57,7 @@ in {
           EXTERNAL_DOMAIN = cfg.externalDomain;
           GITEA_EXTERNAL_DOMAIN = cfg.gitea.externalDomain;
 
-          EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

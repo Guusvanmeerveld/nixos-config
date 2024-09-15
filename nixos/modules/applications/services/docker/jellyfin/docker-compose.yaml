@@ -11,7 +11,6 @@ services:
     hostname: ${HOSTNAME}
 
     networks:
-      - intranet
       - internet
 
     devices:
@@ -33,10 +32,6 @@ services:
         max-file: "1"
 
 networks:
-  intranet:
-    external: true
-    name: ${INTERNAL_NETWORK_NAME}
-
   internet:
     external: true
-    name: ${EXTERNAL_NETWORK_NAME}
+    name: ${DEFAULT_NETWORK_NAME}

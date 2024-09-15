@@ -27,7 +27,7 @@ in {
 
         VERSION = pkgs.home-assistant.version;
 
-        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

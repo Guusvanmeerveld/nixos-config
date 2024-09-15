@@ -21,7 +21,7 @@ in {
       env = {
         VERSION = "latest";
 
-        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

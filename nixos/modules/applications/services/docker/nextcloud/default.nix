@@ -49,7 +49,7 @@ in {
           DB_NAME = "nextcloud";
           DB_USERNAME = "nextcloud";
 
-          EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
         cfg.secretsFile
       ];

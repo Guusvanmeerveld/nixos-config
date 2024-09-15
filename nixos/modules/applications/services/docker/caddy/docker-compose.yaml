@@ -11,7 +11,6 @@ services:
 
     networks:
       - internet
-      - intranet
 
     logging:
       driver: "json-file"
@@ -32,9 +31,5 @@ services:
 
 networks:
   internet:
-    name: ${EXTERNAL_NETWORK_NAME}
-    external: true
-
-  intranet:
-    name: ${INTERNAL_NETWORK_NAME}
+    name: ${DEFAULT_NETWORK_NAME}
     external: true

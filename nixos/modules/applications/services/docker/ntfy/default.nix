@@ -31,7 +31,7 @@ in {
 
         DATA_DIR = storage.storageDir + "/ntfy";
 
-        EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

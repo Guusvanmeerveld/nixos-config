@@ -111,4 +111,4 @@ networks:
 
   intranet:
     external: true
-    name: ${INTERNAL_NETWORK_NAME}
+    name: ${DEFAULT_NETWORK_NAME}

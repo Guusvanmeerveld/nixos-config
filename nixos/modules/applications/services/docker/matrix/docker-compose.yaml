@@ -1,0 +1,125 @@
+services:
+  synapse:
+    image: matrixdotorg/synapse:${SYNAPSE_VERSION}
+    container_name: "synapse"
+
+    restart: unless-stopped
+
+    # user: 1000:1000
+
+    networks:
+      - internet
+
+      - matrix
+      - synapse
+
+    environment:
+      SYNAPSE_REPORT_STAT: "no"
+      SYNAPSE_SERVER_NAME: ${SYNAPSE_SERVER_NAME}
+
+    volumes:
+      - ${SYNAPSE_DATA_DIR}:/data
+      - ${REGISTRATION_DIR}:/registration
+      - ./plugins/shared_secret_authenticator.py:/usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
+      - /etc/localtime:/etc/localtime:ro
+
+    depends_on:
+      - synapse-db
+
+  synapse-db:
+    image: postgres:14
+    container_name: "synapse-db"
+
+    restart: unless-stopped
+
+    volumes:
+      - ${SYNAPSE_DB_DIR}:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+
+    networks:
+      - synapse
+
+    environment:
+      POSTGRES_USER: ${SYNAPSE_DB_USER}
+      POSTGRES_PASSWORD: ${SYNAPSE_DB_PASSWORD}
+      POSTGRES_DB: ${SYNAPSE_DB_NAME}
+      POSTGRES_INITDB_ARGS: "--encoding='UTF8' --lc-collate='C' --lc-ctype='C'"
+
+  whatsapp:
+    image: dock.mau.dev/mautrix/whatsapp:${WHATSAPP_VERSION}
+    container_name: "whatsapp-bridge"
+
+    restart: unless-stopped
+
+    networks:
+      - matrix
+      - whatsapp
+
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+
+    command: su-exec 1000:1000 /usr/bin/mautrix-whatsapp -c /config/whatsapp.yaml
+    depends_on:
+      - whatsapp-db
+
+  whatsapp-db:
+    image: postgres:14
+    container_name: "whatsapp-bridge-db"
+
+    restart: unless-stopped
+
+    networks:
+      - whatsapp
+
+    volumes:
+      - ${WHATSAPP_DB_DIR}:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+
+    environment:
+      POSTGRES_PASSWORD: whatsapp-db
+      POSTGRES_DB: whatsapp
+
+  # signal:
+  #   image: dock.mau.dev/mautrix/signal:latest
+  #   container_name: signal-bridge
+  #   restart: unless-stopped
+  #   networks:
+  #       - synapse
+  #       - signal
+  #   volumes:
+  #       - ./config:/config
+  #       - signald:/signald
+  #   command: su-exec 1000:1000 /usr/bin/mautrix-signal -c /config/signal.yaml
+  #   depends_on:
+  #       - signald
+  #       - signal-db
+
+  # signald:
+  #     image: signald/signald
+  #     container_name: signald
+  #     restart: unless-stopped
+  #     volumes:
+  #         - signald:/signald
+
+  # signal-db:
+  #     image: postgres:14-alpine
+  #     container_name: signal-bridge-db
+  #     restart: unless-stopped
+  #     networks:
+  #         - signal
+  #     volumes:
+  #         - signal-db:/var/lib/postgresql/data
+  #     environment:
+  #         TZ: Europe/Amsterdam
+  #         POSTGRES_PASSWORD: signal-db
+  #         POSTGRES_DB: signal
+
+networks:
+  whatsapp:
+  synapse:
+  matrix:
+
+  internet:
+    name: ${EXTERNAL_NETWORK_NAME}
+    external: true

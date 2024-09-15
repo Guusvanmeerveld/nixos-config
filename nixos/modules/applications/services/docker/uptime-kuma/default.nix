@@ -23,7 +23,7 @@ in {
       env = {
         VERSION = pkgs.uptime-kuma.version;
 
-        INTERNAL_NETWORK_NAME = networking.internalNetworkName;
+        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
 
         DATA_DIR = storage.storageDir + "/uptime-kuma";
       };
