@@ -63,6 +63,12 @@
             path = "/mnt/data/apps/gitea";
           }
           // baseConfig;
+
+        syncthing =
+          {
+            path = "/mnt/data/apps/syncthing";
+          }
+          // baseConfig;
       };
     };
 
