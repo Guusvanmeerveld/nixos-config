@@ -65,6 +65,7 @@
 
         rofi.enable = true;
 
+        theming.enable = true;
         messaging.enable = true;
         office.enable = true;
         development.enable = true;

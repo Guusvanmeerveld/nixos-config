@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {...}: {
   imports = [
     ../../nixos/modules
@@ -9,22 +6,15 @@
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 0;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    timeout = 0;
+  };
 
   networking.hostName = "laptop";
 
-  # Enable networking
   networking.networkmanager.enable = true;
-
-  services.xserver.libinput = {
-    touchpad = {
-      naturalScrolling = false;
-      accelProfile = "flat";
-    };
-  };
 
   services.logind = {
     lidSwitch = "hibernate";
@@ -34,8 +24,6 @@
 
   programs.light.enable = true;
   services.power-profiles-daemon.enable = true;
-
-  networking.firewall.checkReversePath = false;
 
   custom = {
     user.name = "guus";
@@ -49,7 +37,7 @@
       android.enable = true;
 
       services.docker.enable = true;
-      
+
       wireguard.openFirewall = true;
     };
 
