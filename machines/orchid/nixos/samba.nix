@@ -69,6 +69,12 @@
             path = "/mnt/data/apps/syncthing";
           }
           // baseConfig;
+
+        immich =
+          {
+            path = "/mnt/data/apps/immich";
+          }
+          // baseConfig;
       };
     };
 
