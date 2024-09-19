@@ -25,6 +25,7 @@ in {
     ./jellyfin.nix
     ./thunderbird.nix
     ./grim.nix
+    ./mpv.nix
   ];
 
   options = {
@@ -64,6 +65,7 @@ in {
       thunar.enable = true;
       spotify.enable = true;
       thunderbird.enable = true;
+      mpv.enable = true;
     };
   };
 }
