@@ -41,6 +41,19 @@ in {
   config = lib.mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [cfg.fileTransferPort cfg.discoveryPort];
 
+    users = {
+      users."syncthing" = {
+        uid = 1300;
+
+        group = "syncthing";
+        isSystemUser = true;
+      };
+
+      groups."syncthing" = {
+        gid = 1300;
+      };
+    };
+
     services.docker-compose.projects."syncthing" = {
       file = ./docker-compose.yaml;
 
@@ -51,6 +64,9 @@ in {
 
         CONFIG_DIR = cfg.configDir;
         SYNC_DIR = cfg.syncDir;
+
+        UID = config.users.users.syncthing.uid;
+        GID = config.users.groups.syncthing.gid;
 
         VERSION = pkgs.syncthing.version;
 
