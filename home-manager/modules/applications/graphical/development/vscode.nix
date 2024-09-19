@@ -109,6 +109,11 @@ in {
         "latex-workshop.latex.outDir" = "%DIR%/out";
 
         "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
+        "clangd.arguments" = [
+          "--background-index"
+          "--clang-tidy"
+          "--completion-style=detailed"
+        ];
 
         "cmake.configureOnOpen" = false;
         "cmake.options.statusBarVisibility" = "hidden";
