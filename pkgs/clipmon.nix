@@ -15,7 +15,18 @@ pkgs.rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-arPf5UiVSRVbWXy34NFnzDh3oexMoDsRnnGDEBSIDms=";
 
-  # doCheck = false;
+  nativeBuildInputs = with pkgs; [
+    makeWrapper
+  ];
+
+  buildInputs = with pkgs; [
+    wayland
+  ];
+
+  postFixup = ''
+    wrapProgram "$out/bin/clipmon" \
+      --set LD_LIBRARY_PATH  ${pkgs.wayland}/lib
+  '';
 
   meta = {
     description = "Clipboard monitor";
