@@ -18,6 +18,8 @@ in {
       userEmail = "mail@guusvanmeerveld.dev";
 
       lfs.enable = true;
+
+      difftastic.enable = true;
     };
   };
 }
