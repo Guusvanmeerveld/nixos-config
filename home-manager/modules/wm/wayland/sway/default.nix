@@ -56,18 +56,6 @@ in {
         };
       };
 
-      instantReplay = {
-        enable = lib.mkEnableOption "Enable instant replay";
-
-        options = {
-          outputDir = lib.mkOption {
-            type = lib.types.str;
-            description = "The ouput directory where the videos will be placed";
-            default = "~/Videos";
-          };
-        };
-      };
-
       notification = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -312,17 +300,7 @@ in {
           # Notification daemon
           ++ lib.optional cfg.notification.enable {
             command = cfg.notification.path;
-          }
-          # Instant replay implementation
-          ++ lib.optional cfg.instantReplay.enable (let
-            gpu-screen-recorder = "${pkgs.gpu-screen-recorder}/bin/gpu-screen-recorder";
-            pactl = "${pkgs.pulseaudio}/bin/pactl";
-
-            buffer-size = 5 * 60; # In seconds
-            framerate = 60;
-          in {
-            command = ''${gpu-screen-recorder} -r ${toString buffer-size} -o ${cfg.instantReplay.options.outputDir} -f ${toString framerate} -a "$(${pactl} get-default-sink).monitor" -w screen -c mp4 -v no'';
-          });
+          };
 
         keycodebindings = {
           # XF86AudioPlayPause: xmodmap -pke | grep XF86AudioPlay

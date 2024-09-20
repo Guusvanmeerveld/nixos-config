@@ -26,6 +26,7 @@ in {
     ./thunderbird.nix
     ./grim.nix
     ./mpv.nix
+    ./gpu-screen-recorder.nix
   ];
 
   options = {
