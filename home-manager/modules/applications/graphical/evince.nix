@@ -17,7 +17,7 @@ in {
 
     xdg.mimeApps = {
       defaultApplications = {
-        "application/pdf" = ["evince.desktop"];
+        "application/pdf" = ["org.gnome.Evince.desktop"];
       };
     };
   };
