@@ -27,6 +27,7 @@ in {
     ./grim.nix
     ./mpv.nix
     ./gpu-screen-recorder.nix
+    ./loupe.nix
   ];
 
   options = {
@@ -67,6 +68,7 @@ in {
       spotify.enable = true;
       thunderbird.enable = true;
       mpv.enable = true;
+      loupe.enable = true;
     };
   };
 }
