@@ -28,6 +28,7 @@ in {
     ./mpv.nix
     ./gpu-screen-recorder.nix
     ./loupe.nix
+    ./file-roller.nix
   ];
 
   options = {
@@ -69,6 +70,7 @@ in {
       thunderbird.enable = true;
       mpv.enable = true;
       loupe.enable = true;
+      file-roller.enable = true;
     };
   };
 }
