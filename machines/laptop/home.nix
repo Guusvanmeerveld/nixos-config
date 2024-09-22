@@ -9,6 +9,8 @@
   };
 
   custom = {
+    xdg.portals.enable = true;
+
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
