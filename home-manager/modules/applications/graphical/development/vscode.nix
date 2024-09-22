@@ -5,7 +5,18 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.development.vscode;
+
   vscodeVersion = config.programs.vscode.package.version;
+
+  desktopFile = "codium.desktop";
+
+  openByDefault = [
+    "text/plain"
+    "text/html"
+    "text/css"
+    "text/javascript"
+    "text/typescript"
+  ];
 in {
   options = {
     custom.applications.graphical.development.vscode = {
@@ -14,6 +25,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    xdg.mimeApps.defaultApplications = builtins.listToAttrs (map (mimeType: {
+        name = mimeType;
+        value = desktopFile;
+      })
+      openByDefault);
+
     programs.vscode = {
       enable = true;
       package = pkgs.unstable.vscodium;

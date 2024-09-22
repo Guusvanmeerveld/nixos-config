@@ -5,7 +5,18 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.loupe;
+
   desktopFile = "org.gnome.Loupe.desktop";
+
+  openByDefault = [
+    "image/png"
+    "image/gif"
+    "image/bmp"
+    "image/tiff"
+    "image/webp"
+    "image/svg+xml"
+    "image/x-icon"
+  ];
 in {
   options = {
     custom.applications.graphical.loupe = {
@@ -17,16 +28,11 @@ in {
     home.packages = with pkgs; [loupe];
 
     xdg.mimeApps = {
-      defaultApplications = {
-        "image/jpeg" = [desktopFile];
-        "image/png" = [desktopFile];
-        "image/gif" = [desktopFile];
-        "image/bmp" = [desktopFile];
-        "image/tiff" = [desktopFile];
-        "image/webp" = [desktopFile];
-        "image/svg+xml" = [desktopFile];
-        "image/x-icon" = [desktopFile];
-      };
+      defaultApplications = builtins.listToAttrs (map (mimeType: {
+          name = mimeType;
+          value = desktopFile;
+        })
+        openByDefault);
     };
   };
 }
