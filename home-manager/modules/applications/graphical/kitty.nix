@@ -5,6 +5,9 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.kitty;
+
+  package = pkgs.kitty;
+  execPath = lib.getExe package;
 in {
   options = {
     custom.applications.graphical.kitty = {
@@ -15,11 +18,17 @@ in {
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.defaultApplications.terminal = {
       name = "kitty";
-      path = "${pkgs.kitty}/bin/kitty";
+      path = execPath;
       wm-class = "kitty";
     };
 
+    home.sessionVariables = {
+      TERMINAL = execPath;
+    };
+
     programs.kitty = {
+      inherit package;
+
       enable = true;
 
       shellIntegration = {

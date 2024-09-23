@@ -7,7 +7,7 @@
   cfg = config.custom.applications.graphical.thunar;
 
   plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
-  thunar = pkgs.xfce.thunar.override {thunarPlugins = plugins;};
+  package = pkgs.xfce.thunar.override {thunarPlugins = plugins;};
 in {
   options = {
     custom.applications.graphical.thunar = {
@@ -18,19 +18,16 @@ in {
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.defaultApplications.file-explorer = {
       name = "thunar";
-      path = "${thunar}/bin/thunar";
+      path = "${package}/bin/thunar";
       wm-class = "Thunar";
     };
 
     home.packages = [
-      thunar
+      package
     ];
 
-    xdg.mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = ["thunar.desktop"];
-      };
+    xdg.mimeApps.defaultApplications = {
+      "inode/directory" = ["thunar.desktop"];
     };
   };
 }

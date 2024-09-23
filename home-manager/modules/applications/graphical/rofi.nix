@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.custom.applications.graphical.rofi;
+
+  package = pkgs.rofi;
 in {
   options = {
     custom.applications.graphical.rofi = {
@@ -21,11 +23,13 @@ in {
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.defaultApplications.menu = {
       name = "rofi";
-      path = "${pkgs.rofi}/bin/rofi -show drun";
+      path = "${lib.getExe package} -show drun";
       wm-class = "Rofi";
     };
 
     programs.rofi = {
+      inherit package;
+
       # Config highly inspired by https://github.com/catppuccin/rofi
       enable = true;
 
