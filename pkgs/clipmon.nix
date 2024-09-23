@@ -33,5 +33,7 @@ pkgs.rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~whynothugo/clipmon";
     license = lib.licenses.isc;
     maintainers = [];
+
+    mainProgram = "clipmon";
   };
 }

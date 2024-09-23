@@ -4,4 +4,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   armcord = import ./armcord.nix;
+  clipmon = import ./clipmon.nix;
 }
