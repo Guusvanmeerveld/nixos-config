@@ -30,6 +30,8 @@
 
     security.keyring.enable = true;
 
+    bluetooth.enable = true;
+
     applications = {
       shell.zsh.enable = true;
 
