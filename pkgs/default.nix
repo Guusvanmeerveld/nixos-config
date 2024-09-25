@@ -7,7 +7,5 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
 
-  kodiPackages = {
-    ambilight = pkgs.callPackage ./ambilight.nix {};
-  };
+  ambilight = pkgs.callPackage ./ambilight.nix {};
 }
