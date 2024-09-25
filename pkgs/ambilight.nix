@@ -16,9 +16,9 @@ in
       sha256 = "sha256-EI5a4RMTbSppebQfJAR0D/lgb7qSWiWgU1GZMG9mYEE=";
     };
 
-    postInstall = ''
-      mv /build/source/addon.xml $out${pkgs.kodiPackages.addonDir}/${namespace}/
-    '';
+    propagatedBuildInputs = with pkgs.kodiPackages; [
+      requests
+    ];
 
     meta = with lib; {
       homepage = "https://github.com/mpolednik/script.kodi.hue.ambilight";
