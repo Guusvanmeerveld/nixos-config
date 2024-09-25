@@ -7,5 +7,5 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
 
-  ambilight = pkgs.callPackage ./ambilight.nix {};
+  hue-service = pkgs.callPackage ./hue-service.nix {};
 }
