@@ -6,4 +6,8 @@
   textblob = pkgs.callPackage ./textblob.nix {};
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
+
+  kodiPackages = {
+    ambilight = pkgs.callPackage ./ambilight.nix {};
+  };
 }
