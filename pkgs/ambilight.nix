@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
 in
   pkgs.kodiPackages.buildKodiAddon rec {
     pname = "ambilight";
