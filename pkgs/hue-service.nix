@@ -22,7 +22,7 @@ in
 
     meta = with lib; {
       homepage = "https://github.com/zim514/script.service.hue";
-      description = " Kodi add-on for Philips Hue.";
+      description = "Kodi add-on for Philips Hue.";
       license = licenses.mit;
     };
   }

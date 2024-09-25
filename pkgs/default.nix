@@ -7,5 +7,5 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
 
-  hue-service = pkgs.callPackage ./hue-service.nix {};
+  hue-service = pkgs.kodiPackages.callPackage ./hue-service.nix {};
 }
