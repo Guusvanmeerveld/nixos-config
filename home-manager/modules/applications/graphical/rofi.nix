@@ -6,7 +6,15 @@
 }: let
   cfg = config.custom.applications.graphical.rofi;
 
-  package = pkgs.rofi;
+  package =
+    if cfg.wayland
+    then pkgs.rofi-wayland
+    else pkgs.rofi;
+
+  modi = ["drun" "window" "run" "ssh"];
+  default = "drun";
+
+  startCommand = ''${lib.getExe package} -modi '${lib.concatStringsSep "," modi}' -show ${default}'';
 in {
   options = {
     custom.applications.graphical.rofi = {
@@ -17,13 +25,19 @@ in {
         default = config.custom.applications.graphical.defaultApplications.terminal.path;
         description = "The default terminal to use";
       };
+
+      wayland = lib.mkOption {
+        type = lib.types.bool;
+        default = config.custom.wm.wayland.enable;
+        description = "Whether to use the wayland version of rofi";
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.defaultApplications.menu = {
       name = "rofi";
-      path = "${lib.getExe package} -show drun";
+      path = startCommand;
       wm-class = "Rofi";
     };
 
