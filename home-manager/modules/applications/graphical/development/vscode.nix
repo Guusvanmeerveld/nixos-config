@@ -106,11 +106,11 @@ in {
         };
 
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nixd";
+        "nix.serverPath" = lib.getExe pkgs.nixd;
         "nix.serverSettings" = {
           nixd = {
             formatting = {
-              command = ["alejandra"];
+              command = [(lib.getExe pkgs.alejandra)];
             };
           };
         };
@@ -189,11 +189,9 @@ in {
       hunspell
       hunspellDicts.en_US
       hunspellDicts.nl_nl
-      nixd
-      alejandra
 
-      gnumake
       ninja
+      cmake
     ];
   };
 }
