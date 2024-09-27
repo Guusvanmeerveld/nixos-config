@@ -7,5 +7,6 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
 
-  hue-service = pkgs.kodi-gbm.packages.callPackage ./hue-service.nix {};
+  pyrollbar = pkgs.kodi-gbm.packages.callPackage ./pyrollbar.nix {};
+  hue-service = pkgs.kodi-gbm.packages.callPackage ./hue-service.nix {inherit pyrollbar;};
 }

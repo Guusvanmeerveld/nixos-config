@@ -1,8 +1,10 @@
 {
+  lib,
+  kodi,
   buildKodiAddon,
   fetchFromGitHub,
   requests,
-  lib,
+  pyrollbar,
 }: let
 in
   buildKodiAddon rec {
@@ -19,6 +21,7 @@ in
 
     propagatedBuildInputs = [
       requests
+      pyrollbar
     ];
 
     meta = with lib; {

@@ -1,12 +1,17 @@
-{pkgs, ...}:
-let 
-  package = pkgs.kodi-gbm.passthru.withPackages (kodiPkgs: with kodiPkgs; [
-    jellyfin
-  ]);
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  package = pkgs.kodi-gbm.withPackages (kodiPkgs:
+    (with kodiPkgs; [
+      jellyfin
+      youtube
+    ])
+    ++ [pkgs.hue-service]);
+in {
   config = {
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
     users.extraUsers.kodi = {
       isNormalUser = true;
@@ -37,7 +42,6 @@ in
         TimeoutStopFailureMode = "kill";
 
         # Hardening
-        
       };
     };
 
@@ -63,7 +67,7 @@ in
     # Wayland
     # Wayland is currently only able to operate on one resolution which is not desired.
     # services = {
-    #    cage = let 
+    #    cage = let
     #    program = pkgs.writeShellScript "start-kodi" ''
     #        ${pkgs.wlr-randr}/bin/wlr-randr --output HDMI-A-1 --mode 3840x2160@30
     #        ${kodi}/bin/kodi-standalone
