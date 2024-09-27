@@ -192,6 +192,7 @@ in {
 
       ninja
       cmake
+      gnumake
     ];
   };
 }
