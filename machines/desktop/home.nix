@@ -40,6 +40,8 @@
       };
     };
 
+    xdg.portals.enable = true;
+
     applications = {
       development = {
         rust.enable = true;
@@ -47,6 +49,7 @@
 
       services = {
         syncthing.enable = true;
+        mconnect.enable = true;
       };
 
       shell = {
@@ -61,12 +64,22 @@
       graphical = {
         default.enable = true;
 
+        gpu-screen-recorder.enable = true;
+
         jellyfin.enable = true;
 
         rofi.enable = true;
 
         messaging.enable = true;
-        games.enable = true;
+
+        games = {
+          enable = true;
+
+          emulators.desmume.enable = true;
+        };
+
+        theming.enable = true;
+
         office.enable = true;
         development.enable = true;
       };

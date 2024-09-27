@@ -55,6 +55,7 @@
       graphical = {
         steam.enable = true;
         teamviewer.enable = true;
+        thunar.enable = true;
 
         gtk.enable = true;
         openrgb.enable = true;
@@ -64,7 +65,9 @@
 
       services = {
         syncthing.openFirewall = true;
-        docker.enable = true;
+        docker = {
+          enable = true;
+        };
       };
 
       waydroid.enable = true;
