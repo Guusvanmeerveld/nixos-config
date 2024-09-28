@@ -50,6 +50,7 @@
       services = {
         syncthing.enable = true;
         mconnect.enable = true;
+        gpu-screen-recorder.enable = true;
       };
 
       shell = {
@@ -64,7 +65,7 @@
       graphical = {
         default.enable = true;
 
-        gpu-screen-recorder.enable = true;
+        openshot.enable = true;
 
         jellyfin.enable = true;
 

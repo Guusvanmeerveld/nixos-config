@@ -26,9 +26,9 @@ in {
     ./thunderbird.nix
     ./grim.nix
     ./mpv.nix
-    ./gpu-screen-recorder.nix
     ./loupe.nix
     ./file-roller.nix
+    ./openshot.nix
   ];
 
   options = {

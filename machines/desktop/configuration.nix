@@ -68,6 +68,8 @@
         docker = {
           enable = true;
         };
+
+        gpu-screen-recorder.enable = true;
       };
 
       waydroid.enable = true;
