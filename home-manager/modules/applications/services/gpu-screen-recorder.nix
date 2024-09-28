@@ -36,7 +36,7 @@ in {
         outputDir = lib.mkOption {
           type = lib.types.str;
           description = "The ouput directory where the videos will be placed";
-          default = "Videos/Replays";
+          default = "${config.home.homeDirectory}/Videos/Replays";
         };
 
         window = lib.mkOption {
@@ -57,10 +57,22 @@ in {
           default = "mp4";
         };
 
+        videoCodec = lib.mkOption {
+          type = lib.types.enum ["auto" "h264" "hevc" "av1" "hevc_hdr" "av1_hdr"];
+          description = "The video codec to record in";
+          default = "auto";
+        };
+
         audio = lib.mkOption {
           type = lib.types.str;
           description = "The audio devices to capture";
           default = ''"$(${pactl} get-default-sink).monitor|$(${pactl} get-default-source)"'';
+        };
+
+        audioCodec = lib.mkOption {
+          type = lib.types.enum ["aac" "opus" "aac"];
+          description = "The audio codec to record in";
+          default = "aac";
         };
 
         replayMode = {
@@ -79,7 +91,7 @@ in {
           bufferSize = lib.mkOption {
             type = lib.types.ints.unsigned;
             description = "How large of a buffer (in seconds) to store of the recording at each moment";
-            default = 5 * 60;
+            default = 3 * 60;
           };
         };
 
@@ -114,6 +126,8 @@ in {
             ${lib.optionalString cfg.options.replayMode.enable ''
             -r ${toString cfg.options.replayMode.bufferSize} \
             -mf ${createYesNoOption cfg.options.replayMode.organize} \''}
+            -k ${cfg.options.videoCodec} \
+            -ac ${cfg.options.audioCodec} \
             -o ${cfg.options.outputDir} \
             -f ${toString cfg.options.framerate} \
             -w ${cfg.options.window} \
