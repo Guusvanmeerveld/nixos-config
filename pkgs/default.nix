@@ -1,6 +1,6 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-{pkgs}: {
+{pkgs}: rec {
   # example = pkgs.callPackage ./example { };
   pyjags = pkgs.callPackage ./pyjags.nix {};
   textblob = pkgs.callPackage ./textblob.nix {};
