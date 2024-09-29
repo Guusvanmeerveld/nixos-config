@@ -108,6 +108,18 @@ in {
           description = "Enable osd for brightness and volume controls";
           default = config.custom.wm.wayland.sway.osd.enable;
         };
+
+        gsr = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable GSR replay saving keybind";
+          default = config.custom.applications.services.gpu-screen-recorder.enable;
+        };
+
+        # custom = lib.mkOption {
+        #   type = lib.types.attrsOf lib.types.str;
+        #   description = "Custom keybinds";
+        #   default = {};
+        # };
       };
 
       output = lib.mkOption {
@@ -338,6 +350,8 @@ in {
 
             # File explorer shortcut
             "${modifier}+e" = "exec ${cfg.file-explorer}";
+
+            "${modifier}+p" = lib.mkIf cfg.keybinds.gsr "exec gsr-save-replay";
 
             "Print" = lib.mkIf cfg.keybinds.screenshot.enable "exec ${cfg.keybinds.screenshot.path}";
           }

@@ -51,6 +51,12 @@ in {
           default = 60;
         };
 
+        quality = lib.mkOption {
+          type = lib.types.enum ["medium" "high" "very_high" "ultra"];
+          description = "The video quality to record at";
+          default = "very_high";
+        };
+
         format = lib.mkOption {
           type = lib.types.enum ["mkv" "mp4"];
           description = "The format to output the recording in";
@@ -64,13 +70,13 @@ in {
         };
 
         audio = lib.mkOption {
-          type = lib.types.str;
+          type = lib.types.listOf lib.types.str;
           description = "The audio devices to capture";
-          default = ''"$(${pactl} get-default-sink).monitor|$(${pactl} get-default-source)"'';
+          default = ["$(${pactl} get-default-sink).monitor" "$(${pactl} get-default-source)"];
         };
 
         audioCodec = lib.mkOption {
-          type = lib.types.enum ["aac" "opus" "aac"];
+          type = lib.types.enum ["aac" "opus" "flac"];
           description = "The audio codec to record in";
           default = "aac";
         };
@@ -91,7 +97,7 @@ in {
           bufferSize = lib.mkOption {
             type = lib.types.ints.unsigned;
             description = "How large of a buffer (in seconds) to store of the recording at each moment";
-            default = 3 * 60;
+            default = 5 * 60;
           };
         };
 
@@ -110,14 +116,14 @@ in {
         Description = "GPU Screen Recorder Service";
         Documentation = "https://git.dec05eba.com/gpu-screen-recorder/about/";
 
-        PartOf = ["graphical-session.target"];
-        After = ["graphical-session.target"];
+        After = ["pipewire.service"];
+        Wants = ["pipewire.service"];
       };
 
       Service = {
         KillSignal = "SIGINT";
-        # Restart = "on-failure";
-        RestartSec = "5s";
+        Restart = "on-failure";
+        RestartSec = "30s";
 
         Type = "simple";
 
@@ -132,8 +138,9 @@ in {
             -f ${toString cfg.options.framerate} \
             -w ${cfg.options.window} \
             -c ${cfg.options.format} \
+            -q ${cfg.options.quality} \
             -v ${createYesNoOption cfg.options.verbose} \
-            -a ${cfg.options.audio}
+            -a ${lib.concatStringsSep "|" cfg.options.audio}
         '';
       };
 
