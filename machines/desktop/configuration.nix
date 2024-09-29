@@ -19,21 +19,28 @@
       efiSysMountPoint = "/boot";
     };
 
-    grub = {
+    systemd-boot = {
       enable = true;
-
-      efiSupport = true;
-      useOSProber = true;
-      device = "nodev";
+      configurationLimit = 20;
     };
 
-    grub2-theme = {
-      enable = true;
-      theme = "tela";
-      icon = "color";
-      screen = "ultrawide2k";
-      footer = true;
-    };
+    timeout = 0;
+
+    # grub = {
+    #   enable = true;
+
+    #   efiSupport = true;
+    #   useOSProber = true;
+    #   device = "nodev";
+    # };
+
+    # grub2-theme = {
+    #   enable = true;
+    #   theme = "tela";
+    #   icon = "color";
+    #   screen = "ultrawide2k";
+    #   footer = true;
+    # };
   };
 
   # Prevent USB controller from awaking the system from suspend.
