@@ -50,7 +50,16 @@
       services = {
         syncthing.enable = true;
         mconnect.enable = true;
-        gpu-screen-recorder.enable = true;
+        gpu-screen-recorder = {
+          enable = true;
+
+          options = {
+            window = "DP-2";
+
+            # Audio devices to monitor in recording
+            audio = [];
+          };
+        };
       };
 
       shell = {

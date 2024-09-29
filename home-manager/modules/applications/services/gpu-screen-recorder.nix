@@ -140,7 +140,7 @@ in {
             -c ${cfg.options.format} \
             -q ${cfg.options.quality} \
             -v ${createYesNoOption cfg.options.verbose} \
-            -a ${lib.concatStringsSep "|" cfg.options.audio}
+            -a "${lib.concatStringsSep "|" cfg.options.audio}"
         '';
       };
 
