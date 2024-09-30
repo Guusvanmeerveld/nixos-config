@@ -8,7 +8,11 @@
 in {
   options = {
     custom.applications.graphical.theming.font = {
-      enable = lib.mkEnableOption "Enable font theming";
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = config.custom.applications.graphical.theming.enable;
+        description = "Enable font theming";
+      };
 
       default = lib.mkOption {
         type = lib.types.listOf (lib.types.submodule {

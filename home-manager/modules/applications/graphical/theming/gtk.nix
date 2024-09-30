@@ -8,7 +8,29 @@
 in {
   options = {
     custom.applications.graphical.theming.gtk = {
-      enable = lib.mkEnableOption "Enable GTK 3/4 theming";
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = config.custom.applications.graphical.theming.enable;
+        description = "Enable GTK 3/4 theming";
+      };
+
+      theme = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "Fluent-Dark";
+        };
+
+        package = lib.mkPackageOption pkgs "fluent-gtk-theme" {};
+      };
+
+      iconTheme = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "Pop";
+        };
+
+        package = lib.mkPackageOption pkgs "pop-icon-theme" {};
+      };
     };
   };
 
@@ -23,6 +45,13 @@ in {
       settings = {
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
+
+          gtk-theme = cfg.theme.name;
+          icon-theme = cfg.iconTheme.name;
+        };
+
+        "org/gnome/desktop/wm/preferences" = {
+          theme = cfg.theme.name;
         };
       };
     };
@@ -30,15 +59,8 @@ in {
     gtk = {
       enable = true;
 
-      iconTheme = {
-        name = "Pop";
-        package = pkgs.pop-icon-theme;
-      };
-
-      theme = {
-        name = "Fluent-Dark";
-        package = pkgs.fluent-gtk-theme;
-      };
+      iconTheme = cfg.iconTheme;
+      theme = cfg.theme;
 
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;

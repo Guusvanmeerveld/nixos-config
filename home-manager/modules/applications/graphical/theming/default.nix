@@ -14,18 +14,22 @@ in {
   options = {
     custom.applications.graphical.theming = {
       enable = lib.mkEnableOption "Enable default theming options";
+
+      cursor = {
+        name = lib.mkOption {
+          type = lib.types.str;
+          default = "macOS-BigSur";
+        };
+
+        package = lib.mkPackageOption pkgs "apple-cursor" {};
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    custom.applications.graphical.theming = {
-      font.enable = true;
-      gtk.enable = true;
-    };
-
     home.pointerCursor = {
-      name = "macOS-BigSur";
-      package = pkgs.apple-cursor;
+      name = cfg.cursor.name;
+      package = cfg.cursor.package;
 
       size = 20;
 
