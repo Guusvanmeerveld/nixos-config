@@ -5,16 +5,44 @@
   ...
 }: let
   cfg = config.custom.dm.greetd;
-  cage = "${pkgs.cage}/bin/cage";
-  gtkgreet = "${pkgs.greetd.gtkgreet}/bin/gtkgreet";
+
+  gtkGreetStyle = pkgs.writeText "gtkgreet-css" ''
+    window {
+      background-image: url("${cfg.backgroundImage}");
+      background-size: cover;
+      background-position: center;
+    }
+
+    box#body {
+      background-color: rgba(50, 50, 50, 0.5);
+      border-radius: 10px;
+      padding: 50px;
+    }
+  '';
+
+  greeter = "${lib.getExe pkgs.greetd.gtkgreet} -l -s ${gtkGreetStyle}";
+
+  # swayConfig = pkgs.writeText "greetd-sway-config" ''
+  #   exec "${greeter}; swaymsg exit"
+
+  #   bindsym Mod4+shift+e exec swaynag \
+  #     -t warning \
+  #     -m 'What do you want to do?' \
+  #     -b 'Poweroff' 'systemctl poweroff' \
+  #     -b 'Reboot' 'systemctl reboot'
+  # '';
+
+  # sway = "${lib.getExe pkgs.sway} --config ${swayConfig}";
+
+  cage = "${lib.getExe pkgs.cage} -s -- ${greeter}";
 in {
   options = {
     custom.dm.greetd = {
       enable = lib.mkEnableOption "Enable greetd display manager";
 
-      # background-image = lib.mkOption {
-      #   type = lib.types.orNull lib.types.path;
-      # };
+      backgroundImage = lib.mkOption {
+        type = lib.types.path;
+      };
     };
   };
 
@@ -24,7 +52,7 @@ in {
 
       settings = {
         default_session = {
-          command = "${cage} -s -- ${gtkgreet}";
+          command = cage;
         };
       };
     };

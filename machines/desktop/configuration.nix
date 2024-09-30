@@ -87,7 +87,10 @@
       };
     };
 
-    dm.greetd.enable = true;
+    dm.greetd = {
+      enable = true;
+      backgroundImage = ./wallpaper.png;
+    };
 
     wm.wayland.sway.enable = true;
 

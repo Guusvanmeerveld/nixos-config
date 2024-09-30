@@ -43,7 +43,10 @@
       wireguard.openFirewall = true;
     };
 
-    dm.greetd.enable = true;
+    dm.greetd = {
+      enable = true;
+      backgroundImage = ./wallpaper.jpg;
+    };
 
     wm.wayland.sway.enable = true;
 
