@@ -29,6 +29,7 @@ in {
     ./loupe.nix
     ./file-roller.nix
     ./openshot.nix
+    ./gnome-calculator.nix
   ];
 
   options = {
@@ -71,6 +72,7 @@ in {
       mpv.enable = true;
       loupe.enable = true;
       file-roller.enable = true;
+      gnome-calculator.enable = true;
     };
   };
 }
