@@ -68,6 +68,8 @@ in {
 
           ls = lib.mkIf config.programs.eza.enable "eza";
 
+          s = lib.mkIf config.programs.kitty.enable "kitten ssh";
+
           code = lib.mkIf config.programs.vscode.enable "codium";
           nxvsc = lib.mkIf config.programs.vscode.enable "nix-shell --command 'codium .'";
           nxp = "nix-shell -p ";
