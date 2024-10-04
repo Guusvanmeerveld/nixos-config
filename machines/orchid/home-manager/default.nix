@@ -8,8 +8,6 @@
     homeDirectory = "/home/guus";
   };
 
-  programs.kitty.enable = true;
-
   home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];
 
   custom = {

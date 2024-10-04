@@ -8,8 +8,6 @@
     homeDirectory = "/home/guus";
   };
 
-  programs.kitty.enable = true;
-
   custom = {
     applications = {
       services = {

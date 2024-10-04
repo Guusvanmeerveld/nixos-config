@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../../../home-manager/modules
 
@@ -11,8 +15,6 @@
     homeDirectory = "/home/guus";
   };
 
-  programs.kitty.enable = true;
-
   home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];
 
   custom = {
@@ -23,7 +25,7 @@
 
       shell = {
         default.enable = true;
-        
+
         atuin = {
           enable = true;
           server = "https://atuin.guusvanmeerveld.dev";
