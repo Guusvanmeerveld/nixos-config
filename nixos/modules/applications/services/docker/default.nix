@@ -25,6 +25,7 @@ in {
     ./drone
     ./homeassistant
     ./immich
+    ./portfolio
   ];
 
   options = {
