@@ -10,7 +10,7 @@ in {
       enable = lib.mkEnableOption "Enable remote build";
 
       machines = lib.mkOption {
-        type = lib.types.listOf lib.types.submodule {
+        type = lib.types.listOf (lib.types.submodule {
           options = {
             hostName = lib.mkOption {
               type = lib.types.str;
@@ -29,7 +29,7 @@ in {
               '';
             };
           };
-        };
+        });
 
         default = [];
       };
