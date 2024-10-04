@@ -13,5 +13,6 @@
     ./security.nix
     ./nixpkgs-issue-55674.nix
     ./bluetooth.nix
+    ./builders.nix
   ];
 }

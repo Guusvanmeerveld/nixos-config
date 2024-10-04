@@ -1,10 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{inputs, lib, pkgs, ...}: {
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../../nixos/modules
-    
+
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # Module that allows the tv remote to control kodi
@@ -19,13 +24,18 @@
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
   };
 
   boot.kernelParams = ["snd_bcm2835.enable_hdmi=1"];
 
-  swapDevices = [{ device = "/swapfile"; size = 1024; }];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 1024;
+    }
+  ];
 
   hardware = {
     opengl.enable = true;
@@ -62,6 +72,17 @@
       };
 
       shell.zsh.enable = true;
+    };
+
+    builders = {
+      enable = true;
+
+      machines = [
+        {
+          hostName = "crocus";
+          system = "aarch64-linux";
+        }
+      ];
     };
 
     pipewire.enable = true;
