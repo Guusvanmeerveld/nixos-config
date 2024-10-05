@@ -8,7 +8,7 @@
       jellyfin
       youtube
     ])
-    ++ [pkgs.hue-service]);
+    ++ (with pkgs.customKodiPackages; [hue-service]));
 in {
   config = {
     environment.systemPackages = [package];
