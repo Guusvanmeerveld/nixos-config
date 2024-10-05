@@ -5,6 +5,8 @@ services:
 
     restart: unless-stopped
 
+    user: "${UID}:${GID}"
+
     group_add:
       - ${VIDEO_GROUP}
 

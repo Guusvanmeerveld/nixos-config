@@ -27,6 +27,7 @@ in {
 
       vpnContainerName = lib.mkOption {
         type = lib.types.str;
+        default = config.custom.applications.services.docker.gluetun.containerName;
       };
 
       extraGroups = lib.mkOption {
@@ -42,7 +43,10 @@ in {
         uid = 2000;
 
         group = "qbittorrent";
+
         isSystemUser = true;
+
+        extraGroups = cfg.extraGroups;
       };
 
       groups."qbittorrent" = {

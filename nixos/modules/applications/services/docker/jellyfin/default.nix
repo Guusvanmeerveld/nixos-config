@@ -20,10 +20,31 @@ in {
         type = lib.types.str;
         default = createJellyfinDir "media";
       };
+
+      extraGroups = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        default = [];
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
+    users = {
+      users."jellyfin" = {
+        uid = 2001;
+
+        group = "jellyfin";
+
+        isSystemUser = true;
+
+        extraGroups = cfg.extraGroups;
+      };
+
+      groups."jellyfin" = {
+        gid = 2001;
+      };
+    };
+
     services.docker-compose.projects."jellyfin" = {
       file = ./docker-compose.yaml;
 
@@ -39,6 +60,8 @@ in {
         VERSION = pkgs.jellyfin.version;
 
         VIDEO_GROUP = "998";
+        UID = config.users.users.jellyfin.uid;
+        GID = config.users.groups.jellyfin.gid;
 
         DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };

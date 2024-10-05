@@ -162,7 +162,25 @@
             enable = true;
 
             mediaDir = "/mnt/share/media";
+
+            extraGroups = ["media"];
           };
+
+          qbittorrent = {
+            enable = true;
+
+            # Make qBittorrent part of media group so it has access to media files
+            extraGroups = ["media"];
+
+            downloadDir = "/mnt/share/media/download";
+          };
+
+          # VPN container
+          # gluetun = {
+          #   enable = true;
+
+          #   secretsFile = config.age.secrets.gluetun.path;
+          # };
 
           nextcloud = {
             enable = true;
