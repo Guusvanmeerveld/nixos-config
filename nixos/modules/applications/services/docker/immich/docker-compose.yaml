@@ -7,13 +7,13 @@ services:
 
     command: ["start.sh", "immich"]
 
+    user: "${UID}:${GID}"
+
     volumes:
       - ${UPLOAD_DIR}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
 
     environment:
-      UPLOAD_DIR: ${UPLOAD_DIR}
-
       DB_HOSTNAME: ${DB_HOSTNAME}
       DB_USERNAME: ${DB_USERNAME}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
@@ -39,6 +39,8 @@ services:
 
     command: ["start.sh", "microservices"]
 
+    user: "${UID}:${GID}"
+
     networks:
       - immich
 
@@ -47,8 +49,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
     environment:
-      UPLOAD_DIR: ${UPLOAD_DIR}
-
       DB_HOSTNAME: ${DB_HOSTNAME}
       DB_USERNAME: ${DB_USERNAME}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
@@ -104,6 +104,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME}
 
     volumes:
+      - /home/guus/immich/postgres:/backups
       - ${DB_DIR}:/var/lib/postgresql/data
 
 networks:

@@ -18,6 +18,20 @@ in {
       fsType = "cifs";
     };
 
+    "/mnt/share/apps/immich" = {
+      options = ["${options},uid=${toString config.users.users.immich.uid},gid=${toString config.users.groups.immich.gid},dir_mode=0755,file_mode=0644"];
+
+      device = "//orchid/immich";
+      fsType = "cifs";
+    };
+
+    "/mnt/share/apps/syncthing" = {
+      options = ["${options},uid=${toString config.users.users.syncthing.uid},gid=${toString config.users.groups.syncthing.gid},dir_mode=0755,file_mode=0655"];
+
+      device = "//orchid/syncthing";
+      fsType = "cifs";
+    };
+
     "/mnt/share/apps/nextcloud" = let
       nextcloudId = toString 33;
       dataDirPermissions = "0770";

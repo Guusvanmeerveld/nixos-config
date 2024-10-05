@@ -32,6 +32,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    users = {
+      users."immich" = {
+        uid = 1600;
+
+        group = "immich";
+        isSystemUser = true;
+      };
+
+      groups."immich" = {
+        gid = 1600;
+      };
+    };
+
     services.docker-compose.projects."immich" = {
       file = ./docker-compose.yaml;
 
@@ -45,6 +58,9 @@ in {
           DB_DIR = createImmichDir "db";
 
           SECRETS_FILE = cfg.secretsFile;
+
+          UID = config.users.users.immich.uid;
+          GID = config.users.groups.immich.gid;
 
           DB_HOSTNAME = "immich-db";
           DB_USERNAME = "immich";

@@ -52,12 +52,14 @@
           syncthing = {
             enable = true;
             openFirewall = true;
+
+            syncDir = "/mnt/share/apps/syncthing/sync";
           };
 
           gitea = {
             enable = true;
 
-            dataDir = "/mnt/share/apps/gitea";
+            gitDataDir = "/mnt/share/apps/gitea";
 
             secretsFile = config.age.secrets.gitea.path;
           };
@@ -98,7 +100,11 @@
             enable = true;
 
             secretsFile = config.age.secrets.immich.path;
+
+            uploadDir = "/mnt/share/apps/immich/upload";
           };
+
+          portfolio.enable = true;
 
           caddy = let
             modemIp = "192.168.2.254";
@@ -152,6 +158,12 @@
                 ${blockExternalVisitors}
 
                 reverse_proxy immich-server:3001
+              }
+
+              http://portfolio.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy portfolio:3000
               }
             '';
           };
