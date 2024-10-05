@@ -27,6 +27,7 @@ in {
     ./immich
     ./portfolio
     ./qbittorrent
+    ./gluetun
   ];
 
   options = {
