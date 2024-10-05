@@ -12,8 +12,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    ./shares.nix
-
     ./agenix.nix
   ];
 
@@ -31,6 +29,23 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  users = {
+    users = {
+      "media" = {
+        uid = 1700;
+
+        group = "media";
+        isSystemUser = true;
+      };
+    };
+
+    groups = {
+      "media" = {
+        gid = 1700;
+      };
+    };
+  };
+
   custom = {
     user = {
       name = "guus";
@@ -42,6 +57,85 @@
 
     applications = {
       services = {
+        # Mount all the shares that are needed for the docker services
+        samba.client = {
+          enable = true;
+
+          shares = [
+            {
+              host = {
+                dir = "/mnt/share/media";
+
+                uid = config.users.users.media.uid;
+                gid = config.users.groups.media.gid;
+
+                dirMode = "0775";
+                fileMode = "0664";
+              };
+
+              remote = {
+                host = "orchid";
+                dir = "media";
+              };
+            }
+            {
+              host = {
+                dir = "/mnt/share/apps/nextcloud";
+
+                uid = config.users.users.www-data.uid;
+                gid = config.users.groups.www-data.gid;
+
+                dirMode = "0770";
+                fileMode = "0770";
+              };
+
+              remote = {
+                host = "orchid";
+                dir = "nextcloud";
+              };
+            }
+            {
+              host = {
+                dir = "/mnt/share/apps/immich";
+
+                uid = config.users.users.immich.uid;
+                gid = config.users.groups.immich.gid;
+              };
+
+              remote = {
+                host = "orchid";
+                dir = "immich";
+              };
+            }
+            {
+              host = {
+                dir = "/mnt/share/apps/gitea";
+
+                uid = config.users.users.gitea.uid;
+                gid = config.users.groups.gitea.gid;
+              };
+
+              remote = {
+                host = "orchid";
+                dir = "gitea";
+              };
+            }
+            {
+              host = {
+                dir = "/mnt/share/apps/syncthing";
+
+                uid = config.users.users.syncthing.uid;
+                gid = config.users.groups.syncthing.gid;
+              };
+
+              remote = {
+                host = "orchid";
+                dir = "syncthing";
+              };
+            }
+          ];
+        };
+
         docker = {
           enable = true;
 
