@@ -1,0 +1,20 @@
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:${VERSION}
+    container_name: "qbittorrent"
+
+    restart: unless-stopped
+
+    network_mode: "container:${VPN_CONTAINER_NAME}"
+
+    environment:
+      WEBUI_PORT: ${PORT}
+
+      PGID: ${GID}
+      PGUID: ${UID}
+
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ${DOWNLOAD_DIR}:/downloads
+
+      - /etc/localtime:/etc/localtime:ro

@@ -26,6 +26,7 @@ in {
     ./homeassistant
     ./immich
     ./portfolio
+    ./qbittorrent
   ];
 
   options = {
