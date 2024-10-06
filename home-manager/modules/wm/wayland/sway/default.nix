@@ -115,6 +115,12 @@ in {
           default = config.custom.applications.services.gpu-screen-recorder.enable;
         };
 
+        cliphist = lib.mkOption {
+          type = lib.types.bool;
+          description = "Enable Cliphist clipboard history menu";
+          default = config.custom.wm.wayland.cliphist.enable;
+        };
+
         # custom = lib.mkOption {
         #   type = lib.types.attrsOf lib.types.str;
         #   description = "Custom keybinds";
@@ -352,6 +358,8 @@ in {
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
             "${modifier}+p" = lib.mkIf cfg.keybinds.gsr "exec gsr-save-replay";
+
+            "Ctrl+Alt+v" = lib.mkIf cfg.keybinds.cliphist "exec cliphist-menu";
 
             "Print" = lib.mkIf cfg.keybinds.screenshot.enable "exec ${cfg.keybinds.screenshot.path}";
           }

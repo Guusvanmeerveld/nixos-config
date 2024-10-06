@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  imports = [./sway ./clipmon.nix];
+  imports = [./sway ./clipmon.nix ./cliphist.nix];
 
   options = {
     custom.wm.wayland = {
