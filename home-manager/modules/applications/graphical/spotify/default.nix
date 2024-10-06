@@ -26,7 +26,7 @@ in {
       spotify = {
         name = "Spotify";
         genericName = "Music Player";
-        icon = "spotify";
+        icon = toString ./spotify.svg;
         exec = "spotify";
         comment = "Play music from spotifys library";
         terminal = false;

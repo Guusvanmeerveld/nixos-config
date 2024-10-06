@@ -21,7 +21,7 @@ in {
     ./kdeconnect.nix
     ./flameshot.nix
     ./thunar.nix
-    ./spotify.nix
+    ./spotify
     ./jellyfin.nix
     ./thunderbird.nix
     ./grim.nix
