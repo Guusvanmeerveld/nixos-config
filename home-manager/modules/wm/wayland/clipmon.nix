@@ -12,7 +12,8 @@ in {
     custom.wm.wayland.clipmon = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        default = config.custom.wm.wayland.enable;
+        # default = config.custom.wm.wayland.enable;
+        default = false;
         description = "Enable clipman clipboard service";
       };
     };
