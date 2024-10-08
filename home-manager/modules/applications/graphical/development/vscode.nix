@@ -17,6 +17,19 @@
     "text/javascript"
     "text/typescript"
   ];
+
+  spellCheckLanguages = with pkgs; [
+    {
+      name = "nl_NL";
+      package = hunspellDicts.nl_nl;
+    }
+    {
+      name = "en_US";
+      package = hunspellDicts.en_US;
+    }
+  ];
+
+  configDirName = "VSCodium";
 in {
   options = {
     custom.applications.graphical.development.vscode = {
@@ -118,7 +131,8 @@ in {
         "spellright.notificationClass" = "warning";
         "spellright.configurationScope" = "user";
         "spellright.suggestionsInHints" = false;
-        "spellright.language" = ["en-US-10-1."];
+        "spellright.documentTypes" = ["markdown" "latex" "plaintext"];
+        "spellright.language" = map (language: language.name) spellCheckLanguages;
 
         "jupyter.experiments.enabled" = false;
         "jupyter.themeMatplotlibPlots" = true;
@@ -169,7 +183,7 @@ in {
 
           # LSPs
           # ms-toolsai.jupyter
-          ms-python.python
+          # ms-python.python
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
           jnoortheen.nix-ide
@@ -185,11 +199,26 @@ in {
         ]);
     };
 
-    home.packages = with pkgs; [
-      hunspell
-      hunspellDicts.en_US
-      hunspellDicts.nl_nl
+    # Link hunspell dictionaries to correct dir.
+    xdg.configFile = lib.mkMerge [
+      (lib.listToAttrs (map (language: {
+          name = "${configDirName}/Dictionaries/${language.name}.dic";
+          value = {
+            source = "${language.package}/share/hunspell/${language.name}.dic";
+          };
+        })
+        spellCheckLanguages))
 
+      (lib.listToAttrs (map (language: {
+          name = "${configDirName}/Dictionaries/${language.name}.aff";
+          value = {
+            source = "${language.package}/share/hunspell/${language.name}.aff";
+          };
+        })
+        spellCheckLanguages))
+    ];
+
+    home.packages = with pkgs; [
       ninja
       cmake
       gnumake
