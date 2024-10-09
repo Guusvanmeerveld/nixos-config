@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  cfg = config.custom.applications.service.spotifyd;
+  cfg = config.custom.applications.services.spotifyd;
 in {
   options = {
     custom.applications.services.spotifyd = {
