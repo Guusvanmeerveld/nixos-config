@@ -184,6 +184,7 @@ in {
           # LSPs
           # ms-toolsai.jupyter
           # ms-python.python
+          twxs.cmake
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
           jnoortheen.nix-ide
