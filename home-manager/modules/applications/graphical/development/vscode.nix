@@ -118,6 +118,10 @@ in {
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
         };
 
+        "[latex]" = {
+          "editor.defaultFormatter" = "James-Yu.latex-workshop";
+        };
+
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = lib.getExe pkgs.nixd;
         "nix.serverSettings" = {
@@ -138,6 +142,7 @@ in {
         "jupyter.themeMatplotlibPlots" = true;
 
         "latex-workshop.latex.outDir" = "%DIR%/out";
+        "latex-workshop.formatting.latex" = "latexindent";
 
         "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
         "clangd.arguments" = [
