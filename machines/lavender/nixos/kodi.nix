@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   lib,
   ...
@@ -10,6 +11,8 @@
     ])
     ++ (with pkgs.customKodiPackages; [hue-service]));
 in {
+  imports = [inputs.home-manager.nixosModules.default];
+
   config = {
     environment.systemPackages = [package];
 
@@ -43,6 +46,12 @@ in {
 
         # Hardening
       };
+    };
+
+    home-manager.users.kodi = {pkgs, ...}: {
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "24.05";
     };
 
     # services.xserver = {
