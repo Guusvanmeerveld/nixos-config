@@ -7,5 +7,6 @@
     ./betterlockscreen.nix
     ./mconnect.nix
     ./gpu-screen-recorder.nix
+    ./mpd.nix
   ];
 }
