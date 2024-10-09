@@ -14,7 +14,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     home.packages = [cfg.package];
 
     systemd.user.services.clipmon = {
