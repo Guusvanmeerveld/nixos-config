@@ -1,13 +1,8 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../../../home-manager/modules
 
     ./agenix.nix
-    ./spotifyd.nix
   ];
 
   home = {

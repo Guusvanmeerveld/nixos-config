@@ -8,5 +8,6 @@
     ./mconnect.nix
     ./gpu-screen-recorder.nix
     ./mpd.nix
+    ./spotifyd.nix
   ];
 }
