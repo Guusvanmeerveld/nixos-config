@@ -7,5 +7,7 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
 
+  mpdris2 = pkgs.callPackage ./mpdris2.nix {};
+
   customKodiPackages = import ./kodi {inherit pkgs;};
 }

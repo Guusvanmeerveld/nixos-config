@@ -60,6 +60,8 @@
             audio = [];
           };
         };
+
+        mpd.enable = true;
       };
 
       shell = {
