@@ -28,6 +28,7 @@ in {
     ./portfolio
     ./qbittorrent
     ./gluetun
+    ./searxng
   ];
 
   options = {
