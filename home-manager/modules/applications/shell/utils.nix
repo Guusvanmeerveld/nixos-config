@@ -1,5 +1,5 @@
 {pkgs, ...}: {
   config = {
-    home.packages = with pkgs; [duf gdu];
+    home.packages = with pkgs; [duf gdu yt-dlp];
   };
 }
