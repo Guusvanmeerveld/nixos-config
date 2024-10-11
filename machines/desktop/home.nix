@@ -80,6 +80,8 @@
 
         jellyfin.enable = true;
 
+        ario.enable = true;
+
         rofi.enable = true;
 
         messaging.enable = true;

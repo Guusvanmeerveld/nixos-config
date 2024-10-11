@@ -30,6 +30,7 @@ in {
     ./file-roller.nix
     ./openshot.nix
     ./gnome-calculator.nix
+    ./ario.nix
   ];
 
   options = {
