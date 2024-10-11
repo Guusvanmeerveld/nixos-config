@@ -35,6 +35,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    users = {
+      users."www-data" = {
+        uid = 33;
+
+        group = "www-data";
+        isSystemUser = true;
+      };
+
+      groups."www-data" = {
+        gid = 33;
+      };
+    };
+
     services.docker-compose.projects."nextcloud" = {
       file = ./docker-compose.yaml;
 
