@@ -1,11 +1,38 @@
-{...}: {
+{
+  outputs,
+  config,
+  ...
+}: {
   imports = [
     ../../home-manager/modules
+
+    outputs.homeManagerModules.spotdl
   ];
 
   home = {
     username = "guus";
     homeDirectory = "/home/guus";
+  };
+
+  services.spotify-downloader = {
+    enable = true;
+
+    secrets = {
+      enable = true;
+
+      file = "${config.home.homeDirectory}/.spotdl/secrets";
+    };
+
+    playlists = [
+      "4spxZBgI17MSVcge6xf1q4"
+      "1WX2j9iSys7lFzIYLqcoa5"
+      "3vUUkBJA1eLDeSNWvKhywJ"
+      "0mrDFPvKx2dxdvzlNBpcF7"
+      "5afGQMeVJlIuu0QqrkP3BW"
+      "6otws51PAr05osdp8pfAFB"
+      "4UDFphGM1tLANTPypCwHdm"
+      "6W4oQ2g91Q6CqCiQ62ir5n"
+    ];
   };
 
   custom = {

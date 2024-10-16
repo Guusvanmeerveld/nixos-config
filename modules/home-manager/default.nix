@@ -6,4 +6,5 @@
   armcord = import ./armcord.nix;
   clipmon = import ./clipmon.nix;
   mpdris2 = import ./mpdris2.nix;
+  spotdl = import ./spotdl.nix;
 }
