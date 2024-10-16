@@ -25,6 +25,8 @@ in {
           type "pipewire"
           name "PipeWire Sound Server"
         }
+
+        auto_update "yes"
       '';
     };
   };
