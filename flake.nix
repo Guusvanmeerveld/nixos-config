@@ -5,6 +5,8 @@
     # Latest stable packages
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
 
+    nixpkgs-server.url = "github:nixos/nixpkgs/nixos-24.05";
+
     # Unstable packages
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
@@ -82,6 +84,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-server,
     home-manager,
     ...
   } @ inputs: let
@@ -126,6 +129,13 @@
         ];
       };
 
+      laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/laptop/configuration.nix
+        ];
+      };
+
       vm = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
@@ -133,52 +143,45 @@
         ];
       };
 
-      rose = nixpkgs.lib.nixosSystem {
+      rose = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/rose/configuration.nix
         ];
       };
 
-      daisy = nixpkgs.lib.nixosSystem {
+      daisy = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/daisy/configuration.nix
         ];
       };
 
-      crocus = nixpkgs.lib.nixosSystem {
+      crocus = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/crocus/configuration.nix
         ];
       };
 
-      lavender = nixpkgs.lib.nixosSystem {
+      lavender = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/lavender/nixos
         ];
       };
 
-      orchid = nixpkgs.lib.nixosSystem {
+      orchid = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/orchid/nixos
         ];
       };
 
-      tulip = nixpkgs.lib.nixosSystem {
+      tulip = nixpkgs-server.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/tulip/nixos
-        ];
-      };
-
-      laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          ./machines/laptop/configuration.nix
         ];
       };
     };
@@ -194,6 +197,14 @@
         ];
       };
 
+      "guus@laptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs outputs;};
+        modules = [
+          ./machines/laptop/home.nix
+        ];
+      };
+
       "guus@vm" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
@@ -203,7 +214,7 @@
       };
 
       "guus@rose" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs-server.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/rose/home.nix
@@ -211,7 +222,7 @@
       };
 
       "guus@daisy" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs-server.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/daisy/home.nix
@@ -219,7 +230,7 @@
       };
 
       "guus@crocus" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        pkgs = nixpkgs-server.legacyPackages.aarch64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/crocus/home.nix
@@ -227,7 +238,7 @@
       };
 
       "guus@lavender" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        pkgs = nixpkgs-server.legacyPackages.aarch64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/lavender/home-manager
@@ -235,7 +246,7 @@
       };
 
       "guus@orchid" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.aarch64-linux;
+        pkgs = nixpkgs-server.legacyPackages.aarch64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/orchid/home-manager
@@ -243,18 +254,10 @@
       };
 
       "guus@tulip" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        pkgs = nixpkgs-server.legacyPackages.x86_64-linux;
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           ./machines/tulip/home-manager
-        ];
-      };
-
-      "guus@laptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [
-          ./machines/laptop/home.nix
         ];
       };
     };
