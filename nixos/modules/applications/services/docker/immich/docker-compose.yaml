@@ -5,8 +5,6 @@ services:
 
     restart: unless-stopped
 
-    command: ["start.sh", "immich"]
-
     user: "${UID}:${GID}"
 
     volumes:
@@ -26,37 +24,6 @@ services:
     networks:
       - intranet
       - immich
-
-    depends_on:
-      - redis
-      - database
-
-  microservices:
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    container_name: "immich-microservices"
-
-    restart: unless-stopped
-
-    command: ["start.sh", "microservices"]
-
-    user: "${UID}:${GID}"
-
-    networks:
-      - immich
-
-    volumes:
-      - ${UPLOAD_DIR}:/usr/src/app/upload
-      - /etc/localtime:/etc/localtime:ro
-
-    environment:
-      DB_HOSTNAME: ${DB_HOSTNAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
-
-      REDIS_HOSTNAME: ${REDIS_HOSTNAME}
-
-    env_file:
-      - ${SECRETS_FILE}
 
     depends_on:
       - redis
