@@ -31,6 +31,7 @@ in {
     ./openshot.nix
     ./gnome-calculator.nix
     ./ario.nix
+    ./cantata.nix
   ];
 
   options = {
