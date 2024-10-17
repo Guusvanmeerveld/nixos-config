@@ -51,6 +51,8 @@ in {
     services.docker-compose.projects."nextcloud" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         {
           DB_DIR = createNextcloudDir "db";

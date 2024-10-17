@@ -28,12 +28,14 @@ in {
     services.docker-compose.projects."matrix" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         {
           SYNAPSE_VERSION = pkgs.matrix-synapse.version;
           WHATSAPP_VERSION = pkgs.mautrix-whatsapp.version;
 
-          EXTERNAL_NETWORK_NAME = networking.externalNetworkName;
+          EXTERNAL_NETWORK_NAME = networking.defaultNetworkName;
         }
         cfg.secretsFile
       ];

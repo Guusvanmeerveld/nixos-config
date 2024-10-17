@@ -57,6 +57,8 @@ in {
     services.docker-compose.projects."syncthing" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         HOSTNAME = config.networking.hostName;
 

@@ -20,6 +20,8 @@ in {
     services.docker-compose.projects."homeassistant" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         CONFIG_DIR = storage.storageDir + "/homeassistant/data";
 

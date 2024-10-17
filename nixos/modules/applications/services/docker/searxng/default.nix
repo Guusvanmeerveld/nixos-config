@@ -24,6 +24,8 @@ in {
     services.docker-compose.projects."searxng" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         BASE_URL = cfg.externalDomain;
 

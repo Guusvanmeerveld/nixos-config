@@ -64,6 +64,8 @@ in {
     services.docker-compose.projects."gitea" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         cfg.secretsFile
         {

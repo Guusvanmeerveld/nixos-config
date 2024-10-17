@@ -18,6 +18,8 @@ in {
     services.docker-compose.projects."dashdot" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         VERSION = "latest";
 

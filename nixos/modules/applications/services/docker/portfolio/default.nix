@@ -60,6 +60,8 @@ in {
     services.docker-compose.projects."portfolio" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         {
           DATA_DIR = dataDir;

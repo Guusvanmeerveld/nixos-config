@@ -48,6 +48,8 @@ in {
     services.docker-compose.projects."immich" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         cfg.secretsFile
         {

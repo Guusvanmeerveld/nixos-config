@@ -48,6 +48,8 @@ in {
     services.docker-compose.projects."caddy" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         CADDY_FILE = toString cfg.caddyFile;
 

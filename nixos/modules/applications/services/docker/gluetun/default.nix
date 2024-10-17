@@ -33,6 +33,8 @@ in {
     services.docker-compose.projects."gluetun" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = [
         {
           CONTAINER_NAME = cfg.containerName;

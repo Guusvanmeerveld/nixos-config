@@ -20,6 +20,8 @@ in {
     services.docker-compose.projects."uptime-kuma" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         VERSION = pkgs.uptime-kuma.version;
 

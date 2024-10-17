@@ -48,6 +48,8 @@ in {
     services.docker-compose.projects."jellyfin" = {
       file = ./docker-compose.yaml;
 
+      networks = [networking.defaultNetworkName];
+
       env = {
         LOGS_DIR = createJellyfinDir "logs";
         CONFIG_DIR = createJellyfinDir "config";

@@ -71,7 +71,6 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME}
 
     volumes:
-      - /home/guus/immich/postgres:/backups
       - ${DB_DIR}:/var/lib/postgresql/data
 
 networks:
