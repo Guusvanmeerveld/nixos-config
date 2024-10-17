@@ -4,13 +4,13 @@
   config,
   ...
 }: let
-  cfg = config.custom.applications.graphical.messaging.discord;
+  cfg = config.custom.applications.graphical.messaging.armcord;
 in {
   imports = [outputs.homeManagerModules.armcord];
 
   options = {
-    custom.applications.graphical.messaging.discord = {
-      enable = lib.mkEnableOption "Enable Discord client";
+    custom.applications.graphical.messaging.armcord = {
+      enable = lib.mkEnableOption "Enable Armcord Discord client";
     };
   };
 

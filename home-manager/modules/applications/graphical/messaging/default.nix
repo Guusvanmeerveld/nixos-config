@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.graphical.messaging;
 in {
-  imports = [./schildichat.nix ./discord.nix ./element.nix];
+  imports = [./schildichat.nix ./armcord.nix ./dorion.nix ./element.nix];
 
   options = {
     custom.applications.graphical.messaging = {
@@ -16,7 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.messaging = {
       element.enable = true;
-      discord.enable = true;
+      dorion.enable = true;
     };
   };
 }

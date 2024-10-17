@@ -38,7 +38,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = [cfg.package];
 
-    xdg.configFile."ArmCord/storage/settings.json".source =
+    xdg.configFile."armcord/storage/settings.json".source =
       jsonFormat.generate "armcord-settings" cfg.settings;
   };
 }
