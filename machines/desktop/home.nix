@@ -107,7 +107,7 @@
 
         jellyfin.enable = true;
 
-        ario.enable = true;
+        cantata.enable = true;
 
         rofi.enable = true;
 
