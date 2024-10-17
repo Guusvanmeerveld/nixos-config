@@ -51,6 +51,12 @@
             externalDomain = "https://search.guusvanmeerveld.dev";
           };
 
+          twitch-miner = {
+            enable = true;
+
+            username = "guusvanmeerveld";
+          };
+
           caddy = {
             enable = true;
 

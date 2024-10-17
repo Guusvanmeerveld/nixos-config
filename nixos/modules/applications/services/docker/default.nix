@@ -29,6 +29,7 @@ in {
     ./qbittorrent
     ./gluetun
     ./searxng
+    ./twitch-miner
   ];
 
   options = {
