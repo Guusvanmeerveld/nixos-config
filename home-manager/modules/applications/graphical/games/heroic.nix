@@ -13,6 +13,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [heroic gamemode];
+    home.packages = with pkgs; [heroic];
   };
 }

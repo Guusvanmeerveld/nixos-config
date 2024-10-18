@@ -77,6 +77,8 @@
         };
 
         gpu-screen-recorder.enable = true;
+
+        gamemode.enable = true;
       };
 
       waydroid.enable = true;
