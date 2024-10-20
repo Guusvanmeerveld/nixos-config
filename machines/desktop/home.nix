@@ -14,8 +14,10 @@
     homeDirectory = "/home/guus";
   };
 
-  services.spotify-downloader = {
+  services.spotify-sync = {
     enable = true;
+
+    schedule = "daily";
 
     secrets = {
       enable = true;

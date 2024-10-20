@@ -4,11 +4,11 @@
   pkgs,
   ...
 }: let
-  cfg = config.services.spotify-downloader;
+  cfg = config.services.spotify-sync;
 in {
   options = {
-    services.spotify-downloader = {
-      enable = lib.mkEnableOption "Enable Spotify downloader service";
+    services.spotify-sync = {
+      enable = lib.mkEnableOption "Enable Spotify sync service";
 
       package = lib.mkPackageOption pkgs "spotdl" {};
 
@@ -49,7 +49,7 @@ in {
     systemd.user = {
       timers."spotdl" = {
         Unit = {
-          Description = "Timer for Spotify media downloader";
+          Description = "Timer for Spotify media sync";
         };
 
         Timer = {
@@ -63,16 +63,19 @@ in {
 
       services."spotdl" = let
         script = pkgs.writeShellApplication {
-          name = "spotdl-download";
+          name = "spotdl-sync";
 
           runtimeInputs = with pkgs; [spotdl];
 
           text = ''
-            spotdl download ${lib.concatStringsSep " " (map (id: "https://open.spotify.com/playlist/${id}") cfg.playlists)} \
+            cd "${cfg.directory}"
+
+            spotdl sync ${lib.concatStringsSep " " (map (id: "https://open.spotify.com/playlist/${id}") cfg.playlists)} \
               --format ${cfg.format} \
-              --output "${cfg.directory}/{list-name}/{track-id}.{output-ext}" \
-              --overwrite metadata \
+              --save-file "sync.spotdl" \
+              --overwrite skip \
               --use-cache-file \
+              --m3u "{list}.m3u" \
               ${lib.optionalString cfg.secrets.enable ''
               --client-id "$CLIENT_ID" \
               --client-secret "$CLIENT_SECRET"
@@ -81,7 +84,7 @@ in {
         };
       in {
         Unit = {
-          Description = "Download media files from Spotify";
+          Description = "Sync media files from Spotify";
         };
 
         Service = {
