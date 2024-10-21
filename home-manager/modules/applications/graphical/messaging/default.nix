@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.graphical.messaging;
 in {
-  imports = [./schildichat.nix ./armcord.nix ./dorion.nix ./element.nix];
+  imports = [./schildichat.nix ./armcord ./dorion.nix ./element.nix];
 
   options = {
     custom.applications.graphical.messaging = {
