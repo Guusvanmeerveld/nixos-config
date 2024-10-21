@@ -35,10 +35,18 @@ in {
         };
       };
 
-      playlists = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        description = "A list of playlist id's";
-        default = [];
+      playlist = {
+        enable = lib.mkEnableOption "Enable playlists syncing";
+
+        directory = lib.mkOption {
+          type = lib.types.str;
+        };
+
+        list = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          description = "A list of playlist id's";
+          default = [];
+        };
       };
     };
   };
@@ -70,15 +78,17 @@ in {
           text = ''
             cd "${cfg.directory}"
 
-            spotdl sync ${lib.concatStringsSep " " (map (id: "https://open.spotify.com/playlist/${id}") cfg.playlists)} \
-              --format ${cfg.format} \
-              --save-file "sync.spotdl" \
-              --overwrite skip \
-              --use-cache-file \
-              --m3u "{list}.m3u" \
-              ${lib.optionalString cfg.secrets.enable ''
-              --client-id "$CLIENT_ID" \
-              --client-secret "$CLIENT_SECRET"
+            ${lib.optionalString cfg.playlist.enable ''
+              spotdl sync ${lib.concatStringsSep " " (map (id: "https://open.spotify.com/playlist/${id}") cfg.playlist.list)} \
+                --format ${cfg.format} \
+                --save-file "sync.spotdl" \
+                --overwrite skip \
+                --use-cache-file \
+                --m3u "${cfg.playlist.directory}/{list}.m3u" \
+                ${lib.optionalString cfg.secrets.enable ''
+                --client-id "$CLIENT_ID" \
+                --client-secret "$CLIENT_SECRET"
+              ''}
             ''}
           '';
         };
@@ -90,7 +100,7 @@ in {
         Service = {
           Type = "oneshot";
           EnvironmentFile = lib.mkIf cfg.secrets.enable cfg.secrets.file;
-          ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${cfg.directory}";
+          ExecStartPre = let mkdir = "${pkgs.coreutils}/bin/mkdir"; in "${mkdir} -p ${cfg.directory} && ${mkdir} -p ${cfg.playlist.directory}";
           ExecStart = lib.getExe script;
         };
       };
