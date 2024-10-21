@@ -16,7 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.applications.graphical.messaging = {
       element.enable = true;
-      dorion.enable = true;
+      armcord.enable = true;
     };
   };
 }
