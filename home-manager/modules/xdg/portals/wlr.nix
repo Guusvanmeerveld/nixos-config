@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.xdg.portal.wlr;
+  cfg = config.custom.xdg.portals.wlr;
 
   settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "xdg-desktop-portal-wlr.ini" cfg.settings;
@@ -37,7 +37,7 @@
   };
 in {
   options = {
-    custom.xdg.portal.wlr = {
+    custom.xdg.portals.wlr = {
       enable = lib.mkOption {
         type = lib.types.bool;
         description = "Enable XDG configuration";
