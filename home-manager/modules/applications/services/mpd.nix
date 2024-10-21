@@ -20,6 +20,8 @@ in {
 
       mpris.enable = true;
 
+      playlistDirectory = config.xdg.userDirs.music + "/playlists";
+
       extraConfig = ''
         audio_output {
           type "pipewire"
