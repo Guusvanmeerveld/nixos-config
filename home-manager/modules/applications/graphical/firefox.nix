@@ -163,6 +163,8 @@ in {
             # Extension for webgl privacy is installed.
             "webgl.disabled" = false;
 
+            "media.ffmpeg.vaapi.enabled" = true;
+
             # Privacy
             "privacy.clearOnShutdown.history" = false;
             "privacy.clearOnShutdown.downloads" = false;
