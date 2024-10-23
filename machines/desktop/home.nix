@@ -69,7 +69,18 @@
       };
     };
 
-    xdg.portals.enable = true;
+    xdg.portals = {
+      enable = true;
+
+      wlr.settings = {
+        # Configure main display to automatically get picked.
+        screencast = {
+          max_fps = 60;
+          chooser_type = "none";
+          output_name = "DP-2";
+        };
+      };
+    };
 
     applications = {
       development = {
