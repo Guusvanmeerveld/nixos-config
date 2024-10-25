@@ -25,16 +25,22 @@
       file = "${config.home.homeDirectory}/.spotdl/secrets";
     };
 
-    playlists = [
-      "4spxZBgI17MSVcge6xf1q4"
-      "1WX2j9iSys7lFzIYLqcoa5"
-      "3vUUkBJA1eLDeSNWvKhywJ"
-      "0mrDFPvKx2dxdvzlNBpcF7"
-      "5afGQMeVJlIuu0QqrkP3BW"
-      "6otws51PAr05osdp8pfAFB"
-      "4UDFphGM1tLANTPypCwHdm"
-      "6W4oQ2g91Q6CqCiQ62ir5n"
-    ];
+    playlist = {
+      enable = true;
+
+      directory = config.services.mpd.playlistDirectory;
+
+      list = [
+        "4spxZBgI17MSVcge6xf1q4"
+        "1WX2j9iSys7lFzIYLqcoa5"
+        "3vUUkBJA1eLDeSNWvKhywJ"
+        "0mrDFPvKx2dxdvzlNBpcF7"
+        "5afGQMeVJlIuu0QqrkP3BW"
+        "6otws51PAr05osdp8pfAFB"
+        "4UDFphGM1tLANTPypCwHdm"
+        "6W4oQ2g91Q6CqCiQ62ir5n"
+      ];
+    };
   };
 
   custom = {
@@ -57,6 +63,14 @@
           "DP-2" = {
             mode = "3440x1440@164.900Hz";
             bg = "${./wallpaper.png} stretch";
+            pos = "1440 420";
+          };
+
+          "HDMI-A-1" = {
+            mode = "2560x1440@74.968Hz";
+            transform = "90";
+            bg = "${./2nd-monitor.jpg} stretch";
+            pos = "0 0";
           };
         };
 
