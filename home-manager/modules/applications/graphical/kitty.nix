@@ -52,6 +52,8 @@ in {
         color5 = "#${config.colorScheme.palette.base0E}";
         color6 = "#${config.colorScheme.palette.base0C}";
         color7 = "#${config.colorScheme.palette.base07}";
+
+        window_padding_width = 10;
       };
 
       font = {
