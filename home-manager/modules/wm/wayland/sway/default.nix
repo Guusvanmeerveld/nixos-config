@@ -10,6 +10,11 @@
 
   swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
 
+  package =
+    if cfg.useFx
+    then pkgs.swayfx
+    else pkgs.sway;
+
   playerctl = "${pkgs.playerctl}/bin/playerctl";
 in {
   imports = [./osd.nix];
@@ -17,6 +22,12 @@ in {
   options = {
     custom.wm.wayland.sway = {
       enable = lib.mkEnableOption "Enable sway window manager";
+
+      useFx = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Use swayfx instead of normal sway";
+      };
 
       modifierKey = lib.mkOption {
         type = lib.types.str;
@@ -128,11 +139,50 @@ in {
         # };
       };
 
+      startup = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            path = lib.mkOption {
+              type = lib.types.str;
+              description = "Path to executable";
+            };
+
+            runOnRestart = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+            };
+          };
+        });
+
+        default = [];
+        description = ''
+          Applications to run at startup
+        '';
+      };
+
       output = lib.mkOption {
         type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
         default = {};
         description = ''
           Attribute set that defines outputs. See {manpage} sway-input(5) for details
+        '';
+      };
+
+      workspaceOutputAssign = lib.mkOption {
+        type = lib.types.listOf (lib.types.submodule {
+          options = {
+            output = lib.mkOption {
+              type = lib.types.str;
+            };
+
+            workspace = lib.mkOption {
+              type = lib.types.str;
+            };
+          };
+        });
+        default = [];
+        description = ''
+          Assign workspaces to outputs.
         '';
       };
 
@@ -155,7 +205,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.wm.default = {
       name = "sway";
-      path = "${pkgs.sway}/bin/sway";
+      path = "${package}/bin/sway";
     };
 
     services.playerctld = {
@@ -170,16 +220,24 @@ in {
     wayland.windowManager.sway = {
       enable = true;
 
+      package = package;
+
+      # Required to use the current nixpkgs version of swayfx.
+      # See https://github.com/nix-community/home-manager/issues/5379
+      checkConfig = false;
+
       wrapperFeatures = {
         gtk = true;
       };
 
       extraConfig = ''
         title_align center
+
+        corner_radius 15
       '';
 
       config = rec {
-        inherit (cfg) output;
+        inherit (cfg) output workspaceOutputAssign;
 
         input =
           cfg.input
@@ -196,6 +254,7 @@ in {
 
         window = {
           border = 0;
+          titlebar = false;
 
           # Prevent idle when fullscreen app is shown
           commands = [
@@ -295,7 +354,7 @@ in {
           [
             (let
               sway-idle = "${pkgs.swayidle}/bin/swayidle";
-              swaymsg = "${pkgs.sway}/bin/swaymsg";
+              swaymsg = "${package}/bin/swaymsg";
               systemctl = "${pkgs.systemd}/bin/systemctl";
 
               lockscreen-timeout = 300;
@@ -318,7 +377,13 @@ in {
           # Notification daemon
           ++ lib.optional cfg.notification.enable {
             command = cfg.notification.path;
-          };
+          }
+          # Custom startup commands
+          ++ map (command: {
+            command = command.path;
+            always = command.runOnRestart;
+          })
+          cfg.startup;
 
         keycodebindings = {
           # XF86AudioPlayPause: xmodmap -pke | grep XF86AudioPlay
