@@ -17,9 +17,9 @@ in {
         description = "The package to use";
       };
 
-      configDir = lib.mkOption {
+      configLocation = lib.mkOption {
         type = lib.types.str;
-        default = "armcord";
+        default = "armcord/storage/settings.json";
       };
 
       settings = lib.mkOption {
@@ -43,7 +43,7 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = [cfg.package];
 
-    xdg.configFile."${cfg.configDir}/storage/settings.json".source =
+    xdg.configFile."${cfg.configLocation}".source =
       jsonFormat.generate "armcord-settings" cfg.settings;
   };
 }
