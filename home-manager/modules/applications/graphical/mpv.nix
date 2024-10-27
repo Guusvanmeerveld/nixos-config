@@ -43,6 +43,8 @@ in {
       config = {
         force-window = true;
         ytdl-format = "bestvideo+bestaudio";
+
+        save-position-on-quit = true;
       };
     };
   };
