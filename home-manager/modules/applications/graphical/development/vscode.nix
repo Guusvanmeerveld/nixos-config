@@ -176,8 +176,9 @@ in {
           zhuangtongfa.material-theme
           pkief.material-icon-theme
 
-          # Spelling
+          # Text writing
           ban.spellright
+          carlocardella.vscode-texttoolbox
 
           # Tools
           jeanp413.open-remote-ssh
