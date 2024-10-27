@@ -37,6 +37,7 @@
 
       mconnect.enable = true;
       android.enable = true;
+      graphical.thunar.enable = true;
 
       services.docker.enable = true;
 
