@@ -1,8 +1,12 @@
 {
   outputs,
   config,
+  lib,
+  pkgs,
   ...
-}: {
+}: let
+  primary-display = "DP-2";
+in {
   imports = [
     ../../home-manager/modules
 
@@ -74,6 +78,34 @@
           };
         };
 
+        startup = [
+          {
+            # Configure primary X11 display for XWayland applications (mainly games).
+            path = lib.getExe (pkgs.writeShellApplication {
+              name = "set-primary-x11-display";
+
+              runtimeInputs = with pkgs; [xorg.xrandr];
+
+              text = ''
+                xrandr --output ${primary-display} --primary
+              '';
+            });
+
+            runOnRestart = true;
+          }
+        ];
+
+        workspaceOutputAssign = [
+          {
+            output = "HDMI-A-1";
+            workspace = toString 1;
+          }
+          {
+            output = "HDMI-A-1";
+            workspace = toString 2;
+          }
+        ];
+
         input = {
           "type:pointer" = {
             accel_profile = "flat";
@@ -91,7 +123,7 @@
         screencast = {
           max_fps = 60;
           chooser_type = "none";
-          output_name = "DP-2";
+          output_name = primary-display;
         };
       };
     };
@@ -108,7 +140,7 @@
           enable = true;
 
           options = {
-            window = "DP-2";
+            window = primary-display;
 
             # Audio devices to monitor in recording
             audio = [];
