@@ -10,4 +10,8 @@
   mpdris2 = pkgs.callPackage ./mpdris2.nix {};
 
   customKodiPackages = import ./kodi {inherit pkgs;};
+
+  custom = {
+    firefox-themes = import ./firefox-themes {inherit pkgs;};
+  };
 }
