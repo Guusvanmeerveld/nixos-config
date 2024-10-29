@@ -2,9 +2,13 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }: let
   cfg = config.custom.applications.graphical.firefox;
+
+  theme-package = pkgs.custom.firefox-themes.mono;
+  theme-path = "${theme-package}/local/share/firefox";
 in {
   imports = [inputs.nur.nixosModules.nur];
 
@@ -32,7 +36,6 @@ in {
         DisableTelemetry = true;
         DisablePocket = true;
         DisableFirefoxStudies = true;
-        DisableFirefoxScreenshots = true;
         DisableFirefoxAccounts = true;
         DisableAccounts = true;
         DontCheckDefaultBrowser = true;
@@ -85,19 +88,28 @@ in {
             }
           ];
 
-          # containers = {
-          #   Development = {
-          #     color = "red";
-          #     icon = "briefcase";
-          #     id = 1;
-          #   };
+          containers = {
+            Development = {
+              color = "red";
+              icon = "briefcase";
+              id = 1;
+            };
 
-          #   Relax = {
-          #     color = "blue";
-          #     icon = "chill";
-          #     id = 2;
-          #   };
-          # };
+            Relax = {
+              color = "blue";
+              icon = "chill";
+              id = 2;
+            };
+          };
+
+          containersForce = true;
+
+          userChrome = ''
+            @import "${theme-path}/userChrome.css";
+          '';
+          userContent = ''
+            @import "${theme-path}/userContent.css";
+          '';
 
           search = {
             force = true;
@@ -146,6 +158,7 @@ in {
             "browser.download.useDownloadDir" = true;
 
             "middlemouse.paste" = false;
+            "general.smoothScroll" = true;
 
             "browser.download.open_pdf_attachments_inline" = true;
 
@@ -168,8 +181,13 @@ in {
             # Privacy
             "privacy.clearOnShutdown.history" = false;
             "privacy.clearOnShutdown.downloads" = false;
+            "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
+            "privacy.clearOnShutdown_v2.cache" = true;
+
             "privacy.globalprivacycontrol.enabled" = true;
             "privacy.donottrackheader.enabled" = true;
+            "privacy.clearOnShutdown.siteSettings" = true;
+            "network.cookie.lifetimePolicy" = 1;
 
             "privacy.resistFingerprinting" = false;
 
@@ -203,6 +221,9 @@ in {
             "toolkit.cosmeticAnimations.enabled" = false;
             "browser.tabs.tabMinWidth" = 100;
             "browser.compactmode.show" = true;
+
+            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+            "svg.context-properties.content.enabled" = true;
 
             # Performance
             "layers.acceleration.disabled" = false;
