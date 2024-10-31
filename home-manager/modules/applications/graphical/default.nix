@@ -32,6 +32,7 @@ in {
     ./gnome-calculator.nix
     ./ario.nix
     ./cantata.nix
+    ./qbittorrent.nix
   ];
 
   options = {

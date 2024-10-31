@@ -163,11 +163,9 @@ in {
         default.enable = true;
 
         openshot.enable = true;
-
         jellyfin.enable = true;
-
+        qbittorrent.enable = true;
         cantata.enable = true;
-
         rofi.enable = true;
 
         messaging.enable = true;
