@@ -37,7 +37,10 @@
 
       mconnect.enable = true;
       android.enable = true;
-      graphical.thunar.enable = true;
+      graphical = {
+        thunar.enable = true;
+        steam.enable = true;
+      };
 
       services.docker.enable = true;
 
