@@ -100,7 +100,9 @@ in {
         Service = {
           Type = "oneshot";
           EnvironmentFile = lib.mkIf cfg.secrets.enable cfg.secrets.file;
-          ExecStartPre = let mkdir = "${pkgs.coreutils}/bin/mkdir"; in "${mkdir} -p ${cfg.directory} && ${mkdir} -p ${cfg.playlist.directory}";
+          ExecStartPre = let
+            mkdir = "${pkgs.coreutils}/bin/mkdir";
+          in ''${mkdir} -p ${cfg.directory} ${cfg.playlist.directory}'';
           ExecStart = lib.getExe script;
         };
       };
