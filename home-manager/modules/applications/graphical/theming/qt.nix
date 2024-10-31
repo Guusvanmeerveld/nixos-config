@@ -29,6 +29,8 @@ in {
     qt = {
       enable = true;
 
+      platformTheme.name = "awaita";
+
       style = cfg.style;
     };
   };
