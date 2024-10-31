@@ -40,8 +40,8 @@ in {
     custom.xdg.portals.wlr = {
       enable = lib.mkOption {
         type = lib.types.bool;
-        description = "Enable XDG configuration";
-        default = config.custom.wm.wayland.enable;
+        description = "Enable WLR XDG desktop portal";
+        default = false;
       };
 
       settings = lib.mkOption {

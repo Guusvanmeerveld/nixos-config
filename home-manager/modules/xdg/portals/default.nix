@@ -24,12 +24,15 @@ in {
         config = {
           common = {
             default = "gtk";
+
+            "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+            "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
           };
         };
 
         # xdgOpenUsePortal = true;
 
-        extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+        extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-hyprland];
       };
     };
   };
