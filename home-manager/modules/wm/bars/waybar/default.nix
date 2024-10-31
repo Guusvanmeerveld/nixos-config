@@ -5,6 +5,15 @@
   ...
 }: let
   cfg = config.custom.wm.bars.waybar;
+
+  fromHex = hex: (builtins.fromTOML "a = 0x${hex}").a;
+
+  makeTransparent = hex: transparancy: let
+    r = fromHex (lib.substring 1 2 hex);
+    g = fromHex (lib.substring 3 2 hex);
+    b = fromHex (lib.substring 5 2 hex);
+    a = transparancy; # Set your desired alpha value here (0.0 to 1.0)
+  in "rgba(${toString r}, ${toString g}, ${toString b}, ${toString a})";
 in {
   options = {
     custom.wm.bars.waybar = {
@@ -101,7 +110,7 @@ in {
       enable = true;
 
       style = let
-        bg-color = "#${config.colorScheme.palette.base00}";
+        bg-color = makeTransparent "#${config.colorScheme.palette.base00}" 0.95;
         alt-bg-color = "#${config.colorScheme.palette.base01}";
 
         font-color = "#${config.colorScheme.palette.base05}";
