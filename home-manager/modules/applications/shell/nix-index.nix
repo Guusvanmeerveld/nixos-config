@@ -16,8 +16,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.nix-index.enable = true;
-
-    home.packages = with pkgs; [comma];
+    programs = {
+      nix-index.enable = true;
+      nix-index-database = {
+        comma.enable = true;
+      };
+    };
   };
 }
