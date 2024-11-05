@@ -179,7 +179,10 @@ in {
         theming.enable = true;
 
         office.enable = true;
-        development.enable = true;
+        development = {
+          enable = true;
+          digital.enable = true;
+        };
       };
     };
   };

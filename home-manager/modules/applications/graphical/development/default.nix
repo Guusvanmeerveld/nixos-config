@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.graphical.development;
 in {
-  imports = [./vscode.nix ./bruno.nix ./unity.nix];
+  imports = [./vscode.nix ./bruno.nix ./unity.nix ./digital.nix];
 
   options = {
     custom.applications.graphical.development = {
