@@ -5,7 +5,7 @@
   ...
 }: let
   cfg = config.custom.wm.wayland.sway;
-  workspaces = [1 2 3 4 5 6 7 8 9];
+  workspaces = lib.range 1 9;
   gapSize = 5;
 
   swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
@@ -16,6 +16,26 @@
     else pkgs.sway;
 
   playerctl = "${pkgs.playerctl}/bin/playerctl";
+
+  lockscreen-timeout = 300;
+  screenoff-timeout = lockscreen-timeout + 60;
+  suspend-timeout = screenoff-timeout + 300;
+
+  lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
+
+  idle-manager = pkgs.writeShellApplication {
+    name = "run-sway-idle";
+
+    runtimeInputs = (with pkgs; [swayidle systemd]) ++ [package];
+
+    text = ''
+      swayidle -w \
+        ${lockscreen-cfg}
+        timeout ${toString screenoff-timeout} 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"' \
+        timeout ${toString suspend-timeout} 'systemctl suspend'
+    '';
+  };
 in {
   imports = [./osd.nix];
 
@@ -175,8 +195,8 @@ in {
               type = lib.types.str;
             };
 
-            workspace = lib.mkOption {
-              type = lib.types.str;
+            workspaces = lib.mkOption {
+              type = lib.types.listOf lib.types.int;
             };
           };
         });
@@ -237,7 +257,14 @@ in {
       '';
 
       config = rec {
-        inherit (cfg) output workspaceOutputAssign;
+        inherit (cfg) output;
+
+        workspaceOutputAssign = lib.flatten (map (assignment: (map (workspace: {
+            workspace = toString workspace;
+            output = assignment.output;
+          })
+          assignment.workspaces))
+        cfg.workspaceOutputAssign);
 
         input =
           cfg.input
@@ -351,29 +378,10 @@ in {
         ];
 
         startup =
-          [
-            (let
-              sway-idle = "${pkgs.swayidle}/bin/swayidle";
-              swaymsg = "${package}/bin/swaymsg";
-              systemctl = "${pkgs.systemd}/bin/systemctl";
-
-              lockscreen-timeout = 300;
-              screenoff-timeout = lockscreen-timeout + 60;
-              suspend-timeout = screenoff-timeout + 300;
-
-              lockscreen-cfg = lib.optionalString cfg.lockscreen.enable "timeout ${toString lockscreen-timeout} '${cfg.lockscreen.path}' \\";
-
-              command = pkgs.writeShellScript "run-sway-idle" ''
-                ${sway-idle} -w \
-                  ${lockscreen-cfg}
-                  timeout ${toString screenoff-timeout} '${swaymsg} "output * dpms off"' \
-                    resume '${swaymsg} "output * dpms on"' \
-                  timeout ${toString suspend-timeout} '${systemctl} suspend'
-              '';
-            in {
-              command = toString command;
-            })
-          ]
+          # Manage monitor on idle
+          lib.singleton {
+            command = lib.getExe idle-manager;
+          }
           # Notification daemon
           ++ lib.optional cfg.notification.enable {
             command = cfg.notification.path;

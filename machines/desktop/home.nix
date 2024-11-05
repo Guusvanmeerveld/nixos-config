@@ -98,11 +98,11 @@ in {
         workspaceOutputAssign = [
           {
             output = "HDMI-A-1";
-            workspace = toString 1;
+            workspaces = lib.range 1 2;
           }
           {
-            output = "HDMI-A-1";
-            workspace = toString 2;
+            output = "DP-2";
+            workspaces = lib.range 3 9;
           }
         ];
 
