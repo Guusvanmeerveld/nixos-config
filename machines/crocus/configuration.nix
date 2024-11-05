@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{...}: {
+{pkgs, ...}: {
   imports = [
     ../../nixos/modules
 
@@ -17,11 +17,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  security.acme.acceptTerms = true;
-  security.acme.defaults.email = "security@guusvanmeerveld.dev";
-
-  networking.firewall.allowedTCPPorts = [80 443];
 
   custom = {
     user = {
@@ -42,6 +37,22 @@
 
         docker = {
           enable = true;
+
+          caddy = {
+            enable = true;
+
+            openFirewall = true;
+
+            caddyFile = pkgs.writeText "Caddyfile" ''
+              {
+                admin off
+              }
+
+              mc.guusvanmeerveld.dev {
+                reverse_proxy vanilla-server:8123
+              }
+            '';
+          };
 
           watchtower = {
             enable = true;
