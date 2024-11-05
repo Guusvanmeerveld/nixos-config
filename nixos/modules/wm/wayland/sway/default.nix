@@ -30,7 +30,10 @@ in {
       path = lib.getExe package;
     };
 
-    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+    };
 
     security.pam.services.swaylock = {};
   };
