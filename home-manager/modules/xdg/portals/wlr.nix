@@ -41,7 +41,8 @@ in {
       enable = lib.mkOption {
         type = lib.types.bool;
         description = "Enable WLR XDG desktop portal";
-        default = false;
+        default = config.custom.wm.wayland.sway.enable;
+        # default = false;
       };
 
       settings = lib.mkOption {
