@@ -9,4 +9,5 @@ let
 
   all = systems ++ users;
 in {
+  "feg.age".publicKeys = all;
 }
