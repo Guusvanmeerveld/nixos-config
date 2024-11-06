@@ -13,7 +13,7 @@
 in {
   options = {
     custom.applications.services.docker.immich = {
-      enable = lib.mkEnableOption "Enable immich media streaming service";
+      enable = lib.mkEnableOption "Enable Immich photo and video library";
 
       uploadDir = lib.mkOption {
         type = lib.types.str;

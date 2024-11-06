@@ -38,7 +38,7 @@
 in {
   options = {
     custom.applications.services.docker.portfolio = {
-      enable = lib.mkEnableOption "Enable immich media streaming service";
+      enable = lib.mkEnableOption "Enable Portfolio service";
 
       dbDir = lib.mkOption {
         type = lib.types.str;
