@@ -30,6 +30,7 @@ in {
     ./gluetun
     ./searxng
     ./twitch-miner
+    ./feg
   ];
 
   options = {
