@@ -22,7 +22,14 @@ in {
 
   config = lib.mkIf dockerConfig.enable {
     # Create default network
-    services.docker-compose.networks."${cfg.defaultNetworkName}" = {
+    services.docker-compose = {
+      networks."${cfg.defaultNetworkName}" = {
+      };
+
+      globalEnv = {
+        DEFAULT_NETWORK_NAME = cfg.defaultNetworkName;
+        INTERNAL_NETWORK_NAME = cfg.internalNetworkName;
+      };
     };
   };
 }

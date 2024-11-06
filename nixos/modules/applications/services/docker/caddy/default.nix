@@ -63,8 +63,6 @@ in {
         HTTPS_PORT = cfg.httpsPort;
 
         VERSION = pkgs.caddy.version;
-
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

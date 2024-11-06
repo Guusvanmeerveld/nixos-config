@@ -30,8 +30,6 @@ in {
         BASE_URL = cfg.externalDomain;
 
         CONFIG_DIR = storage.storageDir + "/searxng/config";
-
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

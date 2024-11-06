@@ -70,8 +70,6 @@ in {
           DB_USER = "portfolio";
           DB_PASSWORD = "portfolio";
           DB_NAME = "portfolio";
-
-          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

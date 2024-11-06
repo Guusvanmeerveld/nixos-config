@@ -69,8 +69,6 @@ in {
           DB_DATABASE_NAME = "immich";
 
           REDIS_HOSTNAME = "immich-redis";
-
-          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

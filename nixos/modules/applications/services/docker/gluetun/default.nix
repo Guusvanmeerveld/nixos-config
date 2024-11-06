@@ -40,8 +40,6 @@ in {
           CONTAINER_NAME = cfg.containerName;
 
           SECRETS_FILE = cfg.secretsFile;
-
-          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

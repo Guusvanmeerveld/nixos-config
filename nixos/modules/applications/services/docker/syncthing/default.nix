@@ -62,8 +62,6 @@ in {
       env = {
         HOSTNAME = config.networking.hostName;
 
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
-
         CONFIG_DIR = cfg.configDir;
         SYNC_DIR = cfg.syncDir;
 

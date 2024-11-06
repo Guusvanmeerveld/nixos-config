@@ -32,8 +32,6 @@ in {
         VERSION = "v${pkgs.ntfy.version}";
 
         DATA_DIR = storage.storageDir + "/ntfy";
-
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

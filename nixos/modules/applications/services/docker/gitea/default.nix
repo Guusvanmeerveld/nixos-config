@@ -82,8 +82,6 @@ in {
 
           UID = config.users.users.gitea.uid;
           GID = config.users.groups.gitea.gid;
-
-          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
       ];
     };

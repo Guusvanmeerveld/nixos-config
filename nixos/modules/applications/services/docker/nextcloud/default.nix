@@ -63,8 +63,6 @@ in {
 
           DB_NAME = "nextcloud";
           DB_USERNAME = "nextcloud";
-
-          DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
         }
         cfg.secretsFile
       ];

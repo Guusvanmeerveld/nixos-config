@@ -64,8 +64,6 @@ in {
         VIDEO_GROUP = "998";
         UID = config.users.users.jellyfin.uid;
         GID = config.users.groups.jellyfin.gid;
-
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };

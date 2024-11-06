@@ -28,8 +28,6 @@ in {
         HOSTNAME = config.networking.hostName;
 
         VERSION = pkgs.home-assistant.version;
-
-        DEFAULT_NETWORK_NAME = networking.defaultNetworkName;
       };
     };
   };
