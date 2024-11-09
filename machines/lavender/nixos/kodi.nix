@@ -1,13 +1,13 @@
 {
   inputs,
   pkgs,
-  lib,
   ...
 }: let
   package = pkgs.kodi-gbm.withPackages (kodiPkgs:
     (with kodiPkgs; [
       jellyfin
       youtube
+      netflix
     ])
     ++ (with pkgs.customKodiPackages; [hue-service]));
 in {
