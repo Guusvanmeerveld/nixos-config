@@ -37,7 +37,7 @@ in {
 
         isSystemUser = true;
 
-        extraGroups = cfg.extraGroups;
+        extraGroups = cfg.extraGroups ++ ["video"];
       };
 
       groups."jellyfin" = {
@@ -61,7 +61,6 @@ in {
 
         VERSION = pkgs.jellyfin.version;
 
-        VIDEO_GROUP = "998";
         UID = config.users.users.jellyfin.uid;
         GID = config.users.groups.jellyfin.gid;
       };

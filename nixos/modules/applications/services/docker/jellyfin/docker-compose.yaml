@@ -7,9 +7,6 @@ services:
 
     user: "${UID}:${GID}"
 
-    group_add:
-      - ${VIDEO_GROUP}
-
     hostname: ${HOSTNAME}
 
     networks:
