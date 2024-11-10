@@ -15,3 +15,14 @@ services:
       - ${CONFIG_DIR}:/config
 
       - /etc/localtime:/etc/localtime:ro
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: "flaresolverr"
+
+    restart: unless-stopped
+
+    network_mode: "container:${VPN_CONTAINER_NAME}"
+
+    environment:
+      LOG_LEVEL: info
