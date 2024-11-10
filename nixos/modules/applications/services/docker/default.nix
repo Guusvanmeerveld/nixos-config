@@ -31,6 +31,7 @@ in {
     ./searxng
     ./twitch-miner
     ./feg
+    ./servarr
   ];
 
   options = {

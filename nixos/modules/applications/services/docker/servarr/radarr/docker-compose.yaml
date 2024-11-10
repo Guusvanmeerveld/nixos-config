@@ -1,0 +1,20 @@
+services:
+  radarr:
+    image: linuxserver/radarr:${VERSION}
+    container_name: "radarr"
+
+    restart: unless-stopped
+
+    network_mode: "container:${VPN_CONTAINER_NAME}"
+
+    environment:
+      PUID: ${UID}
+      PGID: ${GID}
+
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ${SCRIPTS_DIR}:/scripts
+      - ${MOVIE_DIR}:/movies
+      - ${DOWNLOAD_DIR}:/downloads/
+
+      - /etc/localtime:/etc/localtime:ro

@@ -1,0 +1,21 @@
+services:
+  prowlarr:
+    image: linuxserver/bazarr:${VERSION}
+    container_name: "bazarr"
+
+    restart: unless-stopped
+
+    network_mode: "container:${VPN_CONTAINER_NAME}"
+
+    environment:
+      PUID: ${UID}
+      PGID: ${GID}
+
+      PORT: ${PORT}
+
+    volumes:
+      - ${CONFIG_DIR}:/config
+      - ${MOVIE_DIR}:/movies
+      - ${TV_DIR}:/tv
+
+      - /etc/localtime:/etc/localtime:ro
