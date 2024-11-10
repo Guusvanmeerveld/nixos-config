@@ -1,4 +1,5 @@
 {
+  outputs,
   inputs,
   config,
   lib,
@@ -9,6 +10,7 @@
 in {
   imports = [
     inputs.vscode-server.homeModules.default
+    outputs.homeManagerModules.vscode-server
   ];
 
   options = {
@@ -21,7 +23,11 @@ in {
     services.vscode-server = {
       enable = true;
       # enableFHS = true;
-      
+
+      extensions = with pkgs.vscode-marketplace; [
+        jnoortheen.nix-ide
+      ];
+
       installPath = "$HOME/.vscodium-server";
     };
 
