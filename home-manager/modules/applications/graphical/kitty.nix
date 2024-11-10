@@ -39,7 +39,7 @@ in {
         foreground = "#${config.colorScheme.palette.base05}";
         background = "#${config.colorScheme.palette.base00}";
 
-        # background_opacity = "0.9";
+        background_opacity = "0.95";
 
         selection_foreground = "#${config.colorScheme.palette.base06}";
         selection_background = "#${config.colorScheme.palette.base0D}";
