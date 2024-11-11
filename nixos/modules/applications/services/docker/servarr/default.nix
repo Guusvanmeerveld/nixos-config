@@ -37,9 +37,10 @@ in {
         default = config.custom.applications.services.docker.gluetun.containerName;
       };
 
-      extraGroups = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
+      user = {
+        gid = lib.mkOption {
+          type = lib.types.int;
+        };
       };
 
       bazarr = {
@@ -75,8 +76,6 @@ in {
             group = service;
 
             isSystemUser = true;
-
-            extraGroups = cfg.extraGroups;
           };
         })
         services);
@@ -106,7 +105,7 @@ in {
           PORT = toString cfg.bazarr.webPort;
 
           UID = config.users.users.bazarr.uid;
-          GID = config.users.groups.bazarr.gid;
+          GID = cfg.user.gid;
         };
       };
 
@@ -116,12 +115,12 @@ in {
         env = {
           CONFIG_DIR = createServarrDir ["prowlarr" "config"];
 
-          VERSION = "version-${pkgs.prowlarr.version}";
+          VERSION = "version-${pkgs.unstable.prowlarr.version}";
 
           VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.prowlarr.uid;
-          GID = config.users.groups.prowlarr.gid;
+          GID = cfg.user.gid;
         };
       };
 
@@ -139,7 +138,7 @@ in {
           VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.radarr.uid;
-          GID = config.users.groups.radarr.gid;
+          GID = cfg.user.gid;
         };
       };
 
@@ -157,7 +156,7 @@ in {
           VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.sonarr.uid;
-          GID = config.users.groups.sonarr.gid;
+          GID = cfg.user.gid;
         };
       };
     };
