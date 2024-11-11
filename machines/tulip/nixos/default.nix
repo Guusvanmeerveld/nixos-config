@@ -163,24 +163,39 @@
 
             mediaDir = "/mnt/share/media";
 
-            extraGroups = ["media"];
+            user.gid = config.users.groups."media".gid;
           };
 
           qbittorrent = {
             enable = true;
 
             # Make qBittorrent part of media group so it has access to media files
-            extraGroups = ["media"];
+            user.gid = config.users.groups."media".gid;
 
             downloadDir = "/mnt/share/media/download";
           };
 
           # VPN container
-          # gluetun = {
-          #   enable = true;
+          gluetun = {
+            enable = true;
 
-          #   secretsFile = config.age.secrets.gluetun.path;
-          # };
+            secretsFile = config.age.secrets.gluetun.path;
+          };
+
+          servarr = {
+            enable = true;
+
+            downloadDir = "/mnt/share/media/download";
+            tvDir = "/mnt/share/media/shows";
+            movieDir = "/mnt/share/media/movies";
+
+            user.gid = config.users.groups."media".gid;
+
+            bazarr.enable = true;
+            prowlarr.enable = true;
+            radarr.enable = true;
+            sonarr.enable = true;
+          };
 
           nextcloud = {
             enable = true;
@@ -269,13 +284,43 @@
               http://immich.tlp {
                 ${blockExternalVisitors}
 
-                reverse_proxy immich-server:3001
+                reverse_proxy immich-server:2283
               }
 
               http://portfolio.tlp {
                 ${blockExternalVisitors}
 
                 reverse_proxy portfolio:3000
+              }
+
+              http://qbittorrent.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gluetun:8080
+              }
+
+              http://radarr.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gluetun:7878
+              }
+
+              http://sonarr.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gluetun:8989
+              }
+
+              http://prowlarr.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gluetun:9696
+              }
+
+              http://bazarr.tlp {
+                ${blockExternalVisitors}
+
+                reverse_proxy gluetun:6767
               }
             '';
           };

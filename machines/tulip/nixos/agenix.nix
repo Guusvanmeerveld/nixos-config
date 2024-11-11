@@ -30,6 +30,13 @@
         owner = "docker-compose";
         group = "docker";
       };
+
+      gluetun = {
+        file = ./secrets/gluetun.age;
+        mode = "770";
+        owner = "docker-compose";
+        group = "docker";
+      };
     };
   };
 }
