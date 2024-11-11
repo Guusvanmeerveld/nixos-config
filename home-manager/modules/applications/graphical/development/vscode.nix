@@ -123,11 +123,11 @@ in {
         };
 
         "nix.enableLanguageServer" = true;
-        "nix.serverPath" = lib.getExe pkgs.nixd;
+        "nix.serverPath" = "nixd";
         "nix.serverSettings" = {
           nixd = {
             formatting = {
-              command = [(lib.getExe pkgs.alejandra)];
+              command = ["alejandra"];
             };
           };
         };
@@ -229,6 +229,10 @@ in {
       ninja
       cmake
       gnumake
+
+      # Nix IDE
+      alejandra
+      nixd
     ];
   };
 }
