@@ -7,7 +7,7 @@
 }: let
   cfg = config.custom.applications.graphical.firefox;
 
-  theme-package = pkgs.custom.firefox-themes.mono;
+  theme-package = pkgs.custom.firefox.themes.mono;
   theme-path = "${theme-package}/local/share/firefox";
 in {
   imports = [inputs.nur.nixosModules.nur];

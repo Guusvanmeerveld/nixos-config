@@ -27,7 +27,7 @@ in {
         default = mpdConfig.musicDirectory;
       };
 
-      package = lib.mkPackageOption pkgs "mpdris2" {};
+      package = lib.mkPackageOption pkgs.custom "mpdris2" {};
     };
   };
 

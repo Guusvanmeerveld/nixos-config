@@ -10,7 +10,7 @@ in {
     services.clipmon = {
       enable = lib.mkEnableOption "Enable clipboard monitor";
 
-      package = lib.mkPackageOption pkgs "clipmon" {};
+      package = lib.mkPackageOption pkgs.custom "clipmon" {};
     };
   };
 

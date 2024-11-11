@@ -1,7 +1,9 @@
 # This file defines overlays
 {inputs, ...}: {
   # This one brings our custom packages from the 'pkgs' directory
-  additions = final: _prev: import ../pkgs {pkgs = final;};
+  additions = final: _prev: {
+    custom = import ../pkgs {pkgs = final;};
+  };
 
   mconnect = final: _prev: {
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;

@@ -9,7 +9,7 @@
       youtube
       netflix
     ])
-    ++ (with pkgs.customKodiPackages; [hue-service]));
+    ++ (with pkgs.custom.kodiPackages; [hue-service]));
 in {
   imports = [inputs.home-manager.nixosModules.default];
 

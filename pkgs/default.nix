@@ -2,16 +2,13 @@
 # You can build them using 'nix build .#example'
 {pkgs}: {
   # example = pkgs.callPackage ./example { };
-  pyjags = pkgs.callPackage ./pyjags.nix {};
-  textblob = pkgs.callPackage ./textblob.nix {};
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
-
   mpdris2 = pkgs.callPackage ./mpdris2.nix {};
 
-  customKodiPackages = import ./kodi {inherit pkgs;};
+  pythonPackages = import ./python {inherit pkgs;};
 
-  custom = {
-    firefox-themes = import ./firefox-themes {inherit pkgs;};
-  };
+  kodiPackages = import ./kodi {inherit pkgs;};
+
+  firefox = import ./firefox {inherit pkgs;};
 }
