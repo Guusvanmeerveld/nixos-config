@@ -1,8 +1,12 @@
 {
   inputs,
   pkgs,
+  lib,
+  config,
   ...
 }: let
+  cfg = config.custom.applications.graphical.kodi;
+
   package = pkgs.kodi-gbm.withPackages (kodiPkgs:
     (with kodiPkgs; [
       jellyfin
@@ -13,12 +17,24 @@
 in {
   imports = [inputs.home-manager.nixosModules.default];
 
-  config = {
+  options = {
+    custom.applications.graphical.kodi = {
+      enable = lib.mkEnableOption "Enable Kodi home theater software";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     environment.systemPackages = [package];
 
     users.extraUsers.kodi = {
       isNormalUser = true;
       extraGroups = ["video" "input" "audio" "disk" "network" "optical" "power" "storage" "tty"];
+    };
+
+    home-manager.users.kodi = {pkgs, ...}: {
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "24.05";
     };
 
     systemd.services.kodi = {
@@ -53,12 +69,6 @@ in {
 
         # Hardening
       };
-    };
-
-    home-manager.users.kodi = {pkgs, ...}: {
-      # The state version is required and should stay at the version you
-      # originally installed.
-      home.stateVersion = "24.05";
     };
 
     services.udev.extraRules = ''

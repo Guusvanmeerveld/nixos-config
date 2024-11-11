@@ -15,8 +15,6 @@
     # Module that allows the tv remote to control kodi
     ./cec.nix
 
-    ./kodi.nix
-
     ./argonone.nix
   ];
 
@@ -66,6 +64,8 @@
     };
 
     applications = {
+      graphical.kodi.enable = true;
+
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
