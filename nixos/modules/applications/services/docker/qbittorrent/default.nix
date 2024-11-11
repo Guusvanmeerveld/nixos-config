@@ -30,9 +30,16 @@ in {
         default = config.custom.applications.services.docker.gluetun.containerName;
       };
 
-      extraGroups = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
+      user = {
+        uid = lib.mkOption {
+          type = lib.types.int;
+          default = config.users.users.qbittorrent.uid;
+        };
+
+        gid = lib.mkOption {
+          type = lib.types.int;
+          default = config.users.groups.qbittorrent.gid;
+        };
       };
     };
   };
@@ -45,8 +52,6 @@ in {
         group = "qbittorrent";
 
         isSystemUser = true;
-
-        extraGroups = cfg.extraGroups;
       };
 
       groups."qbittorrent" = {
@@ -67,8 +72,8 @@ in {
 
         PORT = cfg.webPort;
 
-        UID = config.users.users.qbittorrent.uid;
-        GID = config.users.groups.qbittorrent.gid;
+        UID = cfg.user.uid;
+        GID = cfg.user.gid;
       };
     };
   };

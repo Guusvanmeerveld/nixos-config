@@ -10,8 +10,8 @@ services:
     environment:
       WEBUI_PORT: ${PORT}
 
-      PGID: ${GID}
-      PGUID: ${UID}
+      PUID: ${GID}
+      PGID: ${UID}
 
     volumes:
       - ${CONFIG_DIR}:/config
