@@ -21,9 +21,16 @@ in {
         default = createJellyfinDir "media";
       };
 
-      extraGroups = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
+      user = {
+        uid = lib.mkOption {
+          type = lib.types.int;
+          default = config.users.users.jellyfin.uid;
+        };
+
+        gid = lib.mkOption {
+          type = lib.types.int;
+          default = config.users.groups.jellyfin.gid;
+        };
       };
     };
   };
@@ -37,7 +44,7 @@ in {
 
         isSystemUser = true;
 
-        extraGroups = cfg.extraGroups ++ ["video"];
+        extraGroups = ["video"];
       };
 
       groups."jellyfin" = {
@@ -61,8 +68,8 @@ in {
 
         VERSION = pkgs.jellyfin.version;
 
-        UID = config.users.users.jellyfin.uid;
-        GID = config.users.groups.jellyfin.gid;
+        UID = cfg.user.uid;
+        GID = cfg.user.gid;
       };
     };
   };
