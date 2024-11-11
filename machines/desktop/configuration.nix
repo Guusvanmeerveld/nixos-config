@@ -76,7 +76,7 @@
           enable = true;
         };
 
-        gpu-screen-recorder.enable = true;
+        # gpu-screen-recorder.enable = true;
 
         gamemode.enable = true;
       };

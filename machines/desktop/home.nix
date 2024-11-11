@@ -140,7 +140,7 @@ in {
           enable = true;
 
           options = {
-            window = primary-display;
+            window = "portal";
 
             # Audio devices to monitor in recording
             audio = [];
