@@ -14,8 +14,6 @@
 
     # Module that allows the tv remote to control kodi
     ./cec.nix
-
-    ./argonone.nix
   ];
 
   fileSystems = {
@@ -69,6 +67,7 @@
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
+        argon.enable = true;
       };
 
       shell.zsh.enable = true;

@@ -1,9 +1,26 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.custom.applications.services.argon;
+in {
   imports = [
     inputs.argonone-nix.nixosModules.default
   ];
 
-  config = {
+  options = {
+    custom.applications.services.argon = {
+      enable = lib.mkEnableOption "Enable Argon RPI case management service";
+
+      eon = {
+        enable = lib.mkEnableOption "Enable support for the EON case";
+      };
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     programs.argon = {
       one = {
         enable = true;
@@ -26,7 +43,7 @@
         };
       };
 
-      eon.enable = true;
+      eon.enable = cfg.eon.enable;
     };
   };
 }

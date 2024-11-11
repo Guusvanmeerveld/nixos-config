@@ -11,8 +11,6 @@
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-    ./argon.nix
-
     ./zfs.nix
 
     ./samba.nix
@@ -57,6 +55,10 @@
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
+        argon = {
+          enable = true;
+          eon.enable = true;
+        };
 
         dnsmasq = {
           enable = true;
