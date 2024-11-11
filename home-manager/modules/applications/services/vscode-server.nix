@@ -10,7 +10,7 @@
 in {
   imports = [
     inputs.vscode-server.homeModules.default
-    outputs.homeManagerModules.vscode-server
+    outputs.homeManagerModules.vscode-server.extensions
   ];
 
   options = {
@@ -20,17 +20,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.vscode-server = {
-      enable = true;
-      # enableFHS = true;
+    services = {
+      vscode-server = {
+        enable = true;
+        # enableFHS = true;
 
-      extensions = with pkgs.vscode-marketplace; [
+        installPath = "${config.home.homeDirectory}/.vscodium-server";
+      };
+
+      vscode-server-extensions = with pkgs.vscode-marketplace; [
         jnoortheen.nix-ide
       ];
-
-      installPath = "$HOME/.vscodium-server";
     };
 
-    home.packages = with pkgs; [alejandra nil];
+    home.packages = with pkgs; [alejandra nixd];
   };
 }
