@@ -2,7 +2,11 @@
 {inputs, ...}: {
   # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: {
-    custom = import ../pkgs {pkgs = final;};
+    custom =
+      (import ../pkgs {pkgs = final;})
+      // {
+        scripts = import ../scripts {pkgs = final;};
+      };
   };
 
   mconnect = final: _prev: {
