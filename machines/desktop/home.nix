@@ -173,6 +173,8 @@ in {
         games = {
           enable = true;
 
+          scarab.enable = true;
+
           emulators.desmume.enable = true;
         };
 

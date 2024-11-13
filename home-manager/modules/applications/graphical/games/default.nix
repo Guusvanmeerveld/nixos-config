@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.graphical.games;
 in {
-  imports = [./heroic.nix ./minecraft.nix ./mangohud.nix ./emulators];
+  imports = [./heroic.nix ./minecraft.nix ./mangohud.nix ./scarab.nix ./emulators];
 
   options = {
     custom.applications.graphical.games = {
