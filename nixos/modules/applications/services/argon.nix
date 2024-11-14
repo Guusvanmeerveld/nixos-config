@@ -40,6 +40,8 @@ in {
               speed = 100;
             }
           ];
+
+          ir.enable = true;
         };
       };
 

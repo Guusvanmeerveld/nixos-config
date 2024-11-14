@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724084200,
-        "narHash": "sha256-ZOuYFHdv62tEj2b96D0TW+baHx5k/4EAGJELF/7Blj0=",
+        "lastModified": 1731591917,
+        "narHash": "sha256-TADoJcgUCDzWOHP+4sn0XUlLtzIdqpj7U6+XW16MW3s=",
         "owner": "guusvanmeerveld",
         "repo": "argonone-nix",
-        "rev": "d6ce12beb75406e34c82f6b6348abf7080f48ad4",
+        "rev": "b72cd79f2bce646e36b8977dfac7fb7b065fc0bf",
         "type": "github"
       },
       "original": {
