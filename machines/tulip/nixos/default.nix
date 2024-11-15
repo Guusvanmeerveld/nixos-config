@@ -302,25 +302,25 @@
               http://radarr.tlp {
                 ${blockExternalVisitors}
 
-                reverse_proxy gluetun:7878
+                reverse_proxy radarr:7878
               }
 
               http://sonarr.tlp {
                 ${blockExternalVisitors}
 
-                reverse_proxy gluetun:8989
+                reverse_proxy sonarr:8989
               }
 
               http://prowlarr.tlp {
                 ${blockExternalVisitors}
 
-                reverse_proxy gluetun:9696
+                reverse_proxy prowlarr:9696
               }
 
               http://bazarr.tlp {
                 ${blockExternalVisitors}
 
-                reverse_proxy gluetun:6767
+                reverse_proxy bazarr:6767
               }
             '';
           };

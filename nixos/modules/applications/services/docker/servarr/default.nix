@@ -8,6 +8,7 @@
 
   cfg = dockerConfig.servarr;
   storage = dockerConfig.storage;
+  networking = dockerConfig.networking;
 
   createServarrDir = dir: lib.concatStringsSep "/" ([storage.storageDir "servarr"] ++ dir);
 
@@ -93,14 +94,14 @@ in {
       "bazarr" = lib.mkIf cfg.bazarr.enable {
         file = ./bazarr/docker-compose.yaml;
 
+        networks = [networking.defaultNetworkName];
+
         env = {
           CONFIG_DIR = createServarrDir ["bazarr" "config"];
           TV_DIR = cfg.tvDir;
           MOVIE_DIR = cfg.movieDir;
 
           VERSION = pkgs.bazarr.version;
-
-          VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           PORT = toString cfg.bazarr.webPort;
 
@@ -112,12 +113,12 @@ in {
       "prowlarr" = lib.mkIf cfg.prowlarr.enable {
         file = ./prowlarr/docker-compose.yaml;
 
+        networks = [networking.defaultNetworkName];
+
         env = {
           CONFIG_DIR = createServarrDir ["prowlarr" "config"];
 
           VERSION = "version-${pkgs.unstable.prowlarr.version}";
-
-          VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.prowlarr.uid;
           GID = cfg.user.gid;
@@ -127,6 +128,8 @@ in {
       "radarr" = lib.mkIf cfg.radarr.enable {
         file = ./radarr/docker-compose.yaml;
 
+        networks = [networking.defaultNetworkName];
+
         env = {
           CONFIG_DIR = createServarrDir ["radarr" "config"];
           SCRIPTS_DIR = createServarrDir ["radarr" "scripts"];
@@ -134,8 +137,6 @@ in {
           DOWNLOAD_DIR = cfg.downloadDir;
 
           VERSION = "version-${pkgs.radarr.version}";
-
-          VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.radarr.uid;
           GID = cfg.user.gid;
@@ -145,6 +146,8 @@ in {
       "sonarr" = lib.mkIf cfg.sonarr.enable {
         file = ./sonarr/docker-compose.yaml;
 
+        networks = [networking.defaultNetworkName];
+
         env = {
           CONFIG_DIR = createServarrDir ["sonarr" "config"];
           SCRIPTS_DIR = createServarrDir ["sonarr" "scripts"];
@@ -152,8 +155,6 @@ in {
           DOWNLOAD_DIR = cfg.downloadDir;
 
           VERSION = "version-${pkgs.sonarr.version}";
-
-          VPN_CONTAINER_NAME = cfg.vpnContainerName;
 
           UID = config.users.users.sonarr.uid;
           GID = cfg.user.gid;

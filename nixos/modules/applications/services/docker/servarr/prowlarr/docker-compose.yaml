@@ -5,7 +5,8 @@ services:
 
     restart: unless-stopped
 
-    network_mode: "container:${VPN_CONTAINER_NAME}"
+    networks:
+      - internet
 
     environment:
       PUID: ${UID}
@@ -22,7 +23,13 @@ services:
 
     restart: unless-stopped
 
-    network_mode: "container:${VPN_CONTAINER_NAME}"
+    networks:
+      - internet
 
     environment:
       LOG_LEVEL: info
+
+networks:
+  internet:
+    external: true
+    name: ${DEFAULT_NETWORK_NAME}
