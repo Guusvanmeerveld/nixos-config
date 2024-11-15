@@ -131,6 +131,7 @@ in {
     applications = {
       development = {
         rust.enable = true;
+        utils.enable = true;
       };
 
       services = {
