@@ -61,13 +61,17 @@
       ];
     };
 
+    hardware = {
+      pipewire.enable = true;
+      argon40.enable = true;
+    };
+
     applications = {
       graphical.kodi.enable = true;
 
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
-        argon.enable = true;
       };
 
       shell.zsh.enable = true;
@@ -83,8 +87,6 @@
         }
       ];
     };
-
-    pipewire.enable = true;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";

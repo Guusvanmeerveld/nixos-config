@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.video.amd;
+  cfg = config.custom.hardware.video.amd;
 in {
   options = {
-    custom.video.amd = {
+    custom.hardware.video.amd = {
       enable = lib.mkEnableOption "Enable AMD gpu support";
 
       vrr.enable = lib.mkEnableOption "Enable Variable Refresh Rate support";

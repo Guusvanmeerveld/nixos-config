@@ -53,6 +53,11 @@
 
     security.keyring.enable = true;
 
+    hardware = {
+      video.amd.enable = true;
+      pipewire.enable = true;
+    };
+
     applications = {
       shell.zsh.enable = true;
 
@@ -95,8 +100,6 @@
     };
 
     wm.wayland.sway.enable = true;
-
-    pipewire.enable = true;
   };
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
