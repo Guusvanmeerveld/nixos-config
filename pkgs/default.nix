@@ -5,6 +5,7 @@
 
   clipmon = pkgs.callPackage ./clipmon.nix {};
   mpdris2 = pkgs.callPackage ./mpdris2.nix {};
+  radb = pkgs.callPackage ./radb.nix {};
 
   pythonPackages = import ./python {inherit pkgs;};
 
