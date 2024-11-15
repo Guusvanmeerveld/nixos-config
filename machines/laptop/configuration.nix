@@ -42,7 +42,15 @@
         steam.enable = true;
       };
 
-      services.docker.enable = true;
+      services = {
+        upower.enable = true;
+
+        docker = {
+          enable = true;
+
+          vaultwarden.enable = true;
+        };
+      };
 
       wireguard.openFirewall = true;
     };
