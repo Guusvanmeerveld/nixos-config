@@ -32,6 +32,7 @@ in {
     ./twitch-miner
     ./feg
     ./servarr
+    ./vaultwarden
   ];
 
   options = {

@@ -5,7 +5,7 @@ services:
 
     restart: unless-stopped
 
-    # user: 1000:1000
+    user: ${SYNAPSE_UID}:${SYNAPSE_GID}
 
     networks:
       - internet
@@ -20,7 +20,8 @@ services:
     volumes:
       - ${SYNAPSE_DATA_DIR}:/data
       - ${REGISTRATION_DIR}:/registration
-      - ./plugins/shared_secret_authenticator.py:/usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py
+      - ${SHARED_SECRET_AUTHENTICATOR_FILE}:/usr/local/lib/python3.11/site-packages/shared_secret_authenticator.py:ro
+
       - /etc/localtime:/etc/localtime:ro
 
     depends_on:
@@ -34,6 +35,7 @@ services:
 
     volumes:
       - ${SYNAPSE_DB_DIR}:/var/lib/postgresql/data
+
       - /etc/localtime:/etc/localtime:ro
 
     networks:
@@ -56,10 +58,12 @@ services:
       - whatsapp
 
     volumes:
-      - ./config:/config
+      - ${WHATSAPP_CONFIG_DIR}:/config
+
       - /etc/localtime:/etc/localtime:ro
 
-    command: su-exec 1000:1000 /usr/bin/mautrix-whatsapp -c /config/whatsapp.yaml
+    command: su-exec ${WHATSAPP_UID}:${WHATSAPP_GID} /usr/bin/mautrix-whatsapp -c /config/whatsapp.yaml
+
     depends_on:
       - whatsapp-db
 
@@ -74,6 +78,7 @@ services:
 
     volumes:
       - ${WHATSAPP_DB_DIR}:/var/lib/postgresql/data
+
       - /etc/localtime:/etc/localtime:ro
 
     environment:
