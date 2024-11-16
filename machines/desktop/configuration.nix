@@ -2,7 +2,7 @@
   imports = [
     inputs.grub2-themes.nixosModules.default
 
-    ../../nixos/modules
+    ../../nixos
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix

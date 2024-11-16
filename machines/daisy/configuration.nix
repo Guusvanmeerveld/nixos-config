@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../nixos/modules
+    ../../nixos
 
     ./secrets.nix
 

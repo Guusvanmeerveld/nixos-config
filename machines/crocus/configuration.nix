@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   imports = [
-    ../../nixos/modules
+    ../../nixos
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
