@@ -22,7 +22,6 @@
     # powerKey = "poweroff";
   };
 
-  programs.light.enable = true;
   services.power-profiles-daemon.enable = true;
 
   custom = {
@@ -30,7 +29,25 @@
 
     security.keyring.enable = true;
 
-    bluetooth.enable = true;
+    hardware = {
+      backlight.enable = true;
+      bluetooth.enable = true;
+      upower.enable = true;
+
+      sound.pipewire.enable = true;
+
+      video = {
+        amd.enable = true;
+
+        outputs = {
+          "eDP-1" = {
+            resolution = "1920x1080";
+            refreshRate = 60;
+            background = "${./wallpaper.jpg} stretch";
+          };
+        };
+      };
+    };
 
     applications = {
       shell.zsh.enable = true;
@@ -43,12 +60,8 @@
       };
 
       services = {
-        upower.enable = true;
-
         docker = {
           enable = true;
-
-          vaultwarden.enable = true;
         };
       };
 
@@ -57,12 +70,9 @@
 
     dm.greetd = {
       enable = true;
-      backgroundImage = ./wallpaper.jpg;
     };
 
     wm.wayland.sway.enable = true;
-
-    pipewire.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

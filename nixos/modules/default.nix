@@ -2,9 +2,8 @@
   imports = [
     ./wm
     ./dm
+    ./hardware
     ./applications
-    ./video
-    ./pipewire.nix
     ./networking.nix
     ./nixos.nix
     ./user.nix
@@ -12,7 +11,6 @@
     ./journald.nix
     ./security.nix
     ./nixpkgs-issue-55674.nix
-    ./bluetooth.nix
     ./builders.nix
   ];
 }

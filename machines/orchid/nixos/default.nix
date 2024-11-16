@@ -51,14 +51,17 @@
       ];
     };
 
+    hardware = {
+      argon = {
+        enable = true;
+        eon.enable = true;
+      };
+    };
+
     applications = {
       services = {
         openssh.enable = true;
         fail2ban.enable = true;
-        argon = {
-          enable = true;
-          eon.enable = true;
-        };
 
         dnsmasq = {
           enable = true;

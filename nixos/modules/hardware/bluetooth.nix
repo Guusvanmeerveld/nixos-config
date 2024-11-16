@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.bluetooth;
+  cfg = config.custom.hardware.bluetooth;
 in {
   options = {
-    custom.bluetooth = {
+    custom.hardware.bluetooth = {
       enable = lib.mkEnableOption "Enable Bluetooth";
     };
   };

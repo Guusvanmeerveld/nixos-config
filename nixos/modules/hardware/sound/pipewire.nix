@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.custom.pipewire;
+  cfg = config.custom.hardware.sound.pipewire;
 in {
   options = {
-    custom.pipewire = {
+    custom.hardware.sound.pipewire = {
       enable = lib.mkEnableOption "Enable pipewire sound engine";
     };
   };

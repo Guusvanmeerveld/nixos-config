@@ -3,10 +3,10 @@
   config,
   ...
 }: let
-  cfg = config.custom.applications.services.upower;
+  cfg = config.custom.hardware.upower;
 in {
   options = {
-    custom.applications.services.upower = {
+    custom.hardware.upower = {
       enable = lib.mkEnableOption "Enable Upower, a DBus service that provides power management support to applications.";
     };
   };

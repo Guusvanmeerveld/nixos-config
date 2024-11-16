@@ -4,14 +4,14 @@
   config,
   ...
 }: let
-  cfg = config.custom.applications.services.argon;
+  cfg = config.custom.hardware.argon40;
 in {
   imports = [
     inputs.argonone-nix.nixosModules.default
   ];
 
   options = {
-    custom.applications.services.argon = {
+    custom.hardware.argon40 = {
       enable = lib.mkEnableOption "Enable Argon RPI case management service";
 
       eon = {
