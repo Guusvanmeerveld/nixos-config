@@ -1,7 +1,7 @@
 {lib, ...}: {
   options = {
     custom.hardware.video.outputs = lib.mkOption {
-      type = lib.types.attrsOf (lib.types.attrsOf (lib.types.submodule {
+      type = lib.types.attrsOf (lib.types.submodule {
         options = {
           resolution = lib.mkOption {
             type = lib.types.str;
@@ -9,7 +9,7 @@
           };
 
           refreshRate = lib.mkOption {
-            type = lib.types.int;
+            type = lib.types.float;
             default = 60;
           };
 
@@ -34,7 +34,7 @@
             };
           };
         };
-      }));
+      });
 
       description = "A list of the monitors currently connected to the system";
 

@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.custom.dm.greetd;
+  outputsCfg = config.custom.hardware.video.outputs;
 
   gtkGreetStyle = pkgs.writeText "gtkgreet-css" ''
     window {
@@ -20,29 +21,40 @@
     }
   '';
 
-  greeter = "${lib.getExe pkgs.greetd.gtkgreet} -l -s ${gtkGreetStyle}";
+  greeter = "${lib.getExe pkgs.greetd.gtkgreet} -l";
 
-  # swayConfig = pkgs.writeText "greetd-sway-config" ''
-  #   exec "${greeter}; swaymsg exit"
+  swayConfig = pkgs.writeText "greetd-sway-config" ''
+    exec "${greeter}; swaymsg exit"
 
-  #   bindsym Mod4+shift+e exec swaynag \
-  #     -t warning \
-  #     -m 'What do you want to do?' \
-  #     -b 'Poweroff' 'systemctl poweroff' \
-  #     -b 'Reboot' 'systemctl reboot'
-  # '';
+    bindsym Mod4+shift+e exec swaynag \
+      -t warning \
+      -m 'What do you want to do?' \
+      -b 'Poweroff' 'systemctl poweroff' \
+      -b 'Reboot' 'systemctl reboot'
 
-  # sway = "${lib.getExe pkgs.sway} --config ${swayConfig}";
+    ${
+      lib.concatStringsSep "\n" (
+        map ({
+          name,
+          value,
+        }: ''
+          output ${name} {
+            mode ${value.resolution}@${toString value.refreshRate}Hz
+            bg ${value.background}
+            pos ${toString value.position.x} ${toString value.position.y}
+            transform ${toString value.transform}
+          }
+        '')
+        (lib.attrsToList outputsCfg)
+      )
+    }
+  '';
 
-  cage = "${lib.getExe pkgs.cage} -s -- ${greeter}";
+  sway = "${lib.getExe pkgs.sway} --config ${swayConfig}";
 in {
   options = {
     custom.dm.greetd = {
       enable = lib.mkEnableOption "Enable greetd display manager";
-
-      backgroundImage = lib.mkOption {
-        type = lib.types.path;
-      };
     };
   };
 
@@ -52,7 +64,7 @@ in {
 
       settings = {
         default_session = {
-          command = cage;
+          command = sway;
         };
       };
     };

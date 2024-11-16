@@ -33,8 +33,20 @@
       backlight.enable = true;
       bluetooth.enable = true;
       upower.enable = true;
+
       sound.pipewire.enable = true;
-      video.amd.enable = true;
+
+      video = {
+        amd.enable = true;
+
+        outputs = {
+          "eDP-1" = {
+            resolution = "1920x1080";
+            refreshRate = 60;
+            background = "${./wallpaper.jpg} stretch";
+          };
+        };
+      };
     };
 
     applications = {
@@ -58,7 +70,6 @@
 
     dm.greetd = {
       enable = true;
-      backgroundImage = ./wallpaper.jpg;
     };
 
     wm.wayland.sway.enable = true;
