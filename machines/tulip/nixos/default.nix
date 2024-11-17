@@ -330,7 +330,25 @@
         fail2ban.enable = true;
       };
 
-      shell.zsh.enable = true;
+      shell = {
+        zsh.enable = true;
+        motd = {
+          enable = true;
+
+          settings = {
+            docker = {
+              "/caddy" = "Caddy";
+              "/watchtower" = "Watchtower";
+              "/uptime-kuma" = "Uptime Kuma";
+              "/syncthing" = "Syncthing";
+            };
+
+            fileSystems = {
+              "media" = "/mnt/share/media";
+            };
+          };
+        };
+      };
     };
   };
 

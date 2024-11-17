@@ -78,7 +78,19 @@
         };
       };
 
-      shell.zsh.enable = true;
+      shell = {
+        zsh.enable = true;
+
+        motd = {
+          enable = true;
+
+          settings = {
+            fileSystems = {
+              "data" = "/mnt/data";
+            };
+          };
+        };
+      };
     };
   };
 

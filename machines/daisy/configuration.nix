@@ -41,7 +41,23 @@
     };
 
     applications = {
-      shell.zsh.enable = true;
+      shell = {
+        zsh.enable = true;
+
+        motd = {
+          enable = true;
+
+          settings = {
+            docker = {
+              "/caddy" = "Caddy";
+              "/watchtower" = "Watchtower";
+              "/searxng" = "SearXNG";
+              "/twitch-miner" = "Twitch Channel Points Miner";
+              "/free-epic-games" = "Free Epic Games notifications";
+            };
+          };
+        };
+      };
 
       services = {
         docker = {

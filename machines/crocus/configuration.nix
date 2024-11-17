@@ -71,7 +71,21 @@
         kernelModules.enable = true;
       };
 
-      shell.zsh.enable = true;
+      shell = {
+        zsh.enable = true;
+
+        motd = {
+          enable = true;
+
+          settings = {
+            docker = {
+              "/watchtower" = "Watchtower";
+              "/syncthing" = "Syncthing";
+              "/caddy" = "Caddy";
+            };
+          };
+        };
+      };
     };
   };
 
