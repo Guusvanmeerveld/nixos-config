@@ -8,7 +8,7 @@
   primary-display = "DP-2";
 in {
   imports = [
-    ../../home-manager/modules
+    ../../home-manager
 
     outputs.homeManagerModules.spotdl
   ];

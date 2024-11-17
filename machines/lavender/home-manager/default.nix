@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ../../../home-manager/modules
+    ../../../home-manager
 
     ./agenix.nix
   ];
