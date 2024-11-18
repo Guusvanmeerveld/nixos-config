@@ -12,6 +12,12 @@ in {
   options = {
     custom.applications.graphical.kitty = {
       enable = lib.mkEnableOption "Enable Kitty terminal emulator";
+
+      font = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.applications.graphical.theming.font.monospace.name;
+        description = "The font to use for kitty";
+      };
     };
   };
 
@@ -58,7 +64,7 @@ in {
 
       font = {
         size = 14;
-        name = "Fira Code";
+        name = cfg.font;
       };
     };
   };
