@@ -9,10 +9,10 @@
   menu = pkgs.writeShellApplication {
     name = "cliphist-menu";
 
-    runtimeInputs = with pkgs; [cliphist wl-clipboard];
+    runtimeInputs = with pkgs; [unstable.nwg-clipman wl-clipboard];
 
     text = ''
-      cliphist list | rofi -dmenu -display-columns 2 | cliphist decode | wl-copy
+      nwg-clipman
     '';
   };
 in {
