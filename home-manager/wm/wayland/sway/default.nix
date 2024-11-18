@@ -214,9 +214,9 @@ in {
         '';
       };
 
-      fonts = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = map (font: font.name) config.custom.applications.graphical.theming.font.default;
+      font = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.applications.graphical.theming.font.serif.name;
         description = "The font to use for displaying title bar text";
       };
     };
@@ -314,7 +314,7 @@ in {
         down = "j";
 
         fonts = {
-          names = cfg.fonts;
+          names = [cfg.font];
           size = 12.0;
         };
 

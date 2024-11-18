@@ -31,6 +31,12 @@ in {
         default = config.custom.wm.wayland.enable;
         description = "Whether to use the wayland version of rofi";
       };
+
+      font = lib.mkOption {
+        type = lib.types.str;
+        default = config.custom.applications.graphical.theming.font.monospace.name;
+        description = "The font to use for rofi";
+      };
     };
   };
 
@@ -47,7 +53,7 @@ in {
       # Config highly inspired by https://github.com/catppuccin/rofi
       enable = true;
 
-      font = "Fira Code 14";
+      font = "${cfg.font} 14";
 
       cycle = true;
 
