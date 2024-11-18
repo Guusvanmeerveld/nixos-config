@@ -52,7 +52,7 @@
     };
 
     hardware = {
-      argon = {
+      argon40 = {
         enable = true;
         eon.enable = true;
       };
@@ -91,6 +91,17 @@
           };
         };
       };
+    };
+
+    builders = {
+      enable = true;
+
+      machines = [
+        {
+          hostName = "crocus";
+          system = "aarch64-linux";
+        }
+      ];
     };
   };
 

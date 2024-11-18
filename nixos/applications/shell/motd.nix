@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.custom.applications.shell.motd;
+
+  enableDocker = cfg.settings.docker != {};
 in {
   options = {
     custom.applications.shell.motd = {
@@ -39,7 +41,7 @@ in {
       programs.rust-motd = {
         enable = true;
 
-        order = ["banner" "uptime" "filesystems" "memory" "docker" "last_run"];
+        order = ["banner" "uptime" "filesystems" "memory"] ++ (lib.optional enableDocker "docker") ++ ["last_run"];
 
         settings = {
           "banner" = {
@@ -51,7 +53,7 @@ in {
             prefix = "Up";
           };
 
-          "docker" = lib.mkIf (cfg.settings.docker != {}) cfg.settings.docker;
+          "docker" = lib.mkIf enableDocker cfg.settings.docker;
 
           "memory" = {
             swap_pos = "beside";
