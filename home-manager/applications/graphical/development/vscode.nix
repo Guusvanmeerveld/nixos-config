@@ -201,6 +201,7 @@ in {
           vadimcn.vscode-lldb
           bradlc.vscode-tailwindcss
           prince781.vala
+          golang.go
         ]);
     };
 
@@ -231,6 +232,8 @@ in {
       # Nix IDE
       alejandra
       nixd
+
+      go
     ];
   };
 }
