@@ -2,7 +2,7 @@
   lib,
   pkgs,
 }:
-pkgs.python3Packages.buildPythonApplication rec {
+pkgs.python2Packages.buildPythonApplication rec {
   pname = "dnsmasqstats";
   version = "0.1.0";
 
