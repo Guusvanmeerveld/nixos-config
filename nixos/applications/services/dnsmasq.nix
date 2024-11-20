@@ -6,9 +6,11 @@
 }: let
   cfg = config.custom.applications.services.dnsmasq;
 
-  resolv-file = pkgs.writeText "resolve.conf" ''
+  resolvFile = pkgs.writeText "resolve.conf" ''
     ${lib.concatStringsSep "\n" (map (server: "nameserver ${server}") cfg.upstream-servers)}
   '';
+
+  logFile = "/var/log/dnsmasq";
 in {
   options = {
     custom.applications.services.dnsmasq = {
@@ -36,22 +38,42 @@ in {
       allowedUDPPorts = [53];
     };
 
-    services.dnsmasq = {
-      enable = true;
+    services = {
+      logrotate = {
+        enable = true;
 
-      resolveLocalQueries = false;
+        settings."dnsmasq" = {
+          enable = true;
 
-      # Add an 'address' line to the config for every redirect.
-      extraConfig = ''
-        ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "address=/${name}/${value}") cfg.redirects)}
-      '';
+          files = ''
+            ${logFile}
+          '';
 
-      settings = {
-        domain-needed = true;
+          frequency = "daily";
+        };
+      };
 
-        no-hosts = true;
+      dnsmasq = {
+        enable = true;
 
-        resolv-file = toString resolv-file;
+        resolveLocalQueries = false;
+
+        # Add an 'address' line to the config for every redirect.
+        extraConfig = ''
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "address=/${name}/${value}") cfg.redirects)}
+        '';
+
+        settings = {
+          domain-needed = true;
+
+          no-hosts = true;
+
+          resolv-file = toString resolvFile;
+
+          log-facility = logFile;
+          log-queries = true;
+          log-async = 10;
+        };
       };
     };
   };
