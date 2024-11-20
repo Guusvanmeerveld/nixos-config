@@ -1,0 +1,3 @@
+{
+  imports = [./nwg-dock.nix];
+}

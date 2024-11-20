@@ -1,5 +1,5 @@
 {lib, ...}: {
-  imports = [./X11 ./wayland ./bars ./lockscreens ./notifications];
+  imports = [./X11 ./wayland ./bars ./lockscreens ./notifications ./docks];
 
   options = {
     custom.wm = {

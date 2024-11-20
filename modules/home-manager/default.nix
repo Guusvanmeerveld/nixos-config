@@ -7,5 +7,6 @@
   clipmon = import ./clipmon.nix;
   mpdris2 = import ./mpdris2.nix;
   spotdl = import ./spotdl.nix;
+  nwg-dock = import ./nwg-dock.nix;
   vscode-server = import ./vscode-server;
 }

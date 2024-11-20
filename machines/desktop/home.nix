@@ -51,6 +51,7 @@ in {
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
+      docks.nwg-dock.enable = true;
 
       bars.waybar = {
         enable = true;
