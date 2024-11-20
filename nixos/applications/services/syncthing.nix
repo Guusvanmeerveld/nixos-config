@@ -24,10 +24,22 @@ in {
         default = cfg.enable;
         description = "Open syncthing ports in firewall";
       };
+
+      fileTransferPort = lib.mkOption {
+        type = lib.types.ints.u16;
+        default = 22000;
+      };
+
+      discoveryPort = lib.mkOption {
+        type = lib.types.ints.u16;
+        default = 21027;
+      };
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [cfg.fileTransferPort cfg.discoveryPort];
+
     services = {
       nginx = lib.mkIf config.services.nginx.enable {
         virtualHosts = {
@@ -42,7 +54,7 @@ in {
         };
       };
 
-      syncthing = {
+      syncthing = lib.mkIf cfg.enable {
         enable = true;
 
         guiAddress = "0.0.0.0:${toString cfg.port}";
