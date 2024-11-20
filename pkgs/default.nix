@@ -6,6 +6,8 @@
   clipmon = pkgs.callPackage ./clipmon.nix {};
   mpdris2 = pkgs.callPackage ./mpdris2.nix {};
   radb = pkgs.callPackage ./radb.nix {};
+  nwg-dock = pkgs.callPackage ./nwg-dock.nix {};
+  dnsmasqstats = pkgs.callPackage ./dnsmasqstats.nix {};
 
   pythonPackages = import ./python {inherit pkgs;};
 
