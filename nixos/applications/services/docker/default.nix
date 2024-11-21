@@ -33,6 +33,7 @@ in {
     ./feg
     ./servarr
     ./vaultwarden
+    ./unifi
   ];
 
   options = {
