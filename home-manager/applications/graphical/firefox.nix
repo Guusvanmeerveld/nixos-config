@@ -7,14 +7,16 @@
 }: let
   cfg = config.custom.applications.graphical.firefox;
 
-  theme-package = pkgs.custom.firefox.themes.mono;
-  theme-path = "${theme-package}/local/share/firefox";
+  theme-package = cfg.theme;
+  theme-path = "${theme-package}/share/firefox";
 in {
   imports = [inputs.nur.nixosModules.nur];
 
   options = {
     custom.applications.graphical.firefox = {
       enable = lib.mkEnableOption "Enable Firefox browser";
+
+      theme = lib.mkPackageOption pkgs.custom.firefox.themes "blur" {};
     };
   };
 

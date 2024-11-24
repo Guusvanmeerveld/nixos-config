@@ -40,8 +40,8 @@ in
     '';
 
     buildPhase = ''
-      mkdir -p $out/local/share
+      mkdir -p $out/share
 
-      cp firefox $out/local/share -r
+      cp firefox $out/share -r
     '';
   }
