@@ -13,4 +13,5 @@ in {
   "drone.age".publicKeys = all;
   "immich.age".publicKeys = all;
   "gluetun.age".publicKeys = all;
+  "unifi.age".publicKeys = all;
 }

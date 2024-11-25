@@ -37,6 +37,13 @@
         owner = "docker-compose";
         group = "docker";
       };
+
+      unifi = {
+        file = ./secrets/unifi.age;
+        mode = "770";
+        owner = "docker-compose";
+        group = "docker";
+      };
     };
   };
 }

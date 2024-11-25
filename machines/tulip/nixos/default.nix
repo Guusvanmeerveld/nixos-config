@@ -231,6 +231,14 @@
             uploadDir = "/mnt/share/apps/immich/upload";
           };
 
+          unifi = {
+            enable = true;
+
+            openFirewall = true;
+
+            secretsFile = config.age.secrets.unifi.path;
+          };
+
           portfolio.enable = true;
 
           caddy = let
@@ -328,6 +336,23 @@
 
         openssh.enable = true;
         fail2ban.enable = true;
+
+        dnsmasq = {
+          enable = true;
+
+          redirects = {
+            "mijnmodem.kpn" = "192.168.2.254";
+
+            ".sun" = "192.168.2.119";
+            ".tlp" = "192.168.2.35";
+
+            "orchid" = "192.168.2.195";
+            "tulip" = "192.168.2.35";
+
+            "unifi" = "192.168.2.35";
+            "unifi.home" = "192.168.2.35";
+          };
+        };
       };
 
       shell = {
