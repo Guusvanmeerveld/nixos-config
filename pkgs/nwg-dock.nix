@@ -6,6 +6,7 @@
   pkg-config,
   gtk3,
   gtk-layer-shell,
+  wrapGAppsHook,
 }: let
   hotspotCssFile = writeText "" ''
     window {
@@ -29,7 +30,7 @@ in
 
     ldflags = ["-s" "-w"];
 
-    nativeBuildInputs = [pkg-config];
+    nativeBuildInputs = [pkg-config wrapGAppsHook];
     buildInputs = [gtk3 gtk-layer-shell];
 
     postPatch = ''

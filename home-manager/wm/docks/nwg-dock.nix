@@ -40,25 +40,12 @@ in {
 
         layer = "bottom";
         position = "bottom";
-        # autohide = true;
         noLauncher = true;
         noWorkspaceSwitcher = true;
-
-        hotspot = {
-          delay = 0;
-
-          style = ''
-            window {
-              background-color: rgba (0, 0, 0, 0);
-              border: none
-            }
-          '';
-        };
 
         style = ''
           window {
             background-color: ${makeTransparent "#${config.colorScheme.palette.base00}" 0.8};
-            /* opacity: 0.9; */
           	border-radius: 15px;
           	border-style: none;
           	border-width: 1px;
@@ -84,6 +71,7 @@ in {
           	color: #eee;
             font-size: 12px;
             border-width: 1px;
+          	border-radius: 10px;
             border-color: rgba (0, 0, 0, 0);
             border-style: solid;
           }

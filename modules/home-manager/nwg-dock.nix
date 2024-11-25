@@ -29,6 +29,18 @@ in {
           default = "overlay";
         };
 
+        alignment = lib.mkOption {
+          type = lib.types.enum ["start" "center" "end"];
+          description = "Alignment in full width/height";
+          default = "center";
+        };
+
+        position = lib.mkOption {
+          type = lib.types.enum ["bottom" "top" "left"];
+          description = "The position of the dock";
+          default = "bottom";
+        };
+
         margin = {
           bottom = lib.mkOption {
             type = lib.types.int;
@@ -56,12 +68,6 @@ in {
           default = 48;
         };
 
-        position = lib.mkOption {
-          type = lib.types.enum ["bottom" "top" "left"];
-          description = "The position of the dock";
-          default = "bottom";
-        };
-
         output = lib.mkOption {
           type = lib.types.str;
           description = "Name of output to display the dock on";
@@ -86,15 +92,6 @@ in {
             '';
             default = 500;
           };
-
-          style = lib.mkOption {
-            type = lib.types.lines;
-            description = ''
-              CSS styles to apply.
-              Example: https://github.com/nwg-piotr/nwg-dock/blob/main/config/hotspot.css
-            '';
-            default = '''';
-          };
         };
       };
     };
@@ -106,10 +103,6 @@ in {
     xdg.configFile = {
       "nwg-dock/style.css" = {
         text = cfg.settings.style;
-      };
-
-      "nwg-dock/hotspot.css" = {
-        text = cfg.settings.hotspot.style;
       };
     };
 
@@ -125,23 +118,34 @@ in {
 
       Service = {
         Type = "simple";
-        ExecStart = ''
-          ${lib.getExe cfg.package} \
-            ${lib.optionalString cfg.settings.autohide "-d"} \
-            ${lib.optionalString cfg.settings.debug "-debug"} \
-            ${lib.optionalString (cfg.settings.output != "") "-o ${cfg.settings.output}"} \
-            ${lib.optionalString cfg.settings.noLauncher "-nolauncher"} \
-            ${lib.optionalString cfg.settings.noWorkspaceSwitcher "-nows"} \
-            -p ${cfg.settings.position} \
-            -hd ${toString cfg.settings.hotspot.delay} \
-            -mb ${toString cfg.settings.margin.bottom} \
-            -ml ${toString cfg.settings.margin.left} \
-            -mr ${toString cfg.settings.margin.right} \
-            -mt ${toString cfg.settings.margin.top} \
-            -i ${toString cfg.settings.iconSize} \
-            -l ${cfg.settings.layer} \
-        '';
         Restart = "on-failure";
+
+        # This is a hacky work around to make sure the users PATH variable is loaded for the application.
+        # See: https://discourse.nixos.org/t/systemd-user-units-and-no-such-path/8399/
+        ExecStart = ''
+          ${lib.getExe pkgs.bash} -lc ${
+            lib.getExe (pkgs.writeShellApplication {
+              name = "start-nwg-dock";
+
+              text = ''
+                ${lib.getExe cfg.package} \
+                 ${lib.optionalString cfg.settings.autohide "-d"} \
+                 ${lib.optionalString cfg.settings.debug "-debug"} \
+                 ${lib.optionalString (cfg.settings.output != "") "-o ${cfg.settings.output}"} \
+                 ${lib.optionalString cfg.settings.noLauncher "-nolauncher"} \
+                 ${lib.optionalString cfg.settings.noWorkspaceSwitcher "-nows"} \
+                 -a ${cfg.settings.alignment} \
+                 -p ${cfg.settings.position} \
+                 -hd ${toString cfg.settings.hotspot.delay} \
+                 -mb ${toString cfg.settings.margin.bottom} \
+                 -ml ${toString cfg.settings.margin.left} \
+                 -mr ${toString cfg.settings.margin.right} \
+                 -mt ${toString cfg.settings.margin.top} \
+                 -i ${toString cfg.settings.iconSize} \
+                 -l ${cfg.settings.layer} \'';
+            })
+          }
+        '';
       };
 
       Install.WantedBy = ["sway-session.target"];
