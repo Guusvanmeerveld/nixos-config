@@ -79,6 +79,11 @@
       url = "github:guusvanmeerveld/docker-compose-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    inputs.nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -86,6 +91,7 @@
     nixpkgs,
     nixpkgs-server,
     home-manager,
+    nix-github-actions,
     ...
   } @ inputs: let
     systems = [
@@ -100,6 +106,10 @@
 
     inherit (self) outputs;
   in {
+    githubActions = nix-github-actions.lib.mkGithubMatrix {
+      checks = nixpkgs.lib.getAttrs ["x86_64-linux" "aarch64-linux"] self.packages;
+    };
+
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});

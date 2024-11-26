@@ -1,0 +1,53 @@
+name: Nix Flake actions
+
+on:
+  push:
+    paths:
+      - "pkgs/**"
+
+jobs:
+  nix-matrix:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - id: set-matrix
+        name: Generate Nix Matrix
+        run: |
+          set -Eeu
+          matrix="$(nix eval --json '.#githubActions.matrix')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  nix-build:
+    name: ${{ matrix.name }} (${{ matrix.system }})
+
+    needs: nix-matrix
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: guusvanmeerveld
+          # If you chose API tokens for write access OR if you have a private cache
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Build packages
+        run: nix build -L '.#${{ matrix.attr }}'
