@@ -42,14 +42,18 @@ in {
       logrotate = {
         enable = true;
 
-        settings."dnsmasq" = {
+        settings."${logFile}" = {
           enable = true;
 
-          files = ''
-            ${logFile}
-          '';
+          rotate = 3;
+          size = "50M";
+          notifempty = true;
+          compress = true;
+          create = "0640 dnsmasq dnsmasq";
 
-          frequency = "daily";
+          postrotate = ''
+            systemctl reload dnsmasq > /dev/null 2>&1 || true
+          '';
         };
       };
 
