@@ -6,15 +6,6 @@
   ...
 }: let
   cfg = config.custom.wm.docks.nwg-dock;
-
-  fromHex = hex: (builtins.fromTOML "a = 0x${hex}").a;
-
-  makeTransparent = hex: transparancy: let
-    r = fromHex (lib.substring 1 2 hex);
-    g = fromHex (lib.substring 3 2 hex);
-    b = fromHex (lib.substring 5 2 hex);
-    a = transparancy; # Set your desired alpha value here (0.0 to 1.0)
-  in "rgba(${toString r}, ${toString g}, ${toString b}, ${toString a})";
 in {
   imports = [outputs.homeManagerModules.nwg-dock];
 
@@ -55,7 +46,7 @@ in {
 
         style = ''
           window {
-            background-color: ${makeTransparent "#${config.colorScheme.palette.base00}" 0.8};
+            background-color: ${pkgs.custom.utils.makeTransparent "#${config.colorScheme.palette.base00}" 0.8};
           	border-radius: 15px;
           	border-style: none;
           	border-width: 1px;

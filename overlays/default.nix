@@ -6,6 +6,10 @@
       (import ../pkgs {pkgs = final;})
       // {
         scripts = import ../scripts {pkgs = final;};
+        utils = import ../utils rec {
+          pkgs = final;
+          lib = pkgs.lib;
+        };
       };
   };
 
