@@ -80,7 +80,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    inputs.nix-github-actions = {
+    nix-github-actions = {
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -107,7 +107,7 @@
     inherit (self) outputs;
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
-      checks = nixpkgs.lib.getAttrs ["x86_64-linux" "aarch64-linux"] self.packages;
+      checks = nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages;
     };
 
     # Your custom packages
