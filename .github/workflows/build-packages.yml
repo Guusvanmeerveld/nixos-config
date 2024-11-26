@@ -5,6 +5,8 @@ on:
     paths:
       - "pkgs/**"
 
+  workflow_dispatch:
+
 jobs:
   nix-matrix:
     runs-on: ubuntu-latest
