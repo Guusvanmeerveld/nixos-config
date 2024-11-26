@@ -43,6 +43,16 @@ in {
         noLauncher = true;
         noWorkspaceSwitcher = true;
 
+        pinnedApps = [
+          "codium-url-handler"
+          "firefox"
+          "vesktop"
+          "steam"
+          "kitty"
+          "Element"
+          "heroic"
+        ];
+
         style = ''
           window {
             background-color: ${makeTransparent "#${config.colorScheme.palette.base00}" 0.8};

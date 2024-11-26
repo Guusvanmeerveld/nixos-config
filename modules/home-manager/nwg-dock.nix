@@ -23,6 +23,12 @@ in {
         resident = lib.mkEnableOption "Leave the program resident, but w/o hotspot";
         exclusiveZone = lib.mkEnableOption "Set eXclusive zone: move other windows aside; overrides the layer argument";
 
+        pinnedApps = lib.mkOption {
+          type = lib.types.listOf lib.types.str;
+          description = "A list of items to be pinned on the dock";
+          default = [];
+        };
+
         layer = lib.mkOption {
           type = lib.types.enum ["overlay" "top" "bottom"];
           description = "The layer to show the dock on";
@@ -99,6 +105,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [nwg-dock];
+
+    home.file.".cache/nwg-dock-pinned" = {
+      text = lib.concatStringsSep "\n" cfg.settings.pinnedApps;
+    };
 
     xdg.configFile = {
       "nwg-dock/style.css" = {
