@@ -317,11 +317,13 @@ in {
 
             scroll-step = 5;
 
-            on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+            on-click = lib.getExe pkgs.pavucontrol;
           };
 
           "network" = {
             interval = 5;
+
+            on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
 
             format-ethernet = "󰈀";
             format-wifi = "{icon}";
