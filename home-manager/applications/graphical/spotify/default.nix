@@ -44,7 +44,7 @@ in {
         bg-color = config.colorScheme.palette.base00;
         alt-bg-color = config.colorScheme.palette.base01;
 
-        font-color = config.colorScheme.palette.base04;
+        font-color = config.colorScheme.palette.base06;
         alt-font-color = config.colorScheme.palette.base05;
         # accent-color = ;
       in {

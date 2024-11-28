@@ -104,8 +104,8 @@ in {
         bg-color = pkgs.custom.utils.makeTransparent "#${config.colorScheme.palette.base00}" 0.95;
         alt-bg-color = "#${config.colorScheme.palette.base01}";
 
-        font-color = "#${config.colorScheme.palette.base05}";
-        alt-font-color = "#${config.colorScheme.palette.base04}";
+        font-color = "#${config.colorScheme.palette.base06}";
+        alt-font-color = "#${config.colorScheme.palette.base05}";
 
         focused-color = "#${config.colorScheme.palette.base0D}";
 

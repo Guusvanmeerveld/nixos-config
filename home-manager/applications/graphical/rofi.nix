@@ -116,8 +116,8 @@ in {
         bg-color = mkLiteral "#${config.colorScheme.palette.base00}";
         alt-bg-color = mkLiteral "#${config.colorScheme.palette.base01}";
 
-        font-color = mkLiteral "#${config.colorScheme.palette.base05}";
-        alt-font-color = mkLiteral "#${config.colorScheme.palette.base04}";
+        font-color = mkLiteral "#${config.colorScheme.palette.base06}";
+        alt-font-color = mkLiteral "#${config.colorScheme.palette.base05}";
 
         primary-color = mkLiteral "#${config.colorScheme.palette.base0D}";
       in {
@@ -182,7 +182,7 @@ in {
 
         "element" = {
           background-color = bg-color;
-          text-color = font-color;
+          text-color = alt-font-color;
 
           # margin = mkLiteral "0 20px 0 0";
           padding = mkLiteral "5px";
@@ -194,7 +194,7 @@ in {
 
         "element selected" = {
           background-color = alt-bg-color;
-          text-color = alt-font-color;
+          text-color = font-color;
 
           border-radius = mkLiteral "3px";
         };
