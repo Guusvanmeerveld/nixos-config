@@ -17,19 +17,19 @@ in {
       theme = {
         name = lib.mkOption {
           type = lib.types.str;
-          default = "Fluent-Dark";
+          default = "WhiteSur-Dark";
         };
 
-        package = lib.mkPackageOption pkgs "fluent-gtk-theme" {};
+        package = lib.mkPackageOption pkgs "whitesur-gtk-theme" {};
       };
 
       iconTheme = {
         name = lib.mkOption {
           type = lib.types.str;
-          default = "Pop";
+          default = "WhiteSur-dark";
         };
 
-        package = lib.mkPackageOption pkgs "pop-icon-theme" {};
+        package = lib.mkPackageOption pkgs "whitesur-icon-theme" {};
       };
     };
   };
