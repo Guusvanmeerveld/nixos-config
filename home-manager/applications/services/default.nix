@@ -9,5 +9,6 @@
     ./gpu-screen-recorder.nix
     ./mpd.nix
     ./spotifyd.nix
+    ./updater.nix
   ];
 }

@@ -150,6 +150,7 @@ in {
         };
 
         mpd.enable = true;
+        updater.enable = true;
       };
 
       shell = {

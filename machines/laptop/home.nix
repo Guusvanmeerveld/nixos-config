@@ -50,6 +50,7 @@
       services = {
         syncthing.enable = true;
         mconnect.enable = true;
+        updater.enable = true;
       };
 
       shell = {
