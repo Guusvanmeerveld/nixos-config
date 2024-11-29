@@ -138,16 +138,16 @@ in {
       services = {
         syncthing.enable = true;
         mconnect.enable = true;
-        gpu-screen-recorder = {
-          enable = true;
+        # gpu-screen-recorder = {
+        #   enable = true;
 
-          options = {
-            window = "portal";
+        #   options = {
+        #     window = "portal";
 
-            # Audio devices to monitor in recording
-            audio = [];
-          };
-        };
+        #     # Audio devices to monitor in recording
+        #     audio = [];
+        #   };
+        # };
 
         mpd.enable = true;
         updater.enable = true;
