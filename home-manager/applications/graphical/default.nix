@@ -33,6 +33,7 @@ in {
     ./ario.nix
     ./cantata.nix
     ./qbittorrent.nix
+    ./nautilus.nix
   ];
 
   options = {
@@ -69,7 +70,7 @@ in {
       firefox.enable = true;
       kitty.enable = true;
       grim.enable = true;
-      thunar.enable = true;
+      nautilus.enable = true;
       spotify.enable = true;
       thunderbird.enable = true;
       mpv.enable = true;
