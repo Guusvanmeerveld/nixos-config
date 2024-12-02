@@ -139,7 +139,7 @@ in {
         }
 
         #workspaces button {
-          padding: 0 5px;
+          padding: 0 10px;
           color: ${font-color};
           border-bottom: 2px solid transparent;
         }
