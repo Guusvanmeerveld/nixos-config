@@ -170,6 +170,7 @@ in {
         qbittorrent.enable = true;
         cantata.enable = true;
         rofi.enable = true;
+        parsec.enable = true;
 
         messaging.enable = true;
 
