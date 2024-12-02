@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.applications.graphical.messaging;
 in {
-  imports = [./schildichat.nix ./vesktop ./dorion.nix ./element.nix];
+  imports = [./schildichat.nix ./vesktop ./dorion.nix ./element.nix ./whatsapp.nix];
 
   options = {
     custom.applications.graphical.messaging = {
@@ -17,6 +17,7 @@ in {
     custom.applications.graphical.messaging = {
       element.enable = true;
       vesktop.enable = true;
+      whatsapp.enable = true;
     };
   };
 }
