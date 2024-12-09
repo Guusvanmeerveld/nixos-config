@@ -157,6 +157,8 @@ in {
           "workbench.action.tasks.configureTaskRunner"
           "workbench.action.tasks.runTask"
         ];
+
+        "sqlfluff.dialect" = "duckdb";
       };
 
       extensions =
@@ -188,6 +190,7 @@ in {
           # LSPs
           # ms-toolsai.jupyter
           # ms-python.python
+          sqlfluff.vscode-sqlfluff
           twxs.cmake
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
@@ -234,6 +237,8 @@ in {
       nixd
 
       go
+
+      sqlfluff
     ];
   };
 }
