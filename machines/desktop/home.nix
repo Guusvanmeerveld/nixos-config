@@ -167,7 +167,6 @@ in {
 
         openshot.enable = true;
         jellyfin.enable = true;
-        qbittorrent.enable = true;
         cantata.enable = true;
         rofi.enable = true;
         parsec.enable = true;
@@ -179,7 +178,10 @@ in {
 
           scarab.enable = true;
 
-          emulators.desmume.enable = true;
+          emulators = {
+            desmume.enable = true;
+            suyu.enable = true;
+          };
         };
 
         theming.enable = true;

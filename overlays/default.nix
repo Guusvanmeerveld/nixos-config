@@ -11,6 +11,8 @@
           lib = pkgs.lib;
         };
       };
+
+    suyu = inputs.suyu.packages."${final.system}".default;
   };
 
   mconnect = final: _prev: {

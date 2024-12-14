@@ -1,3 +1,3 @@
 {
-  imports = [./desmume.nix];
+  imports = [./desmume.nix ./suyu.nix];
 }
