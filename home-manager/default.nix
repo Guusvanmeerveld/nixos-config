@@ -24,6 +24,7 @@
         outputs.overlays.unstable-packages
         outputs.overlays.vscode-marketplace
         outputs.overlays.mconnect
+        outputs.overlays.nur
         outputs.overlays.rust
       ];
       config = {
