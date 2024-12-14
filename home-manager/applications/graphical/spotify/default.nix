@@ -39,6 +39,8 @@ in {
 
       windowManagerPatch = true;
 
+      spicetifyPackage = pkgs.unstable.spicetify-cli;
+
       colorScheme = "custom";
       customColorScheme = let
         bg-color = config.colorScheme.palette.base00;
