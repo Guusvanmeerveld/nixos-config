@@ -15,6 +15,8 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [unityhub ffmpeg];
 
+    allowedUnfree = ["unityhub"];
+
     custom.applications.development.python.enable = true;
   };
 }

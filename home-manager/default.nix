@@ -11,6 +11,11 @@
       type = lib.types.str;
       default = "${config.home.homeDirectory}/nix/config";
     };
+
+    allowedUnfree = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+    };
   };
 
   config = {
@@ -27,10 +32,8 @@
         outputs.overlays.nur
         outputs.overlays.rust
       ];
-      config = {
-        allowUnfree = true;
-        allowUnfreePredicate = _: true;
-      };
+
+      config.allowUnfreePredicate = p: builtins.elem (lib.getName p) config.allowedUnfree;
     };
 
     # Nicely reload system units when changing configs
