@@ -16,6 +16,6 @@
   firefox = import ./firefox {inherit pkgs;};
 
   ciBuildable = {
-    inherit clipmon mpdris2 radb nwg-dock;
+    inherit clipmon mpdris2 radb nwg-dock dnsmasqstats;
   };
 }
