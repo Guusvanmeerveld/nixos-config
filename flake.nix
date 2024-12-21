@@ -112,7 +112,7 @@
     inherit (self) outputs;
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
-      checks = nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages;
+      checks = builtins.mapAttrs (_: customPackages: customPackages.ciBuildable) (nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages);
     };
 
     # Your custom packages
