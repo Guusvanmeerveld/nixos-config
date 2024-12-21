@@ -176,6 +176,8 @@ in {
           zhuangtongfa.material-theme
           pkief.material-icon-theme
 
+          jeff-hykin.better-shellscript-syntax
+
           # Text writing
           ban.spellright
           carlocardella.vscode-texttoolbox
@@ -184,6 +186,7 @@ in {
           jeanp413.open-remote-ssh
           james-yu.latex-workshop
           dbaeumer.vscode-eslint
+          timonwong.shellcheck
           ms-vscode.cmake-tools
           esbenp.prettier-vscode
 
@@ -205,6 +208,7 @@ in {
           bradlc.vscode-tailwindcss
           prince781.vala
           golang.go
+          mads-hartmann.bash-ide-vscode
         ]);
     };
 
