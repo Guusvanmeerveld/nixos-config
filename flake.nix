@@ -91,6 +91,15 @@
     };
   };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://guusvanmeerveld.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "guusvanmeerveld.cachix.org-1:DphRuosSBmhUyz2kLc9cvdHFl8N4mQm0QSxWxahvFuc="
+    ];
+  };
+
   outputs = {
     self,
     nixpkgs,
