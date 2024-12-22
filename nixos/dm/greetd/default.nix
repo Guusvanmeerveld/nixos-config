@@ -7,24 +7,25 @@
   cfg = config.custom.dm.greetd;
   outputsCfg = config.custom.hardware.video.outputs;
 
-  gtkGreetStyle = pkgs.writeText "gtkgreet-css" ''
-    window {
-      background-image: url("${cfg.backgroundImage}");
-      background-size: cover;
-      background-position: center;
-    }
+  defaultEnvironment = config.custom.wm.default.path;
 
-    box#body {
-      background-color: rgba(50, 50, 50, 0.5);
-      border-radius: 10px;
-      padding: 50px;
-    }
-  '';
+  gtkgreet = import ./gtkgreet.nix {inherit lib pkgs;};
+  tuigreet = import ./tuigreet.nix {inherit lib pkgs;};
 
-  greeter = "${lib.getExe pkgs.greetd.gtkgreet} -l";
+  greeters = {
+    "gtkgreet" = gtkgreet.executable;
+    "tuigreet" = tuigreet.executable {cmd = defaultEnvironment;};
+  };
+
+  currentGreeterExecutable = builtins.getAttr cfg.greeter greeters;
+
+  greetersNeedGraphical = {
+    "gtkgreet" = true;
+    "tuigreet" = false;
+  };
 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
-    exec "${greeter}; swaymsg exit"
+    exec "${currentGreeterExecutable}; swaymsg exit"
 
     bindsym Mod4+shift+e exec swaynag \
       -t warning \
@@ -55,6 +56,11 @@ in {
   options = {
     custom.dm.greetd = {
       enable = lib.mkEnableOption "Enable greetd display manager";
+
+      greeter = lib.mkOption {
+        type = lib.types.enum ["gtkgreet" "tuigreet"];
+        default = "gtkgreet";
+      };
     };
   };
 
@@ -63,14 +69,19 @@ in {
       enable = true;
 
       settings = {
-        default_session = {
-          command = sway;
+        default_session = let
+          needsGraphical = builtins.getAttr cfg.greeter greetersNeedGraphical;
+        in {
+          command =
+            if needsGraphical
+            then sway
+            else currentGreeterExecutable;
         };
       };
     };
 
     environment.etc."greetd/environments".text = ''
-      ${config.custom.wm.default.path}
+      ${defaultEnvironment}
     '';
   };
 }

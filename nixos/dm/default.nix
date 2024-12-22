@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./emptty.nix ./greetd.nix];
+  imports = [./emptty.nix ./greetd];
 }
