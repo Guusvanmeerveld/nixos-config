@@ -221,7 +221,7 @@ in {
             "browser.tabs.tabMinWidth" = 100;
             "browser.compactmode.show" = true;
 
-            "browser.display.use_document_fonts" = 0;
+            # "browser.display.use_document_fonts" = 0;
 
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             "svg.context-properties.content.enabled" = true;
