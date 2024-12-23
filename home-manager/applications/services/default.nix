@@ -10,5 +10,6 @@
     ./mpd.nix
     ./spotifyd.nix
     ./updater.nix
+    ./poweralertd.nix
   ];
 }
