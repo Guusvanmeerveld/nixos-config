@@ -8,13 +8,13 @@
 in {
   options = {
     custom.applications.graphical.qbittorrent = {
-      enable = lib.mkEnableOption "Enable Cantata MPD client";
+      enable = lib.mkEnableOption "Enable QBittorrent torrent client";
     };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      qbittorrent-qt5
+      qbittorrent
     ];
   };
 }

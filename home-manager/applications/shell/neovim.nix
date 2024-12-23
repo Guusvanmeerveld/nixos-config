@@ -33,6 +33,8 @@ in {
           theme = "dashboard";
         };
 
+        web-devicons.enable = true;
+
         lightline.enable = true;
 
         # Make `nvim .` look prettier

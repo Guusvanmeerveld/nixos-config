@@ -30,8 +30,9 @@ in {
 
     boot.initrd.kernelModules = ["amdgpu"];
 
-    hardware.opengl.driSupport = true;
-    # For 32 bit applications
-    hardware.opengl.driSupport32Bit = true;
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
   };
 }

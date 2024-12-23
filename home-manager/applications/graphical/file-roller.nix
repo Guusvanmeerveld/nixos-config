@@ -89,6 +89,6 @@ in {
       })
       openByDefault);
 
-    home.packages = with pkgs; [gnome.file-roller];
+    home.packages = with pkgs; [file-roller];
   };
 }

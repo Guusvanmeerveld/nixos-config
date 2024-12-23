@@ -6,7 +6,7 @@
 }: let
   cfg = config.custom.applications.graphical.nautilus;
 
-  package = pkgs.gnome.nautilus;
+  package = pkgs.nautilus;
 in {
   options = {
     custom.applications.graphical.nautilus = {
