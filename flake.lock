@@ -466,11 +466,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1733247308,
-        "narHash": "sha256-HL3rgtov3Ai6QXmGDtgUiLuSn9eDtoOpUC+0ZI88aMc=",
+        "lastModified": 1734820195,
+        "narHash": "sha256-kvRa4kAiGxFv124Qdflxb3nY18XN1NexzRWccDYAu9o=",
         "owner": "guusvanmeerveld",
         "repo": "mconnect-nix",
-        "rev": "defdc80f8161055a3f50c8dcb800c978f3a600d1",
+        "rev": "00865d47a313c26c71d0188490153dfc51c74a61",
         "type": "github"
       },
       "original": {
