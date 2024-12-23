@@ -340,6 +340,8 @@
         dnsmasq = {
           enable = true;
 
+          openFirewall = true;
+
           redirects = {
             "mijnmodem.kpn" = "192.168.2.254";
 
@@ -357,22 +359,22 @@
 
       shell = {
         zsh.enable = true;
-        motd = {
-          enable = true;
+        # motd = {
+        #   enable = true;
 
-          settings = {
-            docker = {
-              "/caddy" = "Caddy";
-              "/watchtower" = "Watchtower";
-              "/uptime-kuma" = "Uptime Kuma";
-              "/syncthing" = "Syncthing";
-            };
+        #   settings = {
+        #     docker = {
+        #       "/caddy" = "Caddy";
+        #       "/watchtower" = "Watchtower";
+        #       "/uptime-kuma" = "Uptime Kuma";
+        #       "/syncthing" = "Syncthing";
+        #     };
 
-            fileSystems = {
-              "media" = "/mnt/share/media";
-            };
-          };
-        };
+        #     fileSystems = {
+        #       "media" = "/mnt/share/media";
+        #     };
+        #   };
+        # };
       };
     };
   };

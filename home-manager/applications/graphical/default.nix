@@ -34,6 +34,7 @@ in {
     ./cantata.nix
     ./qbittorrent.nix
     ./nautilus.nix
+    ./parsec.nix
   ];
 
   options = {

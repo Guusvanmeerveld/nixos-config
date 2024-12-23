@@ -9,4 +9,5 @@
   spotdl = import ./spotdl.nix;
   nwg-dock = import ./nwg-dock.nix;
   vscode-server = import ./vscode-server;
+  updater = import ./updater;
 }

@@ -70,6 +70,7 @@
 
     dm.greetd = {
       enable = true;
+      greeter = "tuigreet";
     };
 
     wm.wayland.sway.enable = true;

@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   pkgs,
   ...
 }: let
@@ -10,8 +9,6 @@
   theme-package = cfg.theme;
   theme-path = "${theme-package}/share/firefox";
 in {
-  imports = [inputs.nur.nixosModules.nur];
-
   options = {
     custom.applications.graphical.firefox = {
       enable = lib.mkEnableOption "Enable Firefox browser";
@@ -50,7 +47,7 @@ in {
         default = {
           isDefault = true;
 
-          extensions = with config.nur.repos.rycee.firefox-addons; [
+          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
             ublock-origin
             bitwarden
             translate-web-pages
@@ -224,7 +221,7 @@ in {
             "browser.tabs.tabMinWidth" = 100;
             "browser.compactmode.show" = true;
 
-            "browser.display.use_document_fonts" = 0;
+            # "browser.display.use_document_fonts" = 0;
 
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             "svg.context-properties.content.enabled" = true;

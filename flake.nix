@@ -84,6 +84,20 @@
       url = "github:nix-community/nix-github-actions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    suyu = {
+      url = "git+https://git.suyu.dev/suyu/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://guusvanmeerveld.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "guusvanmeerveld.cachix.org-1:DphRuosSBmhUyz2kLc9cvdHFl8N4mQm0QSxWxahvFuc="
+    ];
   };
 
   outputs = {
@@ -107,7 +121,7 @@
     inherit (self) outputs;
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
-      checks = nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages;
+      checks = builtins.mapAttrs (_: customPackages: customPackages.ciBuildable) (nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages);
     };
 
     # Your custom packages

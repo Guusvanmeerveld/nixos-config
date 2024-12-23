@@ -25,9 +25,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [package];
+
     custom.wm.default = {
       name = "sway";
-      path = lib.getExe package;
+      path = "sway";
     };
 
     environment.sessionVariables = {

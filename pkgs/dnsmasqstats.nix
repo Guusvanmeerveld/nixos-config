@@ -2,7 +2,7 @@
   lib,
   pkgs,
 }:
-pkgs.python2Packages.buildPythonApplication rec {
+pkgs.python3Packages.buildPythonApplication rec {
   pname = "dnsmasqstats";
   version = "0.1.0";
 
@@ -14,6 +14,10 @@ pkgs.python2Packages.buildPythonApplication rec {
     rev = "5772699a33ea7eaaaf20c39ad7ea2f978eab2578";
     hash = "sha256-+/2SekcW++mFhpIwfNagFkH4MpwCuSwMToYpePkaL6o=";
   };
+
+  buildPhase = ''
+    2to3 dnsmasqstats -w
+  '';
 
   installPhase = "install -Dm755 dnsmasqstats $out/bin/dnsmasqstats";
 

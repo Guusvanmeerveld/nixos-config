@@ -17,10 +17,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # nixpkgs.config.allowUnfreePredicate = pkg:
-    #   builtins.elem (lib.getName pkg) [
-    #     "spotify"
-    #   ];
+    allowedUnfree = ["spotify"];
 
     xdg.desktopEntries = {
       spotify = {
@@ -38,6 +35,8 @@ in {
       enable = true;
 
       windowManagerPatch = true;
+
+      spicetifyPackage = pkgs.unstable.spicetify-cli;
 
       colorScheme = "custom";
       customColorScheme = let

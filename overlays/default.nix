@@ -11,6 +11,8 @@
           lib = pkgs.lib;
         };
       };
+
+    suyu = inputs.suyu.packages."${final.system}".default;
   };
 
   mconnect = final: _prev: {
@@ -29,6 +31,8 @@
   vscode-marketplace = inputs.vscode-extensions.overlays.default;
 
   rust = inputs.rust-overlay.overlays.default;
+
+  nur = inputs.nur.overlays.default;
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.unstable'

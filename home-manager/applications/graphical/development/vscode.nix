@@ -157,6 +157,8 @@ in {
           "workbench.action.tasks.configureTaskRunner"
           "workbench.action.tasks.runTask"
         ];
+
+        "sqlfluff.dialect" = "duckdb";
       };
 
       extensions =
@@ -174,6 +176,8 @@ in {
           zhuangtongfa.material-theme
           pkief.material-icon-theme
 
+          jeff-hykin.better-shellscript-syntax
+
           # Text writing
           ban.spellright
           carlocardella.vscode-texttoolbox
@@ -182,12 +186,14 @@ in {
           jeanp413.open-remote-ssh
           james-yu.latex-workshop
           dbaeumer.vscode-eslint
+          timonwong.shellcheck
           ms-vscode.cmake-tools
           esbenp.prettier-vscode
 
           # LSPs
           # ms-toolsai.jupyter
           # ms-python.python
+          sqlfluff.vscode-sqlfluff
           twxs.cmake
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
@@ -202,6 +208,7 @@ in {
           bradlc.vscode-tailwindcss
           prince781.vala
           golang.go
+          mads-hartmann.bash-ide-vscode
         ]);
     };
 
@@ -234,6 +241,8 @@ in {
       nixd
 
       go
+
+      sqlfluff
     ];
   };
 }

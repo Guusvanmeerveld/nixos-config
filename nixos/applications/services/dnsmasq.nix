@@ -29,13 +29,15 @@ in {
 
         description = "The servers to reroute the dns requests to";
       };
+
+      openFirewall = lib.mkEnableOption "Open default firewall ports";
     };
   };
 
   config = lib.mkIf cfg.enable {
     networking.firewall = {
-      allowedTCPPorts = [53];
-      allowedUDPPorts = [53];
+      allowedTCPPorts = lib.optional cfg.openFirewall 53;
+      allowedUDPPorts = lib.optional cfg.openFirewall 53;
     };
 
     services = {
@@ -52,7 +54,7 @@ in {
           create = "0640 dnsmasq dnsmasq";
 
           postrotate = ''
-            systemctl reload dnsmasq > /dev/null 2>&1 || true
+            systemctl restart dnsmasq > /dev/null 2>&1 || true
           '';
         };
       };
