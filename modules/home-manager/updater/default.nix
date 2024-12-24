@@ -11,7 +11,7 @@
   updaterScript = pkgs.writeShellApplication {
     name = "home-manager-updater";
 
-    runtimeInputs = with pkgs; [gnome.zenity home-manager nix git nvd];
+    runtimeInputs = with pkgs; [zenity home-manager nix git nvd];
 
     text = ''
       export XDG_STATE_HOME='${config.xdg.stateHome}'
