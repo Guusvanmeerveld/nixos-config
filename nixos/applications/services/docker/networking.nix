@@ -24,6 +24,7 @@ in {
     # Create default network
     services.docker-compose = {
       networks."${cfg.defaultNetworkName}" = {
+        subnet = ["172.18.0.0/16"];
       };
 
       globalEnv = {
