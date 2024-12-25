@@ -64,17 +64,14 @@ in {
 
         resolveLocalQueries = false;
 
-        # Add an 'address' line to the config for every redirect.
-        extraConfig = ''
-          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "address=/${name}/${value}") cfg.redirects)}
-        '';
-
         settings = {
           domain-needed = true;
 
           no-hosts = true;
 
           resolv-file = toString resolvFile;
+          # Add an 'address' line to the config for every redirect.
+          address = lib.mapAttrsToList (name: value: "/${name}/${value}") cfg.redirects;
 
           log-facility = logFile;
           log-queries = true;

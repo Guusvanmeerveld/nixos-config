@@ -32,10 +32,10 @@
     {device = "/dev/disk/by-uuid/4fafa899-f915-4a2c-8c12-24b49d07fea2";}
   ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      onevpl-intel-gpu
+      vpl-gpu-rt
     ];
   };
 
