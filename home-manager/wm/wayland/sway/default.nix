@@ -244,7 +244,7 @@ in {
 
       # Required to use the current nixpkgs version of swayfx.
       # See https://github.com/nix-community/home-manager/issues/5379
-      checkConfig = false;
+      checkConfig = lib.mkDefault (!cfg.useFx);
 
       wrapperFeatures = {
         gtk = true;
@@ -253,7 +253,10 @@ in {
       extraConfig = ''
         title_align center
 
-        corner_radius 15
+        ${lib.optionalString cfg.useFx ''
+          corner_radius 15
+          blur enable
+        ''}
       '';
 
       config = rec {
