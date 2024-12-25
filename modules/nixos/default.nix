@@ -4,5 +4,4 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   jupyter = import ./jupyter;
-  gtk = import ./gtk.nix;
 }

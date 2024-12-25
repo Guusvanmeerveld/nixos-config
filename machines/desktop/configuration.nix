@@ -72,7 +72,6 @@
         teamviewer.enable = true;
         thunar.enable = true;
 
-        gtk.enable = true;
         openrgb.enable = true;
       };
 
