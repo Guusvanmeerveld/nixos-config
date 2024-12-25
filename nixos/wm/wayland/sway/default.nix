@@ -25,7 +25,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [package];
+    programs.sway = {
+      inherit package;
+
+      enable = true;
+    };
 
     custom.wm.default = {
       name = "sway";

@@ -1,4 +1,5 @@
 {
+  shared,
   lib,
   config,
   pkgs,
@@ -6,8 +7,6 @@
 }: let
   cfg = config.custom.dm.greetd;
   outputsCfg = config.custom.hardware.video.outputs;
-
-  defaultEnvironment = config.custom.wm.default.path;
 
   regreet = lib.getExe pkgs.greetd.regreet;
 
@@ -46,60 +45,65 @@ in {
     custom.dm.greetd = {
       enable = lib.mkEnableOption "Enable greetd display manager";
 
-      tuigreet = {
-        enable = lib.mkEnableOption "Enable tuigreet";
-      };
-
-      gtk = {
+      gtk = let
+        defaultThemingOptions = shared.theming;
+      in {
         font = {
-          package = lib.mkPackageOption pkgs "inter" {};
+          package = lib.mkPackageOption pkgs defaultThemingOptions.font.serif.package {};
 
           name = lib.mkOption {
             type = lib.types.str;
             description = "The fonts name";
 
-            default = "Inter";
+            default = defaultThemingOptions.font.serif.name;
           };
         };
 
         theme = {
           name = lib.mkOption {
             type = lib.types.str;
-            default = "WhiteSur-Dark";
+            default = defaultThemingOptions.gtk.theme.name;
           };
 
-          package = lib.mkPackageOption pkgs "whitesur-gtk-theme" {};
+          package = lib.mkPackageOption pkgs defaultThemingOptions.gtk.theme.package {};
         };
 
         iconTheme = {
           name = lib.mkOption {
             type = lib.types.str;
-            default = "WhiteSur-dark";
+            default = defaultThemingOptions.gtk.iconTheme.name;
           };
 
-          package = lib.mkPackageOption pkgs "whitesur-icon-theme" {};
+          package = lib.mkPackageOption pkgs defaultThemingOptions.gtk.iconTheme.package {};
         };
 
         cursorTheme = {
           name = lib.mkOption {
             type = lib.types.str;
-            default = "macOS-BigSur";
+            default = defaultThemingOptions.cursor.name;
           };
 
-          package = lib.mkPackageOption pkgs "apple-cursor" {};
+          package = lib.mkPackageOption pkgs defaultThemingOptions.cursor.package {};
         };
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
+    allowedUnfree = ["apple_cursor"];
+
     programs.regreet = {
       enable = true;
 
-      # cursorTheme = cfg.gtk.cursorTheme;
-      # iconTheme = cfg.gtk.iconTheme;
-      # theme = cfg.gtk.theme;
-      # font = cfg.gtk.font;
+      cursorTheme = cfg.gtk.cursorTheme;
+      iconTheme = cfg.gtk.iconTheme;
+      theme = cfg.gtk.theme;
+      font = lib.mkMerge [
+        cfg.gtk.font
+        {
+          size = 14;
+        }
+      ];
     };
 
     services.greetd = {
@@ -111,9 +115,5 @@ in {
         };
       };
     };
-
-    environment.etc."greetd/environments".text = ''
-      ${defaultEnvironment}
-    '';
   };
 }

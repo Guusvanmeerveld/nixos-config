@@ -2,12 +2,15 @@
   lib,
   config,
   pkgs,
+  shared,
   ...
 }: let
   cfg = config.custom.applications.graphical.theming.font;
 in {
   options = {
-    custom.applications.graphical.theming.font = {
+    custom.applications.graphical.theming.font = let
+      defaultFontOptions = shared.theming.font;
+    in {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = config.custom.applications.graphical.theming.enable;
@@ -15,38 +18,35 @@ in {
       };
 
       serif = {
-        package = lib.mkPackageOption pkgs "inter" {};
+        package = lib.mkPackageOption pkgs defaultFontOptions.serif.package {};
 
         name = lib.mkOption {
           type = lib.types.str;
           description = "The fonts name";
 
-          default = "Inter";
+          default = defaultFontOptions.serif.name;
         };
       };
 
       monospace = {
-        package = lib.mkOption {
-          type = lib.types.package;
-          default = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
-        };
+        package = lib.mkPackageOption pkgs defaultFontOptions.monospace.package {};
 
         name = lib.mkOption {
           type = lib.types.str;
           description = "The fonts name";
 
-          default = "FiraCode Nerd Font Mono";
+          default = defaultFontOptions.monospace.name;
         };
       };
 
       emoji = {
-        package = lib.mkPackageOption pkgs "noto-fonts-color-emoji" {};
+        package = lib.mkPackageOption pkgs defaultFontOptions.emoji.package {};
 
         name = lib.mkOption {
           type = lib.types.str;
           description = "The fonts name";
 
-          default = "NotoColorEmoji";
+          default = defaultFontOptions.emoji.name;
         };
       };
     };
