@@ -38,14 +38,6 @@
 
       video = {
         amd.enable = true;
-
-        outputs = {
-          "eDP-1" = {
-            resolution = "1920x1080";
-            refreshRate = 60.0;
-            background = "${./wallpaper.jpg} stretch";
-          };
-        };
       };
     };
 
@@ -70,7 +62,14 @@
 
     dm.greetd = {
       enable = true;
-      greeter = "tuigreet";
+
+      outputs = {
+        "eDP-1" = {
+          resolution = "1920x1080";
+          refreshRate = 60.0;
+          background = "${./wallpaper.jpg} stretch";
+        };
+      };
     };
 
     wm.wayland.sway.enable = true;

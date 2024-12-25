@@ -56,29 +56,6 @@
     hardware = {
       video = {
         amd.enable = true;
-
-        outputs = {
-          "DP-2" = {
-            resolution = "3440x1440";
-            refreshRate = 164.9;
-            background = "${./wallpaper.png} stretch";
-            position = {
-              x = 1440;
-              y = 420;
-            };
-          };
-
-          "HDMI-A-1" = {
-            resolution = "2560x1440";
-            refreshRate = 74.968;
-            transform = 90;
-            background = "${./2nd-monitor.jpg} stretch";
-            position = {
-              x = 0;
-              y = 0;
-            };
-          };
-        };
       };
 
       sound.pipewire.enable = true;
@@ -122,6 +99,29 @@
 
     dm.greetd = {
       enable = true;
+
+      outputs = {
+        "DP-2" = {
+          resolution = "3440x1440";
+          refreshRate = 164.9;
+          background = "${./wallpaper.png} stretch";
+          position = {
+            x = 1440;
+            y = 420;
+          };
+        };
+
+        "HDMI-A-1" = {
+          resolution = "2560x1440";
+          refreshRate = 74.968;
+          transform = 90;
+          background = "${./2nd-monitor.jpg} stretch";
+          position = {
+            x = 0;
+            y = 0;
+          };
+        };
+      };
     };
 
     wm.wayland.sway.enable = true;

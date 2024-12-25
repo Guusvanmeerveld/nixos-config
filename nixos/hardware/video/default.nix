@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./amd.nix ./outputs.nix];
+  imports = [./amd.nix];
 }
