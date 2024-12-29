@@ -49,7 +49,7 @@
 
       services = {
         syncthing.enable = true;
-        mconnect.enable = true;
+        kdeconnect.enable = true;
         updater.enable = true;
         poweralertd.enable = true;
       };

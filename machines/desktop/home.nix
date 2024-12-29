@@ -137,7 +137,7 @@ in {
 
       services = {
         syncthing.enable = true;
-        mconnect.enable = true;
+        kdeconnect.enable = true;
         # gpu-screen-recorder = {
         #   enable = true;
 
@@ -180,7 +180,7 @@ in {
 
           emulators = {
             desmume.enable = true;
-            suyu.enable = true;
+            # suyu.enable = true;
           };
         };
 

@@ -11,5 +11,6 @@
     ./spotifyd.nix
     ./updater.nix
     ./poweralertd.nix
+    ./kdeconnect.nix
   ];
 }
