@@ -20,6 +20,11 @@
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
 
+    input "type:pointer" {
+      accel_profile flat
+      pointer_accel -0.25
+    }
+
     ${
       lib.concatStringsSep "\n" (
         map ({
