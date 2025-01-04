@@ -63,7 +63,10 @@
         docker = {
           enable = true;
 
-          watchtower.enable = true;
+          watchtower = {
+            enable = true;
+            schedule = "0 0 5 * * 1";
+          };
 
           searxng = {
             enable = true;
