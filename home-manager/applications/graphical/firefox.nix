@@ -115,23 +115,40 @@ in {
             default = "SearX";
             order = ["SearX"];
 
-            engines = {
-              "SearX" = {
-                urls = [
-                  {
-                    template = "https://search.guusvanmeerveld.dev/search";
-                    params = [
-                      {
-                        name = "q";
-                        value = "{searchTerms}";
-                      }
-                    ];
-                  }
-                ];
+            engines = lib.mkMerge [
+              {
+                "SearX" = {
+                  urls = [
+                    {
+                      template = "https://search.guusvanmeerveld.dev/search";
+                      params = [
+                        {
+                          name = "q";
+                          value = "{searchTerms}";
+                        }
+                      ];
+                    }
+                  ];
 
-                definedAliases = ["@sx"];
-              };
-            };
+                  definedAliases = ["@sx"];
+                };
+              }
+              (lib.listToAttrs (map (engine: {
+                  name = engine;
+                  value = {
+                    _metaData.hidden = true;
+                  };
+                }) [
+                  "Bing"
+                  "eBay"
+                  "Ecosia"
+                  "Google"
+                  "Wikipedia (en)"
+                  "LibRedirect"
+                  "DuckDuckGo"
+                  "Qwant"
+                ]))
+            ];
           };
 
           settings = {
