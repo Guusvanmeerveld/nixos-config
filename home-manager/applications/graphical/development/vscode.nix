@@ -159,6 +159,9 @@ in {
         ];
 
         "sqlfluff.dialect" = "duckdb";
+
+        "tabby.endpoint" = "http://localhost:11029";
+        "tabby.config.telemetry" = true;
       };
 
       extensions =
@@ -189,6 +192,7 @@ in {
           timonwong.shellcheck
           ms-vscode.cmake-tools
           esbenp.prettier-vscode
+          tabbyml.vscode-tabby
 
           # LSPs
           # ms-toolsai.jupyter
