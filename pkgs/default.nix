@@ -8,6 +8,7 @@
   radb = pkgs.callPackage ./radb.nix {};
   nwg-dock = pkgs.callPackage ./nwg-dock.nix {};
   dnsmasqstats = pkgs.callPackage ./dnsmasqstats.nix {};
+  ryubing = pkgs.callPackage ./ryubing {};
 
   pythonPackages = import ./python {inherit pkgs;};
 
@@ -16,6 +17,6 @@
   firefox = import ./firefox {inherit pkgs;};
 
   ciBuildable = {
-    inherit clipmon mpdris2 radb nwg-dock dnsmasqstats;
+    inherit clipmon mpdris2 radb nwg-dock dnsmasqstats ryubing;
   };
 }
