@@ -15,23 +15,31 @@
   boot.loader.timeout = 0;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   custom = {
     user.name = "guus";
+
+    hardware.sound.pipewire.enable = true;
 
     applications = {
       shell.zsh.enable = true;
     };
 
-    dm.greetd.enable = true;
+    dm.greetd = {
+      enable = true;
+      outputs = {
+        "Virtual-1" = {
+          mode = "1920x1080@60Hz";
+          bg = "${./wallpaper.jpg} stretch";
+        };
+      };
+    };
 
     wm.wayland.sway = {
       enable = true;
       useFx = false;
     };
-
-    pipewire.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
