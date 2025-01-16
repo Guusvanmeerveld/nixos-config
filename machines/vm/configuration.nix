@@ -26,7 +26,10 @@
 
     dm.greetd.enable = true;
 
-    wm.wayland.sway.enable = true;
+    wm.wayland.sway = {
+      enable = true;
+      useFx = false;
+    };
 
     pipewire.enable = true;
   };
