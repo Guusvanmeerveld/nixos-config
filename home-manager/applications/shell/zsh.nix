@@ -25,11 +25,6 @@ in {
       zsh = {
         enable = true;
 
-        initExtraBeforeCompInit = ''
-          local P10K_INSTANT_PROMPT="${config.xdg.cacheHome}/p10k-instant-prompt-''${(%):-%n}.zsh"
-          [[ ! -r "$P10K_INSTANT_PROMPT" ]] || source "$P10K_INSTANT_PROMPT"
-        '';
-
         initExtra = ''
           if [ "$TERM_PROGRAM" = "vscode" ]
           then
@@ -91,25 +86,8 @@ in {
             {
               name = "chisui/zsh-nix-shell";
             }
-            {
-              name = "romkatv/powerlevel10k";
-              tags = ["as:theme" "depth:1"];
-            }
           ];
         };
-
-        plugins = [
-          {
-            name = "powerlevel10k";
-            src = pkgs.zsh-powerlevel10k;
-            file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-          }
-          {
-            name = "powerlevel10k-config";
-            file = "p10k.zsh";
-            src = ./.;
-          }
-        ];
       };
     };
   };
