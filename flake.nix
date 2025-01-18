@@ -91,6 +91,11 @@
       url = "git+https://git.suyu.dev/suyu/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -108,6 +113,7 @@
     nixpkgs-server,
     home-manager,
     nix-github-actions,
+    nix-on-droid,
     ...
   } @ inputs: let
     systems = [
@@ -288,6 +294,11 @@
           ./machines/tulip/home-manager
         ];
       };
+    };
+
+    nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      pkgs = import nixpkgs {system = "aarch64-linux";};
+      modules = [./machines/phone];
     };
   };
 }
