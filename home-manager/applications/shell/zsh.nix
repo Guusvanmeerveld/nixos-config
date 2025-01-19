@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.custom.applications.shell.zsh;
+
+  nh = lib.getExe pkgs.nh;
 in {
   options = {
     custom.applications.shell.zsh = {
@@ -19,7 +21,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide nix-output-monitor];
+    home.packages = with pkgs; [zoxide];
 
     programs = {
       zsh = {
@@ -51,9 +53,8 @@ in {
         };
 
         shellAliases = {
-          hms = "home-manager switch --flake ${config.custom.nixConfigLocation} -b backup";
-          nbs = "nixos-rebuild switch --flake ${config.custom.nixConfigLocation} --use-remote-sudo --log-format internal-json -v |& nom --json";
-          "nix build" = "nom build";
+          hms = "${nh} home switch ${config.custom.nixConfigLocation}";
+          nbs = "${nh} os switch ${config.custom.nixConfigLocation}";
 
           edit = "$EDITOR";
 
