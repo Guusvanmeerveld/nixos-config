@@ -25,19 +25,19 @@
 }:
 buildDotnetModule rec {
   pname = "ryubing";
-  version = "1.2.78"; # Based off of the official github actions builds: https://github.com/Ryujinx/Ryujinx/actions/workflows/release.yml
+  version = "1.2.80";
 
   src = fetchFromGitHub {
     owner = "ryubing";
     repo = "ryujinx";
     rev = "${version}";
-    hash = "sha256-kAF5Klve4132wSlFdkRqlpISpozRpZfCizEX1KvHc4I=";
+    hash = "sha256-BIiqXXtkc55FQL0HAXxtyx3rA42DTcTxG2pdNmEa5jE=";
   };
 
   enableParallelBuilding = false;
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+  dotnet-sdk = dotnetCorePackages.sdk_9_0;
+  dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
   nugetDeps = ./deps.json;
 
