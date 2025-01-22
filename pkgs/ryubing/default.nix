@@ -76,7 +76,6 @@ buildDotnetModule rec {
   ];
 
   executables = [
-    "Ryujinx.Headless.SDL2"
     "Ryujinx"
   ];
 
