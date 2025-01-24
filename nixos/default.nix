@@ -1,10 +1,12 @@
-{...}: {
+{
   imports = [
+    ./services
+    ./virtualisation
+    ./programs
+    ./networking
     ./wm
     ./dm
     ./hardware
-    ./applications
-    ./networking.nix
     ./nixos.nix
     ./user.nix
     ./locale.nix
