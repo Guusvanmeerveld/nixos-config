@@ -9,6 +9,8 @@
   nwg-dock = pkgs.callPackage ./nwg-dock.nix {};
   dnsmasqstats = pkgs.callPackage ./dnsmasqstats.nix {};
   ryubing = pkgs.callPackage ./ryubing {};
+  nx_tzdb = pkgs.callPackage ./sudachi/nx_tzdb.nix {};
+  sudachi = pkgs.callPackage ./sudachi (pkgs.kdePackages // {inherit nx_tzdb;});
 
   pythonPackages = import ./python {inherit pkgs;};
 
@@ -17,6 +19,6 @@
   firefox = import ./firefox {inherit pkgs;};
 
   ciBuildable = {
-    inherit clipmon mpdris2 radb dnsmasqstats ryubing;
+    inherit clipmon mpdris2 radb dnsmasqstats ryubing sudachi;
   };
 }
