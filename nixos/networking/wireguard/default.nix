@@ -82,6 +82,10 @@ in {
 
     environment.systemPackages = with pkgs; [wireguard-tools];
 
+    services.resolved.extraConfig = ''
+      DNSStubListener=no
+    '';
+
     systemd.network = {
       enable = true;
 
