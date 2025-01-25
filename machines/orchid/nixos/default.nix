@@ -58,51 +58,33 @@
       };
     };
 
-    applications = {
-      services = {
-        openssh.enable = true;
-        fail2ban.enable = true;
+    services = {
+      openssh.enable = true;
+      fail2ban.enable = true;
 
-        dnsmasq = {
-          enable = true;
+      motd = {
+        enable = true;
 
-          redirects = {
-            "mijnmodem.kpn" = "192.168.2.254";
-
-            ".sun" = "192.168.2.119";
-            ".tlp" = "192.168.2.35";
-
-            "orchid" = "192.168.2.195";
-            "tulip" = "192.168.2.35";
-          };
-        };
-      };
-
-      shell = {
-        zsh.enable = true;
-
-        motd = {
-          enable = true;
-
-          settings = {
-            fileSystems = {
-              "data" = "/mnt/data";
-            };
+        settings = {
+          fileSystems = {
+            "data" = "/mnt/data";
           };
         };
       };
     };
 
-    builders = {
-      enable = true;
+    programs.zsh.enable = true;
+  };
 
-      machines = [
-        {
-          hostName = "crocus";
-          system = "aarch64-linux";
-        }
-      ];
-    };
+  builders = {
+    enable = true;
+
+    machines = [
+      {
+        hostName = "crocus";
+        system = "aarch64-linux";
+      }
+    ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";

@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-{config, ...}: {
+# and in the NixOS manual (accessible by running 'nixos-help').
+{...}: {
   imports = [
     ../../nixos
 
@@ -37,26 +37,24 @@
       ];
     };
 
-    applications = {
-      services = {
-        openssh.enable = true;
-        fail2ban.enable = true;
+    virtualisation.docker = {
+      enable = true;
 
-        docker = {
-          enable = true;
+      dashdot.enable = true;
+      watchtower.enable = true;
 
-          dashdot.enable = true;
-          watchtower.enable = true;
-
-          syncthing = {
-            enable = true;
-            openFirewall = true;
-          };
-        };
+      syncthing = {
+        enable = true;
+        openFirewall = true;
       };
-
-      shell.zsh.enable = true;
     };
+
+    services = {
+      openssh.enable = true;
+      fail2ban.enable = true;
+    };
+
+    programs.zsh.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

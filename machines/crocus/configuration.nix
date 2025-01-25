@@ -27,66 +27,62 @@
       ];
     };
 
-    applications = {
-      services = {
-        minecraft = {
-          openFirewall = true;
-          openGeyserFirewall = true;
-          openVoiceChatFirewall = true;
-        };
+    virtualisation.docker = {
+      enable = true;
 
-        docker = {
-          enable = true;
+      caddy = {
+        enable = true;
 
-          caddy = {
-            enable = true;
-
-            openFirewall = true;
-
-            caddyFile = pkgs.writeText "Caddyfile" ''
-              {
-                admin off
-              }
-
-              mc.guusvanmeerveld.dev {
-                reverse_proxy vanilla-server:8123
-              }
-            '';
-          };
-
-          watchtower = {
-            enable = true;
-            schedule = "0 0 5 * * 1";
-          };
-
-          syncthing.enable = true;
-        };
-
-        openssh.enable = true;
-        fail2ban.enable = true;
-      };
-
-      wireguard = {
         openFirewall = true;
-        kernelModules.enable = true;
+
+        caddyFile = pkgs.writeText "Caddyfile" ''
+          {
+            admin off
+          }
+
+          mc.guusvanmeerveld.dev {
+            reverse_proxy vanilla-server:8123
+          }
+        '';
       };
 
-      shell = {
-        zsh.enable = true;
+      watchtower = {
+        enable = true;
+        schedule = "0 0 5 * * 1";
+      };
 
-        motd = {
-          enable = true;
+      syncthing.enable = true;
+    };
 
-          settings = {
-            docker = {
-              "/watchtower" = "Watchtower";
-              "/syncthing" = "Syncthing";
-              "/caddy" = "Caddy";
-            };
+    services = {
+      minecraft = {
+        openFirewall = true;
+        openGeyserFirewall = true;
+        openVoiceChatFirewall = true;
+      };
+
+      openssh.enable = true;
+      fail2ban.enable = true;
+
+      motd = {
+        enable = true;
+
+        settings = {
+          docker = {
+            "/watchtower" = "Watchtower";
+            "/syncthing" = "Syncthing";
+            "/caddy" = "Caddy";
           };
         };
       };
     };
+
+    networking.wireguard = {
+      openFirewall = true;
+      kernelModules.enable = true;
+    };
+
+    programs.zsh.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

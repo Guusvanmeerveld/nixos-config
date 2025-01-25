@@ -1,10 +1,9 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# and in the NixOS manual (accessible by running 'nixos-help').
 {
   inputs,
   lib,
-  pkgs,
   ...
 }: {
   imports = [
@@ -34,7 +33,10 @@
   ];
 
   hardware = {
-    opengl.enable = true;
+    graphics = {
+      enable = true;
+      driSupport = true;
+    };
 
     raspberry-pi."4" = {
       fkms-3d.enable = true;
@@ -47,11 +49,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  networking.firewall = {
-    allowedTCPPorts = [1234];
-    allowedUDPPorts = [5353];
-  };
-
   custom = {
     user = {
       name = "guus";
@@ -62,20 +59,18 @@
     };
 
     hardware = {
-      pipewire.enable = true;
+      sound.pipewire.enable = true;
       argon40.enable = true;
     };
 
-    applications = {
-      graphical.kodi.enable = true;
+    wm.kodi.enable = true;
 
-      services = {
-        openssh.enable = true;
-        fail2ban.enable = true;
-      };
-
-      shell.zsh.enable = true;
+    services = {
+      openssh.enable = true;
+      fail2ban.enable = true;
     };
+
+    programs.zsh.enable = true;
 
     builders = {
       enable = true;

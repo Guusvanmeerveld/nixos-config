@@ -54,46 +54,44 @@
     security.keyring.enable = true;
 
     hardware = {
+      openrgb.enable = true;
+      plymouth.enable = true;
+
       video = {
         amd.enable = true;
       };
 
       sound.pipewire.enable = true;
+      input.logitech.enable = true;
     };
 
-    applications = {
-      shell.zsh.enable = true;
+    programs = {
+      zsh.enable = true;
+      adb.enable = true;
+      steam.enable = true;
+      teamviewer.enable = true;
+    };
 
-      android.enable = true;
-      mconnect.enable = true;
+    services = {
+      gamemode.enable = true;
+      gvfs.enable = true;
+      syncthing.openFirewall = true;
 
-      graphical = {
-        steam.enable = true;
-        teamviewer.enable = true;
-        thunar.enable = true;
+      # sunshine = {
+      #   enable = true;
+      #   openFirewall = true;
+      # };
 
-        openrgb.enable = true;
-      };
+      # gpu-screen-recorder.enable = true;
+    };
 
-      wireguard.openFirewall = true;
-
-      services = {
-        syncthing.openFirewall = true;
-        docker = {
-          enable = true;
-        };
-
-        # gpu-screen-recorder.enable = true;
-
-        gamemode.enable = true;
-      };
-
-      waydroid.enable = true;
-
+    virtualisation = {
       qemu = {
         enable = true;
         graphical = true;
       };
+
+      docker.enable = true;
     };
 
     dm.greetd = {
