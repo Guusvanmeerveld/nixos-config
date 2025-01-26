@@ -54,5 +54,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [ctop];
+
+    custom.usersGlobalGroups = ["docker"];
   };
 }

@@ -21,5 +21,7 @@ in {
     environment.systemPackages = with pkgs; [
       qemu
     ];
+
+    custom.usersGlobalGroups = ["libvirtd"];
   };
 }

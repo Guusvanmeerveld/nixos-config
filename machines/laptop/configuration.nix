@@ -33,8 +33,6 @@
 
         config = ./guus/home.nix;
       };
-
-      groups = ["docker" "adbusers"];
     };
 
     security.keyring.enable = true;

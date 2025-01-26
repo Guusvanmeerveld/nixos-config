@@ -41,8 +41,6 @@
 
         config = ./guus/home.nix;
       };
-
-      groups = ["docker" "libvirtd" "adbusers"];
     };
 
     security.keyring.enable = true;
