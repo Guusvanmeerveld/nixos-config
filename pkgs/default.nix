@@ -19,6 +19,9 @@
   firefox = import ./firefox {inherit pkgs;};
 
   ciBuildable = {
-    inherit clipmon mpdris2 radb dnsmasqstats ryubing sudachi;
+    inherit clipmon mpdris2 radb dnsmasqstats ryubing;
+    inherit (pythonPackages) pyjags textblob;
+    inherit (firefox.themes) blur mono;
+    inherit (kodiPackages) hue-service;
   };
 }

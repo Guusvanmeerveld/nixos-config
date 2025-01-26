@@ -1,6 +1,5 @@
 {
   lib,
-  kodi,
   buildKodiAddon,
   fetchFromGitHub,
   requests,
