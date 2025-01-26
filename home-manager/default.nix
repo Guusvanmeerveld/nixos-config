@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  imports = [./wm ./applications ./colors.nix ./xdg];
+  imports = [./wm ./xdg ./programs ./services ./colors.nix];
 
   options = {
     custom.nixConfigLocation = lib.mkOption {

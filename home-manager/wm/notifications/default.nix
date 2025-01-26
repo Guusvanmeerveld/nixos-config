@@ -1,5 +1,5 @@
 {lib, ...}: {
-  imports = [./mako.nix ./swaync.nix];
+  imports = [./mako.nix ./swaync.nix ./dunst.nix];
   options = {
     custom.wm.notifications = {
       default = {

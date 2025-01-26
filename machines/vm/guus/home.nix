@@ -28,8 +28,8 @@
       };
     };
 
-    applications = {
-      shell = {
+    programs = {
+      cli = {
         default.enable = true;
 
         atuin = {
@@ -38,14 +38,12 @@
         };
       };
 
-      graphical = {
-        default.enable = true;
+      default.enable = true;
 
-        rofi.enable = true;
+      rofi.enable = true;
 
-        office.enable = true;
-        development.enable = true;
-      };
+      office.enable = true;
+      development.enable = true;
     };
   };
 

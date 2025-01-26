@@ -4,8 +4,6 @@
   ];
 
   custom = {
-    xdg.portals.enable = true;
-
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
@@ -37,19 +35,28 @@
       };
     };
 
-    applications = {
+    xdg.portals.enable = true;
+
+    services = {
+      syncthing.enable = true;
+      kdeconnect.enable = true;
+      poweralertd.enable = true;
+    };
+
+    programs = {
+      default.enable = true;
+
+      theming.enable = true;
+      messaging.enable = true;
+      office.enable = true;
+
       development = {
-        rust.enable = true;
+        enable = true;
       };
 
-      services = {
-        syncthing.enable = true;
-        kdeconnect.enable = true;
-        updater.enable = true;
-        poweralertd.enable = true;
-      };
+      games.minecraft.enable = true;
 
-      shell = {
+      cli = {
         default.enable = true;
 
         atuin = {
@@ -58,21 +65,7 @@
         };
       };
 
-      graphical = {
-        default.enable = true;
-
-        games.minecraft.enable = true;
-
-        rofi.enable = true;
-
-        theming.enable = true;
-        messaging.enable = true;
-        office.enable = true;
-        development = {
-          enable = true;
-          digital.enable = true;
-        };
-      };
+      rofi.enable = true;
     };
   };
 

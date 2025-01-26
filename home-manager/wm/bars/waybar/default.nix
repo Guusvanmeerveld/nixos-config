@@ -12,7 +12,7 @@ in {
 
       font = lib.mkOption {
         type = lib.types.str;
-        default = config.custom.applications.graphical.theming.font.serif.name;
+        default = config.custom.programs.theming.font.serif.name;
         description = "The font to use";
       };
 
@@ -71,7 +71,7 @@ in {
 
         mconnect = lib.mkOption {
           type = lib.types.bool;
-          default = config.custom.applications.services.mconnect.enable;
+          default = config.custom.services.mconnect.enable;
           description = "Enable MConnect module";
         };
 

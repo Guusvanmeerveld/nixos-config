@@ -14,7 +14,7 @@ in {
       font = lib.mkOption {
         type = lib.types.str;
         # Get the first item from the list and  grab the name attr
-        default = builtins.getAttr "name" (builtins.head config.custom.applications.graphical.theming.font.default);
+        default = builtins.getAttr "name" (builtins.head config.custom.programs.theming.font.default);
       };
     };
   };

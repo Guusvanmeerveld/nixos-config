@@ -70,31 +70,48 @@ in {
       };
     };
 
-    applications = {
+    services = {
+      syncthing.enable = true;
+      kdeconnect.enable = true;
+      # gpu-screen-recorder = {
+      #   enable = true;
+
+      #   options = {
+      #     window = "portal";
+
+      #     # Audio devices to monitor in recording
+      #     audio = [];
+      #   };
+      # };
+
+      mpd.enable = true;
+    };
+
+    programs = {
+      default.enable = true;
+
+      messaging.enable = true;
+
+      games = {
+        enable = true;
+
+        scarab.enable = true;
+
+        emulators = {
+          desmume.enable = true;
+          ryujinx.enable = true;
+        };
+      };
+
+      theming.enable = true;
+
+      office.enable = true;
+
       development = {
-        rust.enable = true;
-        utils.enable = true;
+        enable = true;
       };
 
-      services = {
-        syncthing.enable = true;
-        kdeconnect.enable = true;
-        # gpu-screen-recorder = {
-        #   enable = true;
-
-        #   options = {
-        #     window = "portal";
-
-        #     # Audio devices to monitor in recording
-        #     audio = [];
-        #   };
-        # };
-
-        mpd.enable = true;
-        updater.enable = true;
-      };
-
-      shell = {
+      cli = {
         default.enable = true;
 
         atuin = {
@@ -103,36 +120,11 @@ in {
         };
       };
 
-      graphical = {
-        default.enable = true;
-
-        openshot.enable = true;
-        jellyfin.enable = true;
-        cantata.enable = true;
-        rofi.enable = true;
-        parsec.enable = true;
-
-        messaging.enable = true;
-
-        games = {
-          enable = true;
-
-          scarab.enable = true;
-
-          emulators = {
-            desmume.enable = true;
-            ryujinx.enable = true;
-          };
-        };
-
-        theming.enable = true;
-
-        office.enable = true;
-        development = {
-          enable = true;
-          digital.enable = true;
-        };
-      };
+      openshot.enable = true;
+      jellyfin.enable = true;
+      cantata.enable = true;
+      rofi.enable = true;
+      parsec.enable = true;
     };
   };
 

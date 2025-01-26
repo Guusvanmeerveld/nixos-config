@@ -4,18 +4,16 @@
   ];
 
   custom = {
-    applications = {
-      services = {
-        vscode-server.enable = true;
-      };
+    services = {
+      vscode-server.enable = true;
+    };
 
-      shell = {
-        default.enable = true;
+    programs.cli = {
+      default.enable = true;
 
-        atuin = {
-          enable = true;
-          server = "https://atuin.guusvanmeerveld.dev";
-        };
+      atuin = {
+        enable = true;
+        server = "https://atuin.guusvanmeerveld.dev";
       };
     };
   };

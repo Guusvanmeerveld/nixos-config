@@ -34,20 +34,6 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [playerctl light pulseaudio];
 
-    custom = {
-      applications = {
-        graphical = {
-          rofi.enable = true;
-        };
-
-        services = {
-          dunst.enable = true;
-          polybar.enable = true;
-          betterlockscreen.enable = true;
-        };
-      };
-    };
-
     services = {
       picom.enable = true;
     };

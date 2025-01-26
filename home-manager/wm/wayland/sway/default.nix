@@ -57,19 +57,19 @@ in {
 
       terminal = lib.mkOption {
         type = lib.types.str;
-        default = config.custom.applications.graphical.defaultApplications.terminal.path;
+        default = config.custom.programs.defaultApplications.terminal.path;
         description = "The default terminal to use";
       };
 
       menu = lib.mkOption {
         type = lib.types.str;
-        default = config.custom.applications.graphical.defaultApplications.menu.path;
+        default = config.custom.programs.defaultApplications.menu.path;
         description = "The default menu application to use";
       };
 
       file-explorer = lib.mkOption {
         type = lib.types.str;
-        default = config.custom.applications.graphical.defaultApplications.file-explorer.path;
+        default = config.custom.programs.defaultApplications.file-explorer.path;
         description = "The default file explorer to use";
       };
 
@@ -112,7 +112,7 @@ in {
           path = lib.mkOption {
             type = lib.types.str;
             description = "Path to screenshot program";
-            default = config.custom.applications.graphical.defaultApplications.screenshot.path;
+            default = config.custom.programs.defaultApplications.screenshot.path;
           };
         };
 
@@ -143,7 +143,7 @@ in {
         gsr = lib.mkOption {
           type = lib.types.bool;
           description = "Enable GSR replay saving keybind";
-          default = config.custom.applications.services.gpu-screen-recorder.enable;
+          default = config.custom.services.gpu-screen-recorder.enable;
         };
 
         cliphist = lib.mkOption {
@@ -216,7 +216,7 @@ in {
 
       font = lib.mkOption {
         type = lib.types.str;
-        default = config.custom.applications.graphical.theming.font.serif.name;
+        default = config.custom.programs.theming.font.serif.name;
         description = "The font to use for displaying title bar text";
       };
     };
