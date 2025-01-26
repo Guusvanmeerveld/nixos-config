@@ -73,17 +73,6 @@ in {
     services = {
       syncthing.enable = true;
       kdeconnect.enable = true;
-      # gpu-screen-recorder = {
-      #   enable = true;
-
-      #   options = {
-      #     window = "portal";
-
-      #     # Audio devices to monitor in recording
-      #     audio = [];
-      #   };
-      # };
-
       mpd.enable = true;
     };
 

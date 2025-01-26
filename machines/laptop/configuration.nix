@@ -62,6 +62,7 @@
       gvfs.enable = true;
 
       syncthing.openFirewall = true;
+      kdeconnect.openFirewall = true;
     };
 
     dm.greetd = {

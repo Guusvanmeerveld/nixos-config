@@ -18,5 +18,6 @@
     ./sunshine.nix
     ./gvfs.nix
     ./motd.nix
+    ./kdeconnect.nix
   ];
 }

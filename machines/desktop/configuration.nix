@@ -66,7 +66,9 @@
     services = {
       gamemode.enable = true;
       gvfs.enable = true;
+
       syncthing.openFirewall = true;
+      kdeconnect.openFirewall = true;
     };
 
     virtualisation = {

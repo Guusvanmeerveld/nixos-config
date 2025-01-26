@@ -19,7 +19,6 @@ in {
     ./evince.nix
     ./firefox.nix
     ./kitty.nix
-    ./kdeconnect.nix
     ./flameshot.nix
     ./thunar.nix
     ./spotify.nix
