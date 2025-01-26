@@ -16,4 +16,8 @@ pkgs.python311.pkgs.buildPythonPackage
     python311.pkgs.flit-core
     pkg-config
   ];
+
+  propagatedBuildInputs = with pkgs.python311.pkgs; [
+    nltk
+  ];
 }
