@@ -5,11 +5,6 @@
     ./agenix.nix
   ];
 
-  home = {
-    username = "guus";
-    homeDirectory = "/home/guus";
-  };
-
   home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];
 
   custom = {

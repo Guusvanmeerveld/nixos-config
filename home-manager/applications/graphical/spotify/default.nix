@@ -1,8 +1,8 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
-  inputs,
   ...
 }: let
   cfg = config.custom.applications.graphical.spotify;
@@ -17,8 +17,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    allowedUnfree = ["spotify"];
-
     xdg.desktopEntries = {
       spotify = {
         name = "Spotify";

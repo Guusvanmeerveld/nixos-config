@@ -1,12 +1,7 @@
 {...}: {
   imports = [
-    ../../home-manager
+    ../../../home-manager
   ];
-
-  home = {
-    username = "guus";
-    homeDirectory = "/home/guus";
-  };
 
   custom = {
     applications = {

@@ -147,8 +147,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    allowedUnfree = ["apple_cursor"];
-
     programs.regreet = {
       enable = true;
 

@@ -17,7 +17,7 @@
   networking.networkmanager.enable = true;
 
   services.logind = {
-    lidSwitch = "hibernate";
+    lidSwitch = "poweroff";
     # powerKeyLongPress = "reboot";
     # powerKey = "poweroff";
   };
@@ -25,7 +25,17 @@
   services.power-profiles-daemon.enable = true;
 
   custom = {
-    user.name = "guus";
+    users."guus" = {
+      isSuperUser = true;
+
+      homeManager = {
+        enable = true;
+
+        config = ./guus/home.nix;
+      };
+
+      groups = ["docker" "adbusers"];
+    };
 
     security.keyring.enable = true;
 
@@ -33,6 +43,7 @@
       backlight.enable = true;
       bluetooth.enable = true;
       upower.enable = true;
+      plymouth.enable = true;
 
       sound.pipewire.enable = true;
 
@@ -41,23 +52,18 @@
       };
     };
 
-    applications = {
-      shell.zsh.enable = true;
+    programs = {
+      zsh.enable = true;
+      adb.enable = true;
+      steam.enable = true;
+    };
 
-      mconnect.enable = true;
-      android.enable = true;
-      graphical = {
-        thunar.enable = true;
-        steam.enable = true;
-      };
+    virtualisation.docker.enable = true;
 
-      services = {
-        docker = {
-          enable = true;
-        };
-      };
+    services = {
+      gvfs.enable = true;
 
-      wireguard.openFirewall = true;
+      syncthing.openFirewall = true;
     };
 
     dm.greetd = {

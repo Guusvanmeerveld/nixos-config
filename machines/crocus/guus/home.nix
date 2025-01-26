@@ -1,14 +1,7 @@
-{pkgs, ...}: {
+{...}: {
   imports = [
     ../../../home-manager
   ];
-
-  home = {
-    username = "guus";
-    homeDirectory = "/home/guus";
-  };
-
-  home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];
 
   custom = {
     applications = {
@@ -18,7 +11,6 @@
 
       shell = {
         default.enable = true;
-
         atuin = {
           enable = true;
           server = "https://atuin.guusvanmeerveld.dev";

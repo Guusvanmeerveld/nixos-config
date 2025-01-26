@@ -1,12 +1,7 @@
 {...}: {
   imports = [
-    ../../home-manager
+    ../../../home-manager
   ];
-
-  home = {
-    username = "guus";
-    homeDirectory = "/home/guus";
-  };
 
   custom = {
     xdg.portals.enable = true;
@@ -36,7 +31,7 @@
         output = {
           "eDP-1" = {
             mode = "1920x1080@60Hz";
-            bg = "${./wallpaper.jpg} stretch";
+            bg = "${../wallpaper.jpg} stretch";
           };
         };
       };

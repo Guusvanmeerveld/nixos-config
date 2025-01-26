@@ -8,11 +8,12 @@
     ./dm
     ./hardware
     ./nixos.nix
-    ./user.nix
+    ./users.nix
     ./locale.nix
     ./journald.nix
     ./security.nix
-    ./nixpkgs-issue-55674.nix
+    ./unfree.nix
     ./builders.nix
+    ./overlays.nix
   ];
 }

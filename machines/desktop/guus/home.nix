@@ -1,22 +1,9 @@
-{
-  outputs,
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{lib, ...}: let
   primary-display = "DP-2";
 in {
   imports = [
-    ../../home-manager
-
-    outputs.homeManagerModules.spotdl
+    ../../../home-manager
   ];
-
-  home = {
-    username = "guus";
-    homeDirectory = "/home/guus";
-  };
 
   custom = {
     wm = {
@@ -38,34 +25,17 @@ in {
         output = {
           "DP-2" = {
             mode = "3440x1440@164.900Hz";
-            bg = "${./wallpaper.png} stretch";
+            bg = "${../wallpaper.png} stretch";
             pos = "1440 420";
           };
 
           "HDMI-A-1" = {
             mode = "2560x1440@74.968Hz";
             transform = "90";
-            bg = "${./2nd-monitor.jpg} stretch";
+            bg = "${../2nd-monitor.jpg} stretch";
             pos = "0 0";
           };
         };
-
-        startup = [
-          {
-            # Configure primary X11 display for XWayland applications (mainly games).
-            path = lib.getExe (pkgs.writeShellApplication {
-              name = "set-primary-x11-display";
-
-              runtimeInputs = with pkgs; [xorg.xrandr];
-
-              text = ''
-                xrandr --output ${primary-display} --primary
-              '';
-            });
-
-            runOnRestart = true;
-          }
-        ];
 
         workspaceOutputAssign = [
           {

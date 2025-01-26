@@ -10,15 +10,25 @@
 
   networking.networkmanager.enable = true;
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.timeout = 0;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   hardware.graphics.enable = true;
 
+  # Bootloader.
+  boot.loader = {
+    systemd-boot.enable = true;
+    timeout = 0;
+    efi.canTouchEfiVariables = true;
+  };
+
   custom = {
-    user.name = "guus";
+    users."guus" = {
+      isSuperUser = true;
+
+      homeManager = {
+        enable = true;
+
+        config = ./guus/home.nix;
+      };
+    };
 
     hardware.sound.pipewire.enable = true;
 

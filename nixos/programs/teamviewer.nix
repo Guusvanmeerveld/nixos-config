@@ -15,7 +15,5 @@ in {
     services.teamviewer = {
       enable = true;
     };
-
-    allowedUnfree = ["teamviewer"];
   };
 }

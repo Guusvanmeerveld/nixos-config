@@ -26,12 +26,5 @@ in {
     };
 
     hardware.steam-hardware.enable = true;
-
-    allowedUnfree = [
-      "steam"
-      "steam-unwrapped"
-      "steam-original"
-      "steam-run"
-    ];
   };
 }

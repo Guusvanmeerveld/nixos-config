@@ -15,8 +15,6 @@
     ])
     ++ (with pkgs.custom.kodiPackages; [hue-service]));
 in {
-  imports = [inputs.home-manager.nixosModules.default];
-
   options = {
     custom.wm.kodi = {
       enable = lib.mkEnableOption "Enable Kodi home theater software";

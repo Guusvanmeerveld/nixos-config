@@ -25,22 +25,6 @@
     };
 
     timeout = 0;
-
-    # grub = {
-    #   enable = true;
-
-    #   efiSupport = true;
-    #   useOSProber = true;
-    #   device = "nodev";
-    # };
-
-    # grub2-theme = {
-    #   enable = true;
-    #   theme = "tela";
-    #   icon = "color";
-    #   screen = "ultrawide2k";
-    #   footer = true;
-    # };
   };
 
   # Prevent USB controller from awaking the system from suspend.
@@ -49,7 +33,17 @@
   '';
 
   custom = {
-    user.name = "guus";
+    users."guus" = {
+      isSuperUser = true;
+
+      homeManager = {
+        enable = true;
+
+        config = ./guus/home.nix;
+      };
+
+      groups = ["docker" "libvirtd" "adbusers"];
+    };
 
     security.keyring.enable = true;
 
@@ -69,20 +63,12 @@
       zsh.enable = true;
       adb.enable = true;
       steam.enable = true;
-      teamviewer.enable = true;
     };
 
     services = {
       gamemode.enable = true;
       gvfs.enable = true;
       syncthing.openFirewall = true;
-
-      # sunshine = {
-      #   enable = true;
-      #   openFirewall = true;
-      # };
-
-      # gpu-screen-recorder.enable = true;
     };
 
     virtualisation = {

@@ -31,8 +31,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    allowedUnfree = ["apple_cursor"];
-
     home.pointerCursor = {
       name = cfg.cursor.name;
       package = cfg.cursor.package;

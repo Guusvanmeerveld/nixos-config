@@ -1,6 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running 'nixos-help').
+# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   inputs,
   lib,
@@ -11,8 +11,9 @@
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
-    # Module that allows the tv remote to control kodi
-    ./cec.nix
+    ./zfs.nix
+
+    ./samba.nix
   ];
 
   fileSystems = {
@@ -23,8 +24,6 @@
     };
   };
 
-  boot.kernelParams = ["snd_bcm2835.enable_hdmi=1"];
-
   swapDevices = [
     {
       device = "/swapfile";
@@ -33,55 +32,66 @@
   ];
 
   hardware = {
-    graphics = {
-      enable = true;
-      driSupport = true;
-    };
-
     raspberry-pi."4" = {
-      fkms-3d.enable = true;
       i2c1.enable = true;
     };
   };
 
-  networking.hostName = "lavender";
+  networking.hostName = "orchid";
 
   # Enable networking
   networking.networkmanager.enable = true;
 
   custom = {
-    user = {
-      name = "guus";
-      authorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAbtyJ9N/jgR9L04Y09PAlHPR6n2PwdBF3WAn9tUd+fn guus@desktop"
+    users."guus" = {
+      isSuperUser = true;
+
+      homeManager = {
+        enable = true;
+
+        config = ./guus/home.nix;
+      };
+
+      ssh.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPveisofM9+vfj896DbwpKZJETzE3pqNA86y3Wdcdbt1 guus@desktop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGu7eHkmd1YUi3sjbYG299Gvwlq2fpy2AIlLTXgUR49j guus@laptop"
       ];
     };
 
     hardware = {
-      sound.pipewire.enable = true;
-      argon40.enable = true;
+      argon40 = {
+        enable = true;
+        eon.enable = true;
+      };
     };
-
-    wm.kodi.enable = true;
 
     services = {
       openssh.enable = true;
       fail2ban.enable = true;
+
+      motd = {
+        enable = true;
+
+        settings = {
+          fileSystems = {
+            "data" = "/mnt/data";
+          };
+        };
+      };
     };
 
     programs.zsh.enable = true;
+  };
 
-    builders = {
-      enable = true;
+  builders = {
+    enable = true;
 
-      machines = [
-        {
-          hostName = "crocus";
-          system = "aarch64-linux";
-        }
-      ];
-    };
+    machines = [
+      {
+        hostName = "crocus";
+        system = "aarch64-linux";
+      }
+    ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
