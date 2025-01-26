@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "pkgs/**"
+      - "flake.lock"
 
   workflow_dispatch:
 
