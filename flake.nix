@@ -160,6 +160,14 @@
         ];
       };
 
+      thuisthuis = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+
+        modules = [
+          ./machines/thuisthuis/configuration.nix
+        ];
+      };
+
       laptop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
@@ -220,7 +228,7 @@
         inherit specialArgs;
 
         modules = [
-          ./machines/tulip/nixos
+          ./machines/tulip/configuration.nix
         ];
       };
     };
