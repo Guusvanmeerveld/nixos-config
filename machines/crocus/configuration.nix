@@ -1,7 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  shared,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -32,6 +37,27 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBe0+LH36GZnNZESUxkhLKSQ0BucJbPL4UARfTwwczSq guus@desktop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINtf3QLEGFwNipavG1GIuX122Wy0zhh6kl0yEOGp8UTW guus@laptop"
       ];
+    };
+
+    networking.wireguard = let
+      gardenConfig = shared.wireguard.networks.garden;
+    in {
+      enable = true;
+      openFirewall = true;
+
+      interfaces = {
+        "garden" = {
+          addresses = ["${gardenConfig.server.address}/24"];
+          privateKeyFile = "/secrets/wireguard/garden/private";
+
+          peers =
+            lib.mapAttrsToList (name: peer: {
+              publicKey = peer.publicKey;
+              allowedIps = ["${peer.address}/32"];
+            })
+            gardenConfig.clients;
+        };
+      };
     };
 
     virtualisation.docker = {
@@ -82,11 +108,6 @@
           };
         };
       };
-    };
-
-    networking.wireguard = {
-      openFirewall = true;
-      kernelModules.enable = true;
     };
 
     programs.zsh.enable = true;

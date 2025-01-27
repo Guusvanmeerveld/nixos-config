@@ -1,4 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  shared,
+  lib,
+  ...
+}: {
   imports = [
     inputs.grub2-themes.nixosModules.default
 
@@ -78,6 +83,27 @@
       };
 
       docker.enable = true;
+    };
+
+    networking.wireguard = let
+      gardenConfig = shared.wireguard.networks.garden;
+      desktopConfig = gardenConfig.clients.desktop;
+    in {
+      enable = true;
+      openFirewall = true;
+
+      interfaces = {
+        "garden" = {
+          addresses = ["${desktopConfig.address}/24"];
+          privateKeyFile = "/secrets/wireguard/garden/private";
+
+          peers = lib.singleton {
+            publicKey = gardenConfig.server.publicKey;
+            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
+            allowedIps = ["10.10.10.0/24"];
+          };
+        };
+      };
     };
 
     dm.greetd = {
