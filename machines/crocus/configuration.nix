@@ -97,6 +97,18 @@
       openssh.enable = true;
       fail2ban.enable = true;
 
+      dnsmasq = {
+        enable = true;
+
+        openFirewall = true;
+
+        redirects = {
+          ".crocus" = "10.10.10.1";
+          ".desktop" = "10.10.10.2";
+          ".tlp" = "10.10.10.5";
+        };
+      };
+
       motd = {
         enable = true;
 
