@@ -15,7 +15,7 @@
         };
 
         laptop = {
-          publicKey = "uJ22ivJZjCd1jvPpR/Bi+lTYn7G3HkQ/WDki7tuQEBM=";
+          publicKey = "4cfYFYG7zvU+Hy1hVRT1rbNBbeVXCKy9GoRP6Mpv738=";
           address = "10.10.10.3";
         };
 
