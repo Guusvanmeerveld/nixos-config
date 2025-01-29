@@ -8,6 +8,12 @@ in {
   options = {
     custom.programs.freetube = {
       enable = lib.mkEnableOption "Enable Freetube Youtube client";
+
+      defaultResolution = {
+        type = lib.types.enum ["1080" "1440" "2160"];
+        default = "1080";
+        description = "Default resolution for video player";
+      };
     };
   };
 
@@ -18,9 +24,13 @@ in {
       settings = {
         checkForUpdates = false;
 
-        defaultQuality = "1440";
+        defaultQuality = cfg.defaultResolution;
+        autoplayVideos = true;
 
         baseTheme = "black";
+
+        hideTrendingVideos = true;
+        hidePopularVideos = true;
 
         useSponsorBlock = true;
         sponsorBlockIntro = {
