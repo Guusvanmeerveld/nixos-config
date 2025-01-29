@@ -35,6 +35,7 @@ in {
     ./qbittorrent.nix
     ./nautilus.nix
     ./parsec.nix
+    ./freetube.nix
   ];
 
   options = {
@@ -78,6 +79,7 @@ in {
       loupe.enable = true;
       file-roller.enable = true;
       gnome-calculator.enable = true;
+      freetube.enable = true;
     };
   };
 }
