@@ -23,16 +23,9 @@ in {
         enable = true;
 
         output = {
-          "DP-2" = {
+          "DP-3" = {
             mode = "3440x1440@164.900Hz";
             bg = "${../wallpaper.png} stretch";
-            pos = "1440 420";
-          };
-
-          "HDMI-A-1" = {
-            mode = "2560x1440@74.968Hz";
-            transform = "90";
-            bg = "${../2nd-monitor.jpg} stretch";
             pos = "0 0";
           };
         };
