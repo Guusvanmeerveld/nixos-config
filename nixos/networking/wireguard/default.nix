@@ -93,11 +93,11 @@ in {
       wait-online.enable = false;
 
       netdevs = lib.mapAttrs' (name: interface:
-        lib.nameValuePair name {
+        lib.nameValuePair "10-${name}" {
           netdevConfig = {
             Name = name;
             Kind = "wireguard";
-            MTUBytes = "1300";
+            MTUBytes = "1420";
           };
 
           wireguardConfig = {
