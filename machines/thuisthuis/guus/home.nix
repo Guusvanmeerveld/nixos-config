@@ -1,5 +1,5 @@
 {lib, ...}: let
-  primary-display = "DP-2";
+  primary-display = "DP-3";
 in {
   imports = [
     ../../../home-manager
@@ -25,13 +25,13 @@ in {
         output = {
           "DP-3" = {
             mode = "2560x1440@74.89Hz";
-            bg = "${../wallpaper.jpg} stretch";
+            bg = "${../wallpaper-right.png} stretch";
             pos = "2560 0";
           };
 
           "HDMI-A-1" = {
             mode = "2560x1440@74.968Hz";
-            bg = "${../2nd-monitor.jpg} stretch";
+            bg = "${../wallpaper-left.png} stretch";
             pos = "0 0";
           };
         };
@@ -39,11 +39,11 @@ in {
         workspaceOutputAssign = [
           {
             output = "HDMI-A-1";
-            workspaces = lib.range 1 2;
+            workspaces = lib.range 1 3;
           }
           {
-            output = "DP-2";
-            workspaces = lib.range 3 9;
+            output = "DP-3";
+            workspaces = lib.range 4 9;
           }
         ];
 

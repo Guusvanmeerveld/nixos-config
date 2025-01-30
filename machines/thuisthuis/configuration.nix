@@ -82,7 +82,7 @@
         "DP-3" = {
           resolution = "2560x1440";
           refreshRate = 74.89;
-          background = "${./wallpaper.jpg} stretch";
+          background = "${./wallpaper-right.png} stretch";
           position = {
             x = 2560;
           };
@@ -91,7 +91,7 @@
         "HDMI-A-1" = {
           resolution = "2560x1440";
           refreshRate = 74.968;
-          background = "${./2nd-monitor.jpg} stretch";
+          background = "${./wallpaper-left.png} stretch";
         };
       };
     };
