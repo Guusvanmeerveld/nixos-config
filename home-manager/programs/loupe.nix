@@ -10,6 +10,8 @@
 
   openByDefault = [
     "image/png"
+    "image/jpeg"
+    "image/jpg"
     "image/gif"
     "image/bmp"
     "image/tiff"
