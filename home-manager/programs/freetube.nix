@@ -9,7 +9,7 @@ in {
     custom.programs.freetube = {
       enable = lib.mkEnableOption "Enable Freetube Youtube client";
 
-      defaultResolution = {
+      defaultResolution = lib.mkOption {
         type = lib.types.enum ["1080" "1440" "2160"];
         default = "1080";
         description = "Default resolution for video player";
