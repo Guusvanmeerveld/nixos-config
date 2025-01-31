@@ -28,6 +28,11 @@
           publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38=";
           address = "10.10.10.5";
         };
+
+        thuisthuis = {
+          publicKey = "6lNZjXUkvfdG1prJVJh7yl32yRU1j+2+Suhyq8XySmU=";
+          address = "10.10.10.6";
+        };
       };
     };
   };

@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  shared,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -50,6 +54,27 @@
       input = {
         corsair.enable = true;
         logitech.enable = true;
+      };
+    };
+
+    networking.wireguard = let
+      gardenConfig = shared.wireguard.networks.garden;
+      thuisthuisConfig = gardenConfig.clients.thuisthuis;
+    in {
+      enable = true;
+      openFirewall = true;
+
+      interfaces = {
+        "garden" = {
+          addresses = ["${thuisthuisConfig.address}/24"];
+          privateKeyFile = "/secrets/wireguard/garden/private";
+
+          peers = lib.singleton {
+            publicKey = gardenConfig.server.publicKey;
+            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
+            allowedIps = ["10.10.10.0/24"];
+          };
+        };
       };
     };
 
