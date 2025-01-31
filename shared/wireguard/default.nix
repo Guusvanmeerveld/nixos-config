@@ -27,6 +27,7 @@
         tulip = {
           publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38=";
           address = "10.10.10.5";
+          keepAlive = true;
         };
 
         thuisthuis = {

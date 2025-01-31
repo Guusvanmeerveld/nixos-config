@@ -51,9 +51,15 @@
           privateKeyFile = "/secrets/wireguard/garden/private";
 
           peers =
-            lib.mapAttrsToList (name: peer: {
+            lib.mapAttrsToList (name: peer: let
+              shouldKeepAlive = !!(lib.getAttr "keepAlive" peer);
+            in {
               publicKey = peer.publicKey;
               allowedIps = ["${peer.address}/32"];
+              keepAlive =
+                if shouldKeepAlive
+                then 25
+                else 0;
             })
             gardenConfig.clients;
         };

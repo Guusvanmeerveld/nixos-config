@@ -61,6 +61,12 @@ in {
                     description = "The peer's IP and port";
                     example = "123.123.123.123:51820";
                   };
+
+                  keepAlive = lib.mkOption {
+                    type = lib.types.ints.unsigned;
+                    default = 0;
+                    description = "Whether to send a keep alive packet to the peer every x seconds";
+                  };
                 };
               });
               description = "A list of peers";
@@ -110,6 +116,7 @@ in {
               PublicKey = peer.publicKey;
               AllowedIPs = peer.allowedIps;
               Endpoint = lib.mkIf (peer.endpoint != null) peer.endpoint;
+              PersistentKeepalive = peer.keepAlive;
             })
             interface.peers;
         })
