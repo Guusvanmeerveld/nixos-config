@@ -29,7 +29,7 @@
         output = {
           "eDP-1" = {
             mode = "1920x1080@60Hz";
-            bg = "${../wallpaper.jpg} stretch";
+            bg = "${../wallpaper.png} stretch";
           };
         };
       };
