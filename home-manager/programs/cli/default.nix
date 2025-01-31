@@ -16,6 +16,7 @@ in {
     ./fastfetch.nix
     ./tealdeer.nix
     ./starship.nix
+    ./direnv.nix
   ];
 
   options = {
@@ -35,6 +36,7 @@ in {
       starship.enable = lib.mkDefault true;
       fastfetch.enable = lib.mkDefault true;
       tealdeer.enable = lib.mkDefault true;
+      direnv.enable = lib.mkDefault true;
     };
   };
 }

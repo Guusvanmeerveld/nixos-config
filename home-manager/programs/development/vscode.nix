@@ -193,6 +193,7 @@ in {
           ms-vscode.cmake-tools
           esbenp.prettier-vscode
           tabbyml.vscode-tabby
+          mkhl.direnv
 
           # LSPs
           # ms-toolsai.jupyter
