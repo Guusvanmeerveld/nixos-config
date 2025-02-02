@@ -55,6 +55,8 @@ in {
         # Persistence
         persistence.enable = true;
 
+        transparent.enable = true;
+
         # Search
         telescope = {
           enable = true;
