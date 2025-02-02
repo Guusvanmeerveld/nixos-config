@@ -51,10 +51,13 @@
       };
 
       sound.pipewire.enable = true;
+
       input = {
         corsair.enable = true;
         logitech.enable = true;
       };
+
+      hyperx.cloud-flight-s.enable = true;
     };
 
     networking.wireguard = let

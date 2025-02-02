@@ -13,6 +13,7 @@
       };
 
     suyu = inputs.suyu.packages."${final.system}".default;
+    hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
   };
 
   mconnect = final: _prev: {

@@ -16,6 +16,7 @@ in {
 
         features = {
           wireguard = true;
+          hcfs = true;
         };
       };
 
