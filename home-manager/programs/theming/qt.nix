@@ -29,7 +29,7 @@ in {
     qt = {
       enable = true;
 
-      platformTheme.name = "awaita";
+      platformTheme.name = "adwaita";
 
       style = cfg.style;
     };
