@@ -1,7 +1,12 @@
-name: Nix Flake actions
+name: Rebuild custom packages
 
 on:
   push:
+    paths:
+      - "pkgs/**"
+      - "flake.lock"
+
+  pull_request:
     paths:
       - "pkgs/**"
       - "flake.lock"

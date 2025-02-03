@@ -16,6 +16,7 @@ in {
 
         features = {
           wireguard = true;
+          hcfs = true;
         };
       };
 
@@ -106,6 +107,7 @@ in {
       cantata.enable = true;
       rofi.enable = true;
       parsec.enable = true;
+      eduvpn.enable = true;
     };
   };
 
