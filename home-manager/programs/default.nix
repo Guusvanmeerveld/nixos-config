@@ -36,6 +36,7 @@ in {
     ./nautilus.nix
     ./parsec.nix
     ./freetube.nix
+    ./eduvpn.nix
   ];
 
   options = {

@@ -23,10 +23,17 @@
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = _: _: {
+  modifications = final: prev: {
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
+
+    eduvpn-client = prev.eduvpn-client.overrideAttrs (old: {
+      # Fix .desktop file and icons not being discovered
+      postInstall = ''
+        cp $out/lib/python3.12/site-packages/eduvpn/data/share $out -r
+      '';
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
