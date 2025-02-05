@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.programs.messaging;
 in {
-  imports = [./schildichat.nix ./vesktop ./dorion.nix ./element.nix ./whatsapp.nix];
+  imports = [./schildichat.nix ./vesktop ./dorion.nix ./element.nix ./whatsapp.nix ./fractal.nix];
 
   options = {
     custom.programs.messaging = {
@@ -15,7 +15,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     custom.programs.messaging = {
-      element.enable = true;
+      fractal.enable = true;
       vesktop.enable = true;
       whatsapp.enable = true;
     };
