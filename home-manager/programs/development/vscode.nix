@@ -8,6 +8,8 @@
 
   vscodeVersion = config.programs.vscode.package.version;
 
+  compatibleExtensions = pkgs.forVSCodeVersion vscodeVersion;
+
   desktopFile = "codium.desktop";
 
   openByDefault = [
@@ -165,10 +167,11 @@ in {
       };
 
       extensions =
-        (with (pkgs.forVSCodeVersion vscodeVersion).vscode-marketplace; [
+        (with compatibleExtensions.vscode-marketplace; [
           ms-vscode-remote.remote-containers
+          eww-yuck.yuck
         ])
-        ++ (with (pkgs.forVSCodeVersion vscodeVersion).open-vsx; [
+        ++ (with compatibleExtensions.open-vsx; [
           # NixOS
           arrterian.nix-env-selector
 
@@ -187,7 +190,7 @@ in {
 
           # Tools
           jeanp413.open-remote-ssh
-          james-yu.latex-workshop
+          # james-yu.latex-workshop
           dbaeumer.vscode-eslint
           timonwong.shellcheck
           ms-vscode.cmake-tools
@@ -202,7 +205,7 @@ in {
           twxs.cmake
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
-          jnoortheen.nix-ide
+          # jnoortheen.nix-ide
           rust-lang.rust-analyzer
           tamasfe.even-better-toml
           redhat.java
@@ -214,7 +217,8 @@ in {
           prince781.vala
           golang.go
           mads-hartmann.bash-ide-vscode
-        ]);
+        ])
+        ++ (with pkgs.vscode-extensions; [jnoortheen.nix-ide james-yu.latex-workshop]);
     };
 
     # Link hunspell dictionaries to correct dir.
