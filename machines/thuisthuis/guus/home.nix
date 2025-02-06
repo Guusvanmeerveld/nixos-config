@@ -10,6 +10,7 @@ in {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
       docks.nwg-dock.enable = true;
+      launchers.rofi.enable = true;
       widgets.eww.enable = true;
 
       bars.waybar = {
@@ -17,7 +18,6 @@ in {
 
         features = {
           wireguard = true;
-          hcfs = true;
         };
       };
 
@@ -106,7 +106,6 @@ in {
       openshot.enable = true;
       jellyfin.enable = true;
       cantata.enable = true;
-      rofi.enable = true;
       parsec.enable = true;
       eduvpn.enable = true;
 

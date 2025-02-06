@@ -8,6 +8,7 @@
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
       docks.nwg-dock.enable = true;
+      launchers.rofi.enable = true;
 
       bars.waybar = {
         enable = true;
@@ -64,8 +65,6 @@
           server = "https://atuin.guusvanmeerveld.dev";
         };
       };
-
-      rofi.enable = true;
     };
   };
 

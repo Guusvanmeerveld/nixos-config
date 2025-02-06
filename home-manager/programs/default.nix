@@ -14,7 +14,6 @@ in {
     ./theming
     ./messaging
     ./cli
-    ./rofi.nix
     ./librewolf.nix
     ./evince.nix
     ./firefox.nix

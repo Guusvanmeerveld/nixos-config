@@ -10,6 +10,7 @@ in {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
       docks.nwg-dock.enable = true;
+      launchers.rofi.enable = true;
 
       bars.waybar = {
         enable = true;
@@ -94,7 +95,6 @@ in {
       openshot.enable = true;
       jellyfin.enable = true;
       cantata.enable = true;
-      rofi.enable = true;
       parsec.enable = true;
 
       freetube = {
