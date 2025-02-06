@@ -102,6 +102,7 @@
 
       openssh.enable = true;
       fail2ban.enable = true;
+      autoUpgrade.enable = true;
 
       dnsmasq = {
         enable = true;

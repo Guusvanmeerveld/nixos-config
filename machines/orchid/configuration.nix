@@ -68,6 +68,7 @@
     services = {
       openssh.enable = true;
       fail2ban.enable = true;
+      autoUpgrade.enable = true;
 
       motd = {
         enable = true;

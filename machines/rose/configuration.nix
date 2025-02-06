@@ -59,6 +59,7 @@
     services = {
       openssh.enable = true;
       fail2ban.enable = true;
+      autoUpgrade.enable = true;
     };
 
     programs.zsh.enable = true;

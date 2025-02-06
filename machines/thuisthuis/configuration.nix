@@ -89,6 +89,7 @@
     services = {
       gamemode.enable = true;
       gvfs.enable = true;
+      autoUpgrade.enable = true;
 
       syncthing.openFirewall = true;
       kdeconnect.openFirewall = true;

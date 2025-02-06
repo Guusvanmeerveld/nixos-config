@@ -19,5 +19,6 @@
     ./gvfs.nix
     ./motd.nix
     ./kdeconnect.nix
+    ./autoupgrade.nix
   ];
 }
