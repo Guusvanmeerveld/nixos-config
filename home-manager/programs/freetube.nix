@@ -25,12 +25,14 @@ in {
         checkForUpdates = false;
 
         defaultQuality = cfg.defaultResolution;
+        defaultVolume = 0.4;
         autoplayVideos = true;
 
         baseTheme = "black";
 
         hideTrendingVideos = true;
         hidePopularVideos = true;
+        hideHeaderLogo = true;
 
         useSponsorBlock = true;
         sponsorBlockIntro = {

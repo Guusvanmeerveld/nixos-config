@@ -10,6 +10,7 @@ in {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
       docks.nwg-dock.enable = true;
+      widgets.eww.enable = true;
 
       bars.waybar = {
         enable = true;
@@ -108,6 +109,11 @@ in {
       rofi.enable = true;
       parsec.enable = true;
       eduvpn.enable = true;
+
+      freetube = {
+        enable = true;
+        defaultResolution = "1440";
+      };
     };
   };
 

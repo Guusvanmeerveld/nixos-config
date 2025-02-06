@@ -1,4 +1,4 @@
-{lib, ...}: let
+{...}: let
   primary-display = "DP-2";
 in {
   imports = [
@@ -29,17 +29,6 @@ in {
             pos = "0 0";
           };
         };
-
-        workspaceOutputAssign = [
-          {
-            output = "HDMI-A-1";
-            workspaces = lib.range 1 2;
-          }
-          {
-            output = "DP-2";
-            workspaces = lib.range 3 9;
-          }
-        ];
 
         input = {
           "type:pointer" = {
@@ -107,6 +96,11 @@ in {
       cantata.enable = true;
       rofi.enable = true;
       parsec.enable = true;
+
+      freetube = {
+        enable = true;
+        defaultResolution = "1440";
+      };
     };
   };
 
