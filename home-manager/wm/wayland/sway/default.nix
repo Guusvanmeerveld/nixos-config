@@ -242,6 +242,8 @@ in {
 
       package = package;
 
+      systemd.xdgAutostart = true;
+
       # Required to use the current nixpkgs version of swayfx.
       # See https://github.com/nix-community/home-manager/issues/5379
       checkConfig = lib.mkDefault (!cfg.useFx);
