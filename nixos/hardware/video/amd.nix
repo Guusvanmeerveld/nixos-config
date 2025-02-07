@@ -11,13 +11,20 @@ in {
       enable = lib.mkEnableOption "Enable AMD gpu support";
 
       vrr.enable = lib.mkEnableOption "Enable Variable Refresh Rate support";
+      polaris.enable = lib.mkEnableOption "Enable OpenCL for RX 500 series based GPUs";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      radeontop
-    ];
+    environment = {
+      systemPackages = with pkgs; [
+        radeontop
+      ];
+
+      variables = lib.mkIf cfg.polaris.enable {
+        ROC_ENABLE_PRE_VEGA = "1";
+      };
+    };
 
     services.xserver = {
       deviceSection = lib.mkIf cfg.vrr.enable ''
@@ -25,6 +32,7 @@ in {
         Option "VariableRefresh" "true"
       '';
 
+      enable = true;
       videoDrivers = ["amdgpu"];
     };
 
