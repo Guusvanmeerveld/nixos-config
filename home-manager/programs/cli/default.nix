@@ -17,6 +17,7 @@ in {
     ./tealdeer.nix
     ./starship.nix
     ./direnv.nix
+    ./tmux.nix
   ];
 
   options = {
@@ -37,6 +38,7 @@ in {
       fastfetch.enable = lib.mkDefault true;
       tealdeer.enable = lib.mkDefault true;
       direnv.enable = lib.mkDefault true;
+      tmux.enable = lib.mkDefault true;
     };
   };
 }
