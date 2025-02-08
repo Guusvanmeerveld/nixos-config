@@ -96,6 +96,11 @@
       url = "github:guusvanmeerveld/hyperx-cloud-flight-s";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -111,8 +116,8 @@
     self,
     nixpkgs,
     nixpkgs-server,
-    home-manager,
     nix-github-actions,
+    nixos-generators,
     ...
   } @ inputs: let
     systems = [
@@ -128,6 +133,8 @@
     inherit (self) outputs;
 
     shared = import ./shared;
+
+    specialArgs = {inherit inputs outputs shared;};
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
       checks = builtins.mapAttrs (_: customPackages: customPackages.ciBuildable) (nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages);
@@ -135,7 +142,21 @@
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});
+    packages = forAllSystems (system:
+      (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};})
+      // {
+        orchid = nixos-generators.nixosGenerate {
+          system = "aarch64-linux";
+
+          inherit specialArgs;
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
+            ./machines/orchid/configuration.nix
+          ];
+
+          format = "sd-aarch64-installer";
+        };
+      });
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
@@ -154,9 +175,7 @@
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = let
-      specialArgs = {inherit inputs outputs shared;};
-    in {
+    nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 

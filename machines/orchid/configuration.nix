@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../../nixos
+    ../../nixos
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
@@ -40,7 +40,7 @@
   networking.hostName = "orchid";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   custom = {
     users."guus" = {
@@ -83,17 +83,17 @@
     };
 
     programs.zsh.enable = true;
-  };
 
-  builders = {
-    enable = true;
+    builders = {
+      enable = true;
 
-    machines = [
-      {
-        hostName = "crocus";
-        system = "aarch64-linux";
-      }
-    ];
+      machines = [
+        {
+          hostName = "crocus";
+          system = "aarch64-linux";
+        }
+      ];
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";

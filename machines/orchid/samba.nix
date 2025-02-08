@@ -14,26 +14,35 @@
       enable = true;
       openFirewall = true;
 
-      securityType = "user";
+      # extraConfig = ''
+      #   workgroup = WORKGROUP
+      #   server string = ${hostname}
+      #   netbios name = ${hostname}
+      #   security = user
 
-      extraConfig = ''
-        workgroup = WORKGROUP
-        server string = ${hostname}
-        netbios name = ${hostname}
-        security = user
+      #   # use sendfile = yes
+      #   # max protocol = smb2
 
-        # use sendfile = yes
-        # max protocol = smb2
+      #   # note: localhost is the ipv6 localhost ::1
+      #   hosts allow = 192.168.2. 127.0.0.1 localhost
+      #   hosts deny = 0.0.0.0/0
 
-        # note: localhost is the ipv6 localhost ::1
-        hosts allow = 192.168.2. 127.0.0.1 localhost
-        hosts deny = 0.0.0.0/0
+      #   guest account = nobody
+      #   map to guest = bad user
+      # '';
 
-        guest account = nobody
-        map to guest = bad user
-      '';
+      settings = {
+        global = {
+          "invalid users" = [
+            "root"
+          ];
 
-      shares = {
+          security = "user";
+
+          "hosts allow" = ["192.168.2." "127.0.0.1" "localhost"];
+          "hosts deny" = ["0.0.0.0/0"];
+        };
+
         iso =
           {
             path = "/mnt/data/iso";

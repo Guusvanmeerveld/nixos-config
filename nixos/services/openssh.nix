@@ -24,7 +24,7 @@ in {
       openFirewall = cfg.openFirewall;
 
       settings = {
-        PermitRootLogin = "no";
+        PermitRootLogin = lib.mkDefault "no";
         PasswordAuthentication = false;
       };
     };
