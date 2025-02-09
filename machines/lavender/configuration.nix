@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../../nixos
+    ../../nixos
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
@@ -35,12 +35,12 @@
   hardware = {
     graphics = {
       enable = true;
-      driSupport = true;
     };
 
     raspberry-pi."4" = {
       fkms-3d.enable = true;
       i2c1.enable = true;
+      audio.enable = true;
     };
   };
 
@@ -50,7 +50,7 @@
   networking.networkmanager.enable = true;
 
   custom = {
-    user."guus" = {
+    users."guus" = {
       isSuperUser = true;
 
       homeManager = {
