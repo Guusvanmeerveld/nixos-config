@@ -53,7 +53,10 @@
 
           peers =
             lib.mapAttrsToList (name: peer: let
-              shouldKeepAlive = !!(lib.getAttr "keepAlive" peer);
+              shouldKeepAlive =
+                if lib.hasAttr "keepAlive" peer
+                then lib.getAttr "keepAlive" peer
+                else false;
             in {
               publicKey = peer.publicKey;
               allowedIps = ["${peer.address}/32"];
