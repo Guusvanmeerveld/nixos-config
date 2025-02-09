@@ -29,9 +29,17 @@ in {
     qt = {
       enable = true;
 
-      platformTheme.name = "adwaita";
+      platformTheme.name = "qtct";
+      style.name = "kvantum";
+    };
 
-      style = cfg.style;
+    xdg.configFile = {
+      "Kvantum/kvantum.kvconfig".text = ''
+        [General]
+        theme=WhiteSurDark
+      '';
+
+      "Kvantum/WhiteSur".source = "${pkgs.whitesur-kde}/share/Kvantum/WhiteSur";
     };
   };
 }
