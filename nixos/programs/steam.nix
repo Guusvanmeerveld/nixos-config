@@ -17,6 +17,8 @@ in {
       enable = true;
       remotePlay.openFirewall = true;
 
+      protontricks.enable = true;
+
       package = pkgs.steam.override {
         extraPkgs = pkgs:
           with pkgs; [
