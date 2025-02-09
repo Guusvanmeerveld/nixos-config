@@ -18,7 +18,7 @@
 
   firefox = import ./firefox {inherit pkgs;};
 
-  ciBuildable = {
+  export = {
     inherit clipmon mpdris2 radb dnsmasqstats ryubing;
     inherit (pythonPackages) pyjags textblob;
     inherit (firefox.themes) blur mono;

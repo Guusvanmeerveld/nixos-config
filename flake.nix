@@ -122,10 +122,10 @@
   } @ inputs: let
     systems = [
       "aarch64-linux"
-      "i686-linux"
+      # "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
-      "x86_64-darwin"
+      # "aarch64-darwin"
+      # "x86_64-darwin"
     ];
 
     forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -137,26 +137,17 @@
     specialArgs = {inherit inputs outputs shared;};
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
-      checks = builtins.mapAttrs (_: customPackages: customPackages.ciBuildable) (nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages);
+      checks = nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages;
     };
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (system:
-      (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};})
-      // {
-        orchid = nixos-generators.nixosGenerate {
-          system = "aarch64-linux";
-
-          inherit specialArgs;
-          modules = [
-            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-installer.nix"
-            ./machines/orchid/configuration.nix
-          ];
-
-          format = "sd-aarch64-installer";
-        };
-      });
+    packages = forAllSystems (
+      system: (nixpkgs.lib.getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
+      # // (import ./generators {
+      #   inherit nixos-generators specialArgs nixpkgs;
+      # })
+    );
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'
