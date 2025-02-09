@@ -16,14 +16,13 @@
     timeout = 0;
   };
 
-  networking.hostName = "laptop";
-
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "laptop";
+    networkmanager.enable = true;
+  };
 
   services.logind = {
-    lidSwitch = "poweroff";
-    # powerKeyLongPress = "reboot";
-    # powerKey = "poweroff";
+    lidSwitch = "hibernate";
   };
 
   services.power-profiles-daemon.enable = true;
@@ -52,12 +51,6 @@
         "garden" = {
           addresses = ["${laptopConfig.address}/24"];
           privateKeyFile = "/secrets/wireguard/garden/private";
-
-          # clientConfig = {
-          #   enable = true;
-
-          #   server = gardenConfig.server.address;
-          # };
 
           peers = lib.singleton {
             publicKey = gardenConfig.server.publicKey;
