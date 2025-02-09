@@ -7,6 +7,7 @@
     ./wm
     ./dm
     ./hardware
+    ./fs
     ./nixos.nix
     ./users.nix
     ./locale.nix

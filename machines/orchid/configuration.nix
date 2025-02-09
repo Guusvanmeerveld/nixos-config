@@ -10,11 +10,9 @@
     ../../nixos
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
-
-    ./zfs.nix
-
-    ./samba.nix
   ];
+
+  boot.blacklistedKernelModules = ["onboard_usb_hub"];
 
   fileSystems = {
     "/" = {
@@ -22,12 +20,17 @@
       fsType = "ext4";
       options = ["noatime"];
     };
+
+    "/mnt/data" = {
+      device = "zpool/data";
+      fsType = "zfs";
+    };
   };
 
   swapDevices = [
     {
       device = "/swapfile";
-      size = 1024;
+      size = 4096;
     }
   ];
 
@@ -37,10 +40,15 @@
     };
   };
 
-  networking.hostName = "orchid";
-
   # Enable networking
-  # networking.networkmanager.enable = true;
+  networking = {
+    networkmanager.enable = true;
+
+    hostName = "orchid";
+
+    # Required for ZFS
+    hostId = "04ae0999";
+  };
 
   custom = {
     users."guus" = {
@@ -59,6 +67,8 @@
       ];
     };
 
+    fs.zfs.enable = true;
+
     hardware = {
       argon40 = {
         enable = true;
@@ -68,8 +78,22 @@
 
     services = {
       openssh.enable = true;
-      fail2ban.enable = true;
+      # fail2ban.enable = true;
       autoUpgrade.enable = true;
+
+      samba.server = {
+        enable = true;
+
+        shares = {
+          iso = "/mnt/data/iso";
+          games = "/mnt/data/games";
+          media = "/mnt/data/media";
+          nextcloud = "/mnt/data/apps/nextcloud";
+          gitea = "/mnt/data/apps/gitea";
+          syncthing = "/mnt/data/apps/syncthing";
+          immich = "/mnt/data/apps/immich";
+        };
+      };
 
       motd = {
         enable = true;
