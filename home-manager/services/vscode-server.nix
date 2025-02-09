@@ -28,7 +28,7 @@ in {
         installPath = "${config.home.homeDirectory}/.vscodium-server";
       };
 
-      vscode-server-extensions = with pkgs.vscode-marketplace; [
+      vscode-server-extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
       ];
     };
