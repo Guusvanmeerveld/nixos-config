@@ -1,0 +1,22 @@
+name: Check if config is valid
+
+on:
+  push:
+
+jobs:
+  nix-build:
+    name: Check for errors
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v4
+
+      - name: Check flake for errors
+        run: nix flake check --all-systems --accept-flake-config
