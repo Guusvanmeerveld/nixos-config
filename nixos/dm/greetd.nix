@@ -59,7 +59,7 @@ in {
 
             refreshRate = lib.mkOption {
               type = lib.types.float;
-              default = 60;
+              default = 60.0;
             };
 
             background = lib.mkOption {
