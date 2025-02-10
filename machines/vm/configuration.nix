@@ -32,16 +32,13 @@
 
     hardware.sound.pipewire.enable = true;
 
-    applications = {
-      shell.zsh.enable = true;
-    };
+    programs.zsh.enable = true;
 
     dm.greetd = {
       enable = true;
       outputs = {
         "Virtual-1" = {
-          mode = "1920x1080@60Hz";
-          bg = "${./wallpaper.jpg} stretch";
+          background = "${./wallpaper.jpg} stretch";
         };
       };
     };

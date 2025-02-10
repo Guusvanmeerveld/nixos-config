@@ -6,6 +6,7 @@
   custom = {
     wm = {
       lockscreens.swaylock.enable = true;
+      launchers.rofi.enable = true;
 
       bars.waybar = {
         enable = true;
@@ -22,7 +23,7 @@
         output = {
           "Virtual-1" = {
             mode = "1920x1080@60Hz";
-            bg = "${./wallpaper.jpg} stretch";
+            bg = "${../wallpaper.jpg} stretch";
           };
         };
       };
@@ -39,8 +40,6 @@
       };
 
       default.enable = true;
-
-      rofi.enable = true;
 
       office.enable = true;
       development.enable = true;
