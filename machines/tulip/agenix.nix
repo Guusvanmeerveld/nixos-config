@@ -44,13 +44,6 @@
         owner = "docker-compose";
         group = "docker";
       };
-
-      wireguard-garden = {
-        file = ./secrets/wireguard-garden.age;
-        mode = "770";
-        owner = "systemd-network";
-        group = "systemd-network";
-      };
     };
   };
 }

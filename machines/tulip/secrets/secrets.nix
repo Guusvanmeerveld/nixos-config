@@ -14,5 +14,4 @@ in {
   "immich.age".publicKeys = all;
   "gluetun.age".publicKeys = all;
   "unifi.age".publicKeys = all;
-  "wireguard-garden.age".publicKeys = all;
 }
