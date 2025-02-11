@@ -36,6 +36,26 @@
         timeout ${toString suspend-timeout} 'systemctl suspend'
     '';
   };
+
+  assigns = {
+    "1" = [
+      {app_id = "^vesktop$";}
+      {app_id = "^whatsapp-for-linux$";}
+      {app_id = "^org.gnome.Fractal$";}
+    ];
+    "2" = [
+      {app_id = "^spotify$";}
+    ];
+    "3" = [
+      {app_id = "^firefox$";}
+    ];
+    "4" = [
+      {app_id = "^codium-url-handler$";}
+    ];
+    "5" = [
+      {class = "^steam$";}
+    ];
+  };
 in {
   imports = [./osd.nix];
 
@@ -232,11 +252,6 @@ in {
       enable = lib.mkDefault cfg.keybinds.media;
     };
 
-    # home.packages =
-    #   lib.optional cfg.keybinds.media pkgs.playerctl
-    #   ++ lib.optional cfg.keybinds.backlight pkgs.light
-    #   ++ lib.optional cfg.keybinds.sound pkgs.pulseaudio;
-
     wayland.windowManager.sway = {
       enable = true;
 
@@ -263,6 +278,7 @@ in {
 
       config = rec {
         inherit (cfg) output;
+        inherit assigns;
 
         workspaceOutputAssign = lib.flatten (map (assignment: (map (workspace: {
             workspace = toString workspace;
