@@ -60,6 +60,8 @@
 
       sound.pipewire.enable = true;
       input.logitech.enable = true;
+
+      hyperx.cloud-flight-s.enable = true;
     };
 
     programs = {
@@ -97,6 +99,11 @@
         "garden" = {
           addresses = ["${desktopConfig.address}/24"];
           privateKeyFile = "/secrets/wireguard/garden/private";
+
+          clientConfig = {
+            enable = true;
+            server = gardenConfig.server.address;
+          };
 
           peers = lib.singleton {
             publicKey = gardenConfig.server.publicKey;

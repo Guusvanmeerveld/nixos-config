@@ -137,13 +137,7 @@ in {
           (lib.optionalAttrs interface.clientConfig.enable (let
             server = interface.clientConfig.server;
           in {
-            DHCP = "no";
-
-            dns = ["${server}:53"];
-            ntp = ["${server}:123"];
-            gateway = [
-              server
-            ];
+            dns = [server];
 
             networkConfig = {
               IPv6AcceptRA = false;
