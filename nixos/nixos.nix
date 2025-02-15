@@ -11,11 +11,13 @@
         substituters = [
           "https://guusvanmeerveld.cachix.org"
           "https://nix-community.cachix.org"
+          "https://nix-gaming.cachix.org"
         ];
 
         trusted-public-keys = [
           "guusvanmeerveld.cachix.org-1:DphRuosSBmhUyz2kLc9cvdHFl8N4mQm0QSxWxahvFuc="
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         ];
 
         experimental-features = ["nix-command" "flakes"];

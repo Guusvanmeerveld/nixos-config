@@ -1,10 +1,16 @@
 {
+  inputs,
   lib,
   config,
   ...
 }: let
   cfg = config.custom.hardware.sound.pipewire;
 in {
+  imports = [
+    # Import low latency module
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
+  ];
+
   options = {
     custom.hardware.sound.pipewire = {
       enable = lib.mkEnableOption "Enable pipewire sound engine";
@@ -12,6 +18,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # make pipewire realtime-capable
+    security.rtkit.enable = true;
+
     services.pipewire = {
       enable = true;
 
@@ -22,6 +31,10 @@ in {
 
       jack.enable = true;
       pulse.enable = true;
+
+      lowLatency = {
+        enable = true;
+      };
 
       # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2669
       wireplumber.extraConfig = {
