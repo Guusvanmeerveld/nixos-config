@@ -18,6 +18,7 @@ in {
     ./starship.nix
     ./direnv.nix
     ./tmux.nix
+    ./bat.nix
   ];
 
   options = {
@@ -39,6 +40,7 @@ in {
       tealdeer.enable = lib.mkDefault true;
       direnv.enable = lib.mkDefault true;
       tmux.enable = lib.mkDefault true;
+      bat.enable = lib.mkDefault true;
     };
   };
 }
