@@ -113,11 +113,19 @@
 
         openFirewall = true;
 
-        redirects = {
-          ".crocus" = "10.10.10.1";
-          ".desktop" = "10.10.10.2";
-          ".tlp" = "10.10.10.5";
-        };
+        redirects = let
+          gardenConfig = shared.wireguard.networks.garden;
+        in
+          # Map all wireguard TLD's to their respective addresses.
+          with lib;
+            mapAttrs' (
+              clientName: {
+                tld,
+                address,
+              }:
+                nameValuePair ".${tld}" address
+            )
+            gardenConfig.clients;
       };
 
       motd = {
