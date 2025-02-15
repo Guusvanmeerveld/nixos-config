@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{...}: {
+{
+  lib,
+  shared,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -43,6 +47,32 @@
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCgJ+CtiME7co6zBpdQytDUCF3lmM53dSE6meLHg2IJEt8EhX1QT4B0g4ep9fjCwAgmGAFjhUoQBPFwMaybWVeQWaxy8YAi+IexlJcQgPOBCapbtXgESAOuimpSyC9O0SQWULKeK8fuE1IpSBgXJXmhHP9SViu5RJ9YhCI17qvE2wHA9bFJGs+do/pwvjy3QLulVMDfxuft3HKAafEKTIqy1/OKqxeFalVOpZhbEsTx7gmKMfncHhkCTU7eE1s2umet+bD3kOxWwfvJuztxz64roe+NOuDC5m1VaglkHF8a1Ohgj4wS6g0/SC1jQk69P/aVCXGRhvVGCvCTDeUeaPOuc1sDbOXmsA9RlBhkIOUAXx1frdcTNp3rJ1nV0hKC+0QIbyZZhflIgzZGT8Kc9RgseY3XQry/tmW29ax8ZM3/y+BVsW7q7lyLynsnN66j5UgUUOQs+1EwftFjPbq/yUUcXVcFdAOckeOlyxLVeSchJyqCvjEkYvk7HSDDwamHUiE= guus@laptop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIZZP73LLH+0VvUqpmTmIvU2EqmfzZQxspCDeODa5xy guus@thuisthuis"
       ];
+    };
+
+    networking.wireguard = let
+      gardenConfig = shared.wireguard.networks.garden;
+      roseConfig = gardenConfig.clients.rose;
+    in {
+      enable = true;
+      openFirewall = true;
+
+      interfaces = {
+        "garden" = {
+          addresses = ["${roseConfig.address}/24"];
+          privateKeyFile = "/secrets/wireguard/garden/private";
+
+          clientConfig = {
+            enable = true;
+            server = gardenConfig.server.address;
+          };
+
+          peers = lib.singleton {
+            publicKey = gardenConfig.server.publicKey;
+            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
+            allowedIps = ["10.10.10.0/24"];
+          };
+        };
+      };
     };
 
     virtualisation.docker = {

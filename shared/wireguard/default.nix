@@ -47,6 +47,13 @@
           tld = "daisy";
           keepAlive = true;
         };
+
+        rose = {
+          publicKey = "HNKWUiePIoh48jayDHxVF/iAcx2JXLHbneKMVDayqg8=";
+          address = "10.10.10.8";
+          tld = "rose";
+          keepAlive = true;
+        };
       };
     };
   };
