@@ -122,6 +122,7 @@
               clientName: {
                 tld,
                 address,
+                ...
               }:
                 nameValuePair ".${tld}" address
             )
