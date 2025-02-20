@@ -54,6 +54,12 @@
           tld = "rose";
           keepAlive = true;
         };
+
+        pd = {
+          publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ=";
+          address = "10.10.10.9";
+          tld = "peerdroog";
+        };
       };
     };
   };
