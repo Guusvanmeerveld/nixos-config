@@ -14,6 +14,6 @@ in {
         jq
         home-manager
       ])
-      ++ (with pkgs.custom.scripts; [backup-ssh-keys]);
+      ++ (with pkgs.custom.scripts; [backup-secrets]);
   };
 }
