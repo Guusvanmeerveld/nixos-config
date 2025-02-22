@@ -12,6 +12,9 @@
     "steam-original"
     "steam-run"
     "teamviewer"
+    "nvidia-x11"
+    "nvidia-settings"
+    "nvidia-persistenced"
   ];
 in {
   config.nixpkgs = {
