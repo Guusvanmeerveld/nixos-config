@@ -1,9 +1,7 @@
 {pkgs, ...}: {
-  backup-ssh-keys = pkgs.writeShellApplication {
-    name = "backup-ssh-keys";
+  backup-secrets = pkgs.writeShellApplication {
+    name = "backup-secrets";
 
-    text = ''
-      ${./backup-ssh-keys.sh} "$@"
-    '';
+    text = builtins.readFile ./backup-secrets.sh;
   };
 }
