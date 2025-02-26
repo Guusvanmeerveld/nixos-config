@@ -21,5 +21,7 @@ in {
         };
       };
     };
+
+    custom.usersGlobalGroups = ["gamemode"];
   };
 }
