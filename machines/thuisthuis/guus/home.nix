@@ -25,13 +25,13 @@ in {
         enable = true;
 
         output = {
-          "DP-3" = {
+          "HDMI-A-1" = {
             mode = "2560x1440@74.89Hz";
             bg = "${../wallpaper-right.png} stretch";
             pos = "2560 0";
           };
 
-          "HDMI-A-1" = {
+          "DP-1" = {
             mode = "2560x1440@74.968Hz";
             bg = "${../wallpaper-left.png} stretch";
             pos = "0 0";
@@ -40,11 +40,11 @@ in {
 
         workspaceOutputAssign = [
           {
-            output = "HDMI-A-1";
+            output = "DP-1";
             workspaces = lib.range 1 3;
           }
           {
-            output = "DP-3";
+            output = "HDMI-A-1";
             workspaces = lib.range 4 9;
           }
         ];
@@ -74,7 +74,7 @@ in {
     services = {
       syncthing.enable = true;
       kdeconnect.enable = true;
-      mpd.enable = true;
+      vscode-server.enable = true;
     };
 
     programs = {
@@ -103,9 +103,7 @@ in {
         };
       };
 
-      openshot.enable = true;
       jellyfin.enable = true;
-      cantata.enable = true;
       parsec.enable = true;
       eduvpn.enable = true;
 

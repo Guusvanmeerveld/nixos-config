@@ -1,6 +1,7 @@
 {
   lib,
   shared,
+  inputs,
   ...
 }: {
   imports = [
@@ -8,6 +9,8 @@
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    inputs.grub2-themes.nixosModules.default
   ];
 
   networking.hostName = "thuisthuis";
@@ -21,9 +24,26 @@
       efiSysMountPoint = "/boot";
     };
 
-    systemd-boot = {
+    # systemd-boot = {
+    #   enable = true;
+    #   configurationLimit = 2;
+    # };
+
+    grub = {
       enable = true;
-      configurationLimit = 2;
+      efiSupport = true;
+      useOSProber = true;
+
+      configurationLimit = 1;
+
+      device = "nodev";
+    };
+
+    grub2-theme = {
+      enable = true;
+      theme = "whitesur";
+      footer = true;
+      screen = "2k";
     };
 
     timeout = 0;
@@ -38,17 +58,31 @@
 
         config = ./guus/home.nix;
       };
+
+      ssh.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSyS7My9aiqxXANdqDXXXD6r7P/ngXNk62KLrDcSU38 guus@laptop"
+      ];
     };
 
     security.keyring.enable = true;
 
     hardware = {
+      video = {
+        amd = {
+          enable = true;
+          polaris.enable = true;
+        };
+      };
+
+      # disko = {
+      #   enable = true;
+
+      #   device = "/dev/nvme0n1";
+      #   swap.size = "16G";
+      # };
+
       openrgb.enable = true;
       plymouth.enable = true;
-
-      video = {
-        amd.enable = true;
-      };
 
       sound.pipewire.enable = true;
 
@@ -72,6 +106,11 @@
           addresses = ["${thuisthuisConfig.address}/24"];
           privateKeyFile = "/secrets/wireguard/garden/private";
 
+          clientConfig = {
+            enable = true;
+            server = gardenConfig.server.address;
+          };
+
           peers = lib.singleton {
             publicKey = gardenConfig.server.publicKey;
             endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
@@ -90,6 +129,7 @@
       gamemode.enable = true;
       gvfs.enable = true;
       autoUpgrade.enable = true;
+      openssh.enable = true;
 
       syncthing.openFirewall = true;
       kdeconnect.openFirewall = true;
@@ -108,7 +148,7 @@
       enable = true;
 
       outputs = {
-        "DP-3" = {
+        "HDMI-A-1" = {
           resolution = "2560x1440";
           refreshRate = 74.89;
           background = "${./wallpaper-right.png} stretch";
@@ -117,7 +157,7 @@
           };
         };
 
-        "HDMI-A-1" = {
+        "DP-1" = {
           resolution = "2560x1440";
           refreshRate = 74.968;
           background = "${./wallpaper-left.png} stretch";
