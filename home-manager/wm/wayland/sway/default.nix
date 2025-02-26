@@ -40,7 +40,7 @@
   assigns = {
     "1" = [
       {app_id = "^vesktop$";}
-      {app_id = "^whatsapp-for-linux$";}
+      {app_id = "^com.ktechpit.whatsie$";}
       {app_id = "^org.gnome.Fractal$";}
     ];
     "2" = [
