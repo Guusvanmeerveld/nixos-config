@@ -23,6 +23,7 @@ in {
         extraPkgs = pkgs:
           with pkgs; [
             gamemode
+            gamescope
           ];
       };
     };
