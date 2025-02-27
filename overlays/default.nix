@@ -31,6 +31,15 @@
         cp $out/lib/python3.12/site-packages/eduvpn/data/share $out -r
       '';
     });
+
+    whatsie = prev.whatsie.overrideAttrs (old: {
+      # Fix .desktop file and icons not being discovered
+      postInstall = ''
+        mkdir -p $out/share/{applications,icons} -p
+        cp $src/dist/linux/*.desktop $out/share/applications -r
+        cp $src/dist/linux/hicolor $out/share/icons -r
+      '';
+    });
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
