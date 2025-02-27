@@ -32,8 +32,7 @@ in {
         Option "VariableRefresh" "true"
       '';
 
-      enable = true;
-      videoDrivers = ["modesetting"];
+      videoDrivers = ["amdgpu"];
     };
 
     boot.initrd.kernelModules = ["amdgpu"];
