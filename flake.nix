@@ -5,8 +5,6 @@
     # Latest stable packages
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
-    nixpkgs-server.url = "github:nixos/nixpkgs/nixos-24.11";
-
     # Unstable packages
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
 
@@ -33,7 +31,7 @@
     # Grub themes
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     vscode-server = {
@@ -106,6 +104,11 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -120,7 +123,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-server,
     nix-github-actions,
     nixos-generators,
     ...
@@ -204,7 +206,7 @@
         ];
       };
 
-      rose = nixpkgs-server.lib.nixosSystem {
+      rose = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
@@ -212,7 +214,7 @@
         ];
       };
 
-      daisy = nixpkgs-server.lib.nixosSystem {
+      daisy = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
@@ -220,7 +222,7 @@
         ];
       };
 
-      crocus = nixpkgs-server.lib.nixosSystem {
+      crocus = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
@@ -228,7 +230,7 @@
         ];
       };
 
-      lavender = nixpkgs-server.lib.nixosSystem {
+      lavender = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
@@ -236,7 +238,7 @@
         ];
       };
 
-      orchid = nixpkgs-server.lib.nixosSystem {
+      orchid = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
@@ -244,7 +246,7 @@
         ];
       };
 
-      tulip = nixpkgs-server.lib.nixosSystem {
+      tulip = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
         modules = [
