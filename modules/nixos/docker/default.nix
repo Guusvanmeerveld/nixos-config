@@ -1,3 +1,0 @@
-{
-  containers = import ./containers.nix;
-}
