@@ -159,7 +159,6 @@
         system:
           (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
           // {
-            suyu = inputs.suyu.packages."${system}".default;
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
             mconnect = inputs.mconnect-nix.packages."${system}".default;
             sf-pro-nerd = inputs.apple-fonts.packages."${system}".sf-pro-nerd;
