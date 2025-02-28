@@ -109,6 +109,11 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    apple-fonts = {
+      url = "github:lyndeno/apple-fonts.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -150,10 +155,16 @@
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (
-      system: (nixpkgs.lib.getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
-      # // (import ./generators {
-      #   inherit nixos-generators specialArgs nixpkgs;
-      # })
+      with nixpkgs.lib; (
+        system:
+          (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
+          // {
+            suyu = inputs.suyu.packages."${system}".default;
+            hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
+            mconnect = inputs.mconnect-nix.packages."${system}".default;
+            sf-pro-nerd = inputs.apple-fonts.packages."${system}".sf-pro-nerd;
+          }
+      )
     );
 
     # Formatter for your nix files, available through 'nix fmt'

@@ -1,7 +1,7 @@
 # This file defines overlays
 {inputs, ...}: {
-  # This one brings our custom packages from the 'pkgs' directory
   additions = final: _prev: {
+    # This one brings our custom packages from the 'pkgs' directory
     custom =
       (import ../pkgs {pkgs = final;})
       // {
@@ -15,6 +15,7 @@
     suyu = inputs.suyu.packages."${final.system}".default;
     hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
+    sf-pro-nerd = inputs.apple-fonts.packages."${final.system}".sf-pro-nerd;
   };
 
   # This one contains whatever you want to overlay
