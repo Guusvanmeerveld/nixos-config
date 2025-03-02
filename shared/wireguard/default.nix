@@ -32,7 +32,6 @@
           publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38=";
           address = "10.10.10.5";
           tld = "tlp";
-          keepAlive = true;
         };
 
         thuisthuis = {
@@ -45,14 +44,12 @@
           publicKey = "WvESBhla1yU9irR4izmGRJuifyrFT47Qry1JsLgcXhY=";
           address = "10.10.10.7";
           tld = "daisy";
-          keepAlive = true;
         };
 
         rose = {
           publicKey = "HNKWUiePIoh48jayDHxVF/iAcx2JXLHbneKMVDayqg8=";
           address = "10.10.10.8";
           tld = "rose";
-          keepAlive = true;
         };
 
         pd = {

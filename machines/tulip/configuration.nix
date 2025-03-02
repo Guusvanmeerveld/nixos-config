@@ -81,6 +81,7 @@
             publicKey = gardenConfig.server.publicKey;
             endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
             allowedIps = ["10.10.10.0/24"];
+            keepAlive = 25;
           };
         };
       };
