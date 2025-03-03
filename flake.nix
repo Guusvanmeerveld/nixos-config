@@ -193,7 +193,13 @@
     homeManagerModules = import ./modules/home-manager;
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-      pkgs = import nixpkgs {system = "aarch64-linux";};
+      pkgs = import nixpkgs {
+        system = "aarch64-linux";
+
+        overlays = [
+          nix-on-droid.overlays.default
+        ];
+      };
       modules = [./machines/phone/configuration.nix];
     };
 

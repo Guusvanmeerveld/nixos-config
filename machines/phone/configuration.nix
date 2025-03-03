@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment = {
     etcBackupExtension = ".bak";
@@ -11,12 +7,6 @@
   };
 
   time.timeZone = "Europe/Amsterdam";
-
-  nixpkgs = {
-    overlays = [
-      inputs.nix-on-droid.overlays.default
-    ];
-  };
 
   user = {
     shell = "${pkgs.zsh}/bin/zsh";
