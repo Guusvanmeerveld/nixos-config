@@ -1,4 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  outputs,
+  shared,
+  ...
+}: {
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment = {
     etcBackupExtension = ".bak";
@@ -10,7 +16,6 @@
 
   user = {
     shell = "${pkgs.zsh}/bin/zsh";
-    userName = "guus";
   };
 
   nix.extraOptions = ''
@@ -18,11 +23,12 @@
   '';
 
   # Configure home-manager
-  # home-manager = {
-  #   config = ./guus/home.nix;
-  #   backupFileExtension = "hm-bak";
-  #   useGlobalPkgs = true;
-  # };
+  home-manager = {
+    config = ./guus/home.nix;
+    backupFileExtension = "hm-bak";
+    extraSpecialArgs = {inherit inputs outputs shared;};
+    useGlobalPkgs = true;
+  };
 
   system.stateVersion = "24.11";
 }
