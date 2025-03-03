@@ -57,6 +57,12 @@
           address = "10.10.10.9";
           tld = "peerdroog";
         };
+
+        orchid = {
+          publicKey = "GTL4lYhzwhrk72/Rr6vaamGo8txoj/Cy3hpGSiNvt18=";
+          address = "10.10.10.10";
+          tld = "orchid";
+        };
       };
     };
   };
