@@ -1,12 +1,31 @@
-{inputs, ...}: {
-  imports = [
-    ../../nixos
-  ];
-
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
-  environment.etcBackupExtension = ".bak";
+  environment = {
+    etcBackupExtension = ".bak";
 
-  system.stateVersion = "24.11";
+    packages = with pkgs; [vim git zsh openssh btop unzip zip];
+  };
+
+  time.timeZone = "Europe/Amsterdam";
+
+  nixpkgs = {
+    overlays = [
+      inputs.nix-on-droid.overlays.default
+    ];
+  };
+
+  user = {
+    shell = "${pkgs.zsh}/bin/zsh";
+    userName = "guus";
+  };
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
 
   # Configure home-manager
   # home-manager = {
@@ -15,9 +34,5 @@
   #   useGlobalPkgs = true;
   # };
 
-  nixpkgs = {
-    overlays = [
-      inputs.nix-on-droid.overlays.default
-    ];
-  };
+  system.stateVersion = "24.11";
 }
