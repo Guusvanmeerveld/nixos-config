@@ -20,6 +20,7 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
+    warn-dirty = false
   '';
 
   # Configure home-manager
@@ -30,5 +31,5 @@
     useGlobalPkgs = true;
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "24.05";
 }

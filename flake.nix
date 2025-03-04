@@ -123,6 +123,7 @@
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
   };
 
@@ -193,6 +194,8 @@
     homeManagerModules = import ./modules/home-manager;
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+      extraSpecialArgs = specialArgs;
+
       pkgs = import nixpkgs {
         system = "aarch64-linux";
 
@@ -200,6 +203,7 @@
           nix-on-droid.overlays.default
         ];
       };
+
       modules = [./machines/phone/configuration.nix];
     };
 
