@@ -168,7 +168,7 @@ in {
 
       extensions =
         (with compatibleExtensions.vscode-marketplace; [
-          ms-vscode-remote.remote-containers
+          # ms-vscode-remote.remote-containers
           eww-yuck.yuck
         ])
         ++ (with compatibleExtensions.open-vsx; [
