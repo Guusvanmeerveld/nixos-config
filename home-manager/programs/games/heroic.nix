@@ -13,6 +13,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [heroic];
+    home.packages = with pkgs; [
+      protonup
+      heroic
+    ];
   };
 }
