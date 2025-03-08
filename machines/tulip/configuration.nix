@@ -62,6 +62,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILgGEu08LD9FAmK3N6RlMkx2KjEuFhb3wAIQ0RXypdsh guus@thuisthuis"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINLV/ItIM3IxBsxMAKGtrVZwXJfECWh7VGOOKraLYYjP guus@desktop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDoS//iuxi4c4g3ukBsfCVckaoPNKi0O/Dechd0fX1zx guus@laptop"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFzwMdOGHng1x0JIl8mVI66HlzCP/nMN8oGcLUsb9617 guus@phone"
       ];
     };
 
