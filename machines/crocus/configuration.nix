@@ -107,18 +107,28 @@
 
         redirects = let
           gardenConfig = shared.wireguard.networks.garden;
+          machines =
+            gardenConfig.clients
+            // {
+              crocus = gardenConfig.server;
+            };
         in
           # Map all wireguard TLD's to their respective addresses.
           with lib;
-            mapAttrs' (
-              clientName: {
-                tld,
-                address,
-                ...
-              }:
-                nameValuePair ".${tld}" address
-            )
-            gardenConfig.clients;
+            mkMerge [
+              # Map tlds to machine's addresses
+              (mapAttrs' (
+                  clientName: {
+                    tld,
+                    address,
+                    ...
+                  }:
+                    nameValuePair ".${tld}" address
+                )
+                machines)
+              # Map machine hostnames to addresses as well
+              (mapAttrs' (clientName: {address, ...}: nameValuePair clientName address) machines)
+            ];
       };
 
       motd = {
