@@ -48,7 +48,7 @@ in {
 
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      package = pkgs.unstable.vscodium;
 
       mutableExtensionsDir = false;
       enableUpdateCheck = false;
@@ -168,7 +168,6 @@ in {
 
       extensions =
         (with compatibleExtensions.vscode-marketplace; [
-          # ms-vscode-remote.remote-containers
           eww-yuck.yuck
         ])
         ++ (with compatibleExtensions.open-vsx; [
@@ -190,22 +189,20 @@ in {
 
           # Tools
           jeanp413.open-remote-ssh
-          # james-yu.latex-workshop
           dbaeumer.vscode-eslint
           timonwong.shellcheck
           ms-vscode.cmake-tools
           esbenp.prettier-vscode
           tabbyml.vscode-tabby
           mkhl.direnv
+          eamodio.gitlens
 
           # LSPs
-          # ms-toolsai.jupyter
-          # ms-python.python
           sqlfluff.vscode-sqlfluff
           twxs.cmake
           muhammad-sammy.csharp
           llvm-vs-code-extensions.vscode-clangd
-          # jnoortheen.nix-ide
+          jnoortheen.nix-ide
           rust-lang.rust-analyzer
           tamasfe.even-better-toml
           redhat.java
@@ -217,8 +214,8 @@ in {
           prince781.vala
           golang.go
           mads-hartmann.bash-ide-vscode
-        ])
-        ++ (with pkgs.vscode-extensions; [jnoortheen.nix-ide james-yu.latex-workshop]);
+          james-yu.latex-workshop
+        ]);
     };
 
     # Link hunspell dictionaries to correct dir.
