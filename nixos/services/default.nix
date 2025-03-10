@@ -20,5 +20,6 @@
     ./motd.nix
     ./kdeconnect.nix
     ./autoupgrade.nix
+    ./caddy.nix
   ];
 }
