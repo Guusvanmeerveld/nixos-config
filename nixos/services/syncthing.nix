@@ -17,7 +17,7 @@
     };
 
     "thuisthuis" = {
-      id = "Y4MVDQZ-DLTQUSY-CMD5ZH7-ROFILSX-4YDZR7Y-SQNGLRZ-WH44QEO-E7YWRQA";
+      id = "OUHEML2-H7FTUYT-J7MICRB-4QV7KAP-ETTKLAH-USENHMS-P6TYZCY-GG6BLQF";
       addresses = ["tcp://10.10.10.6:22000"];
     };
   };
