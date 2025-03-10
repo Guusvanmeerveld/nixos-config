@@ -45,17 +45,17 @@ in {
 
       user = lib.mkOption {
         type = lib.types.str;
-        default = null;
+        default = "syncthing";
       };
 
       group = lib.mkOption {
         type = lib.types.str;
-        default = null;
+        default = "syncthing";
       };
 
       dataDir = lib.mkOption {
         type = lib.types.str;
-        default = null;
+        default = "/var/lib/syncthing";
       };
 
       passwordFile = lib.mkOption {
@@ -135,6 +135,9 @@ in {
         settings = {
           gui = {
             theme = "black";
+
+            user = "admin";
+            password = "changeme123";
           };
 
           options = {
