@@ -110,6 +110,26 @@
       # fail2ban.enable = true;
       autoUpgrade.enable = true;
 
+      caddy = {
+        enable = true;
+        openFirewall = true;
+      };
+
+      syncthing = rec {
+        enable = true;
+
+        dataDir = "/mnt/data/apps/syncthing";
+
+        folders = {
+          "code" = "${dataDir}/Code";
+          "minecraft" = "${dataDir}/Minecraft";
+          "music" = "${dataDir}/Music";
+        };
+
+        caddy.url = "http://syncthing.orchid";
+        openFirewall = true;
+      };
+
       samba.server = {
         enable = true;
 
@@ -119,7 +139,7 @@
           media = "/mnt/data/media";
           nextcloud = "/mnt/data/apps/nextcloud";
           gitea = "/mnt/data/apps/gitea";
-          syncthing = "/mnt/data/apps/syncthing";
+          # syncthing = "/mnt/data/apps/syncthing";
           immich = "/mnt/data/apps/immich";
         };
       };

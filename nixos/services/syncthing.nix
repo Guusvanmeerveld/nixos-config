@@ -11,11 +11,6 @@
       addresses = ["tcp://10.10.10.4:22000"];
     };
 
-    "tulip" = {
-      id = "QL5TQAC-ODPQJRU-7WQ4XOY-ILW7NKV-36YQEGZ-KIEIXR2-H35SJWE-XAOFKQS";
-      addresses = ["tcp://10.10.10.5:22000"];
-    };
-
     "thuisthuis" = {
       id = "OUHEML2-H7FTUYT-J7MICRB-4QV7KAP-ETTKLAH-USENHMS-P6TYZCY-GG6BLQF";
       addresses = ["tcp://10.10.10.6:22000"];
@@ -30,22 +25,27 @@
       id = "TGVX2VH-ABGT3IS-X2C6DTF-UI3NFL4-LDQ337J-M2YQBV3-OBDJSMR-7U67NQH";
       addresses = ["tcp://10.10.10.2:22000"];
     };
+
+    "orchid" = {
+      id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
+      addresses = ["tcp://10.10.10.10:22000"];
+    };
   };
 
   folders = {
     "minecraft" = {
       label = "Minecraft";
-      devices = ["tulip" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
     };
 
     "code" = {
       label = "Code";
-      devices = ["tulip" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
     };
 
     "music" = {
       label = "Music";
-      devices = ["tulip" "thuisthuis" "desktop" "laptop" "phone"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone"];
     };
   };
 in {
