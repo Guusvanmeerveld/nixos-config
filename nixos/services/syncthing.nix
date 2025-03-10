@@ -30,6 +30,11 @@
       id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
       addresses = ["tcp://10.10.10.10:22000"];
     };
+
+    "crocus" = {
+      id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
+      addresses = ["tcp://10.10.10.10:22000"];
+    };
   };
 
   folders = {

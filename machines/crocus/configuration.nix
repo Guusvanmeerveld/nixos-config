@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   lib,
-  pkgs,
   shared,
   ...
 }: {
@@ -65,28 +64,10 @@
     virtualisation.docker = {
       enable = true;
 
-      caddy = {
-        enable = true;
-
-        openFirewall = true;
-
-        caddyFile = pkgs.writeText "Caddyfile" ''
-          {
-            admin off
-          }
-
-          mc.guusvanmeerveld.dev {
-            reverse_proxy vanilla-server:8123
-          }
-        '';
-      };
-
       watchtower = {
         enable = true;
         schedule = "0 0 5 * * 1";
       };
-
-      syncthing.enable = true;
     };
 
     services = {
@@ -94,6 +75,18 @@
         openFirewall = true;
         openGeyserFirewall = true;
         openVoiceChatFirewall = true;
+      };
+
+      caddy = {
+        enable = true;
+        openFirewall = true;
+      };
+
+      syncthing = {
+        enable = true;
+
+        caddy.url = "http://syncthing.crocus";
+        openFirewall = true;
       };
 
       openssh.enable = true;
