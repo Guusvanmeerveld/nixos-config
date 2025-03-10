@@ -9,7 +9,6 @@ in {
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
-      docks.nwg-dock.enable = true;
       launchers.rofi.enable = true;
 
       bars.waybar = {
@@ -55,7 +54,6 @@ in {
     };
 
     services = {
-      syncthing.enable = true;
       kdeconnect.enable = true;
       mpd.enable = true;
     };
@@ -97,6 +95,7 @@ in {
       jellyfin.enable = true;
       cantata.enable = true;
       parsec.enable = true;
+      eduvpn.enable = true;
 
       freetube = {
         enable = true;

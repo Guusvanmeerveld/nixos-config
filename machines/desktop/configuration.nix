@@ -75,8 +75,20 @@
       gvfs.enable = true;
       autoUpgrade.enable = true;
 
-      syncthing.openFirewall = true;
       kdeconnect.openFirewall = true;
+
+      caddy.enable = true;
+      syncthing = {
+        enable = true;
+
+        folders = {
+          "code" = "~/Code";
+          "minecraft" = "~/Minecraft";
+        };
+
+        caddy.url = "http://syncthing.desktop";
+        openFirewall = true;
+      };
     };
 
     virtualisation = {

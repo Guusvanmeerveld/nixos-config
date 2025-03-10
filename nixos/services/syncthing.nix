@@ -25,22 +25,27 @@
       id = "FYHUOAV-WN6KYQV-SLVAUIW-F5JZO65-3AWESRR-BEYDKGN-5XNLV67-AURU5A2";
       addresses = ["tcp://10.10.10.3:22000"];
     };
+
+    "desktop" = {
+      id = "TGVX2VH-ABGT3IS-X2C6DTF-UI3NFL4-LDQ337J-M2YQBV3-OBDJSMR-7U67NQH";
+      addresses = ["tcp://10.10.10.2:22000"];
+    };
   };
 
   folders = {
     "minecraft" = {
       label = "Minecraft";
-      devices = ["tulip" "thuisthuis"];
+      devices = ["tulip" "thuisthuis" "desktop" "laptop"];
     };
 
     "code" = {
       label = "Code";
-      devices = ["tulip" "thuisthuis"];
+      devices = ["tulip" "thuisthuis" "desktop" "laptop"];
     };
 
     "music" = {
       label = "Music";
-      devices = ["tulip" "thuisthuis" "phone"];
+      devices = ["tulip" "thuisthuis" "desktop" "laptop" "phone"];
     };
   };
 in {
