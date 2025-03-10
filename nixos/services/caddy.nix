@@ -8,6 +8,8 @@ in {
   options = {
     custom.services.caddy = {
       enable = lib.mkEnableOption "Enable Caddy web server";
+
+      openFirewall = lib.mkEnableOption "Open Caddy ports in firewall";
     };
   };
 
@@ -16,8 +18,6 @@ in {
       enable = true;
     };
 
-    networking.firewall = {
-      allowedTCPPorts = [80 443];
-    };
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [80 443];
   };
 }

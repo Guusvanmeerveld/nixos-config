@@ -7,7 +7,6 @@
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
-      docks.nwg-dock.enable = true;
       launchers.rofi.enable = true;
 
       bars.waybar = {
@@ -39,7 +38,6 @@
     xdg.portals.enable = true;
 
     services = {
-      syncthing.enable = true;
       kdeconnect.enable = true;
       poweralertd.enable = true;
     };

@@ -20,6 +20,11 @@
       id = "OUHEML2-H7FTUYT-J7MICRB-4QV7KAP-ETTKLAH-USENHMS-P6TYZCY-GG6BLQF";
       addresses = ["tcp://10.10.10.6:22000"];
     };
+
+    "laptop" = {
+      id = "FYHUOAV-WN6KYQV-SLVAUIW-F5JZO65-3AWESRR-BEYDKGN-5XNLV67-AURU5A2";
+      addresses = ["tcp://10.10.10.3:22000"];
+    };
   };
 
   folders = {
@@ -45,21 +50,27 @@ in {
 
       user = lib.mkOption {
         type = lib.types.str;
-        default = "syncthing";
+        default = "guus";
       };
 
       group = lib.mkOption {
         type = lib.types.str;
-        default = "syncthing";
+        default = "users";
       };
 
       dataDir = lib.mkOption {
         type = lib.types.str;
-        default = "/var/lib/syncthing";
+        default = "/home/guus/";
       };
 
-      passwordFile = lib.mkOption {
+      keyFile = lib.mkOption {
         type = lib.types.str;
+        default = "/secrets/syncthing/key.pem";
+      };
+
+      certFile = lib.mkOption {
+        type = lib.types.str;
+        default = "/secrets/syncthing/cert.pem";
       };
 
       port = lib.mkOption {
@@ -129,6 +140,9 @@ in {
         group = cfg.group;
 
         dataDir = cfg.dataDir;
+
+        key = cfg.keyFile;
+        cert = cfg.certFile;
 
         guiAddress = "0.0.0.0:${toString cfg.port}";
 

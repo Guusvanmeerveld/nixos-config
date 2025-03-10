@@ -52,6 +52,11 @@
           addresses = ["${laptopConfig.address}/24"];
           privateKeyFile = "/secrets/wireguard/garden/private";
 
+          clientConfig = {
+            enable = true;
+            server = gardenConfig.server.address;
+          };
+
           peers = lib.singleton {
             publicKey = gardenConfig.server.publicKey;
             endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
@@ -84,9 +89,20 @@
 
     services = {
       gvfs.enable = true;
-
-      syncthing.openFirewall = true;
       kdeconnect.openFirewall = true;
+
+      caddy.enable = true;
+      syncthing = {
+        enable = true;
+
+        folders = {
+          "code" = "~/Code";
+          "minecraft" = "~/Minecraft";
+        };
+
+        caddy.url = "http://syncthing.laptop";
+        openFirewall = true;
+      };
     };
 
     dm.greetd = {
