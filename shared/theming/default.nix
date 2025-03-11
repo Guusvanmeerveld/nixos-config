@@ -3,8 +3,8 @@
 
   font = {
     serif = {
-      name = "SFProText Nerd Font";
-      package = "sf-pro-nerd";
+      name = "SF Pro Text";
+      package = "sf-pro";
     };
 
     monospace = {

@@ -15,7 +15,7 @@
     suyu = inputs.suyu.packages."${final.system}".default;
     hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
-    sf-pro-nerd = inputs.apple-fonts.packages."${final.system}".sf-pro-nerd;
+    sf-pro = inputs.apple-fonts.packages."${final.system}".sf-pro;
   };
 
   # This one contains whatever you want to overlay
