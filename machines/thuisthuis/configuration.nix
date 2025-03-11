@@ -104,8 +104,6 @@
       syncthing = {
         enable = true;
 
-        passwordFile = "/secrets/syncthing";
-
         folders = {
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
