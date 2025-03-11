@@ -72,7 +72,6 @@ in {
     };
 
     services = {
-      syncthing.enable = true;
       kdeconnect.enable = true;
       vscode-server.enable = true;
     };

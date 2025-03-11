@@ -84,6 +84,7 @@
         folders = {
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
+          "music" = "~/Music";
         };
 
         caddy.url = "http://syncthing.desktop";

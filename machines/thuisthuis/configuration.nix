@@ -1,7 +1,6 @@
 {
   lib,
   shared,
-  inputs,
   ...
 }: {
   imports = [
@@ -9,8 +8,6 @@
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-
-    inputs.grub2-themes.nixosModules.default
   ];
 
   networking.hostName = "thuisthuis";
@@ -24,26 +21,9 @@
       efiSysMountPoint = "/boot";
     };
 
-    # systemd-boot = {
-    #   enable = true;
-    #   configurationLimit = 2;
-    # };
-
-    grub = {
+    systemd-boot = {
       enable = true;
-      efiSupport = true;
-      useOSProber = true;
-
-      configurationLimit = 1;
-
-      device = "nodev";
-    };
-
-    grub2-theme = {
-      enable = true;
-      theme = "whitesur";
-      footer = true;
-      screen = "2k";
+      configurationLimit = 2;
     };
 
     timeout = 0;
@@ -58,10 +38,6 @@
 
         config = ./guus/home.nix;
       };
-
-      ssh.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSyS7My9aiqxXANdqDXXXD6r7P/ngXNk62KLrDcSU38 guus@laptop"
-      ];
     };
 
     security.keyring.enable = true;
@@ -73,13 +49,6 @@
           polaris.enable = true;
         };
       };
-
-      # disko = {
-      #   enable = true;
-
-      #   device = "/dev/nvme0n1";
-      #   swap.size = "16G";
-      # };
 
       openrgb.enable = true;
       plymouth.enable = true;
@@ -128,11 +97,24 @@
     services = {
       gamemode.enable = true;
       gvfs.enable = true;
-      autoUpgrade.enable = true;
-      openssh.enable = true;
 
-      syncthing.openFirewall = true;
       kdeconnect.openFirewall = true;
+
+      caddy.enable = true;
+      syncthing = {
+        enable = true;
+
+        passwordFile = "/secrets/syncthing";
+
+        folders = {
+          "code" = "~/Code";
+          "minecraft" = "~/Minecraft";
+          "music" = "~/Music";
+        };
+
+        caddy.url = "http://syncthing.thsths";
+        openFirewall = true;
+      };
     };
 
     virtualisation = {
@@ -142,6 +124,53 @@
       };
 
       docker.enable = true;
+
+      # microvm = {
+      #   enable = true;
+
+      #   upstreamNetworkInterface = "enp34s0";
+
+      #   vms = {
+      #     media = {...}: {
+      #       microvm = {
+      #         shares = [
+      #           {
+      #             source = "/nix/store";
+      #             mountPoint = "/nix/.ro-store";
+      #             tag = "ro-store";
+      #             proto = "virtiofs";
+      #           }
+      #         ];
+      #       };
+
+      #       services = {
+      #         caddy = {
+      #           enable = true;
+
+      #           virtualHosts."http://media".extraConfig = ''
+      #             reverse_proxy http://localhost:8096
+      #           '';
+      #         };
+
+      #         radarr.enable = true;
+      #         sonarr.enable = true;
+      #         prowlarr.enable = true;
+
+      #         jellyfin = {
+      #           enable = true;
+      #         };
+      #       };
+
+      #       users.users.root.password = "toor";
+      #       services.openssh = {
+      #         enable = true;
+      #         settings.PermitRootLogin = "yes";
+      #       };
+
+      #       networking.firewall.allowedTCPPorts = [80];
+      #     };
+      #   };
+      # };
     };
 
     dm.greetd = {
