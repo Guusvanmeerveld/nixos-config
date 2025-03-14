@@ -17,8 +17,14 @@ in {
       userName = "Guus van Meerveld";
       userEmail = "mail@guusvanmeerveld.dev";
 
-      lfs.enable = true;
+      signing = {
+        # Set to null to let GnuPG decide what signing key to use depending on commit's author.
+        key = null;
+        signByDefault = lib.mkDefault config.programs.gpg.enable;
+      };
 
+      lfs.enable = true;
+      maintenance.enable = true;
       difftastic.enable = true;
     };
   };

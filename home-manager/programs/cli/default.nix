@@ -6,6 +6,7 @@
   cfg = config.custom.programs.cli;
 in {
   imports = [
+    ./gpg
     ./zsh.nix
     ./atuin.nix
     ./git.nix
