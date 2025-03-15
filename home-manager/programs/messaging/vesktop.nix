@@ -6,25 +6,29 @@
 }: let
   cfg = config.custom.programs.messaging.vesktop;
 
-  package = cfg.package.overrideAttrs (old: {
-    desktopItems = [
-      (pkgs.makeDesktopItem {
-        name = "vesktop";
-        desktopName = "Vesktop";
-        comment = "Better Discord client with improved Linux support and native Vencord";
-        exec = "vesktop %U";
-        icon = "discord";
-        keywords = [
-          "discord"
-          "vencord"
-          "electron"
-          "chat"
+  package =
+    (
+      cfg.package.overrideAttrs (old: {
+        desktopItems = [
+          (pkgs.makeDesktopItem {
+            name = "vesktop";
+            desktopName = "Vesktop";
+            comment = "Better Discord client with improved Linux support and native Vencord";
+            exec = "vesktop %U";
+            icon = "discord";
+            keywords = [
+              "discord"
+              "vencord"
+              "electron"
+              "chat"
+            ];
+            startupWMClass = "Vesktop";
+            categories = ["Network" "InstantMessaging" "Chat"];
+          })
         ];
-        startupWMClass = "Vesktop";
-        categories = ["Network" "InstantMessaging" "Chat"];
       })
-    ];
-  });
+    )
+    .override {withSystemVencord = true;};
 
   jsonFormat = pkgs.formats.json {};
 in {
