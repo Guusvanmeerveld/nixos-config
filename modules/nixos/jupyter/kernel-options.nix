@@ -1,13 +1,12 @@
 # Options that can be used for creating a jupyter kernel.
-{ lib, pkgs }:
-
-with lib;
-
 {
-  freeformType = (pkgs.formats.json { }).type;
+  lib,
+  pkgs,
+}:
+with lib; {
+  freeformType = (pkgs.formats.json {}).type;
 
   options = {
-
     displayName = mkOption {
       type = types.str;
       default = "";
@@ -44,8 +43,8 @@ with lib;
 
     env = mkOption {
       type = types.attrsOf types.str;
-      default = { };
-      example = { OMP_NUM_THREADS = "1"; };
+      default = {};
+      example = {OMP_NUM_THREADS = "1";};
       description = lib.mdDoc ''
         Environment variables to set for the kernel.
       '';
@@ -70,7 +69,7 @@ with lib;
 
     extraPaths = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       example = literalExpression ''"{ examples = ''${env.sitePack}/IRkernel/kernelspec/kernel.js"; }'';
       description = lib.mdDoc ''
         Extra paths to link in kernel directory
