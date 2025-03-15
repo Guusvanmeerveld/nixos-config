@@ -109,7 +109,7 @@
           "music" = "${dataDir}/Music";
         };
 
-        caddy.url = "http://syncthing.orchid";
+        caddy.url = "http://syncthing.chd";
         openFirewall = true;
       };
 
