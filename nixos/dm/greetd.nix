@@ -150,9 +150,9 @@ in {
     programs.regreet = {
       enable = true;
 
-      cursorTheme = cfg.gtk.cursorTheme;
-      iconTheme = cfg.gtk.iconTheme;
-      theme = cfg.gtk.theme;
+      inherit (cfg.gtk) cursorTheme;
+      inherit (cfg.gtk) iconTheme;
+      inherit (cfg.gtk) theme;
       font = lib.mkMerge [
         cfg.gtk.font
         {

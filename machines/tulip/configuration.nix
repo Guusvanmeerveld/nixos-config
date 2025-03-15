@@ -260,8 +260,8 @@
             host = {
               dir = "/mnt/share/media";
 
-              uid = config.users.users.media.uid;
-              gid = config.users.groups.media.gid;
+              inherit (config.users.users.media) uid;
+              inherit (config.users.groups.media) gid;
 
               dirMode = "0775";
               fileMode = "0664";
@@ -276,8 +276,8 @@
             host = {
               dir = "/mnt/share/apps/nextcloud";
 
-              uid = config.users.users.www-data.uid;
-              gid = config.users.groups.www-data.gid;
+              inherit (config.users.users.www-data) uid;
+              inherit (config.users.groups.www-data) gid;
 
               dirMode = "0770";
               fileMode = "0770";
@@ -292,8 +292,8 @@
             host = {
               dir = "/mnt/share/apps/immich";
 
-              uid = config.users.users.immich.uid;
-              gid = config.users.groups.immich.gid;
+              inherit (config.users.users.immich) uid;
+              inherit (config.users.groups.immich) gid;
             };
 
             remote = {
@@ -318,8 +318,8 @@
             host = {
               dir = "/mnt/share/apps/syncthing";
 
-              uid = config.users.users.syncthing.uid;
-              gid = config.users.groups.syncthing.gid;
+              inherit (config.users.users.syncthing) uid;
+              inherit (config.users.groups.syncthing) gid;
             };
 
             remote = {

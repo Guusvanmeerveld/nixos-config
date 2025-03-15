@@ -7,7 +7,7 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.twitch-miner;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) storage;
 
   runFile = pkgs.writeText "twitch-miner-run" ''
     from TwitchChannelPointsMiner import TwitchChannelPointsMiner

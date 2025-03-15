@@ -21,7 +21,7 @@ in {
     system.autoUpgrade = {
       enable = true;
 
-      flake = cfg.flake;
+      inherit (cfg) flake;
 
       randomizedDelaySec = "30min";
 

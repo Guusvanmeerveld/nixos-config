@@ -31,7 +31,7 @@ in {
       disk = {
         main = {
           type = "disk";
-          device = cfg.device;
+          inherit (cfg) device;
 
           content = {
             type = "gpt";

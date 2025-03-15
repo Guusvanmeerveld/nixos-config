@@ -38,7 +38,7 @@ in {
 
         password = "open('${cfg.passwordFile}', 'r', encoding='utf8').read().strip()";
 
-        port = cfg.port;
+        inherit (cfg) port;
 
         notebookConfig = ''
           c.ServerApp.allow_remote_access = True

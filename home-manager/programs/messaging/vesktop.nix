@@ -8,7 +8,7 @@
 
   package =
     (
-      cfg.package.overrideAttrs (old: {
+      cfg.package.overrideAttrs (_old: {
         desktopItems = [
           (pkgs.makeDesktopItem {
             name = "vesktop";
@@ -51,7 +51,7 @@ in {
       ]
       ++ lib.optional cfg.autostart (pkgs.makeAutostartItem {
         name = "vesktop";
-        package = package;
+        inherit package;
       });
 
     xdg.configFile."vesktop/settings.json".source = jsonFormat.generate "vesktop-settings" {

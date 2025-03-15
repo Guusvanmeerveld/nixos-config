@@ -32,8 +32,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.pointerCursor = {
-      name = cfg.cursor.name;
-      package = cfg.cursor.package;
+      inherit (cfg.cursor) name;
+      inherit (cfg.cursor) package;
 
       size = 24;
 

@@ -45,7 +45,7 @@ in {
         }
 
         (lib.mapAttrs (
-            share: path: {
+            _share: path: {
               inherit path;
 
               browseable = "yes";

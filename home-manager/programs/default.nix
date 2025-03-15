@@ -45,7 +45,7 @@ in {
       defaultApplications = lib.mkOption {
         default = {};
 
-        type = lib.types.attrsOf (lib.types.submodule ({...}: {
+        type = lib.types.attrsOf (lib.types.submodule (_: {
           freeformType = settingsFormat.type;
 
           options = {

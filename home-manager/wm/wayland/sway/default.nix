@@ -255,7 +255,7 @@ in {
     wayland.windowManager.sway = {
       enable = true;
 
-      package = package;
+      inherit package;
 
       systemd.xdgAutostart = true;
 
@@ -282,7 +282,7 @@ in {
 
         workspaceOutputAssign = lib.flatten (map (assignment: (map (workspace: {
             workspace = toString workspace;
-            output = assignment.output;
+            inherit (assignment) output;
           })
           assignment.workspaces))
         cfg.workspaceOutputAssign);
@@ -297,8 +297,8 @@ in {
           };
 
         modifier = cfg.modifierKey;
-        terminal = cfg.terminal;
-        menu = cfg.menu;
+        inherit (cfg) terminal;
+        inherit (cfg) menu;
 
         window = {
           border = 0;

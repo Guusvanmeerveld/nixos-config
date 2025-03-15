@@ -72,7 +72,7 @@ in {
 
             # Configure static leases so the ips of the VM's don't change.
             dhcpServerStaticLeases =
-              lib.imap0 (i: vm: {
+              lib.imap0 (_i: vm: {
                 dhcpServerStaticLeaseConfig = {
                   MACAddress = vmMacAddrs.${vm};
                   Address = vmIPv4Addrs.${vm};

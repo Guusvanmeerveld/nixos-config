@@ -18,14 +18,16 @@
     };
   };
 
-  networking.hostName = "rose";
+  networking = {
+    hostName = "rose";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    # Enable networking using networkmanager
+    networkmanager.enable = true;
 
-  networking.firewall = {
-    allowedTCPPorts = [25 143 465 587 993];
-    allowedUDPPorts = [51820];
+    firewall = {
+      allowedTCPPorts = [25 143 465 587 993];
+      allowedUDPPorts = [51820];
+    };
   };
 
   custom = {

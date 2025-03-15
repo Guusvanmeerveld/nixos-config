@@ -62,11 +62,11 @@ in {
 
       extraSpecialArgs = {inherit inputs outputs shared;};
 
-      users = lib.mapAttrs (username: config: {imports = [config.homeManager.config];}) usersWithHomeManager;
+      users = lib.mapAttrs (_username: config: {imports = [config.homeManager.config];}) usersWithHomeManager;
     };
 
     users.users =
-      lib.mapAttrs (username: config: {
+      lib.mapAttrs (_username: config: {
         isNormalUser = true;
         extraGroups = ["networkmanager" "video" "audio" "storage" "disk"] ++ (lib.optional config.isSuperUser "wheel") ++ config.groups ++ globalGroups;
 

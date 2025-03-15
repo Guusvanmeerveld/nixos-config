@@ -7,8 +7,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.gitea;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 
   createGiteaDir = dir: lib.concatStringsSep "/" [storage.storageDir "gitea" dir];
 in {

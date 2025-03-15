@@ -6,7 +6,7 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.dashdot;
-  networking = dockerConfig.networking;
+  inherit (dockerConfig) networking;
 in {
   options = {
     custom.virtualisation.docker.dashdot = {

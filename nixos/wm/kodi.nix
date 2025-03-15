@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -29,7 +28,7 @@ in {
       extraGroups = ["video" "input" "audio" "disk" "network" "optical" "power" "storage" "tty"];
     };
 
-    home-manager.users.kodi = {pkgs, ...}: {
+    home-manager.users.kodi = _: {
       # The state version is required and should stay at the version you
       # originally installed.
       home.stateVersion = "24.05";

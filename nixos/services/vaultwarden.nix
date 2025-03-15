@@ -50,7 +50,7 @@ in {
         };
 
         backupDir = "/var/backup/vaultwarden";
-        environmentFile = cfg.environmentFile;
+        inherit (cfg) environmentFile;
       };
 
       nginx = lib.mkIf config.services.nginx.enable {

@@ -7,8 +7,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.nextcloud;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 
   createNextcloudDir = dir: lib.concatStringsSep "/" [storage.storageDir "nextcloud" dir];
 in {

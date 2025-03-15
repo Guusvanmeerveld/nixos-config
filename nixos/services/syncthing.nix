@@ -146,10 +146,10 @@ in {
       syncthing = lib.mkIf cfg.enable {
         enable = true;
 
-        user = cfg.user;
-        group = cfg.group;
+        inherit (cfg) user;
+        inherit (cfg) group;
 
-        dataDir = cfg.dataDir;
+        inherit (cfg) dataDir;
 
         key = cfg.keyFile;
         cert = cfg.certFile;

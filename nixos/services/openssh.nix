@@ -21,7 +21,7 @@ in {
     services.openssh = {
       enable = true;
 
-      openFirewall = cfg.openFirewall;
+      inherit (cfg) openFirewall;
 
       settings = {
         PermitRootLogin = lib.mkDefault "no";

@@ -6,8 +6,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.immich;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 
   createImmichDir = dir: lib.concatStringsSep "/" [storage.storageDir "immich" dir];
 in {

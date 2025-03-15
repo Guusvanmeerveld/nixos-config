@@ -378,7 +378,7 @@ in {
           };
 
           "custom/swaync" = lib.mkIf cfg.features.swaync (let
-            package = config.services.swaync.package;
+            inherit (config.services.swaync) package;
             swaync-client = "${package}/bin/swaync-client";
           in {
             format = "{icon}";

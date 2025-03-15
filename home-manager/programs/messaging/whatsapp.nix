@@ -27,7 +27,7 @@ in {
       ]
       ++ lib.optional cfg.autostart (pkgs.makeAutostartItem {
         name = "com.ktechpit.whatsie";
-        package = cfg.package;
+        inherit (cfg) package;
       });
   };
 }

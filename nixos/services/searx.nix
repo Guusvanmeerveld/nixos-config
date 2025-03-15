@@ -43,7 +43,7 @@ in {
           use_default_settings = true;
 
           server = {
-            port = cfg.port;
+            inherit (cfg) port;
             bind_address = "0.0.0.0";
             secret_key = "@SEARX_SECRET_KEY@";
           };

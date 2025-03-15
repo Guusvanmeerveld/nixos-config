@@ -38,7 +38,7 @@ in {
           BASE_URL = "https://${cfg.domain}";
         };
 
-        adminCredentialsFile = cfg.adminCredentialsFile;
+        inherit (cfg) adminCredentialsFile;
       };
 
       nginx = lib.mkIf config.services.nginx.enable {

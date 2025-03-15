@@ -1,14 +1,13 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.searxng;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 in {
   options = {
     custom.virtualisation.docker.searxng = {

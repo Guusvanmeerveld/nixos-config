@@ -1,5 +1,4 @@
-{pkgs, ...}: let
-in {
+{pkgs, ...}: {
   config = {
     programs.git.enable = true;
 

@@ -7,8 +7,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.servarr;
-  storage = dockerConfig.storage;
-  networking = dockerConfig.networking;
+  inherit (dockerConfig) storage;
+  inherit (dockerConfig) networking;
 
   createServarrDir = dir: lib.concatStringsSep "/" ([storage.storageDir "servarr"] ++ dir);
 

@@ -7,7 +7,7 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.qbittorrent;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) storage;
 
   createqBittorrentDir = dir: lib.concatStringsSep "/" [storage.storageDir "qbittorrent" dir];
 in {

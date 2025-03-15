@@ -26,9 +26,9 @@ in {
       invidious = {
         enable = true;
 
-        port = cfg.port;
+        inherit (cfg) port;
 
-        domain = cfg.domain;
+        inherit (cfg) domain;
 
         nginx.enable = true;
 

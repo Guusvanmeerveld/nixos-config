@@ -7,8 +7,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.homeassistant;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 in {
   options = {
     custom.virtualisation.docker.homeassistant = {

@@ -59,8 +59,8 @@ in {
     gtk = {
       enable = true;
 
-      iconTheme = cfg.iconTheme;
-      theme = cfg.theme;
+      inherit (cfg) iconTheme;
+      inherit (cfg) theme;
 
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;

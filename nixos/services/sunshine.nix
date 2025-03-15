@@ -16,7 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.sunshine = {
       enable = true;
-      openFirewall = cfg.openFirewall;
+      inherit (cfg) openFirewall;
       capSysAdmin = true;
     };
   };

@@ -7,8 +7,8 @@
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.caddy;
-  networking = dockerConfig.networking;
-  storage = dockerConfig.storage;
+  inherit (dockerConfig) networking;
+  inherit (dockerConfig) storage;
 
   createCaddyDir = dir: lib.concatStringsSep "/" [storage.storageDir "caddy" dir];
 in {

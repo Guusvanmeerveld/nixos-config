@@ -1,4 +1,4 @@
-{...}: let
+_: let
   primary-display = "DP-2";
 in {
   imports = [

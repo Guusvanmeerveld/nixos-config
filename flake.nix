@@ -125,6 +125,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
   };
 
   nixConfig = {
@@ -141,7 +143,7 @@
     nixpkgs,
     nix-github-actions,
     nix-on-droid,
-    nixos-generators,
+    pre-commit-hooks,
     ...
   } @ inputs: let
     systems = [
@@ -155,25 +157,56 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
     inherit (self) outputs;
+    inherit (nixpkgs) lib;
 
     shared = import ./shared;
 
     specialArgs = {inherit inputs outputs shared;};
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
-      checks = nixpkgs.lib.getAttrs ["x86_64-linux"] self.packages;
+      checks = lib.getAttrs ["x86_64-linux"] self.packages;
     };
+
+    checks = forAllSystems (system: {
+      pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          # Formatter for Nix code.
+          alejandra.enable = true;
+
+          # Check for Nix code that is unused.
+          deadnix.enable = true;
+
+          # Linter fox Nix code.
+          statix = {
+            enable = true;
+            settings.ignore = ["hardware-configuration.nix"];
+          };
+        };
+      };
+    });
+
+    devShells = forAllSystems (system: {
+      default = nixpkgs.legacyPackages.${system}.mkShell {
+        # Create pre commit hooks upon entering the development shell
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+
+        # Adds all the packages related to the pre commit hooks.
+        buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+      };
+    });
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (
-      with nixpkgs.lib; (
+      with lib; (
         system:
           (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
           // {
+            inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
+
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
             mconnect = inputs.mconnect-nix.packages."${system}".default;
-            sf-pro-nerd = inputs.apple-fonts.packages."${system}".sf-pro-nerd;
           }
       )
     );

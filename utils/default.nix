@@ -1,4 +1,4 @@
-{...}: rec {
+_: rec {
   hexToDecimal = hex: (builtins.fromTOML "a = 0x${hex}").a;
 
   makeTransparent = hex: transparancy: let

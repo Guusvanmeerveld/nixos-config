@@ -57,7 +57,7 @@ in {
 
       cycle = true;
 
-      terminal = cfg.terminal;
+      inherit (cfg) terminal;
 
       extraConfig = {
         modi = "drun,ssh,run,window,filebrowser";

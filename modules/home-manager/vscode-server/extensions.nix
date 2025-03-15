@@ -27,17 +27,15 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.file = {
-      "${extensionPath}".source = (
-        let
-          subDir = "share/vscode/extensions";
-          combinedExtensionsDrv = pkgs.buildEnv {
-            name = "vscode-extensions";
-            paths =
-              extensions
-              ++ lib.singleton extensionJsonFile;
-          };
-        in "${combinedExtensionsDrv}/${subDir}"
-      );
+      "${extensionPath}".source = let
+        subDir = "share/vscode/extensions";
+        combinedExtensionsDrv = pkgs.buildEnv {
+          name = "vscode-extensions";
+          paths =
+            extensions
+            ++ lib.singleton extensionJsonFile;
+        };
+      in "${combinedExtensionsDrv}/${subDir}";
     };
   };
 }

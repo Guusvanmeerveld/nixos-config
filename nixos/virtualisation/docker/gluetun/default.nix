@@ -1,13 +1,12 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   dockerConfig = config.custom.virtualisation.docker;
 
   cfg = dockerConfig.gluetun;
-  networking = dockerConfig.networking;
+  inherit (dockerConfig) networking;
 in {
   options = {
     custom.virtualisation.docker.gluetun = {

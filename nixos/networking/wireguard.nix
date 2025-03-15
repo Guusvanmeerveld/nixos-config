@@ -108,45 +108,47 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall = {
-      allowedUDPPorts = lib.optional cfg.openFirewall cfg.port;
-    };
+    networking = {
+      firewall = {
+        allowedUDPPorts = lib.optional cfg.openFirewall cfg.port;
 
-    # This allows wireguard clients on NixOS to have outgoing traffic. See: https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_NetworkManager
-    networking.firewall.checkReversePath = "loose";
+        # This allows wireguard clients on NixOS to have outgoing traffic. See: https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_NetworkManager
+        checkReversePath = "loose";
+      };
+
+      # Add all Wireguard peers to hosts file.
+      hosts = with lib;
+        mkMerge (mapAttrsToList (
+            networkName: network: let
+              networkConfig = networks.${networkName};
+
+              peers =
+                [
+                  {
+                    name = networkConfig.server.hostname;
+                    ip = networkConfig.server.address;
+                  }
+                ]
+                ++ (mapAttrsToList (clientHostName: client: {
+                    name = clientHostName;
+                    ip = client.address;
+                  })
+                  networkConfig.clients);
+            in
+              lib.optionals network.enable (listToAttrs (map (peer: {
+                  name = peer.ip;
+                  value = [peer.name];
+                })
+                peers))
+          )
+          cfg.networks);
+    };
 
     environment.systemPackages = with pkgs; [wireguard-tools];
 
     services.resolved.extraConfig = ''
       DNSStubListener=no
     '';
-
-    # Add all Wireguard peers to hosts file.
-    networking.hosts = with lib;
-      mkMerge (mapAttrsToList (
-          networkName: network: let
-            networkConfig = networks.${networkName};
-
-            peers =
-              [
-                {
-                  name = networkConfig.server.hostname;
-                  ip = networkConfig.server.address;
-                }
-              ]
-              ++ (mapAttrsToList (clientHostName: client: {
-                  name = clientHostName;
-                  ip = client.address;
-                })
-                networkConfig.clients);
-          in
-            lib.optionals network.enable (listToAttrs (map (peer: {
-                name = peer.ip;
-                value = [peer.name];
-              })
-              peers))
-        )
-        cfg.networks);
 
     # Map all TLD's of the peers in dnsmasq.
     services.dnsmasq.settings.address = with lib;
@@ -156,7 +158,7 @@ in {
 
             peers =
               [networkConfig.server]
-              ++ (mapAttrsToList (clientHostName: client: client) networkConfig.clients);
+              ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
           in
             lib.optionals network.enable (map (
                 peer: "/${peer.tld}/${peer.address}"
@@ -179,7 +181,7 @@ in {
 
           peers =
             if isServer
-            then mapAttrsToList (clientHostName: client: client) networkConfig.clients
+            then mapAttrsToList (_clientHostName: client: client) networkConfig.clients
             else singleton networkConfig.server;
         in
           nameValuePair "10-${networkName}" (

@@ -37,23 +37,23 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    nix.buildMachines =
-      map (machine: {
-        hostName = machine.hostName;
-        system = machine.system;
-        protocol = "ssh";
-        maxJobs = 3;
-        speedFactor = 4;
-        supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-        mandatoryFeatures = [];
-      })
-      cfg.machines;
+    nix = {
+      buildMachines =
+        map (machine: {
+          inherit (machine) hostName;
+          inherit (machine) system;
+          protocol = "ssh";
+          maxJobs = 3;
+          speedFactor = 4;
+          supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+          mandatoryFeatures = [];
+        })
+        cfg.machines;
 
-    nix.distributedBuilds = true;
+      distributedBuilds = true;
 
-    # optional, useful when the builder has a faster internet connection than yours
-    nix.settings = {
-      builders-use-substitutes = true;
+      # optional, useful when the builder has a faster internet connection than yours
+      settings.builders-use-substitutes = true;
     };
   };
 }
