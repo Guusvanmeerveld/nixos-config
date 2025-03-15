@@ -14,7 +14,7 @@ fi
 OPERATION="$1"
 BACKUP_LOCATION="$2"
 
-DIRS_TO_BACKUP=("$HOME/.ssh" "/secrets")
+DIRS_TO_BACKUP=("$HOME/.ssh" "$HOME/.gnupg" "/secrets")
 
 # Get the current date and time
 CURRENT_DATE=$(date +"%Y%m%d_%H%M%S")
