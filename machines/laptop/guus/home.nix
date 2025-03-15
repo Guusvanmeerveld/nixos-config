@@ -57,6 +57,7 @@
 
       cli = {
         default.enable = true;
+        gpg.enable = true;
 
         atuin = {
           enable = true;

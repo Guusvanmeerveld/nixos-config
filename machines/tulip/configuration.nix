@@ -4,8 +4,6 @@
 {
   config,
   pkgs,
-  lib,
-  shared,
   ...
 }: {
   imports = [
@@ -66,24 +64,12 @@
       ];
     };
 
-    networking.wireguard = let
-      gardenConfig = shared.wireguard.networks.garden;
-      tulipConfig = gardenConfig.clients.tulip;
-    in {
+    networking.wireguard = {
       enable = true;
-      openFirewall = true;
 
-      interfaces = {
+      networks = {
         "garden" = {
-          addresses = ["${tulipConfig.address}/24"];
-          privateKeyFile = "/secrets/wireguard/garden/private";
-
-          peers = lib.singleton {
-            publicKey = gardenConfig.server.publicKey;
-            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
-            allowedIps = ["10.10.10.0/24"];
-            keepAlive = 25;
-          };
+          enable = true;
         };
       };
     };

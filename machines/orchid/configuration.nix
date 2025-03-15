@@ -4,7 +4,6 @@
 {
   inputs,
   lib,
-  shared,
   ...
 }: {
   imports = [
@@ -78,29 +77,13 @@
       };
     };
 
-    networking.wireguard = let
-      gardenConfig = shared.wireguard.networks.garden;
-      orchidConfig = gardenConfig.clients.orchid;
-    in {
+    networking.wireguard = {
       enable = true;
-      openFirewall = true;
 
-      interfaces = {
+      networks = {
         "garden" = {
-          addresses = ["${orchidConfig.address}/24"];
-          privateKeyFile = "/secrets/wireguard/garden/private";
-
-          clientConfig = {
-            enable = true;
-            server = gardenConfig.server.address;
-          };
-
-          peers = lib.singleton {
-            publicKey = gardenConfig.server.publicKey;
-            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
-            allowedIps = ["10.10.10.0/24"];
-            keepAlive = 25;
-          };
+          enable = true;
+          keepAlive = true;
         };
       };
     };

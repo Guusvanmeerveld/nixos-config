@@ -1,8 +1,4 @@
-{
-  lib,
-  shared,
-  ...
-}: {
+{...}: {
   imports = [
     ../../nixos
 
@@ -52,6 +48,7 @@
 
       openrgb.enable = true;
       plymouth.enable = true;
+      bluetooth.enable = true;
 
       sound.pipewire.enable = true;
 
@@ -63,28 +60,12 @@
       hyperx.cloud-flight-s.enable = true;
     };
 
-    networking.wireguard = let
-      gardenConfig = shared.wireguard.networks.garden;
-      thuisthuisConfig = gardenConfig.clients.thuisthuis;
-    in {
+    networking.wireguard = {
       enable = true;
-      openFirewall = true;
 
-      interfaces = {
+      networks = {
         "garden" = {
-          addresses = ["${thuisthuisConfig.address}/24"];
-          privateKeyFile = "/secrets/wireguard/garden/private";
-
-          clientConfig = {
-            enable = true;
-            server = gardenConfig.server.address;
-          };
-
-          peers = lib.singleton {
-            publicKey = gardenConfig.server.publicKey;
-            endpoint = "${gardenConfig.server.endpoint}:${toString gardenConfig.server.port}";
-            allowedIps = ["10.10.10.0/24"];
-          };
+          enable = true;
         };
       };
     };

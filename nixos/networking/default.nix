@@ -1,5 +1,5 @@
 {
-  imports = [./wireguard];
+  imports = [./wireguard.nix];
 
   config = {
     networking.firewall = {
