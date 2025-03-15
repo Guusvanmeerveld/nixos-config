@@ -8,7 +8,7 @@
   options = {
     custom.nixConfigLocation = lib.mkOption {
       type = lib.types.str;
-      default = "${config.home.homeDirectory}/nix/config";
+      default = "${config.home.homeDirectory}/Code/nixos-config";
     };
   };
 
