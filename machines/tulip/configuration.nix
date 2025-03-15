@@ -70,6 +70,7 @@
       networks = {
         "garden" = {
           enable = true;
+          keepAlive = true;
         };
       };
     };
@@ -80,13 +81,6 @@
       watchtower.enable = true;
       uptime-kuma.enable = true;
       homeassistant.enable = true;
-
-      syncthing = {
-        enable = true;
-        openFirewall = true;
-
-        syncDir = "/mnt/share/apps/syncthing/sync";
-      };
 
       jellyfin = {
         enable = true;
@@ -175,11 +169,7 @@
             reverse_proxy jellyfin:8096
           }
 
-          http://syncthing.tlp {
-            ${blockExternalVisitors}
 
-            reverse_proxy syncthing:8384
-          }
 
           http://uptime.tlp {
             ${blockExternalVisitors}
@@ -299,32 +289,6 @@
             remote = {
               host = "192.168.2.195";
               dir = "immich";
-            };
-          }
-          # {
-          #   host = {
-          #     dir = "/mnt/share/apps/gitea";
-
-          #     uid = config.users.users.gitea.uid;
-          #     gid = config.users.groups.gitea.gid;
-          #   };
-
-          #   remote = {
-          #     host = "192.168.2.195";
-          #     dir = "gitea";
-          #   };
-          # }
-          {
-            host = {
-              dir = "/mnt/share/apps/syncthing";
-
-              inherit (config.users.users.syncthing) uid;
-              inherit (config.users.groups.syncthing) gid;
-            };
-
-            remote = {
-              host = "192.168.2.195";
-              dir = "syncthing";
             };
           }
         ];
