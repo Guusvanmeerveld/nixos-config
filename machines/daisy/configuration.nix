@@ -59,7 +59,7 @@
       searxng = {
         enable = true;
 
-        externalDomain = "https://search.guusvanmeerveld.dev";
+        externalDomain = "http://search.dsy";
       };
 
       twitch-miner = {
@@ -71,7 +71,7 @@
       feg = {
         enable = true;
 
-        externalDomain = "https://feg.guusvanmeerveld.dev";
+        externalDomain = "http://feg.dsy";
 
         epicGamesEmail = "mail@guusvanmeerveld.dev";
 
@@ -88,11 +88,11 @@
                  	admin off
                  }
 
-          feg.guusvanmeerveld.dev {
+          http://feg.dsy {
           	reverse_proxy free-epic-games:3000
           }
 
-                 search.guusvanmeerveld.dev {
+                 http://search.dsy {
                  	@api {
                  		path /config
                  		path /healthz
