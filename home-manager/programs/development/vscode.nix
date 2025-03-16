@@ -164,6 +164,8 @@ in {
 
         "tabby.endpoint" = "http://localhost:11029";
         "tabby.config.telemetry" = true;
+
+        "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
       };
 
       extensions =
