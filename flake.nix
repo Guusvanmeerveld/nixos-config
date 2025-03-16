@@ -17,7 +17,10 @@
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
 
     # Nix user repository
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -126,7 +129,10 @@
       inputs.home-manager.follows = "home-manager";
     };
 
-    pre-commit-hooks.url = "github:cachix/git-hooks.nix";
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -182,6 +188,9 @@
             enable = true;
             settings.ignore = ["hardware-configuration.nix"];
           };
+
+          # Check if in-use version of nixpkgs is still maintained.
+          flake-checker.enable = true;
         };
       };
     });
