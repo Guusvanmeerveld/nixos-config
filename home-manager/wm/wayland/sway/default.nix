@@ -248,6 +248,8 @@ in {
       path = "${package}/bin/sway";
     };
 
+    home.packages = with pkgs; [wdisplays];
+
     services.playerctld = {
       enable = lib.mkDefault cfg.keybinds.media;
     };
