@@ -114,6 +114,10 @@ in {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
 
+        "[jsonc]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
+
         "[nix]" = {
           "editor.defaultFormatter" = "jnoortheen.nix-ide";
         };
@@ -171,6 +175,8 @@ in {
       extensions =
         (with compatibleExtensions.vscode-marketplace; [
           eww-yuck.yuck
+
+          allenli1231.zeppelin-vscode
         ])
         ++ (with compatibleExtensions.open-vsx; [
           # NixOS
@@ -198,6 +204,9 @@ in {
           tabbyml.vscode-tabby
           mkhl.direnv
           eamodio.gitlens
+
+          # Syntax
+          scala-lang.scala
 
           # LSPs
           sqlfluff.vscode-sqlfluff
