@@ -72,6 +72,12 @@
           address = "10.10.10.10";
           tld = "chd";
         };
+
+        dd = {
+          publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg=";
+          address = "10.10.10.11";
+          tld = "daniel";
+        };
       };
     };
   };
