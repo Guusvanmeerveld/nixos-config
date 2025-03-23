@@ -36,6 +36,7 @@ in {
     ./parsec.nix
     ./freetube.nix
     ./eduvpn.nix
+    ./missioncenter.nix
   ];
 
   options = {
@@ -80,6 +81,7 @@ in {
       file-roller.enable = true;
       gnome-calculator.enable = true;
       freetube.enable = true;
+      missioncenter.enable = true;
     };
   };
 }
