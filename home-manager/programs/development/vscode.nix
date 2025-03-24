@@ -170,6 +170,8 @@ in {
         "tabby.config.telemetry" = true;
 
         "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
+
+        "direnv.restart.automatic" = true;
       };
 
       extensions =
