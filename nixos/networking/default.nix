@@ -1,5 +1,8 @@
 {
-  imports = [./wireguard.nix];
+  imports = [
+    ./wireguard.nix
+    ./mullvad.nix
+  ];
 
   config = {
     networking.firewall = {
