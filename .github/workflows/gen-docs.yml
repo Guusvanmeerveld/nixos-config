@@ -23,7 +23,10 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install nix-options-doc
+      - name: Setup Cargo cache
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install nix-options-doc using Cargo
         uses: actions-rs/cargo@v1
         with:
           command: install
