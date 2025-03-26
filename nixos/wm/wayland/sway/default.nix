@@ -38,6 +38,10 @@ in {
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      SDL_VIDEODRIVER = "wayland";
+      QT_QPA_PLATFORM = "wayland";
+      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+      WLR_DRM_NO_MODIFIERS = "1";
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
 
