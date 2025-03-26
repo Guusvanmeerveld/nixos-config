@@ -7,6 +7,7 @@ on:
       - "home-manager/**"
       - "docs/**"
       - "mkdocs.yml"
+      - ".github/workflows/gen-docs.yml"
 
 jobs:
   build:
@@ -53,7 +54,7 @@ jobs:
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out/
+          path: site/
 
   publish:
     needs: build
