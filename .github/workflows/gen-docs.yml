@@ -5,6 +5,8 @@ on:
     paths:
       - "nixos/**"
       - "home-manager/**"
+      - "docs/**"
+      - "mkdocs.yml"
 
 jobs:
   build:
