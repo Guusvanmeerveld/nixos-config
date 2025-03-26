@@ -2,6 +2,19 @@ name: Check if config is valid
 
 on:
   push:
+    paths:
+      - "home-manager/**"
+      - "machines/**"
+      - "modules/**"
+      - "nixos/**"
+      - "overlays/**"
+      - "pkgs/**"
+      - "scripts/**"
+      - "shared/**"
+      - "utils/**"
+      - "flake.nix"
+      - "flake.lock"
+      - ".github/workflows/test.yml"
 
 jobs:
   nix-build:
