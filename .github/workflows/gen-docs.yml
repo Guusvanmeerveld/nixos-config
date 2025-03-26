@@ -1,0 +1,74 @@
+name: Publish docs via GitHub Pages
+
+on:
+  push:
+    paths:
+      - "nixos/**"
+      - "home-manager/**"
+
+jobs:
+  build:
+    name: Build docs
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Install nix-options-doc
+        uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: --git https://github.com/Thunderbottom/nix-options-doc
+
+      - name: Build Markdown documentation for NixOS and Home-Manager modules
+        run: |
+          mkdir ./docs/gen
+          nix-options-doc --path ./home-manager --out docs/gen/home-manager.md --strip-prefix --out-prefix https://github.com/Guusvanmeerveld/nixos-config/tree/main/home-manager
+          nix-options-doc --path ./nixos --out docs/gen/nixos.md --strip-prefix --out-prefix https://github.com/Guusvanmeerveld/nixos-config/tree/main/nixos
+
+      - name: Setup cache for MkDocs
+        uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+
+          restore-keys: |
+            mkdocs-material-
+
+      - name: Install MkDocs
+        run: pip install mkdocs-material
+
+      - name: Build docs
+        run: mkdocs build
+
+      - name: Upload GitHub Pages artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/
+
+  publish:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

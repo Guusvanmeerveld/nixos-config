@@ -1,0 +1,14 @@
+site_name: NixOS-Config
+site_description: "Module-level documentation for Guus van Meerveld's NixOS configuration"
+site_author: "Guus van Meerveld"
+docs_dir: docs/
+repo_name: "guusvanmeerveld/nixos-config"
+repo_url: "https://github.com/guusvanmeerveld/nixos-config"
+
+nav:
+  - Home: index.md
+  - NixOS: gen/nixos.md
+  - Home-manager: gen/home-manager.md
+
+theme:
+  name: "material"
