@@ -45,6 +45,16 @@ in {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
 
-    security.pam.services.swaylock = {};
+    # Enabling realtime may improve latency and reduce stuttering, specially in high load scenarios.
+    # Enabling this option allows any program run by the "users" group to request real-time priority.
+    # See: https://nixos.wiki/wiki/Sway#Inferior_performance_compared_to_other_distributions
+    security.pam.loginLimits = [
+      {
+        domain = "@users";
+        item = "rtprio";
+        type = "-";
+        value = 1;
+      }
+    ];
   };
 }
