@@ -32,6 +32,10 @@ in {
       TERMINAL = execPath;
     };
 
+    programs.zsh.shellAliases = {
+      ssh = "kitten ssh";
+    };
+
     programs.kitty = {
       inherit package;
 
