@@ -183,6 +183,8 @@
           # Check for Nix code that is unused.
           deadnix.enable = true;
 
+          nil.enable = true;
+
           # Linter fox Nix code.
           statix = {
             enable = true;
