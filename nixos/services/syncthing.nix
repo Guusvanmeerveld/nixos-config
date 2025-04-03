@@ -48,6 +48,11 @@
       devices = ["orchid" "thuisthuis" "desktop" "laptop"];
     };
 
+    "games" = {
+      label = "Games";
+      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+    };
+
     "music" = {
       label = "Music";
       devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone"];

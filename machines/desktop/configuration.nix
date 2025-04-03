@@ -78,6 +78,7 @@
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
+          "games" = "~/Games/Backups";
         };
 
         caddy.url = "http://syncthing.desktop";

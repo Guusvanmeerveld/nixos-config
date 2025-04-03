@@ -42,7 +42,6 @@
       video = {
         amd = {
           enable = true;
-          polaris.enable = true;
         };
       };
 
@@ -56,16 +55,18 @@
         corsair.enable = true;
         logitech.enable = true;
       };
-
-      hyperx.cloud-flight-s.enable = true;
     };
 
-    networking.wireguard = {
-      enable = true;
+    networking = {
+      mullvad.enable = true;
 
-      networks = {
-        "garden" = {
-          enable = true;
+      wireguard = {
+        enable = true;
+
+        networks = {
+          "garden" = {
+            enable = true;
+          };
         };
       };
     };
@@ -89,11 +90,14 @@
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
+          "games" = "~/Games/Backups";
         };
 
         caddy.url = "http://syncthing.thsths";
         openFirewall = true;
       };
+
+      # qbittorrent.enable = true;
     };
 
     virtualisation = {

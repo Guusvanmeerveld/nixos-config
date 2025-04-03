@@ -107,6 +107,7 @@
           "code" = "${dataDir}/Code";
           "minecraft" = "${dataDir}/Minecraft";
           "music" = "${dataDir}/Music";
+          "games" = "${dataDir}/Games";
         };
 
         caddy.url = "http://syncthing.chd";
