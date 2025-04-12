@@ -39,11 +39,7 @@
     security.keyring.enable = true;
 
     hardware = {
-      video = {
-        amd = {
-          enable = true;
-        };
-      };
+      video.amd.enable = true;
 
       openrgb.enable = true;
       plymouth.enable = true;
@@ -74,6 +70,7 @@
     programs = {
       zsh.enable = true;
       steam.enable = true;
+      teamviewer.enable = true;
     };
 
     services = {
@@ -90,7 +87,8 @@
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
-          "games" = "~/Games/Backups";
+          "games" = "~/Backups/Games";
+          "seedvault-backup" = "~/Backups/Phone";
         };
 
         caddy.url = "http://syncthing.thsths";

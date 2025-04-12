@@ -57,6 +57,11 @@
       label = "Music";
       devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone"];
     };
+
+    "seedvault-backup" = {
+      label = "Phone Backup";
+      devices = ["orchid" "thuisthuis" "desktop" "phone"];
+    };
   };
 in {
   options = {

@@ -108,6 +108,7 @@
           "minecraft" = "${dataDir}/Minecraft";
           "music" = "${dataDir}/Music";
           "games" = "${dataDir}/Games";
+          "seedvault-backup" = "${dataDir}/Backups/Phone";
         };
 
         caddy.url = "http://syncthing.chd";
