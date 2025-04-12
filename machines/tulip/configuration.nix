@@ -64,6 +64,10 @@
       ];
     };
 
+    hardware = {
+      power.thermald.enable = true;
+    };
+
     networking.wireguard = {
       enable = true;
 

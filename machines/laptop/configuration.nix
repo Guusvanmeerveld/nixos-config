@@ -21,8 +21,6 @@
     lidSwitch = "hibernate";
   };
 
-  services.power-profiles-daemon.enable = true;
-
   custom = {
     users."guus" = {
       isSuperUser = true;
@@ -53,10 +51,8 @@
       plymouth.enable = true;
 
       sound.pipewire.enable = true;
-
-      video = {
-        amd.enable = true;
-      };
+      power.tlp.enable = true;
+      video.amd.enable = true;
     };
 
     programs = {
@@ -79,6 +75,7 @@
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
+          "games" = "~/Games/Backups";
         };
 
         caddy.url = "http://syncthing.laptop";

@@ -47,9 +47,8 @@
       openrgb.enable = true;
       plymouth.enable = true;
 
-      video = {
-        amd.enable = true;
-      };
+      video.amd.enable = true;
+      power.thermald.enable = true;
 
       sound.pipewire.enable = true;
       input.logitech.enable = true;
@@ -61,6 +60,7 @@
       zsh.enable = true;
       adb.enable = true;
       steam.enable = true;
+      teamviewer.enable = true;
     };
 
     services = {
