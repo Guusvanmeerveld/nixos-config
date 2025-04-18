@@ -273,7 +273,7 @@ in {
         title_align center
 
         ${lib.optionalString cfg.useFx ''
-          corner_radius 15
+          corner_radius 7
           blur enable
         ''}
       '';
