@@ -11,18 +11,27 @@
   networking.networkmanager.enable = true;
 
   # Bootloader.
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+  boot = {
+    tmp = {
+      cleanOnBoot = true;
+      useTmpfs = true;
     };
 
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 2;
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 10;
+      };
+
+      timeout = 0;
     };
 
-    timeout = 0;
+    kernelParams = ["atkbd.reset" "usbcore.autosuspend=-1" "amdgpu.gpu_recovery=1"];
   };
 
   custom = {
