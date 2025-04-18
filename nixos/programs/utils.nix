@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   config = {
-    programs.git.enable = true;
-
     environment.systemPackages =
       (with pkgs; [
         bottom
@@ -12,6 +10,7 @@
         doggo
         jq
         home-manager
+        git
       ])
       ++ (with pkgs.custom.scripts; [backup-secrets]);
   };
