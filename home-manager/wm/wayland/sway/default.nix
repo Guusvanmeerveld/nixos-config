@@ -160,10 +160,10 @@ in {
           default = config.custom.wm.wayland.sway.osd.enable;
         };
 
-        gsr = lib.mkOption {
+        wlsr = lib.mkOption {
           type = lib.types.bool;
-          description = "Enable GSR replay saving keybind";
-          default = config.custom.services.gpu-screen-recorder.enable;
+          description = "Enable WLSR replay saving keybind";
+          default = config.services.wl-screenrec.enable;
         };
 
         cliphist = lib.mkOption {
@@ -453,7 +453,7 @@ in {
             # File explorer shortcut
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
-            "${modifier}+p" = lib.mkIf cfg.keybinds.gsr "exec gsr-save-replay";
+            "${modifier}+p" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
 
             "Ctrl+Alt+v" = lib.mkIf cfg.keybinds.cliphist "exec cliphist-menu";
 

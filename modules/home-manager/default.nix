@@ -9,5 +9,6 @@
   spotdl = import ./spotdl.nix;
   nwg-dock = import ./nwg-dock.nix;
   vscode-server = import ./vscode-server;
+  wl-screenrec = import ./wl-screenrec.nix;
   updater = import ./updater;
 }
