@@ -163,7 +163,8 @@ in {
         wlsr = lib.mkOption {
           type = lib.types.bool;
           description = "Enable WLSR replay saving keybind";
-          default = config.services.wl-screenrec.enable;
+          # default = config.services.wl-screenrec.enable;
+          default = false;
         };
 
         cliphist = lib.mkOption {
