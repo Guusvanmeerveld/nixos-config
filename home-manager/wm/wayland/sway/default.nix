@@ -417,6 +417,26 @@ in {
           })
           cfg.startup;
 
+        modes = {
+          present = let
+            wl-present = "${pkgs.wl-mirror}/bin/wl-present";
+          in {
+            # command starts mirroring
+            m = ''mode "default"; exec ${wl-present} mirror'';
+            # these commands modify an already running mirroring window
+            o = ''mode "default"; exec ${wl-present} set-output'';
+            r = ''mode "default"; exec ${wl-present} set-region'';
+            "Shift+r" = ''mode "default"; exec ${wl-present} unset-region'';
+            s = ''mode "default"; exec ${wl-present} set-scaling'';
+            f = ''mode "default"; exec ${wl-present} toggle-freeze'';
+            c = ''mode "default"; exec ${wl-present} custom'';
+
+            # return to default mode
+            Return = ''mode "default"'';
+            Escape = ''mode "default"'';
+          };
+        };
+
         keycodebindings = {
           # XF86AudioPlayPause: xmodmap -pke | grep XF86AudioPlay
           # https://github.com/swaywm/sway/issues/4783
@@ -454,11 +474,14 @@ in {
             # File explorer shortcut
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
-            "${modifier}+p" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
+            "${modifier}+i" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
 
             "Ctrl+Alt+v" = lib.mkIf cfg.keybinds.cliphist "exec cliphist-menu";
 
             "Print" = lib.mkIf cfg.keybinds.screenshot.enable "exec ${cfg.keybinds.screenshot.path}";
+
+            # Allow switching to present mode
+            "${modifier}+p " = ''mode "present"'';
           }
           # Workspace switchers
           // builtins.listToAttrs (map (value: {
