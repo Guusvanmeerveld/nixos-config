@@ -1,3 +1,3 @@
 {
-  imports = [./desmume.nix ./suyu.nix ./ryujinx.nix];
+  imports = [./desmume.nix ./ryujinx.nix];
 }

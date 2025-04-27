@@ -12,7 +12,6 @@
         };
       };
 
-    suyu = inputs.suyu.packages."${final.system}".default;
     hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
     inherit (inputs.apple-fonts.packages."${final.system}") sf-pro;
