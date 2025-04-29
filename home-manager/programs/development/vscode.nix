@@ -46,190 +46,193 @@ in {
         package = pkgs.vscodium;
 
         mutableExtensionsDir = false;
-        enableUpdateCheck = false;
-        enableExtensionUpdateCheck = false;
 
-        userSettings = {
-          "window.zoomLevel" = 1;
+        profiles.default = {
+          enableUpdateCheck = false;
+          enableExtensionUpdateCheck = false;
 
-          # Privacy
-          "telemetry.telemetryLevel" = "off";
-          "security.workspace.trust.enabled" = false;
+          userSettings = {
+            "window.zoomLevel" = 1;
 
-          # Set themes
-          "workbench.colorTheme" = "One Dark Pro";
-          "workbench.iconTheme" = "material-icon-theme";
+            # Privacy
+            "telemetry.telemetryLevel" = "off";
+            "security.workspace.trust.enabled" = false;
 
-          "nixEnvSelector.suggestion" = false;
+            # Set themes
+            "workbench.colorTheme" = "One Dark Pro";
+            "workbench.iconTheme" = "material-icon-theme";
 
-          # Git integration config
-          "git.confirmSync" = false;
-          "git.autofetch" = true;
-          "git.enableSmartCommit" = true;
-          "git.openRepositoryInParentFolders" = "always";
-          "git.autoStash" = true;
+            "nixEnvSelector.suggestion" = false;
 
-          # Editor config
-          "editor.formatOnSave" = true;
-          "editor.fontLigatures" = true;
-          "editor.fontFamily" = "'${config.custom.programs.theming.font.monospace.name}', monospace";
-          "editor.minimap.showSlider" = "always";
-          "editor.inlayHints.enabled" = "offUnlessPressed";
-          "editor.cursorBlinking" = "smooth";
+            # Git integration config
+            "git.confirmSync" = false;
+            "git.autofetch" = true;
+            "git.enableSmartCommit" = true;
+            "git.openRepositoryInParentFolders" = "always";
+            "git.autoStash" = true;
 
-          # Explorer config
-          "explorer.confirmDelete" = false;
-          "explorer.confirmDragAndDrop" = false;
+            # Editor config
+            "editor.formatOnSave" = true;
+            "editor.fontLigatures" = true;
+            "editor.fontFamily" = "'${config.custom.programs.theming.font.monospace.name}', monospace";
+            "editor.minimap.showSlider" = "always";
+            "editor.inlayHints.enabled" = "offUnlessPressed";
+            "editor.cursorBlinking" = "smooth";
 
-          "update.showReleaseNotes" = false;
-          "workbench.startupEditor" = "none";
+            # Explorer config
+            "explorer.confirmDelete" = false;
+            "explorer.confirmDragAndDrop" = false;
 
-          # Integrated terminal config
-          "terminal.integrated.cursorBlinking" = true;
-          "terminal.integrated.showExitAlert" = false;
+            "update.showReleaseNotes" = false;
+            "workbench.startupEditor" = "none";
 
-          # Language specific
-          "[typescriptreact]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            # Integrated terminal config
+            "terminal.integrated.cursorBlinking" = true;
+            "terminal.integrated.showExitAlert" = false;
 
-          "[typescript]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            # Language specific
+            "[typescriptreact]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[javascript]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            "[typescript]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[scss]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            "[javascript]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[json]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            "[scss]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[jsonc]" = {
-            "editor.defaultFormatter" = "esbenp.prettier-vscode";
-          };
+            "[json]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[nix]" = {
-            "editor.defaultFormatter" = "jnoortheen.nix-ide";
-          };
+            "[jsonc]" = {
+              "editor.defaultFormatter" = "esbenp.prettier-vscode";
+            };
 
-          "[latex]" = {
-            "editor.defaultFormatter" = "James-Yu.latex-workshop";
-          };
+            "[nix]" = {
+              "editor.defaultFormatter" = "jnoortheen.nix-ide";
+            };
 
-          "nix.enableLanguageServer" = true;
-          "nix.serverPath" = "nixd";
-          "nix.serverSettings" = {
-            nixd = {
-              formatting = {
-                command = ["alejandra"];
+            "[latex]" = {
+              "editor.defaultFormatter" = "James-Yu.latex-workshop";
+            };
+
+            "nix.enableLanguageServer" = true;
+            "nix.serverPath" = "nixd";
+            "nix.serverSettings" = {
+              nixd = {
+                formatting = {
+                  command = ["alejandra"];
+                };
               };
             };
-          };
 
-          "cSpell.enabledFileTypes" = {"*" = true;};
-          "cSpell.customDictionaries" = {
-            "custom" = {
-              "name" = "custom";
-              "path" = "~/.config/vscode-words-dictionary.txt";
-              "scope" = "user";
-              "addWords" = true;
+            "cSpell.enabledFileTypes" = {"*" = true;};
+            "cSpell.customDictionaries" = {
+              "custom" = {
+                "name" = "custom";
+                "path" = "~/.config/vscode-words-dictionary.txt";
+                "scope" = "user";
+                "addWords" = true;
+              };
             };
+
+            "jupyter.experiments.enabled" = false;
+            "jupyter.themeMatplotlibPlots" = true;
+
+            "latex-workshop.latex.outDir" = "%DIR%/out";
+            "latex-workshop.formatting.latex" = "latexindent";
+
+            "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
+            "clangd.arguments" = [
+              "--background-index"
+              "--clang-tidy"
+              "--completion-style=detailed"
+            ];
+
+            "cmake.configureOnOpen" = false;
+            "cmake.options.statusBarVisibility" = "hidden";
+            "cmake.showOptionsMovedNotification" = false;
+
+            "cmake.pinnedCommands" = [
+              "workbench.action.tasks.configureTaskRunner"
+              "workbench.action.tasks.runTask"
+            ];
+
+            "sqlfluff.dialect" = "duckdb";
+
+            "tabby.endpoint" = "http://localhost:11029";
+            "tabby.config.telemetry" = true;
+
+            "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
+
+            "direnv.restart.automatic" = true;
+
+            "razor.languageServer.directory" = "${pkgs.rzls}/lib/rzls";
+            "dotnet.server.path" = "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll";
           };
 
-          "jupyter.experiments.enabled" = false;
-          "jupyter.themeMatplotlibPlots" = true;
+          extensions =
+            (with compatibleExtensions.vscode-marketplace; [
+              eww-yuck.yuck
 
-          "latex-workshop.latex.outDir" = "%DIR%/out";
-          "latex-workshop.formatting.latex" = "latexindent";
+              allenli1231.zeppelin-vscode
+            ])
+            ++ (with compatibleExtensions.open-vsx; [
+              # Keybindings
+              ms-vscode.atom-keybindings
 
-          "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
-          "clangd.arguments" = [
-            "--background-index"
-            "--clang-tidy"
-            "--completion-style=detailed"
-          ];
+              # Theme
+              zhuangtongfa.material-theme
+              pkief.material-icon-theme
 
-          "cmake.configureOnOpen" = false;
-          "cmake.options.statusBarVisibility" = "hidden";
-          "cmake.showOptionsMovedNotification" = false;
+              jeff-hykin.better-shellscript-syntax
 
-          "cmake.pinnedCommands" = [
-            "workbench.action.tasks.configureTaskRunner"
-            "workbench.action.tasks.runTask"
-          ];
+              # Text writing
+              streetsidesoftware.code-spell-checker
+              carlocardella.vscode-texttoolbox
 
-          "sqlfluff.dialect" = "duckdb";
+              # Tools
+              jeanp413.open-remote-ssh
+              dbaeumer.vscode-eslint
+              timonwong.shellcheck
+              ms-vscode.cmake-tools
+              esbenp.prettier-vscode
+              tabbyml.vscode-tabby
+              mkhl.direnv
+              eamodio.gitlens
+              ms-dotnettools.vscode-dotnet-runtime
 
-          "tabby.endpoint" = "http://localhost:11029";
-          "tabby.config.telemetry" = true;
+              # Syntax
+              scala-lang.scala
 
-          "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
-
-          "direnv.restart.automatic" = true;
-
-          "razor.languageServer.directory" = "${pkgs.rzls}/lib/rzls";
-          "dotnet.server.path" = "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll";
+              # LSPs
+              sqlfluff.vscode-sqlfluff
+              twxs.cmake
+              muhammad-sammy.csharp
+              llvm-vs-code-extensions.vscode-clangd
+              jnoortheen.nix-ide
+              rust-lang.rust-analyzer
+              tamasfe.even-better-toml
+              redhat.java
+              vscjava.vscode-maven
+              vscjava.vscode-java-debug
+              vscjava.vscode-java-dependency
+              vadimcn.vscode-lldb
+              bradlc.vscode-tailwindcss
+              prince781.vala
+              golang.go
+              mads-hartmann.bash-ide-vscode
+              james-yu.latex-workshop
+              prisma.prisma
+            ]);
         };
-
-        extensions =
-          (with compatibleExtensions.vscode-marketplace; [
-            eww-yuck.yuck
-
-            allenli1231.zeppelin-vscode
-          ])
-          ++ (with compatibleExtensions.open-vsx; [
-            # Keybindings
-            ms-vscode.atom-keybindings
-
-            # Theme
-            zhuangtongfa.material-theme
-            pkief.material-icon-theme
-
-            jeff-hykin.better-shellscript-syntax
-
-            # Text writing
-            streetsidesoftware.code-spell-checker
-            carlocardella.vscode-texttoolbox
-
-            # Tools
-            jeanp413.open-remote-ssh
-            dbaeumer.vscode-eslint
-            timonwong.shellcheck
-            ms-vscode.cmake-tools
-            esbenp.prettier-vscode
-            tabbyml.vscode-tabby
-            mkhl.direnv
-            eamodio.gitlens
-            ms-dotnettools.vscode-dotnet-runtime
-
-            # Syntax
-            scala-lang.scala
-
-            # LSPs
-            sqlfluff.vscode-sqlfluff
-            twxs.cmake
-            muhammad-sammy.csharp
-            llvm-vs-code-extensions.vscode-clangd
-            jnoortheen.nix-ide
-            rust-lang.rust-analyzer
-            tamasfe.even-better-toml
-            redhat.java
-            vscjava.vscode-maven
-            vscjava.vscode-java-debug
-            vscjava.vscode-java-dependency
-            vadimcn.vscode-lldb
-            bradlc.vscode-tailwindcss
-            prince781.vala
-            golang.go
-            mads-hartmann.bash-ide-vscode
-            james-yu.latex-workshop
-            prisma.prisma
-          ]);
       };
     };
 
