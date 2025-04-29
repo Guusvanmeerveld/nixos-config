@@ -47,46 +47,42 @@ in {
         default = {
           isDefault = true;
 
-          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-            ublock-origin
-            bitwarden
-            translate-web-pages
-            libredirect
-            clearurls
-            darkreader
-            canvasblocker
-            buster-captcha-solver
+          extensions = {
+            force = true;
 
-            react-devtools
-          ];
+            packages = with pkgs.nur.repos.rycee.firefox-addons; [
+              ublock-origin
+              bitwarden
+              translate-web-pages
+              libredirect
+              clearurls
+              darkreader
+              canvasblocker
+              buster-captcha-solver
+              react-devtools
+            ];
+          };
 
-          bookmarks = [
-            {
-              name = "Wikipedia";
-              tags = ["wiki"];
-              keyword = "wiki";
-              url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&amp;go=Go";
-            }
-            {
-              name = "Git";
-              tags = ["git"];
-              keyword = "git";
-              url = "https://git.guusvanmeerveld.dev/explore/repos?sort=recentupdate&language=&q=%s";
-            }
-            {
-              name = "Github";
-              tags = ["git"];
-              keyword = "github";
-              url = "https://github.com/search?q=%s&type=repositories";
-            }
-            {
-              name = "MaterialTube";
-              tags = ["youtube"];
-              keyword = "yt";
-              url = "https://materialtube.guusvanmeerveld.dev/results?search_query=%s";
-            }
-          ];
+          bookmarks = {
+            force = true;
 
+            settings = [
+              {
+                name = "Wikipedia";
+                tags = ["wiki"];
+                keyword = "wiki";
+                url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&amp;go=Go";
+              }
+              {
+                name = "MyNixOS";
+                tags = ["nixos"];
+                keyword = "mynixos";
+                url = "https://mynixos.com/search?q=%s";
+              }
+            ];
+          };
+
+          containersForce = true;
           containers = {
             Development = {
               color = "red";
@@ -101,8 +97,6 @@ in {
             };
           };
 
-          containersForce = true;
-
           userChrome = ''
             @import "${theme-path}/userChrome.css";
           '';
@@ -112,8 +106,9 @@ in {
 
           search = {
             force = true;
-            default = "DuckDuckGo";
-            order = ["DuckDuckGo"];
+
+            default = "ddg";
+            order = ["ddg"];
 
             engines = lib.listToAttrs (map (engine: {
                 name = engine;
@@ -121,13 +116,13 @@ in {
                   _metaData.hidden = true;
                 };
               }) [
-                "Bing"
-                "eBay"
-                "Ecosia"
-                "Google"
-                "Wikipedia (en)"
-                "LibRedirect"
-                "Qwant"
+                "bing"
+                "ebay"
+                "ecosia"
+                "google"
+                "wikipedia"
+                "libredirect"
+                "qwant"
               ]);
           };
 
