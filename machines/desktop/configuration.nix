@@ -96,12 +96,16 @@
       docker.enable = true;
     };
 
-    networking.wireguard = {
-      enable = true;
+    networking = {
+      mullvad.enable = true;
 
-      networks = {
-        "garden" = {
-          enable = true;
+      wireguard = {
+        enable = true;
+
+        networks = {
+          "garden" = {
+            enable = true;
+          };
         };
       };
     };
