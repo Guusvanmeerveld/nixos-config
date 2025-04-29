@@ -6,31 +6,25 @@
 }: let
   cfg = config.custom.programs.messaging.vesktop;
 
-  package =
-    (
-      cfg.package.overrideAttrs (_old: {
-        desktopItems = [
-          (pkgs.makeDesktopItem {
-            name = "vesktop";
-            desktopName = "Vesktop";
-            comment = "Better Discord client with improved Linux support and native Vencord";
-            exec = "vesktop %U";
-            icon = "discord";
-            keywords = [
-              "discord"
-              "vencord"
-              "electron"
-              "chat"
-            ];
-            startupWMClass = "Vesktop";
-            categories = ["Network" "InstantMessaging" "Chat"];
-          })
+  package = cfg.package.overrideAttrs (_old: {
+    desktopItems = [
+      (pkgs.makeDesktopItem {
+        name = "vesktop";
+        desktopName = "Vesktop";
+        comment = "Better Discord client with improved Linux support and native Vencord";
+        exec = "vesktop %U";
+        icon = "discord";
+        keywords = [
+          "discord"
+          "vencord"
+          "electron"
+          "chat"
         ];
+        startupWMClass = "Vesktop";
+        categories = ["Network" "InstantMessaging" "Chat"];
       })
-    )
-    .override {withSystemVencord = true;};
-
-  jsonFormat = pkgs.formats.json {};
+    ];
+  });
 in {
   options = {
     custom.programs.messaging.vesktop = {
@@ -45,26 +39,45 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages =
-      [
-        package
-      ]
-      ++ lib.optional cfg.autostart (pkgs.makeAutostartItem {
-        name = "vesktop";
-        inherit package;
-      });
+    home.packages = lib.optional cfg.autostart (pkgs.makeAutostartItem {
+      name = "vesktop";
+      inherit package;
+    });
 
-    xdg.configFile."vesktop/settings.json".source = jsonFormat.generate "vesktop-settings" {
-      "discordBranch" = "stable";
-      "splashColor" = "oklab(0.899401 -0.00192499 -0.00481987)";
-      "splashBackground" = "oklab(0.321088 -0.000220731 -0.00934622)";
-      "customTitleBar" = false;
-      "staticTitle" = true;
-      "splashTheming" = true;
-      "disableSmoothScroll" = false;
-      "checkUpdates" = false;
-      "minimizeToTray" = true;
-      "arRPC" = true;
+    programs.vesktop = {
+      enable = true;
+
+      inherit package;
+
+      settings = {
+        tray = true;
+        enableSplashScreen = false;
+      };
+
+      vencord.settings = {
+        autoUpdate = false;
+
+        plugins = {
+          "BiggerStreamPreview".enabled = true;
+          "CallTimer".enabled = true;
+          # "BetterFolders".enabled = true;
+          "BetterSettings".enabled = true;
+          "AlwaysTrust".enabled = true;
+          "FriendsSince".enabled = true;
+          "MemberCount".enabled = true;
+          "NotificationVolume".enabled = true;
+          "NoTypingAnimation".enabled = true;
+          "NoF1".enabled = true;
+          "FakeNitro".enabled = true;
+          "OpenInApp".enabled = true;
+          "ReverseImageSearch".enabled = true;
+          "ServerInfo".enabled = true;
+          "ServerListIndicators".enabled = true;
+          "StartupTimings".enabled = true;
+          "VolumeBooster".enabled = true;
+          "ShikiCodeblocks".enabled = true;
+        };
+      };
     };
   };
 }
