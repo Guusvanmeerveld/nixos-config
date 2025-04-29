@@ -11,12 +11,6 @@ in {
   options = {
     custom.programs.cli.zsh = {
       enable = lib.mkEnableOption "Enable zsh shell";
-
-      editor = lib.mkOption {
-        type = lib.types.str;
-        default = "vi";
-        description = "The editor to use by default";
-      };
     };
   };
 
@@ -26,17 +20,6 @@ in {
     programs = {
       zsh = {
         enable = true;
-
-        initExtra = ''
-          if [ "$TERM_PROGRAM" = "vscode" ]
-          then
-              export EDITOR=codium
-          else
-              export EDITOR=${cfg.editor}
-          fi
-
-          bindkey '^H' backward-kill-word
-        '';
 
         dotDir = ".config/zsh";
         autosuggestion.enable = true;
@@ -62,12 +45,6 @@ in {
           lsa = "ls -lah";
           rr = "reboot";
 
-          ls = lib.mkIf config.programs.eza.enable "eza";
-
-          s = lib.mkIf config.programs.kitty.enable "kitten ssh";
-
-          code = lib.mkIf config.programs.vscode.enable "codium";
-          nxvsc = lib.mkIf config.programs.vscode.enable "nix-shell --command 'codium .'";
           nxp = "nix-shell -p ";
 
           dc = "docker compose up -d";

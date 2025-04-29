@@ -19,19 +19,6 @@
     "text/javascript"
     "text/typescript"
   ];
-
-  spellCheckLanguages = with pkgs; [
-    {
-      name = "nl_NL";
-      package = hunspellDicts.nl_nl;
-    }
-    {
-      name = "en_US";
-      package = hunspellDicts.en_US;
-    }
-  ];
-
-  configDirName = "VSCodium";
 in {
   options = {
     custom.programs.development.vscode = {
@@ -46,209 +33,205 @@ in {
       })
       openByDefault);
 
-    programs.vscode = {
-      enable = true;
-      package = pkgs.unstable.vscodium;
-
-      mutableExtensionsDir = false;
-      enableUpdateCheck = false;
-      enableExtensionUpdateCheck = false;
-
-      userSettings = {
-        "window.zoomLevel" = 1;
-
-        # Privacy
-        "telemetry.telemetryLevel" = "off";
-        "security.workspace.trust.enabled" = false;
-
-        # Set themes
-        "workbench.colorTheme" = "One Dark Pro";
-        "workbench.iconTheme" = "material-icon-theme";
-
-        "nixEnvSelector.suggestion" = false;
-
-        # Git integration config
-        "git.confirmSync" = false;
-        "git.autofetch" = true;
-        "git.enableSmartCommit" = true;
-        "git.openRepositoryInParentFolders" = "always";
-        "git.autoStash" = true;
-
-        # Editor config
-        "editor.formatOnSave" = true;
-        "editor.fontLigatures" = true;
-        "editor.fontFamily" = "'${config.custom.programs.theming.font.monospace.name}', monospace";
-        "editor.minimap.showSlider" = "always";
-        "editor.inlayHints.enabled" = "offUnlessPressed";
-        "editor.cursorBlinking" = "smooth";
-
-        # Explorer config
-        "explorer.confirmDelete" = false;
-        "explorer.confirmDragAndDrop" = false;
-
-        "update.showReleaseNotes" = false;
-        "workbench.startupEditor" = "none";
-
-        # Integrated terminal config
-        "terminal.integrated.cursorBlinking" = true;
-        "terminal.integrated.showExitAlert" = false;
-
-        # Language specific
-        "[typescriptreact]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    programs = {
+      zsh = {
+        shellAliases = {
+          code = "codium";
+          nxvsc = "nix-shell --command 'codium .'";
         };
-
-        "[typescript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-
-        "[javascript]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-
-        "[scss]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-
-        "[json]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-
-        "[jsonc]" = {
-          "editor.defaultFormatter" = "esbenp.prettier-vscode";
-        };
-
-        "[nix]" = {
-          "editor.defaultFormatter" = "jnoortheen.nix-ide";
-        };
-
-        "[latex]" = {
-          "editor.defaultFormatter" = "James-Yu.latex-workshop";
-        };
-
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nixd";
-        "nix.serverSettings" = {
-          nixd = {
-            formatting = {
-              command = ["alejandra"];
-            };
-          };
-        };
-
-        "spellright.notificationClass" = "warning";
-        "spellright.configurationScope" = "user";
-        "spellright.suggestionsInHints" = false;
-        "spellright.documentTypes" = ["markdown" "latex" "plaintext"];
-        "spellright.language" = map (language: language.name) spellCheckLanguages;
-
-        "jupyter.experiments.enabled" = false;
-        "jupyter.themeMatplotlibPlots" = true;
-
-        "latex-workshop.latex.outDir" = "%DIR%/out";
-        "latex-workshop.formatting.latex" = "latexindent";
-
-        "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
-        "clangd.arguments" = [
-          "--background-index"
-          "--clang-tidy"
-          "--completion-style=detailed"
-        ];
-
-        "cmake.configureOnOpen" = false;
-        "cmake.options.statusBarVisibility" = "hidden";
-        "cmake.showOptionsMovedNotification" = false;
-
-        "cmake.pinnedCommands" = [
-          "workbench.action.tasks.configureTaskRunner"
-          "workbench.action.tasks.runTask"
-        ];
-
-        "sqlfluff.dialect" = "duckdb";
-
-        "tabby.endpoint" = "http://localhost:11029";
-        "tabby.config.telemetry" = true;
-
-        "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
-
-        "direnv.restart.automatic" = true;
       };
 
-      extensions =
-        (with compatibleExtensions.vscode-marketplace; [
-          eww-yuck.yuck
+      vscode = {
+        enable = true;
+        package = pkgs.unstable.vscodium;
 
-          allenli1231.zeppelin-vscode
-        ])
-        ++ (with compatibleExtensions.open-vsx; [
-          # NixOS
-          arrterian.nix-env-selector
+        mutableExtensionsDir = false;
+        enableUpdateCheck = false;
+        enableExtensionUpdateCheck = false;
 
-          # Keybindings
-          ms-vscode.atom-keybindings
+        userSettings = {
+          "window.zoomLevel" = 1;
 
-          # Theme
-          zhuangtongfa.material-theme
-          pkief.material-icon-theme
+          # Privacy
+          "telemetry.telemetryLevel" = "off";
+          "security.workspace.trust.enabled" = false;
 
-          jeff-hykin.better-shellscript-syntax
+          # Set themes
+          "workbench.colorTheme" = "One Dark Pro";
+          "workbench.iconTheme" = "material-icon-theme";
 
-          # Text writing
-          ban.spellright
-          carlocardella.vscode-texttoolbox
+          "nixEnvSelector.suggestion" = false;
 
-          # Tools
-          jeanp413.open-remote-ssh
-          dbaeumer.vscode-eslint
-          timonwong.shellcheck
-          ms-vscode.cmake-tools
-          esbenp.prettier-vscode
-          tabbyml.vscode-tabby
-          mkhl.direnv
-          eamodio.gitlens
+          # Git integration config
+          "git.confirmSync" = false;
+          "git.autofetch" = true;
+          "git.enableSmartCommit" = true;
+          "git.openRepositoryInParentFolders" = "always";
+          "git.autoStash" = true;
 
-          # Syntax
-          scala-lang.scala
+          # Editor config
+          "editor.formatOnSave" = true;
+          "editor.fontLigatures" = true;
+          "editor.fontFamily" = "'${config.custom.programs.theming.font.monospace.name}', monospace";
+          "editor.minimap.showSlider" = "always";
+          "editor.inlayHints.enabled" = "offUnlessPressed";
+          "editor.cursorBlinking" = "smooth";
 
-          # LSPs
-          sqlfluff.vscode-sqlfluff
-          twxs.cmake
-          muhammad-sammy.csharp
-          llvm-vs-code-extensions.vscode-clangd
-          jnoortheen.nix-ide
-          rust-lang.rust-analyzer
-          tamasfe.even-better-toml
-          redhat.java
-          vscjava.vscode-maven
-          vscjava.vscode-java-debug
-          vscjava.vscode-java-dependency
-          vadimcn.vscode-lldb
-          bradlc.vscode-tailwindcss
-          prince781.vala
-          golang.go
-          mads-hartmann.bash-ide-vscode
-          james-yu.latex-workshop
-        ]);
+          # Explorer config
+          "explorer.confirmDelete" = false;
+          "explorer.confirmDragAndDrop" = false;
+
+          "update.showReleaseNotes" = false;
+          "workbench.startupEditor" = "none";
+
+          # Integrated terminal config
+          "terminal.integrated.cursorBlinking" = true;
+          "terminal.integrated.showExitAlert" = false;
+
+          # Language specific
+          "[typescriptreact]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[typescript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[javascript]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[scss]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[json]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[jsonc]" = {
+            "editor.defaultFormatter" = "esbenp.prettier-vscode";
+          };
+
+          "[nix]" = {
+            "editor.defaultFormatter" = "jnoortheen.nix-ide";
+          };
+
+          "[latex]" = {
+            "editor.defaultFormatter" = "James-Yu.latex-workshop";
+          };
+
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+          "nix.serverSettings" = {
+            nixd = {
+              formatting = {
+                command = ["alejandra"];
+              };
+            };
+          };
+
+          "cSpell.enabledFileTypes" = {"*" = true;};
+          "cSpell.customDictionaries" = {
+            "custom" = {
+              "name" = "custom";
+              "path" = "~/.config/vscode-words-dictionary.txt";
+              "scope" = "user";
+              "addWords" = true;
+            };
+          };
+
+          "jupyter.experiments.enabled" = false;
+          "jupyter.themeMatplotlibPlots" = true;
+
+          "latex-workshop.latex.outDir" = "%DIR%/out";
+          "latex-workshop.formatting.latex" = "latexindent";
+
+          "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
+          "clangd.arguments" = [
+            "--background-index"
+            "--clang-tidy"
+            "--completion-style=detailed"
+          ];
+
+          "cmake.configureOnOpen" = false;
+          "cmake.options.statusBarVisibility" = "hidden";
+          "cmake.showOptionsMovedNotification" = false;
+
+          "cmake.pinnedCommands" = [
+            "workbench.action.tasks.configureTaskRunner"
+            "workbench.action.tasks.runTask"
+          ];
+
+          "sqlfluff.dialect" = "duckdb";
+
+          "tabby.endpoint" = "http://localhost:11029";
+          "tabby.config.telemetry" = true;
+
+          "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
+
+          "direnv.restart.automatic" = true;
+
+          "razor.languageServer.directory" = "${pkgs.rzls}/lib/rzls";
+          "dotnet.server.path" = "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll";
+        };
+
+        extensions =
+          (with compatibleExtensions.vscode-marketplace; [
+            eww-yuck.yuck
+
+            allenli1231.zeppelin-vscode
+          ])
+          ++ (with compatibleExtensions.open-vsx; [
+            # Keybindings
+            ms-vscode.atom-keybindings
+
+            # Theme
+            zhuangtongfa.material-theme
+            pkief.material-icon-theme
+
+            jeff-hykin.better-shellscript-syntax
+
+            # Text writing
+            streetsidesoftware.code-spell-checker
+            carlocardella.vscode-texttoolbox
+
+            # Tools
+            jeanp413.open-remote-ssh
+            dbaeumer.vscode-eslint
+            timonwong.shellcheck
+            ms-vscode.cmake-tools
+            esbenp.prettier-vscode
+            tabbyml.vscode-tabby
+            mkhl.direnv
+            eamodio.gitlens
+            ms-dotnettools.vscode-dotnet-runtime
+
+            # Syntax
+            scala-lang.scala
+
+            # LSPs
+            sqlfluff.vscode-sqlfluff
+            twxs.cmake
+            muhammad-sammy.csharp
+            llvm-vs-code-extensions.vscode-clangd
+            jnoortheen.nix-ide
+            rust-lang.rust-analyzer
+            tamasfe.even-better-toml
+            redhat.java
+            vscjava.vscode-maven
+            vscjava.vscode-java-debug
+            vscjava.vscode-java-dependency
+            vadimcn.vscode-lldb
+            bradlc.vscode-tailwindcss
+            prince781.vala
+            golang.go
+            mads-hartmann.bash-ide-vscode
+            james-yu.latex-workshop
+            prisma.prisma
+          ]);
+      };
     };
-
-    # Link hunspell dictionaries to correct dir.
-    xdg.configFile = lib.mkMerge [
-      (lib.listToAttrs (map (language: {
-          name = "${configDirName}/Dictionaries/${language.name}.dic";
-          value = {
-            source = "${language.package}/share/hunspell/${language.name}.dic";
-          };
-        })
-        spellCheckLanguages))
-
-      (lib.listToAttrs (map (language: {
-          name = "${configDirName}/Dictionaries/${language.name}.aff";
-          value = {
-            source = "${language.package}/share/hunspell/${language.name}.aff";
-          };
-        })
-        spellCheckLanguages))
-    ];
 
     home.packages = with pkgs; [
       ninja

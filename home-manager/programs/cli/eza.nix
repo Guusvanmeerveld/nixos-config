@@ -12,10 +12,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.eza = {
-      enable = true;
-      icons = "always";
-      git = true;
+    programs = {
+      zsh.shellAliases = {
+        ls = "eza";
+      };
+
+      eza = {
+        enable = true;
+        icons = "always";
+        git = true;
+      };
     };
   };
 }

@@ -20,6 +20,7 @@ in {
       enable = true;
 
       viAlias = true;
+      defaultEditor = true;
 
       colorschemes.onedark.enable = true;
 
