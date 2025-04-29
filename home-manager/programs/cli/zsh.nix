@@ -31,6 +31,10 @@ in {
           ignoreSpace = false;
         };
 
+        initContent = lib.mkOrder 1 ''
+          bindkey '^H' backward-kill-word
+        '';
+
         sessionVariables = {
           NIX_CONFIG_LOCATION = config.custom.nixConfigLocation;
         };
