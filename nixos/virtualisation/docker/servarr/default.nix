@@ -118,7 +118,7 @@ in {
         env = {
           CONFIG_DIR = createServarrDir ["prowlarr" "config"];
 
-          VERSION = "version-${pkgs.unstable.prowlarr.version}";
+          VERSION = "version-${pkgs.prowlarr.version}";
 
           UID = config.users.users.prowlarr.uid;
           GID = cfg.user.gid;

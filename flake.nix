@@ -1,16 +1,13 @@
 {
-  description = "A very basic flake";
+  description = "NixOS configurations for all my personal machines & servers";
 
   inputs = {
-    # Latest stable packages
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-
-    # Unstable packages
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    # Latest packages
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -22,14 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     # Grub themes
     grub2-themes = {
@@ -37,29 +31,27 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-    };
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Configure neovim in Nix
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-24.11";
+      url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-24.11";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -71,6 +63,7 @@
 
     mconnect-nix = {
       url = "github:guusvanmeerveld/mconnect-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     argonone-nix = {
@@ -119,7 +112,7 @@
     };
 
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-24.05";
+      url = "github:nix-community/nix-on-droid";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };

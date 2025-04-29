@@ -9,7 +9,7 @@
   menu = pkgs.writeShellApplication {
     name = "cliphist-menu";
 
-    runtimeInputs = with pkgs; [unstable.nwg-clipman wl-clipboard];
+    runtimeInputs = with pkgs; [nwg-clipman wl-clipboard];
 
     text = ''
       nwg-clipman
