@@ -9,7 +9,6 @@ in {
     wm = {
       notifications.swaync.enable = true;
       lockscreens.swaylock.enable = true;
-      docks.nwg-dock.enable = true;
       launchers.rofi.enable = true;
       widgets.eww.enable = true;
 
@@ -35,6 +34,7 @@ in {
             mode = "2560x1440@74.968Hz";
             bg = "${../wallpaper-left.png} stretch";
             pos = "0 0";
+            adaptive_sync = "on";
           };
         };
 
