@@ -59,7 +59,7 @@ in {
           DATA_DIR = cfg.dataDir;
           APP_DIR = cfg.appDir;
 
-          VERSION = pkgs.nextcloud29.version;
+          VERSION = pkgs.nextcloud31.version;
 
           DB_NAME = "nextcloud";
           DB_USERNAME = "nextcloud";
