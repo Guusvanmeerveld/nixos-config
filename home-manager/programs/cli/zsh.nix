@@ -15,7 +15,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide];
+    home.packages = with pkgs; [zoxide libnotify fzf];
 
     programs = {
       zsh = {
@@ -31,8 +31,12 @@ in {
           ignoreSpace = false;
         };
 
-        initContent = lib.mkOrder 1 ''
-          bindkey '^H' backward-kill-word
+        initContent = ''
+          bindkey "^z" undo
+          bindkey "^y" redo
+          bindkey "^H" backward-kill-word
+
+          bindkey '^ ' autosuggest-accept
         '';
 
         sessionVariables = {
@@ -51,15 +55,33 @@ in {
 
           nxp = "nix-shell -p ";
 
-          dc = "docker compose up -d";
-          dcd = "docker compose down --remove-orphans";
-          dcl = "docker compose logs -f";
+          cdtmp = "cd $(mktemp -d)";
         };
 
         oh-my-zsh = {
           enable = true;
 
-          plugins = ["git" "sudo" "yarn" "vscode" "colorize" "zoxide"];
+          plugins = [
+            "git"
+            "sudo"
+            "yarn"
+            "rust"
+            "vscode"
+            "colorize"
+            "zoxide"
+            "docker"
+            "docker-compose"
+            "alias-finder"
+            "bgnotify"
+            "common-aliases"
+            "systemd"
+            "zsh-interactive-cd"
+          ];
+
+          extraConfig = ''
+            # Enable alias-finder
+            zstyle ':omz:plugins:alias-finder' autoload yes
+          '';
         };
 
         zplug = {
