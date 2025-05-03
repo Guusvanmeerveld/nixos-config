@@ -1,6 +1,7 @@
 name: Check if config is valid
 
 on:
+  pull_request:
   push:
     paths:
       - "home-manager/**"
