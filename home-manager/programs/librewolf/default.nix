@@ -63,23 +63,21 @@ in {
               consent-o-matic
             ];
 
-            # settings = {
-            #   "uBlock0@raymondhill.net".settings = {
-            #     selectedFilterLists = [
-            #       "ublock-filters"
-            #       "ublock-badware"
-            #       "ublock-privacy"
-            #       "ublock-unbreak"
-            #       "ublock-quick-fixes"
-            #     ];
-            #   };
-            # };
+            settings = {
+              "uBlock0@raymondhill.net".settings = import ./extensions/ublock.nix;
+              "addon@darkreader.org".settings = import ./extensions/darkreader.nix;
+            };
           };
 
           bookmarks = {
             force = true;
 
-            settings = [];
+            settings = [
+              {
+                name = "Syncthing";
+                url = "http://localhost:8384/";
+              }
+            ];
           };
 
           containersForce = true;

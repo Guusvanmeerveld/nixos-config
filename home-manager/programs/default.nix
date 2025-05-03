@@ -14,9 +14,8 @@ in {
     ./theming
     ./messaging
     ./cli
-    ./librewolf.nix
+    ./librewolf
     ./evince.nix
-    ./librewolf.nix
     ./kitty.nix
     ./flameshot.nix
     ./thunar.nix
