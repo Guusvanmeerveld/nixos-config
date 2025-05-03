@@ -16,7 +16,7 @@ in {
     ./cli
     ./librewolf.nix
     ./evince.nix
-    ./firefox.nix
+    ./librewolf.nix
     ./kitty.nix
     ./flameshot.nix
     ./thunar.nix
@@ -70,7 +70,7 @@ in {
   config = lib.mkIf cfg.default.enable {
     custom.programs = {
       evince.enable = true;
-      firefox.enable = true;
+      librewolf.enable = true;
       kitty.enable = true;
       grim.enable = true;
       nautilus.enable = true;
