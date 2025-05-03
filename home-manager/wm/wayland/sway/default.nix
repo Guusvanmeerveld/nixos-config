@@ -36,26 +36,6 @@
         timeout ${toString suspend-timeout} 'systemctl suspend'
     '';
   };
-
-  assigns = {
-    "1" = [
-      {app_id = "^vesktop$";}
-      {app_id = "^com.ktechpit.whatsie$";}
-      {app_id = "^org.gnome.Fractal$";}
-    ];
-    "2" = [
-      {app_id = "^spotify$";}
-    ];
-    "3" = [
-      {app_id = "^firefox$";}
-    ];
-    "4" = [
-      {app_id = "^codium-url-handler$";}
-    ];
-    "5" = [
-      {class = "^steam$";}
-    ];
-  };
 in {
   imports = [./osd.nix];
 
@@ -281,7 +261,6 @@ in {
 
       config = rec {
         inherit (cfg) output;
-        inherit assigns;
 
         workspaceOutputAssign = lib.flatten (map (assignment: (map (workspace: {
             workspace = toString workspace;
@@ -395,12 +374,6 @@ in {
           };
         };
 
-        bars = [
-          {
-            command = "${pkgs.waybar}/bin/waybar";
-          }
-        ];
-
         startup =
           # Manage monitor on idle
           lib.singleton {
@@ -457,8 +430,8 @@ in {
             "${modifier}+Shift+${right}" = "move right";
             "${modifier}+Shift+${down}" = "move down";
 
-            "${modifier}+b" = "splith";
-            "${modifier}+v" = "splitv";
+            "${modifier}+i" = "splith";
+            "${modifier}+o" = "splitv";
 
             "${modifier}+Shift+c" = "reload";
 
@@ -474,7 +447,7 @@ in {
             # File explorer shortcut
             "${modifier}+e" = "exec ${cfg.file-explorer}";
 
-            "${modifier}+i" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
+            "${modifier}+u" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
 
             "Ctrl+Alt+v" = lib.mkIf cfg.keybinds.cliphist "exec cliphist-menu";
 

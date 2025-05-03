@@ -99,6 +99,13 @@ in {
       enable = cfg.features.media;
     };
 
+    # Configure bar in sway
+    wayland.windowManager.sway.config.bars = [
+      {
+        command = lib.getExe pkgs.waybar;
+      }
+    ];
+
     programs.waybar = {
       enable = true;
 

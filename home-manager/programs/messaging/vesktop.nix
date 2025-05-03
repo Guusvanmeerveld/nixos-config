@@ -39,6 +39,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    wayland.windowManager.sway.config = {
+      assigns."1" = [
+        {
+          app_id = "^vesktop$";
+        }
+      ];
+
+      keybindings = {
+        "${config.wayland.windowManager.sway.config.modifier}+z" =
+          pkgs.custom.scripts.swayFocusOrStart "vesktop" (lib.getExe config.programs.vesktop.package);
+      };
+    };
+
     home.packages = lib.optional cfg.autostart (pkgs.makeAutostartItem {
       name = "vesktop";
       inherit package;

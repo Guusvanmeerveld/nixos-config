@@ -21,6 +21,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    wayland.windowManager.sway.config = {
+      assigns."1" = [
+        {
+          app_id = "^com.ktechpit.whatsie$";
+        }
+      ];
+      keybindings = {
+        "${config.wayland.windowManager.sway.config.modifier}+v" =
+          pkgs.custom.scripts.swayFocusOrStart "com.ktechpit.whatsie" (lib.getExe cfg.package);
+      };
+    };
+
     home.packages =
       [
         cfg.package
