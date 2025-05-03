@@ -25,15 +25,16 @@ in {
 
         output = {
           "HDMI-A-1" = {
-            mode = "2560x1440@74.89Hz";
+            mode = "1920x1080@180.003Hz";
             bg = "${../wallpaper-right.png} stretch";
-            pos = "2560 0";
+            pos = "1920 0";
           };
 
           "DP-1" = {
             mode = "2560x1440@74.968Hz";
             bg = "${../wallpaper-left.png} stretch";
             pos = "0 0";
+            scale = "1.33";
             adaptive_sync = "on";
           };
         };
