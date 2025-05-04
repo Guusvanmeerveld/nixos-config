@@ -64,7 +64,7 @@ in {
             ];
 
             settings = {
-              "uBlock0@raymondhill.net".settings = import ./extensions/ublock.nix;
+              "uBlock0@raymondhill.net".settings = import ./extensions/ublock.nix {inherit lib;};
               "addon@darkreader.org".settings = import ./extensions/darkreader.nix;
             };
           };
