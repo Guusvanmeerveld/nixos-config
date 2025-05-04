@@ -72,7 +72,6 @@ in {
             "docker"
             "docker-compose"
             "alias-finder"
-            "bgnotify"
             "common-aliases"
             "systemd"
             "zsh-interactive-cd"
