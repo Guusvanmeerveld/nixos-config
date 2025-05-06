@@ -80,6 +80,7 @@
       zsh.enable = true;
       steam.enable = true;
       teamviewer.enable = true;
+      sudo-rs.enable = true;
     };
 
     services = {
@@ -104,7 +105,11 @@
         openFirewall = true;
       };
 
-      # qbittorrent.enable = true;
+      qbittorrent = {
+        enable = true;
+
+        # caddy.url = "http://qbittorrent.thsths";
+      };
     };
 
     virtualisation = {

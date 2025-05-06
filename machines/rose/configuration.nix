@@ -77,7 +77,10 @@
       autoUpgrade.enable = true;
     };
 
-    programs.zsh.enable = true;
+    programs = {
+      zsh.enable = true;
+      sudo-rs.enable = true;
+    };
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

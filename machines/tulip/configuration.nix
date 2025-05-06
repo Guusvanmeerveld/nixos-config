@@ -341,6 +341,7 @@
 
     programs = {
       zsh.enable = true;
+      sudo-rs.enable = true;
     };
   };
 

@@ -184,7 +184,10 @@
       };
     };
 
-    programs.zsh.enable = true;
+    programs = {
+      zsh.enable = true;
+      sudo-rs.enable = true;
+    };
 
     networking.wireguard = {
       enable = true;

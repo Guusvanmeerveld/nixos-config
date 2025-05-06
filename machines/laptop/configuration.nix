@@ -59,6 +59,7 @@
       zsh.enable = true;
       adb.enable = true;
       steam.enable = true;
+      sudo-rs.enable = true;
     };
 
     virtualisation.docker.enable = true;
@@ -81,6 +82,8 @@
         caddy.url = "http://syncthing.laptop";
         openFirewall = true;
       };
+
+      # qbittorrent.enable = true;
     };
 
     dm.greetd = {

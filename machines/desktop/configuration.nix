@@ -61,6 +61,7 @@
       adb.enable = true;
       steam.enable = true;
       teamviewer.enable = true;
+      sudo-rs.enable = true;
     };
 
     services = {

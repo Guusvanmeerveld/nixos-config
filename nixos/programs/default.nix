@@ -1,3 +1,3 @@
 {
-  imports = [./mconnect.nix ./teamviewer.nix ./steam.nix ./zsh.nix ./utils.nix ./adb.nix];
+  imports = [./mconnect.nix ./teamviewer.nix ./steam.nix ./zsh.nix ./utils.nix ./adb.nix ./sudo-rs.nix];
 }
