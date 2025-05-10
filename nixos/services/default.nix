@@ -11,7 +11,6 @@
     ./openssh.nix
     ./fail2ban.nix
     ./dnsmasq.nix
-    ./gpu-screen-recorder.nix
     ./samba
     ./gamemode.nix
     ./sunshine.nix
@@ -20,5 +19,6 @@
     ./kdeconnect.nix
     ./autoupgrade.nix
     ./caddy.nix
+    # ./qbittorrent.nix
   ];
 }
