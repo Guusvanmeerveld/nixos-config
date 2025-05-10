@@ -62,6 +62,11 @@
       label = "Phone Backup";
       devices = ["orchid" "thuisthuis" "desktop" "phone"];
     };
+
+    "dictionaries" = {
+      label = "Word Dictionaries";
+      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+    };
   };
 in {
   options = {

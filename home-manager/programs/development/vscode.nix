@@ -150,7 +150,7 @@ in {
             "cSpell.customDictionaries" = {
               "custom" = {
                 "name" = "custom";
-                "path" = "~/.config/vscode-words-dictionary.txt";
+                "path" = "~/.config/dictionaries/vscode-words.txt";
                 "scope" = "user";
                 "addWords" = true;
               };

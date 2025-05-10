@@ -109,6 +109,7 @@
           "music" = "${dataDir}/Music";
           "games" = "${dataDir}/Games";
           "seedvault-backup" = "${dataDir}/Backups/Phone";
+          "dictionaries" = "${dataDir}/Dictionaries";
         };
 
         caddy.url = "http://syncthing.chd";

@@ -99,6 +99,7 @@
           "music" = "~/Music";
           "games" = "~/Backups/Games";
           "seedvault-backup" = "~/Backups/Phone";
+          "dictionaries" = "~/.config/dictionaries";
         };
 
         caddy.url = "http://syncthing.thsths";

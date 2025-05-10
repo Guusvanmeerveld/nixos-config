@@ -77,6 +77,7 @@
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
           "games" = "~/Games/Backups";
+          "dictionaries" = "~/.config/dictionaries";
         };
 
         caddy.url = "http://syncthing.laptop";
