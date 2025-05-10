@@ -105,11 +105,11 @@
         openFirewall = true;
       };
 
-      qbittorrent = {
-        enable = true;
+      # qbittorrent = {
+      #   enable = true;
 
-        # caddy.url = "http://qbittorrent.thsths";
-      };
+      #   caddy.url = "http://qbittorrent.thsths";
+      # };
     };
 
     virtualisation = {
