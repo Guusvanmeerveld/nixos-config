@@ -40,6 +40,13 @@ in {
       MOZ_ENABLE_WAYLAND = 1;
     };
 
+    # Tell Syncthing (if enabled) to ignore every file in the profile directory, except for the places.sqlite (which contains the browser history).
+    # This is (a bit of a crude) way to sync my browser history across multiple devices.
+    home.file.".librewolf/default/.stignore".text = ''
+      !/places.sqlite*
+      **
+    '';
+
     programs.librewolf = {
       enable = true;
 
@@ -66,6 +73,7 @@ in {
             settings = {
               "uBlock0@raymondhill.net".settings = import ./extensions/ublock.nix {inherit lib;};
               "addon@darkreader.org".settings = import ./extensions/darkreader.nix;
+              "7esoorv3@alefvanoon.anonaddy.me".settings = import ./extensions/libredirect.nix;
             };
           };
 
@@ -74,25 +82,21 @@ in {
 
             settings = [
               {
-                name = "Syncthing";
-                url = "http://localhost:8384/";
+                name = "Apps";
+                toolbar = true;
+
+                bookmarks = [
+                  {
+                    name = "Syncthing";
+                    url = "http://localhost:8384/";
+                  }
+                  {
+                    name = "DuckDuckGo AI";
+                    url = "https://duck.ai";
+                  }
+                ];
               }
             ];
-          };
-
-          containersForce = true;
-          containers = {
-            Development = {
-              color = "red";
-              icon = "briefcase";
-              id = 1;
-            };
-
-            Relax = {
-              color = "blue";
-              icon = "chill";
-              id = 2;
-            };
           };
 
           userChrome = ''
@@ -187,10 +191,19 @@ in {
             "browser.tabs.warnOnClose" = false;
             "browser.tabs.warnOnQuit" = false;
 
+            # Add ".tlp" to the domain suffix whitelist
+            "browser.fixup.domainsuffixwhitelist.tlp" = true;
+
             # Enable search suggestions
             "browser.search.suggest.enabled" = true;
 
+            # Disable restore session
+            "browser.sessionstore.resume_from_crash" = false;
+            "browser.startup.couldRestoreSession.count" = 2;
+
             "browser.download.useDownloadDir" = true;
+
+            # Disable the browser asking whether to enable installed extensions.
             "extensions.autoDisableScopes" = 0;
 
             "middlemouse.paste" = false;
@@ -198,8 +211,14 @@ in {
 
             # Open PDF's in browser.
             "browser.download.open_pdf_attachments_inline" = true;
+            # PDF viewer zoom page-fit
+            "pdfjs.defaultZoomValue" = "page-fit";
 
             "browser.tabs.loadInBackground" = false;
+
+            # Enable https first
+            "dom.security.https_first" = true;
+            "dom.security.https_only_mode" = false;
 
             # Open devtools on the right
             "devtools.toolbox.host" = "right";

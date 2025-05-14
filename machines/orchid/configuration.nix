@@ -110,6 +110,7 @@
           "games" = "${dataDir}/Games";
           "seedvault-backup" = "${dataDir}/Backups/Phone";
           "dictionaries" = "${dataDir}/Dictionaries";
+          "firefox-profile" = "${dataDir}/Firefox-Profile";
         };
 
         caddy.url = "http://syncthing.chd";

@@ -67,6 +67,11 @@
       label = "Word Dictionaries";
       devices = ["orchid" "thuisthuis" "desktop" "laptop"];
     };
+
+    "firefox-profile" = {
+      label = "Firefox Profile";
+      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+    };
   };
 in {
   options = {

@@ -78,6 +78,7 @@
           "music" = "~/Music";
           "games" = "~/Games/Backups";
           "dictionaries" = "~/.config/dictionaries";
+          "firefox-profile" = "~/.librewolf/default";
         };
 
         caddy.url = "http://syncthing.laptop";

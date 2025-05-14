@@ -100,6 +100,7 @@
           "games" = "~/Backups/Games";
           "seedvault-backup" = "~/Backups/Phone";
           "dictionaries" = "~/.config/dictionaries";
+          "firefox-profile" = "~/.librewolf/default";
         };
 
         caddy.url = "http://syncthing.thsths";
