@@ -3,7 +3,6 @@
 {pkgs}: rec {
   # example = pkgs.callPackage ./example { };
 
-  clipmon = pkgs.callPackage ./clipmon.nix {};
   mpdris2 = pkgs.callPackage ./mpdris2.nix {};
   radb = pkgs.callPackage ./radb.nix {};
   nwg-dock = pkgs.callPackage ./nwg-dock.nix {};
@@ -19,7 +18,7 @@
   firefox = import ./firefox {inherit pkgs;};
 
   export = {
-    inherit clipmon mpdris2 radb dnsmasqstats ryubing;
+    inherit mpdris2 radb dnsmasqstats ryubing;
     inherit (pythonPackages) pyjags textblob;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
