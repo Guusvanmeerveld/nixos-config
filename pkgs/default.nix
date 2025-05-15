@@ -19,7 +19,7 @@
 
   export = {
     inherit mpdris2 radb dnsmasqstats ryubing;
-    inherit (pythonPackages) pyjags textblob;
+    inherit (pythonPackages) textblob;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
   };
