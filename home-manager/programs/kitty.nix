@@ -32,18 +32,16 @@ in {
       TERMINAL = execPath;
     };
 
-    programs.zsh.shellAliases = {
-      ssh = "kitten ssh";
-    };
+    programs.zsh.initContent = ''
+      if [[ $TERM == "xterm-kitty" ]]; then
+        alias ssh='kitten ssh'
+      fi
+    '';
 
     programs.kitty = {
       inherit package;
 
       enable = true;
-
-      shellIntegration = {
-        enableZshIntegration = config.custom.programs.cli.zsh.enable;
-      };
 
       settings = {
         foreground = "#${config.colorScheme.palette.base06}";

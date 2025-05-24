@@ -15,7 +15,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [zoxide libnotify fzf];
+    home.packages = with pkgs; [zoxide fzf];
 
     programs = {
       zsh = {
