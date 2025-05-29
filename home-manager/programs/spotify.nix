@@ -25,7 +25,7 @@ in {
       ];
       keybindings = {
         "${config.wayland.windowManager.sway.config.modifier}+x" =
-          pkgs.custom.scripts.swayFocusOrStart "spotify" (lib.getExe config.programs.spicetify.spotifyPackage);
+          pkgs.custom.scripts.swayFocusOrStart "spotify" (lib.getExe config.programs.spicetify.spotifywmPackage);
       };
     };
 

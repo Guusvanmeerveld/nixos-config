@@ -36,6 +36,7 @@ in {
     ./freetube.nix
     ./eduvpn.nix
     ./missioncenter.nix
+    ./tidal.nix
   ];
 
   options = {
@@ -73,7 +74,7 @@ in {
       kitty.enable = true;
       grim.enable = true;
       nautilus.enable = true;
-      spotify.enable = true;
+      tidal.enable = true;
       thunderbird.enable = true;
       mpv.enable = true;
       loupe.enable = true;

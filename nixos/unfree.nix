@@ -6,6 +6,8 @@
     "parsec-bin"
     "unityhub"
     "spotify"
+    "tidal-hifi"
+    "castlabs-electron"
     "apple_cursor"
     "steam"
     "steam-unwrapped"
