@@ -19,6 +19,6 @@
     ./kdeconnect.nix
     ./autoupgrade.nix
     ./caddy.nix
-    # ./qbittorrent.nix
+    ./qbittorrent.nix
   ];
 }
