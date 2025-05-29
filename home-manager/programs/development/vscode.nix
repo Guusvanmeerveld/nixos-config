@@ -145,6 +145,7 @@ in {
                 };
               };
             };
+            "nix.hiddenLanguageServerErrors" = ["textDocument/formatting"];
 
             "cSpell.enabledFileTypes" = {"*" = true;};
             "cSpell.customDictionaries" = {
@@ -161,6 +162,8 @@ in {
 
             "latex-workshop.latex.outDir" = "%DIR%/out";
             "latex-workshop.formatting.latex" = "latexindent";
+            "latex-workshop.message.error.show" = false;
+            "latex-workshop.message.warning.show" = false;
 
             "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
             "clangd.arguments" = [
