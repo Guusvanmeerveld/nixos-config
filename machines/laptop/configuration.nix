@@ -76,7 +76,7 @@
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
-          "games" = "~/Games/Backups";
+          "games" = "~/Backups/Games";
           "dictionaries" = "~/.config/dictionaries";
           "firefox-profile" = "~/.librewolf/default";
         };

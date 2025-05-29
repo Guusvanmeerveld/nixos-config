@@ -58,12 +58,9 @@
       cli = {
         default.enable = true;
         gpg.enable = true;
-
-        atuin = {
-          enable = true;
-          server = "https://atuin.guusvanmeerveld.dev";
-        };
       };
+
+      eduvpn.enable = true;
     };
   };
 
