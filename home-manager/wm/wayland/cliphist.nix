@@ -32,7 +32,7 @@ in {
     services.cliphist = {
       enable = true;
 
-      systemdTarget = "sway-session.target";
+      systemdTargets = ["sway-session.target"];
     };
   };
 }
