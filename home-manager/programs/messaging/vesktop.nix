@@ -81,6 +81,7 @@ in {
           "NotificationVolume".enabled = true;
           "NoTypingAnimation".enabled = true;
           "NoF1".enabled = true;
+          "ShowHiddenThings".enabled = true;
           "FakeNitro".enabled = true;
           "OpenInApp".enabled = true;
           "ReverseImageSearch".enabled = true;
