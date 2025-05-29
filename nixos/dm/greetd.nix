@@ -10,6 +10,8 @@
   regreet = lib.getExe pkgs.greetd.regreet;
 
   swayConfig = pkgs.writeText "greetd-sway-config" ''
+    xwayland disable
+
     exec "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE NIXOS_OZONE_WL XCURSOR_THEME XCURSOR_SIZE"
 
     exec "${regreet}; swaymsg exit"
@@ -19,6 +21,7 @@
       -m 'What do you want to do?' \
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
+
 
     input "type:pointer" {
       accel_profile flat
@@ -82,6 +85,8 @@ in {
                 default = 0;
               };
             };
+
+            primary = lib.mkEnableOption "Make this the display the greeter will start on";
           };
         });
 
@@ -147,6 +152,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [pkgs.greetd.regreet];
+
     programs.regreet = {
       enable = true;
 
@@ -159,6 +166,12 @@ in {
           size = 14;
         }
       ];
+
+      settings = {
+        appearance = {
+          greeting_msg = "Welcome to NixOS!";
+        };
+      };
     };
 
     services.greetd = {
