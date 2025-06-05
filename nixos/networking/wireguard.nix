@@ -91,7 +91,7 @@ in {
       port = lib.mkOption {
         type = lib.types.port;
         description = "The port to use for Wireguard connections";
-        default = 51820;
+        default = 49999;
       };
 
       networks = lib.mkOption {
