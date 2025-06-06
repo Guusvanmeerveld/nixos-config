@@ -3,26 +3,18 @@
   lib,
   ...
 }: let
-  cfg = config.custom.services.miniflux;
+  cfg = config.custom.services.ntfy;
 in {
   options = {
-    custom.services.miniflux = let
+    custom.services.ntfy = let
       inherit (lib) mkEnableOption mkOption types;
     in {
-      enable = mkEnableOption "Enable the Miniflux service";
+      enable = mkEnableOption "Enable the Ntfy service";
 
       port = mkOption {
         type = types.ints.u16;
-        default = 8082;
+        default = 3333;
         description = "The port to run the service on";
-      };
-
-      adminCredentialsFile = mkOption {
-        type = types.path;
-        description = ''
-          The path to the admins credential file
-          File containing the ADMIN_USERNAME and ADMIN_PASSWORD (length >= 6) in the format of an EnvironmentFile=
-        '';
       };
 
       caddy.url = mkOption {
@@ -48,16 +40,16 @@ in {
           };
         };
 
-        miniflux = {
+        ntfy-sh = {
           enable = true;
 
-          config = {
-            CLEANUP_FREQUENCY = "48";
-            LISTEN_ADDR = "localhost:${toString cfg.port}";
-            BASE_URL = cfg.caddy.url;
+          settings = {
+            listen-http = ":${toString cfg.port}";
+            base-url = cfg.caddy.url;
+            behind-proxy = true;
+            enable-signup = true;
+            enable-login = true;
           };
-
-          inherit (cfg) adminCredentialsFile;
         };
       };
     };

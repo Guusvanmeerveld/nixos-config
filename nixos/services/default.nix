@@ -23,6 +23,7 @@
     ./radarr.nix
     ./sonarr.nix
     ./prowlarr.nix
-    # ./jellyfin.nix
+    ./jellyfin.nix
+    ./ntfy.nix
   ];
 }

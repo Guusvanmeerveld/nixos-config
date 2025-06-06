@@ -3,26 +3,18 @@
   lib,
   ...
 }: let
-  cfg = config.custom.services.miniflux;
+  cfg = config.custom.services.jellyfin;
 in {
   options = {
-    custom.services.miniflux = let
+    custom.services.jellyfin = let
       inherit (lib) mkEnableOption mkOption types;
     in {
-      enable = mkEnableOption "Enable the Miniflux service";
+      enable = mkEnableOption "Enable the Jellyfin service";
 
       port = mkOption {
         type = types.ints.u16;
-        default = 8082;
+        default = 8096;
         description = "The port to run the service on";
-      };
-
-      adminCredentialsFile = mkOption {
-        type = types.path;
-        description = ''
-          The path to the admins credential file
-          File containing the ADMIN_USERNAME and ADMIN_PASSWORD (length >= 6) in the format of an EnvironmentFile=
-        '';
       };
 
       caddy.url = mkOption {
@@ -48,17 +40,7 @@ in {
           };
         };
 
-        miniflux = {
-          enable = true;
-
-          config = {
-            CLEANUP_FREQUENCY = "48";
-            LISTEN_ADDR = "localhost:${toString cfg.port}";
-            BASE_URL = cfg.caddy.url;
-          };
-
-          inherit (cfg) adminCredentialsFile;
-        };
+        jellyfin.enable = true;
       };
     };
 }
