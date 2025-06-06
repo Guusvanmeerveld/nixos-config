@@ -20,5 +20,9 @@
     ./autoupgrade.nix
     ./caddy.nix
     ./qbittorrent.nix
+    ./radarr.nix
+    ./sonarr.nix
+    ./prowlarr.nix
+    # ./jellyfin.nix
   ];
 }

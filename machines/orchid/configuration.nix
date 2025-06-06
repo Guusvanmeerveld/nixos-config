@@ -117,6 +117,32 @@
         openFirewall = true;
       };
 
+      qbittorrent = {
+        enable = true;
+
+        networkInterface = "wg0-mullvad";
+
+        caddy.url = "http://qbittorrent.chd";
+      };
+
+      radarr = {
+        enable = true;
+
+        caddy.url = "http://radarr.chd";
+      };
+
+      sonarr = {
+        enable = true;
+
+        caddy.url = "http://sonarr.chd";
+      };
+
+      prowlarr = {
+        enable = true;
+
+        caddy.url = "http://prowlarr.chd";
+      };
+
       samba.server = {
         enable = true;
 

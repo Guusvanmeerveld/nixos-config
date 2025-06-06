@@ -36,6 +36,12 @@ in {
         description = "Open qBittorrent ports in firewall";
       };
 
+      networkInterface = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "The network interface to run qBittorrent on";
+      };
+
       caddy.url = mkOption {
         type = with types; nullOr str;
         default = null;
@@ -67,6 +73,13 @@ in {
           inherit (cfg) webUIPort saveDir;
 
           theme = "vuetorrent";
+
+          settings = {
+            "BitTorrent" = {
+              "Session\\Interface" = cfg.networkInterface;
+              "Session\\InterfaceName" = cfg.networkInterface;
+            };
+          };
         };
       };
     };

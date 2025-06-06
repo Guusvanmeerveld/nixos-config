@@ -106,12 +106,6 @@
         caddy.url = "http://syncthing.thsths";
         openFirewall = true;
       };
-
-      # qbittorrent = {
-      #   enable = true;
-
-      #   caddy.url = "http://qbittorrent.thsths";
-      # };
     };
 
     virtualisation = {
@@ -121,53 +115,6 @@
       };
 
       docker.enable = true;
-
-      # microvm = {
-      #   enable = true;
-
-      #   upstreamNetworkInterface = "enp34s0";
-
-      #   vms = {
-      #     media = {...}: {
-      #       microvm = {
-      #         shares = [
-      #           {
-      #             source = "/nix/store";
-      #             mountPoint = "/nix/.ro-store";
-      #             tag = "ro-store";
-      #             proto = "virtiofs";
-      #           }
-      #         ];
-      #       };
-
-      #       services = {
-      #         caddy = {
-      #           enable = true;
-
-      #           virtualHosts."http://media".extraConfig = ''
-      #             reverse_proxy http://localhost:8096
-      #           '';
-      #         };
-
-      #         radarr.enable = true;
-      #         sonarr.enable = true;
-      #         prowlarr.enable = true;
-
-      #         jellyfin = {
-      #           enable = true;
-      #         };
-      #       };
-
-      #       users.users.root.password = "toor";
-      #       services.openssh = {
-      #         enable = true;
-      #         settings.PermitRootLogin = "yes";
-      #       };
-
-      #       networking.firewall.allowedTCPPorts = [80];
-      #     };
-      #   };
-      # };
     };
 
     dm.greetd = {

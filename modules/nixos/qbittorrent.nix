@@ -28,6 +28,10 @@
       # If specified theme is "vuetorrent", link to their files.
       "WebUI\\RootFolder" = optionalString (cfg.theme == "vuetorrent") "${pkgs.vuetorrent}/share/vuetorrent";
     };
+
+    BitTorrent = {
+      "Session\\DefaultSavePath" = cfg.saveDir;
+    };
   };
 
   settingsCombined = mergeAttrsList [
@@ -191,7 +195,6 @@ in {
 
       environment = {
         QBT_PROFILE = cfg.dataDir;
-        QBT_SAVE_PATH = cfg.saveDir;
         QBT_WEBUI_PORT = toString cfg.webUIPort;
         QBT_CONFIRM_LEGAL_NOTICE = toString cfg.confirmLegalNotice;
       };
