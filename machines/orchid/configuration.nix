@@ -77,13 +77,17 @@
       };
     };
 
-    networking.wireguard = {
-      enable = true;
+    networking = {
+      mullvad.enable = true;
 
-      networks = {
-        "garden" = {
-          enable = true;
-          keepAlive = true;
+      wireguard = {
+        enable = true;
+
+        networks = {
+          "garden" = {
+            enable = true;
+            keepAlive = true;
+          };
         };
       };
     };
