@@ -173,7 +173,9 @@ in {
             if ! test -d "${configDir}"; then
               echo "Creating initial qBittorrent config directory in: ${configDir}"
 
-              install -D -m 0755 -o "${cfg.user}" -g "${cfg.group}" "${configDir}"
+              mkdir ${configDir} -p
+
+              chmod 0755 ${cfg.dataDir} -R
 
               chown ${cfg.user}:${cfg.group} ${cfg.dataDir} -R
             fi
