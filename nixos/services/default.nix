@@ -28,5 +28,6 @@
     ./immich.nix
     ./uptime-kuma.nix
     ./unifi.nix
+    ./homeassistant.nix
   ];
 }
