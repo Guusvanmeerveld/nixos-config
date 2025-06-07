@@ -27,5 +27,6 @@
     ./ntfy.nix
     ./immich.nix
     ./uptime-kuma.nix
+    ./unifi.nix
   ];
 }

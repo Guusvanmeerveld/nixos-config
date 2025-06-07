@@ -17,6 +17,8 @@
     "nvidia-x11"
     "nvidia-settings"
     "nvidia-persistenced"
+    "unifi-controller"
+    "mongodb"
   ];
 in {
   config.nixpkgs = {
