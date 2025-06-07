@@ -41,6 +41,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      users.users.immich = {
+        uid = 6677;
+      };
+
+      users.groups.immich = {
+        gid = 6677;
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

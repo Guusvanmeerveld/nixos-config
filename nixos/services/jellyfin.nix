@@ -29,6 +29,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      users.users.jellyfin = {
+        uid = 7788;
+      };
+
+      users.groups.jellyfin = {
+        gid = 7788;
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

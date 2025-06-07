@@ -100,10 +100,16 @@
       fail2ban.enable = true;
       autoUpgrade.enable = true;
 
+      caddy = {
+        enable = true;
+
+        openFirewall = true;
+      };
+
       immich = {
         enable = true;
 
-        mediaDir = "/mnt/share/apps/immich";
+        mediaDir = "/mnt/share/apps/immich/upload";
         secretsFile = "/secrets/immich/secrets";
 
         caddy.url = "http://immich.tlp";
