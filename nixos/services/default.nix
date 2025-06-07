@@ -25,5 +25,6 @@
     ./prowlarr.nix
     ./jellyfin.nix
     ./ntfy.nix
+    ./immich.nix
   ];
 }
