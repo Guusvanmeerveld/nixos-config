@@ -26,5 +26,6 @@
     ./jellyfin.nix
     ./ntfy.nix
     ./immich.nix
+    ./uptime-kuma.nix
   ];
 }
