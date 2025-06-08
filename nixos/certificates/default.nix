@@ -14,10 +14,11 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf;
+    inherit (lib) mkIf readFile;
   in
     mkIf cfg.enable {
       security.pki.certificates = [
+        (readFile ./tulip.crt)
       ];
     };
 }
