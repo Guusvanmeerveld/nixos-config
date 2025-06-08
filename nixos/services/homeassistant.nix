@@ -36,6 +36,7 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
+                tls internal
               '';
             };
           };
@@ -67,6 +68,8 @@ in {
               zlib-ng
               isal
               aiolyric
+              gtts
+              aiontfy
             ];
 
           extraComponents = [
@@ -79,6 +82,7 @@ in {
             "solaredge"
             "traccar"
             "unifi"
+            "mobile_app"
           ];
         };
       };

@@ -8,6 +8,7 @@
     ./dm
     ./hardware
     ./fs
+    ./certificates
     ./nixos.nix
     ./users.nix
     ./locale.nix

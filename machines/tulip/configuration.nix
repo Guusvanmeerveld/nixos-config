@@ -110,31 +110,31 @@
         mediaDir = "/mnt/share/apps/immich/upload";
         secretsFile = "/secrets/immich/secrets";
 
-        caddy.url = "http://immich.tlp";
+        caddy.url = "https://immich.tlp";
       };
 
       jellyfin = {
         enable = true;
 
-        caddy.url = "http://jellyfin.tlp";
+        caddy.url = "https://jellyfin.tlp";
       };
 
       uptime-kuma = {
         enable = true;
 
-        caddy.url = "http://uptime.tlp";
+        caddy.url = "https://uptime.tlp";
       };
 
       homeassistant = {
         enable = true;
 
-        caddy.url = "http://homeassistant.tlp";
+        caddy.url = "https://homeassistant.tlp";
       };
 
       ntfy = {
         enable = true;
 
-        caddy.url = "http://ntfy.tlp";
+        caddy.url = "https://ntfy.tlp";
       };
 
       unifi = {

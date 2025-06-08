@@ -36,6 +36,8 @@
       ];
     };
 
+    certificates.enable = true;
+
     networking.wireguard = {
       enable = true;
       openFirewall = true;

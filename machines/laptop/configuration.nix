@@ -33,6 +33,7 @@
     };
 
     security.keyring.enable = true;
+    certificates.enable = true;
 
     networking.wireguard = {
       enable = true;
@@ -81,7 +82,7 @@
           "firefox-profile" = "~/.librewolf/default";
         };
 
-        caddy.url = "http://syncthing.laptop";
+        caddy.url = "https://syncthing.laptop";
         openFirewall = true;
       };
 

@@ -42,6 +42,7 @@
     };
 
     security.keyring.enable = true;
+    certificates.enable = true;
 
     hardware = {
       openrgb.enable = true;

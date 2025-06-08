@@ -46,6 +46,7 @@
     };
 
     security.keyring.enable = true;
+    certificates.enable = true;
 
     hardware = {
       video.amd.enable = true;

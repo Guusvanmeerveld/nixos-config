@@ -70,6 +70,8 @@
       argon40.enable = true;
     };
 
+    certificates.enable = true;
+
     wm.kodi.enable = true;
 
     services = {

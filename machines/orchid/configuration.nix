@@ -40,6 +40,8 @@
     };
   };
 
+  certificates.enable = true;
+
   # Enable networking
   networking = {
     networkmanager.enable = true;
