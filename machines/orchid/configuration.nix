@@ -40,8 +40,6 @@
     };
   };
 
-  certificates.enable = true;
-
   # Enable networking
   networking = {
     networkmanager.enable = true;
@@ -78,6 +76,8 @@
         eon.enable = true;
       };
     };
+
+    certificates.enable = true;
 
     networking = {
       mullvad.enable = true;
