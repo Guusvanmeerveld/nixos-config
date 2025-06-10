@@ -45,6 +45,8 @@
       power.thermald.enable = true;
     };
 
+    certificates.enable = true;
+
     networking.wireguard = {
       enable = true;
 
@@ -137,8 +139,26 @@
         caddy.url = "https://ntfy.tlp";
       };
 
+      miniflux = {
+        enable = true;
+
+        adminCredentialsFile = "/secrets/miniflux/adminCredentials";
+
+        caddy.url = "https://miniflux.tlp";
+      };
+
+      vaultwarden = {
+        enable = true;
+
+        environmentFile = "/secrets/vaultwarden/environmentFile";
+
+        caddy.url = "https://bitwarden.tlp";
+      };
+
       unifi = {
         enable = true;
+
+        openFirewall = true;
 
         caddy.url = "https://unifi";
       };

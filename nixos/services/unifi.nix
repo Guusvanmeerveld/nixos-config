@@ -37,7 +37,14 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
-                reverse_proxy https://localhost:${toString cfg.port}
+                reverse_proxy https://localhost:${toString cfg.port} {
+                  transport http {
+                    tls_insecure_skip_verify  # we don't verify the controller https cert
+                  }
+
+                  header_up - Authorization  # sets header to be passed to the controller
+                }
+
                 tls internal
               '';
             };
