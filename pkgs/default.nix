@@ -16,6 +16,7 @@
   kodiPackages = import ./kodi {inherit pkgs;};
 
   firefox = import ./firefox {inherit pkgs;};
+  jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
     inherit mpdris2 radb dnsmasqstats ryubing;

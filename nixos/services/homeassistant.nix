@@ -42,8 +42,21 @@ in {
           };
         };
 
+        postgresql = {
+          enable = true;
+          ensureDatabases = ["hass"];
+          ensureUsers = [
+            {
+              name = "hass";
+              ensureDBOwnership = true;
+            }
+          ];
+        };
+
         home-assistant = {
           enable = true;
+
+          openFirewall = true;
 
           config = {
             homeassistant = {
@@ -57,45 +70,50 @@ in {
               use_x_forwarded_for = true;
               trusted_proxies = ["::1"];
             };
+
+            # Configure PostgreSQL as backend for history and logger.
+            recorder.db_url = "postgresql://@/hass";
+
+            mobile_app = {};
+
+            automation = [
+              {
+                alias = "Backup Home Assistant";
+                triggers = [
+                  {
+                    trigger = "time";
+                    at = "03:00:00";
+                  }
+                ];
+
+                actions = [
+                  {
+                    alias = "Create backup";
+                    action = "backup.create";
+                  }
+                ];
+              }
+              {
+                alias = "Send notification on doorbell ring";
+                triggers = [
+                  {
+                    trigger = "state";
+                    entity_id = ["event.deurbel_ding"];
+                  }
+                ];
+
+                actions = [
+                  {
+                    action = "notify.send_message";
+                    data = {
+                      message = "The doorbell is ringing!";
+                      entity_id = "notify.deurbel";
+                    };
+                  }
+                ];
+              }
+            ];
           };
-
-          automation = [
-            {
-              alias = "Backup Home Assistant";
-              triggers = [
-                {
-                  trigger = "time";
-                  at = "03:00:00";
-                }
-              ];
-
-              actions = [
-                {
-                  alias = "Create backup";
-                  action = "backup.create";
-                }
-              ];
-            }
-            {
-              alias = "Send notification on doorbell ring";
-              triggers = [
-                {
-                  trigger = "state";
-                  entity_id = ["event.deurbel_ding"];
-                }
-              ];
-
-              actions = [
-                {
-                  action = "notify.send_message";
-                  data = {
-                    message = "The doorbell is ringing!";
-                    entity_id = "notify.deurbel";
-                  };
-                }
-              ];
-            }
-          ];
 
           customComponents = with pkgs.home-assistant-custom-components; [
             localtuya
@@ -108,6 +126,7 @@ in {
               aiolyric
               gtts
               aiontfy
+              psycopg2
             ];
 
           extraComponents = [
@@ -120,6 +139,7 @@ in {
             "solaredge"
             "traccar"
             "unifi"
+            "ntfy"
             "mobile_app"
           ];
         };

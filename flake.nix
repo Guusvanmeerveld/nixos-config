@@ -121,6 +121,11 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    jellyfin-plugins = {
+      url = "github:LoCrealloc/jellyfin-plugins-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {

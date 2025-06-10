@@ -1,5 +1,17 @@
 {
   "nodes": {
+    "SSO-Auth": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-hCLwEvVgoiIhp/74DACizg3NgeT6zXfBVdytM4pkfxg=",
+        "type": "file",
+        "url": "https://github.com/9p4/jellyfin-plugin-sso/releases/download/v3.5.2.4/sso-authentication_3.5.2.4.zip"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/9p4/jellyfin-plugin-sso/releases/download/v3.5.2.4/sso-authentication_3.5.2.4.zip"
+      }
+    },
     "agenix": {
       "inputs": {
         "darwin": "darwin",
@@ -577,6 +589,40 @@
         "type": "github"
       }
     },
+    "jellyfin-plugins": {
+      "inputs": {
+        "SSO-Auth": "SSO-Auth",
+        "kodisyncqueue": "kodisyncqueue",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746013010,
+        "narHash": "sha256-A9ypeU4J269h67H2eqJtK1LpMQPm/NPgFHP8kcrpyA8=",
+        "owner": "LoCrealloc",
+        "repo": "jellyfin-plugins-nix",
+        "rev": "0aa1526b508b53f02cb0515c865906ef79f6a953",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LoCrealloc",
+        "repo": "jellyfin-plugins-nix",
+        "type": "github"
+      }
+    },
+    "kodisyncqueue": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-aGIYjj7rs+b6aCrYNe27CuY1shu/MIQK9G076+lynXI=",
+        "type": "file",
+        "url": "https://github.com/jellyfin/jellyfin-plugin-kodisyncqueue/releases/download/v14/kodi-sync-queue_14.0.0.0.zip"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/jellyfin/jellyfin-plugin-kodisyncqueue/releases/download/v14/kodi-sync-queue_14.0.0.0.zip"
+      }
+    },
     "mconnect-nix": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -1142,6 +1188,7 @@
         "grub2-themes": "grub2-themes",
         "home-manager": "home-manager_2",
         "hyperx-cloud-flight-s": "hyperx-cloud-flight-s",
+        "jellyfin-plugins": "jellyfin-plugins",
         "mconnect-nix": "mconnect-nix",
         "microvm": "microvm",
         "nix-colors": "nix-colors",

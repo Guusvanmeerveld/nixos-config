@@ -14,6 +14,7 @@
 
     hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
+    jellyfin-plugins = inputs.jellyfin-plugins.packages."${final.system}";
     inherit (inputs.apple-fonts.packages."${final.system}") sf-pro;
   };
 

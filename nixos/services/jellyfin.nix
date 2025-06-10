@@ -1,10 +1,16 @@
 {
+  inputs,
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.jellyfin;
 in {
+  imports = [
+    inputs.jellyfin-plugins.nixosModules.jellyfin-plugins
+  ];
+
   options = {
     custom.services.jellyfin = let
       inherit (lib) mkEnableOption mkOption types;
@@ -49,7 +55,14 @@ in {
           };
         };
 
-        jellyfin.enable = true;
+        jellyfin = {
+          enable = true;
+
+          enabledPlugins = with pkgs.jellyfin-plugins;
+          with pkgs.custom.jellyfin; {
+            inherit kodisyncqueue intro-skipper;
+          };
+        };
       };
     };
 }
