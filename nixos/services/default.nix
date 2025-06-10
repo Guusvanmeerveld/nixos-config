@@ -29,5 +29,6 @@
     ./uptime-kuma.nix
     ./unifi.nix
     ./homeassistant.nix
+    ./mail-server.nix
   ];
 }
