@@ -37,6 +37,7 @@ in {
     mkIf cfg.enable {
       users.users.jellyfin = {
         uid = 7788;
+        extraGroups = ["input" "media" "render" "video"];
       };
 
       users.groups.jellyfin = {

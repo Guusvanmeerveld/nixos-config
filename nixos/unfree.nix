@@ -19,6 +19,7 @@
     "nvidia-persistenced"
     "unifi-controller"
     "mongodb"
+    "intel-ocl"
   ];
 in {
   config.nixpkgs = {

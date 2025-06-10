@@ -48,11 +48,13 @@ in {
     caddyCertDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/local/acme";
   in
     mkIf cfg.enable {
-      services.caddy = {
-        "https://${fqdn}" = {
-          extraConfig = ''
-            respond "Mail server is working!"
-          '';
+      services = {
+        caddy.virtualHosts = {
+          "https://${fqdn}" = {
+            extraConfig = ''
+              respond "Mail server is working!"
+            '';
+          };
         };
       };
 
@@ -68,7 +70,7 @@ in {
         loginAccounts = mapAttrs' (username: userOptions:
           nameValuePair "${username}@${cfg.mailDomain}" {
             hashedPasswordFile = userOptions.passwordFile;
-            catchAll = optionals userOptions.catchAll [cfg.domain];
+            catchAll = optionals userOptions.catchAll [cfg.mailDomain];
           })
         cfg.users;
 
@@ -80,8 +82,9 @@ in {
         enableSubmission = true;
         enableSubmissionSsl = true;
 
-        certificateScheme = "acme";
+        certificateScheme = "manual";
         certificateFile = "${caddyCertDir}/${fqdn}/${fqdn}.crt";
+        keyFile = "${caddyCertDir}/${fqdn}/${fqdn}.key";
       };
     };
 }

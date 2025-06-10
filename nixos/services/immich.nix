@@ -43,6 +43,7 @@ in {
     mkIf cfg.enable {
       users.users.immich = {
         uid = 6677;
+        extraGroups = ["input" "media" "render" "video"];
       };
 
       users.groups.immich = {

@@ -38,6 +38,11 @@
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt
+      # OpenCL support for intel CPUs before 12th gen
+      # see: https://github.com/NixOS/nixpkgs/issues/356535
+      intel-compute-runtime-legacy1
+      intel-media-sdk # QSV up to 11th gen
+      intel-ocl # OpenCL support
     ];
   };
 
