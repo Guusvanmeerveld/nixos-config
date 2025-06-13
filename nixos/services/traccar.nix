@@ -1,25 +1,20 @@
 {
-  lib,
   config,
+  lib,
   ...
 }: let
-  cfg = config.custom.services.radicale;
+  cfg = config.custom.services.traccar;
 in {
   options = {
-    custom.services.radicale = let
-      inherit (lib) mkOption mkEnableOption types;
+    custom.services.traccar = let
+      inherit (lib) mkEnableOption mkOption types;
     in {
-      enable = mkEnableOption "Enable Radicale WebDAV/WebCAL server";
+      enable = mkEnableOption "Enable the Traccar service";
 
       port = mkOption {
-        type = types.int;
-        default = 5666;
+        type = types.ints.u16;
+        default = 8999;
         description = "The port to run the service on";
-      };
-
-      htpasswdFile = mkOption {
-        type = types.path;
-        description = "The path to the htpassword file";
       };
 
       caddy.url = mkOption {
@@ -46,22 +41,21 @@ in {
           };
         };
 
-        radicale = {
+        traccar = {
           enable = true;
+
           settings = {
-            server = {
-              hosts = ["0.0.0.0:${toString cfg.port}" "[::]:${toString cfg.port}"];
-            };
+            webPort = toString cfg.port;
 
-            auth = {
-              type = "htpasswd";
-              htpasswd_filename = cfg.htpasswdFile;
-              htpasswd_encryption = "bcrypt";
-            };
+            databaseDriver = "org.h2.Driver";
+            databaseUrl = "jdbc:h2:/var/lib/traccar/db";
+            databaseUser = "sa";
+            databasePassword = "";
 
-            storage = {
-              filesystem_folder = "/var/lib/radicale/collections";
-            };
+            loggerConsole = "true";
+
+            mediaPath = "/var/lib/traccar/media";
+            templatesRoot = "/var/lib/traccar/templates";
           };
         };
       };

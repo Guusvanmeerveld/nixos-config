@@ -23,12 +23,6 @@ in {
         description = "Where to store the media";
       };
 
-      secretsFile = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "Path to secrets file. Should contain `DB_PASSWORD`";
-      };
-
       caddy.url = mkOption {
         type = with types; nullOr str;
         default = null;
@@ -65,7 +59,7 @@ in {
         immich = {
           enable = true;
 
-          inherit (cfg) port secretsFile;
+          inherit (cfg) port;
 
           accelerationDevices = [
             "/dev/dri/renderD128"

@@ -30,5 +30,6 @@
     ./unifi.nix
     ./homeassistant.nix
     ./mail-server.nix
+    ./traccar.nix
   ];
 }

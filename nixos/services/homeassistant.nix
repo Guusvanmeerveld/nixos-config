@@ -76,6 +76,11 @@ in {
 
             mobile_app = {};
 
+            evohome = {
+              username = "!secret honeywell_username";
+              password = "!secret honeywell_password";
+            };
+
             automation = [
               {
                 alias = "Backup Home Assistant";
@@ -140,6 +145,7 @@ in {
             "traccar"
             "unifi"
             "ntfy"
+            "evohome"
             "mobile_app"
           ];
         };

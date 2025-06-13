@@ -110,7 +110,6 @@
         enable = true;
 
         mediaDir = "/mnt/share/apps/immich/upload";
-        secretsFile = "/secrets/immich/secrets";
 
         caddy.url = "https://immich.tlp";
       };
@@ -153,6 +152,20 @@
         environmentFile = "/secrets/vaultwarden/environmentFile";
 
         caddy.url = "https://bitwarden.tlp";
+      };
+
+      traccar = {
+        enable = true;
+
+        caddy.url = "https://traccar.tlp";
+      };
+
+      radicale = {
+        enable = true;
+
+        htpasswdFile = "/secrets/radicale/htpasswdFile";
+
+        caddy.url = "https://radicale.tlp";
       };
 
       unifi = {
