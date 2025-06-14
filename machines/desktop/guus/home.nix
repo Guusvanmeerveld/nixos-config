@@ -85,11 +85,6 @@ in {
       cli = {
         default.enable = true;
         gpg.enable = true;
-
-        atuin = {
-          enable = true;
-          server = "https://atuin.guusvanmeerveld.dev";
-        };
       };
 
       openshot.enable = true;

@@ -12,7 +12,7 @@ in {
       server = lib.mkOption {
         type = lib.types.str;
         description = "The remote Atuin server to connect to";
-        default = "https://atuin.guusvanmeerveld.dev";
+        default = "https://atuin.tlp";
       };
     };
   };
@@ -20,6 +20,8 @@ in {
   config = lib.mkIf cfg.enable {
     programs.atuin = {
       enable = true;
+
+      daemon.enable = true;
 
       settings = {
         sync_address = cfg.server;

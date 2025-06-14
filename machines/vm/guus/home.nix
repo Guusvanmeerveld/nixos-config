@@ -32,11 +32,6 @@
     programs = {
       cli = {
         default.enable = true;
-
-        atuin = {
-          enable = true;
-          server = "https://atuin.guusvanmeerveld.dev";
-        };
       };
 
       default.enable = true;
