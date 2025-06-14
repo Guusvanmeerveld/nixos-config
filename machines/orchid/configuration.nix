@@ -128,25 +128,27 @@
 
         networkInterface = "wg0-mullvad";
 
-        caddy.url = "http://qbittorrent.chd";
+        saveDir = "/mnt/data/media/download";
+
+        caddy.url = "https://qbittorrent.chd";
       };
 
       radarr = {
         enable = true;
 
-        caddy.url = "http://radarr.chd";
+        caddy.url = "https://radarr.chd";
       };
 
       sonarr = {
         enable = true;
 
-        caddy.url = "http://sonarr.chd";
+        caddy.url = "https://sonarr.chd";
       };
 
       prowlarr = {
         enable = true;
 
-        caddy.url = "http://prowlarr.chd";
+        caddy.url = "https://prowlarr.chd";
       };
 
       samba.server = {
@@ -156,9 +158,6 @@
           iso = "/mnt/data/iso";
           games = "/mnt/data/games";
           media = "/mnt/data/media";
-          nextcloud = "/mnt/data/apps/nextcloud";
-          gitea = "/mnt/data/apps/gitea";
-          # syncthing = "/mnt/data/apps/syncthing";
           immich = "/mnt/data/apps/immich";
         };
       };
