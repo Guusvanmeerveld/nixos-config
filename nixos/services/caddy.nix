@@ -16,6 +16,10 @@ in {
   config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
+
+      globalConfig = ''
+        admin off
+      '';
     };
 
     networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [80 443];
