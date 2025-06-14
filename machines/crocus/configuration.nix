@@ -81,6 +81,27 @@
       fail2ban.enable = true;
       autoUpgrade.enable = true;
 
+      mail-server = {
+        enable = true;
+        openFirewall = true;
+
+        mailDomain = "guusvanmeerveld.dev";
+
+        users = {
+          "guus" = {
+            catchAll = true;
+          };
+        };
+
+        smtpRelay = {
+          enable = true;
+
+          domain = "smtp.email.eu-amsterdam-1.oci.oraclecloud.com";
+
+          secretsFile = "/secrets/mail-server/relay";
+        };
+      };
+
       dnsmasq = {
         enable = true;
 
@@ -89,14 +110,6 @@
 
       motd = {
         enable = true;
-
-        settings = {
-          docker = {
-            "/watchtower" = "Watchtower";
-            "/syncthing" = "Syncthing";
-            "/caddy" = "Caddy";
-          };
-        };
       };
     };
 

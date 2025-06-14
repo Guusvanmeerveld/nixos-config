@@ -21,6 +21,12 @@ in {
         description = "The main domain used to reach the mail server";
       };
 
+      domainPrefix = mkOption {
+        type = types.str;
+        description = "The prefix for the mail domain";
+        default = "mail";
+      };
+
       users = mkOption {
         type = with types;
           attrsOf (submodule ({name, ...}: {
@@ -38,14 +44,31 @@ in {
         default = {};
         description = "List of mail accounts";
       };
+
+      smtpRelay = {
+        enable = mkEnableOption "Enable SMTP relay";
+
+        domain = mkOption {
+          type = types.str;
+        };
+
+        port = mkOption {
+          type = types.ints.u16;
+          default = 587;
+        };
+
+        secretsFile = mkOption {
+          type = types.path;
+        };
+      };
     };
   };
 
   config = let
     inherit (lib) mkIf mapAttrs' nameValuePair optionals;
 
-    fqdn = "mail.${cfg.mailDomain}";
-    caddyCertDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/local/acme";
+    fqdn = "${cfg.domainPrefix}.${cfg.mailDomain}";
+    caddyCertDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
   in
     mkIf cfg.enable {
       services = {
@@ -56,6 +79,19 @@ in {
             '';
           };
         };
+      };
+
+      services.postfix = mkIf cfg.smtpRelay.enable {
+        mapFiles."sasl_passwd" = toString cfg.smtpRelay.secretsFile;
+
+        relayHost = cfg.smtpRelay.domain;
+        relayPort = cfg.smtpRelay.port;
+
+        extraConfig = ''
+          smtp_sasl_password_maps = hash:/var/lib/postfix/conf/sasl_passwd
+          smtp_sasl_auth_enable = yes
+          smtp_sasl_security_options = noanonymous
+        '';
       };
 
       mailserver = {
@@ -81,6 +117,15 @@ in {
 
         enableSubmission = true;
         enableSubmissionSsl = true;
+
+        virusScanning = true;
+
+        dmarcReporting = {
+          enable = true;
+
+          domain = cfg.mailDomain;
+          organizationName = "Nixos Mailserver";
+        };
 
         certificateScheme = "manual";
         certificateFile = "${caddyCertDir}/${fqdn}/${fqdn}.crt";
