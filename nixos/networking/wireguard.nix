@@ -236,7 +236,7 @@ in {
       networks = with lib;
         mapAttrs (networkName: network: let
           networkConfig = networks.${networkName};
-
+          server = networkConfig.server.address;
           isServer = networkConfig.server.hostname == config.networking.hostName;
 
           clientConfig =
@@ -250,20 +250,18 @@ in {
 
               address = ["${clientConfig.address}/24"];
 
+              dns = [server];
+
               networkConfig = mkIf isServer {
                 IPv4Forwarding = true;
                 IPMasquerade = "ipv4";
               };
             }
-            (optionalAttrs (!isServer) (let
-              server = networkConfig.server.address;
-            in {
-              dns = [server];
-
+            (optionalAttrs (!isServer) {
               networkConfig = {
                 IPv6AcceptRA = false;
               };
-            }))
+            })
           ]))
         cfg.networks;
     };
