@@ -31,5 +31,6 @@
     ./homeassistant.nix
     ./mail-server.nix
     ./traccar.nix
+    ./atuin.nix
   ];
 }

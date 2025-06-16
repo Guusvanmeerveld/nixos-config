@@ -168,6 +168,12 @@
         caddy.url = "https://radicale.tlp";
       };
 
+      atuin = {
+        enable = true;
+
+        caddy.url = "https://atuin.tlp";
+      };
+
       unifi = {
         enable = true;
 
