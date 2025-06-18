@@ -20,6 +20,7 @@ in {
     ./direnv.nix
     ./tmux.nix
     ./bat.nix
+    ./rbw.nix
   ];
 
   options = {
@@ -42,6 +43,7 @@ in {
       direnv.enable = lib.mkDefault true;
       tmux.enable = lib.mkDefault true;
       bat.enable = lib.mkDefault true;
+      rbw.enable = lib.mkDefault true;
     };
   };
 }
