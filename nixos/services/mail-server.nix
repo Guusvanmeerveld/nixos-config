@@ -38,6 +38,15 @@ in {
               };
 
               catchAll = mkEnableOption "Make this account a catch all address for this server";
+              sendOnly = mkEnableOption "Make this account send only";
+
+              sieve = {
+                collect = mkOption {
+                  type = attrsOf (listOf str);
+                  default = {};
+                  description = "Per user sieve options";
+                };
+              };
             };
           }));
 
@@ -65,7 +74,16 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf mapAttrs' nameValuePair optionals;
+    inherit
+      (lib)
+      mkIf
+      mapAttrs'
+      mapAttrsToList
+      concatStringsSep
+      concatLines
+      nameValuePair
+      optionals
+      ;
 
     fqdn = "${cfg.domainPrefix}.${cfg.mailDomain}";
     caddyCertDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
@@ -103,8 +121,31 @@ in {
         inherit fqdn;
         domains = [cfg.mailDomain];
 
-        loginAccounts = mapAttrs' (username: userOptions:
+        loginAccounts = mapAttrs' (username: userOptions: let
+          folderMoves = userOptions.sieve.collect;
+        in
           nameValuePair "${username}@${cfg.mailDomain}" {
+            inherit (userOptions) sendOnly;
+
+            sieveScript = mkIf (folderMoves != {}) ''
+              require ["fileinto", "mailbox", "regex"];
+
+              ${concatLines (mapAttrsToList (folderName: senders: ''
+                  if header :regex "from" "${concatStringsSep "|" senders}" {
+                    fileinto :create "${folderName}";
+                    stop;
+                  }
+                '')
+                folderMoves)}
+
+              # This must be the last rule, it will check if list-id is set, and
+              # file the message into the Lists folder for further investigation
+              elsif header :matches "list-id" "<?*>" {
+                fileinto :create "Lists";
+                stop;
+              }
+            '';
+
             hashedPasswordFile = userOptions.passwordFile;
             catchAll = optionals userOptions.catchAll [cfg.mailDomain];
           })

@@ -90,6 +90,22 @@
         users = {
           "guus" = {
             catchAll = true;
+
+            sieve = {
+              collect = {
+                "Web.Github" = ["github.com"];
+                "Web.Let's Encrypt" = ["letsencrypt.org"];
+                "Games" = ["epicgames.com"];
+              };
+            };
+          };
+
+          "feg" = {
+            sendOnly = true;
+          };
+
+          "bitwarden" = {
+            sendOnly = true;
           };
         };
 
