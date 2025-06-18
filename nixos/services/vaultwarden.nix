@@ -79,8 +79,8 @@ in {
             SMTP_SECURITY = "starttls";
             SMTP_SSL = false;
 
-            SMTP_FROM = "vaultwarden@guusvanmeerveld.dev";
-            SMTP_FROM_NAME = "Guus' Vaultwarden server";
+            SMTP_FROM = "bitwarden@guusvanmeerveld.dev";
+            SMTP_FROM_NAME = "Guus' Bitwarden server";
           };
         };
       };
