@@ -123,6 +123,15 @@
         openFirewall = true;
       };
 
+      restic = {
+        enable = true;
+
+        dataDir = "/mnt/data/backups";
+        passwordFile = "/secrets/restic/passwordFile";
+
+        caddy.url = "https://restic.chd";
+      };
+
       qbittorrent = {
         enable = true;
 
