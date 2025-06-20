@@ -20,6 +20,7 @@
     "unifi-controller"
     "mongodb"
     "intel-ocl"
+    "vscode-extension-ms-vscode-remote-remote-containers"
   ];
 in {
   config.nixpkgs = {

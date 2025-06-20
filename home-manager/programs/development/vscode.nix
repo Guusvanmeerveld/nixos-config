@@ -69,6 +69,7 @@ in {
 
             # Privacy
             "telemetry.telemetryLevel" = "off";
+            "telemetry.feedback.enabled" = false;
             "security.workspace.trust.enabled" = false;
 
             # Set themes
@@ -188,19 +189,36 @@ in {
 
             "java.jdt.ls.java.home" = "${pkgs.openjdk}/lib/openjdk";
 
+            "metals.javaHome" = "${pkgs.openjdk}/lib/openjdk";
+            "metals.metalsJavaHome" = "${pkgs.openjdk}/lib/openjdk";
+
+            "python.defaultInterpreterPath" = lib.getExe pkgs.python3;
+
             "direnv.restart.automatic" = true;
 
             "razor.languageServer.directory" = "${pkgs.rzls}/lib/rzls";
             "dotnet.server.path" = "${pkgs.omnisharp-roslyn}/lib/omnisharp-roslyn/OmniSharp.dll";
+
+            "dev.containers.dockerComposePath" = "${lib.getExe pkgs.docker} compose";
+            "dev.containers.dockerPath" = lib.getExe pkgs.docker;
+
+            "files.watcherExclude" = {
+              "**/.bloop" = true;
+              "**/.metals" = true;
+            };
           };
 
           extensions =
-            (with compatibleExtensions.vscode-marketplace; [
+            (with pkgs.vscode-extensions; [
+              ms-vscode-remote.remote-containers
+            ])
+            ++ (with compatibleExtensions.vscode-marketplace; [
               eww-yuck.yuck
 
               allenli1231.zeppelin-vscode
             ])
             ++ (with compatibleExtensions.open-vsx; [
+              ms-azuretools.vscode-docker
               # Keybindings
               ms-vscode.atom-keybindings
 
@@ -229,6 +247,8 @@ in {
               scala-lang.scala
 
               # LSPs
+              scalameta.metals
+              ms-python.python
               sqlfluff.vscode-sqlfluff
               twxs.cmake
               muhammad-sammy.csharp
@@ -240,7 +260,7 @@ in {
               vscjava.vscode-maven
               vscjava.vscode-java-debug
               vscjava.vscode-java-dependency
-              vadimcn.vscode-lldb
+              # vadimcn.vscode-lldb
               bradlc.vscode-tailwindcss
               prince781.vala
               golang.go
