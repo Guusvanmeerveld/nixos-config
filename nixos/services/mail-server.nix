@@ -89,6 +89,11 @@ in {
     caddyCertDir = "${config.services.caddy.dataDir}/.local/share/caddy/certificates/acme-v02.api.letsencrypt.org-directory";
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.mail-server = {
+        location = "/mail-server";
+        paths = [config.mailserver.mailDirectory];
+      };
+
       services = {
         caddy.virtualHosts = {
           "https://${fqdn}" = {
@@ -99,17 +104,19 @@ in {
         };
       };
 
-      services.postfix = mkIf cfg.smtpRelay.enable {
-        mapFiles."sasl_passwd" = toString cfg.smtpRelay.secretsFile;
+      services = {
+        postfix = mkIf cfg.smtpRelay.enable {
+          mapFiles."sasl_passwd" = toString cfg.smtpRelay.secretsFile;
 
-        relayHost = cfg.smtpRelay.domain;
-        relayPort = cfg.smtpRelay.port;
+          relayHost = cfg.smtpRelay.domain;
+          relayPort = cfg.smtpRelay.port;
 
-        extraConfig = ''
-          smtp_sasl_password_maps = hash:/var/lib/postfix/conf/sasl_passwd
-          smtp_sasl_auth_enable = yes
-          smtp_sasl_security_options = noanonymous
-        '';
+          extraConfig = ''
+            smtp_sasl_password_maps = hash:/var/lib/postfix/conf/sasl_passwd
+            smtp_sasl_auth_enable = yes
+            smtp_sasl_security_options = noanonymous
+          '';
+        };
       };
 
       mailserver = {

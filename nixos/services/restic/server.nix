@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  cfg = config.custom.services.restic;
+  cfg = config.custom.services.restic.server;
 in {
   options = {
-    custom.services.restic = let
+    custom.services.restic.server = let
       inherit (lib) mkEnableOption mkOption types;
     in {
       enable = mkEnableOption "Enable the Restic service";

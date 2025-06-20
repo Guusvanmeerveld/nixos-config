@@ -32,6 +32,6 @@
     ./mail-server.nix
     ./traccar.nix
     ./atuin.nix
-    ./restic.nix
+    ./restic
   ];
 }

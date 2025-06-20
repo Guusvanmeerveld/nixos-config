@@ -89,6 +89,8 @@
         caddy.url = "http://syncthing.desktop";
         openFirewall = true;
       };
+
+      restic.client.enable = true;
     };
 
     virtualisation = {

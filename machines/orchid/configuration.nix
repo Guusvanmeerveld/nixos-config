@@ -123,7 +123,7 @@
         openFirewall = true;
       };
 
-      restic = {
+      restic.server = {
         enable = true;
 
         dataDir = "/mnt/data/backups";
