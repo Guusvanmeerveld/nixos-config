@@ -19,6 +19,7 @@ in {
     mkIf cfg.enable {
       security.pki.certificates = [
         (readFile ./tulip.crt)
+        (readFile ./orchid.crt)
       ];
     };
 }
