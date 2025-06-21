@@ -111,7 +111,7 @@
 
         mediaDir = "/mnt/share/apps/immich/upload";
 
-        caddy.url = "https://immich.tlp";
+        caddy.url = "http://immich.tlp";
       };
 
       jellyfin = {

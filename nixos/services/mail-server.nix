@@ -90,8 +90,8 @@ in {
   in
     mkIf cfg.enable {
       custom.services.restic.client.backups.mail-server = {
-        location = "/mail-server";
-        paths = [config.mailserver.mailDirectory];
+        location = "mail-server";
+        files = [config.mailserver.mailDirectory];
       };
 
       services = {

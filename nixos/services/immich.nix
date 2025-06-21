@@ -50,7 +50,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-                tls internal
               '';
             };
           };
@@ -69,6 +68,12 @@ in {
 
           settings = {
             server.externalDomain = cfg.caddy.url;
+
+            storageTemplate = {
+              enabled = true;
+              hashVerificationEnabled = true;
+              template = "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}";
+            };
           };
         };
       };
