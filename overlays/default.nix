@@ -26,12 +26,12 @@
     # ...
     # });
 
-    eduvpn-client = prev.eduvpn-client.overrideAttrs (_old: {
-      # Fix .desktop file and icons not being discovered
-      postInstall = ''
-        cp $out/lib/python3.12/site-packages/eduvpn/data/share $out -r
-      '';
-    });
+    # eduvpn-client = prev.eduvpn-client.overrideAttrs (_old: {
+    #   # Fix .desktop file and icons not being discovered
+    #   postInstall = ''
+    #     cp $out/lib/python3.12/site-packages/eduvpn/data/share $out -r
+    #   '';
+    # });
 
     whatsie = prev.whatsie.overrideAttrs (_old: {
       # Fix .desktop file and icons not being discovered

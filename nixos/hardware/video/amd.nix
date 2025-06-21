@@ -37,10 +37,10 @@ in {
 
     boot.initrd.kernelModules = ["amdgpu"];
 
-    systemd.tmpfiles.rules = [
-      # Most software has the HIP libraries hard-coded. This works around that.
-      "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-    ];
+    # systemd.tmpfiles.rules = [
+    #   # Most software has the HIP libraries hard-coded. This works around that.
+    #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+    # ];
 
     hardware.graphics = {
       enable = true;
@@ -48,7 +48,7 @@ in {
 
       extraPackages = with pkgs; [
         # OpenCL support
-        rocmPackages.clr.icd
+        # rocmPackages.clr.icd
 
         # Vulkan support
         amdvlk
