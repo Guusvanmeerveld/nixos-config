@@ -103,6 +103,13 @@
       caddy = {
         enable = true;
 
+        ca = {
+          enable = true;
+
+          cert = "${../../nixos/certificates/tulip.crt}";
+          key = "/secrets/caddy/ca/root.key";
+        };
+
         openFirewall = true;
       };
 
