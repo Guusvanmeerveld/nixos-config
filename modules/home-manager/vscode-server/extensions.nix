@@ -4,10 +4,12 @@
   pkgs,
   ...
 }: let
+  inherit (lib) last;
+
   extensions = config.services.vscode-server-extensions;
   cfg = config.services.vscode-server;
 
-  extensionDir = cfg.installPath;
+  extensionDir = last cfg.installPath;
 
   extensionPath = "${extensionDir}/extensions";
 

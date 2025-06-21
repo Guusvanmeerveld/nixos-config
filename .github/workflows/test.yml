@@ -2,6 +2,9 @@ name: Check if config is valid
 
 on:
   pull_request:
+    branches:
+      - "bot/update"
+
   push:
     paths:
       - "home-manager/**"
