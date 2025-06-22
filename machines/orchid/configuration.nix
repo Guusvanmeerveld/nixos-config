@@ -80,8 +80,6 @@
     certificates.enable = true;
 
     networking = {
-      mullvad.enable = true;
-
       wireguard = {
         enable = true;
 
@@ -101,6 +99,27 @@
 
       caddy = {
         enable = true;
+
+        ca = {
+          enable = true;
+
+          cert = "${../../nixos/certificates/orchid.crt}";
+          key = "/secrets/caddy/ca/root.key";
+        };
+
+        ipFilter = {
+          enable = true;
+
+          vHosts = [
+            "http://syncthing.chd"
+            "https://qbittorrent.chd"
+            "https://restic.chd"
+            "https://radarr.chd"
+            "https://sonarr.chd"
+            "https://prowlarr.chd"
+          ];
+        };
+
         openFirewall = true;
       };
 

@@ -110,6 +110,22 @@
           key = "/secrets/caddy/ca/root.key";
         };
 
+        ipFilter = {
+          enable = true;
+
+          vHosts = [
+            "http://immich.tlp"
+            "https://uptime.tlp"
+            "https://homeassistant.tlp"
+            "https://ntfy.tlp"
+            "https://miniflux.tlp"
+            "https://bitwarden.tlp"
+            "https://traccar.tlp"
+            "https://radicale.tlp"
+            "https://atuin.tlp"
+          ];
+        };
+
         openFirewall = true;
       };
 

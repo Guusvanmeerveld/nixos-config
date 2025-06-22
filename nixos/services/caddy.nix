@@ -13,6 +13,22 @@ in {
 
       openFirewall = mkEnableOption "Open Caddy ports in firewall";
 
+      ipFilter = {
+        enable = mkEnableOption "Enable ip blocking";
+
+        whitelist = mkOption {
+          type = types.listOf types.str;
+          default = ["10.10.10.0/24"];
+          description = "List of ip ranges that are allowed to connect to Caddy";
+        };
+
+        vHosts = mkOption {
+          type = types.listOf types.str;
+          default = [];
+          description = "Virtual hosts that this filter should be enabled for";
+        };
+      };
+
       ca = {
         enable = mkEnableOption "Configure local CA certificates";
 
@@ -32,23 +48,43 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf optionals;
+    inherit (lib) mkIf optionals concatStringsSep listToAttrs;
   in
     mkIf cfg.enable {
       services.caddy = {
         enable = true;
 
-        globalConfig = mkIf cfg.ca.enable ''
-          {
-          	pki {
-          		ca local {
-          			name "Local CA"
+        # Does not work if admin page is off, so we disable it.
+        enableReload = false;
 
-                root {
-                  cert ${cfg.ca.cert}
-                  key ${cfg.ca.key}
-                }
-          		}
+        email = "caddy@guusvanmeerveld.dev";
+
+        virtualHosts = let
+          blockIps = ''
+            @blocked not remote_ip ${concatStringsSep " " cfg.ipFilter.whitelist}
+            respond @blocked "Access Denied" 403
+          '';
+        in
+          mkIf cfg.ipFilter.enable (listToAttrs (map (vHost: {
+              name = vHost;
+              value = {
+                extraConfig = blockIps;
+              };
+            })
+            cfg.ipFilter.vHosts));
+
+        globalConfig = mkIf cfg.ca.enable ''
+          # Disable admin page on port 2019
+          admin off
+
+          pki {
+          	ca local {
+          		name "Local CA"
+
+              root {
+                cert ${cfg.ca.cert}
+                key ${cfg.ca.key}
+              }
           	}
           }
         '';

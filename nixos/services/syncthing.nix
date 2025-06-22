@@ -90,7 +90,7 @@ in {
 
       dataDir = lib.mkOption {
         type = lib.types.str;
-        default = "/home/guus/";
+        default = "/home/guus";
       };
 
       keyFile = lib.mkOption {

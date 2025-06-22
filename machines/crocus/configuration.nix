@@ -68,6 +68,12 @@
       caddy = {
         enable = true;
         openFirewall = true;
+
+        ipFilter = {
+          enable = true;
+
+          vHosts = ["http://syncthing.crocus"];
+        };
       };
 
       syncthing = {
