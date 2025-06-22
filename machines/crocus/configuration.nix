@@ -72,7 +72,7 @@
         ipFilter = {
           enable = true;
 
-          vHosts = ["http://syncthing.crocus"];
+          vHosts = ["http://syncthing.crocus" "http://adguard.crocus"];
         };
       };
 
@@ -127,10 +127,12 @@
         };
       };
 
-      dnsmasq = {
+      adguard = {
         enable = true;
 
         openFirewall = true;
+
+        caddy.url = "http://adguard.crocus";
       };
 
       motd = {

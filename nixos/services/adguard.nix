@@ -42,7 +42,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-                tls internal
               '';
             };
           };
@@ -54,6 +53,18 @@ in {
           inherit (cfg) port;
 
           mutableSettings = false;
+
+          settings = {
+            dns = {
+              bootstrap_dns = ["1.1.1.1"];
+            };
+
+            statistics = {
+              enabled = true;
+
+              interval = "2160h";
+            };
+          };
         };
       };
     };

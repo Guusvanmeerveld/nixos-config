@@ -167,6 +167,7 @@ in {
         enableSubmissionSsl = true;
 
         virusScanning = true;
+        localDnsResolver = false;
 
         dmarcReporting = {
           enable = true;
