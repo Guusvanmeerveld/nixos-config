@@ -33,5 +33,6 @@
     ./traccar.nix
     ./atuin.nix
     ./restic
+    ./adguard.nix
   ];
 }

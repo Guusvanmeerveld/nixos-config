@@ -156,8 +156,8 @@ in {
       DNSStubListener=no
     '';
 
-    # Map all TLD's of the peers in dnsmasq.
-    services.dnsmasq.settings.address = with lib;
+    # Map all TLD's of the peers in adguard.
+    services.adguardhome.settings.filtering.rewrites = with lib;
       flatten (mapAttrsToList (
           networkName: network: let
             networkConfig = networks.${networkName};
@@ -167,7 +167,10 @@ in {
               ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
           in
             lib.optionals network.enable (map (
-                peer: "/${peer.tld}/${peer.address}"
+                peer: {
+                  domain = "*.${peer.tld}";
+                  answer = peer.address;
+                }
               )
               peers)
         )
