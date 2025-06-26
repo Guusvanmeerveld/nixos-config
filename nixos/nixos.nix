@@ -44,21 +44,15 @@
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
       channel.enable = false;
 
-      # gc = {
-      #   automatic = true;
-      #   options = "--delete-older-than 30d";
-      #   dates = "weekly";
-      # };
+      gc = {
+        automatic = true;
+        options = "--delete-older-than 30d";
+        dates = "weekly";
+      };
     };
 
     programs.nh = {
       enable = true;
-
-      clean = {
-        enable = true;
-        dates = "Mon *-*-08..14 05:00:00";
-        extraArgs = "--keep-since 14d --keep 3";
-      };
     };
   };
 }
