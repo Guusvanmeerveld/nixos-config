@@ -12,6 +12,6 @@
         home-manager
         git
       ])
-      ++ (with pkgs.custom.scripts; [backup-secrets]);
+      ++ (with pkgs.custom.scripts; [manage-secrets]);
   };
 }

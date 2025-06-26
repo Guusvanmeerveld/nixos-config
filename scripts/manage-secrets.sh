@@ -1,7 +1,7 @@
 # shellcheck disable=SC2148
 
 show_help() {
-    echo "Usage: $0 <add|edit|rm> <FILE_NAME> <?USER>"
+    echo "Usage: $0 <add|edit|rm|cat> <FILE_NAME> <?USER>"
     exit 1
 }
 
@@ -36,10 +36,14 @@ case $COMMAND in
         edit_file "$FILE"
         ;;
 
+    "cat")
+        sudo cat "$FILE"
+        ;;
+
     "rm")
         sudo rm -r "$FILE"
         ;;
-        
+
     *)
         echo "Invalid command:"
         show_help
