@@ -1,10 +1,10 @@
 {pkgs, ...}: let
   inherit (pkgs) lib;
 in {
-  backup-secrets = pkgs.writeShellApplication {
-    name = "backup-secrets";
+  manage-secrets = pkgs.writeShellApplication {
+    name = "manage-secrets";
 
-    text = builtins.readFile ./backup-secrets.sh;
+    text = builtins.readFile ./manage-secrets.sh;
   };
 
   swayFocusOrStart = app_id: path: let
