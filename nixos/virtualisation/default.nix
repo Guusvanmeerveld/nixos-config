@@ -1,3 +1,3 @@
 {
-  imports = [./docker ./microvm ./qemu.nix ./waydroid.nix];
+  imports = [./docker ./qemu.nix ./waydroid.nix];
 }
