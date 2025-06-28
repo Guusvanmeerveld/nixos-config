@@ -143,6 +143,12 @@
         caddy.url = "https://jellyfin.tlp";
       };
 
+      jellyseerr = {
+        enable = true;
+
+        caddy.url = "https://jellyseerr.tlp";
+      };
+
       uptime-kuma = {
         enable = true;
 
@@ -214,9 +220,6 @@
           "mijnmodem.kpn" = "192.168.2.254";
 
           ".tlp" = "192.168.2.35";
-
-          "orchid" = "192.168.2.195";
-          "tulip" = "192.168.2.35";
 
           "unifi" = "192.168.2.35";
           "unifi.home" = "192.168.2.35";

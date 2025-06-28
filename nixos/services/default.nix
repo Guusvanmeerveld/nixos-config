@@ -34,5 +34,6 @@
     ./atuin.nix
     ./restic
     ./adguard.nix
+    ./jellyseerr.nix
   ];
 }
