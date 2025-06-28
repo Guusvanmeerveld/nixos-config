@@ -86,6 +86,8 @@
         openFirewall = true;
       };
 
+      restic.client.enable = true;
+
       # qbittorrent.enable = true;
     };
 

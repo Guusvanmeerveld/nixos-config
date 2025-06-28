@@ -50,6 +50,10 @@
     hostId = "04ae0999";
   };
 
+  users.users."radarr" = {
+    extraGroups = ["media"];
+  };
+
   custom = {
     users."guus" = {
       isSuperUser = true;

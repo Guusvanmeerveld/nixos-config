@@ -55,7 +55,6 @@ in {
 
     services = {
       kdeconnect.enable = true;
-      mpd.enable = true;
     };
 
     programs = {

@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ../../../home-manager
-
-    ./agenix.nix
   ];
 
   home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];

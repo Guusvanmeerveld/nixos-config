@@ -25,12 +25,6 @@
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-    # Grub themes
-    grub2-themes = {
-      url = "github:vinceliuice/grub2-themes";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     nix-index-database = {
@@ -48,13 +42,6 @@
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    rust-overlay.url = "github:oxalica/rust-overlay";
 
     vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -86,23 +73,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    disko = {
-      url = "github:nix-community/disko/latest";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    microvm = {
-      url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -124,6 +96,11 @@
 
     jellyfin-plugins = {
       url = "github:LoCrealloc/jellyfin-plugins-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    vpn-confinement = {
+      url = "github:Maroka-chan/VPN-Confinement";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
