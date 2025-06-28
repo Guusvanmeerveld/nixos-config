@@ -4,12 +4,15 @@
 {
   inputs,
   lib,
+  config,
   ...
 }: {
   imports = [
     ../../nixos
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
+
+    inputs.vpn-confinement.nixosModules.default
   ];
 
   boot.blacklistedKernelModules = ["onboard_usb_hub"];
@@ -50,8 +53,36 @@
     hostId = "04ae0999";
   };
 
-  users.users."radarr" = {
-    extraGroups = ["media"];
+  users.users = lib.listToAttrs (map (user: {
+    key = user;
+    value = {
+      extraGroups = ["media"];
+    };
+  }) ["radarr" "sonarr" "prowlarr"]);
+
+  vpnNamespaces.mullvad = {
+    # The name is limited to 7 characters
+
+    enable = true;
+    wireguardConfigFile = "/secrets/mullvad/wgFile";
+
+    accessibleFrom = [
+      "192.168.2.0/24"
+    ];
+
+    portMappings = [
+      (let
+        qbtPort = config.services.qbittorrent.webUIPort;
+      in {
+        from = qbtPort;
+        to = qbtPort;
+      })
+    ];
+  };
+
+  systemd.services.qbittorrent.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "mullvad";
   };
 
   custom = {
@@ -114,6 +145,8 @@
         ipFilter = {
           enable = true;
 
+          whitelist = ["10.10.10.0/24" "192.168.2.0/24"];
+
           vHosts = [
             "http://syncthing.chd"
             "https://qbittorrent.chd"
@@ -157,8 +190,6 @@
 
       qbittorrent = {
         enable = true;
-
-        networkInterface = "wg0-mullvad";
 
         saveDir = "/mnt/data/media/download";
 

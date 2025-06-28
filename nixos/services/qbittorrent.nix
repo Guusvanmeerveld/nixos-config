@@ -76,7 +76,7 @@ in {
           theme = "vuetorrent";
 
           settings = {
-            "BitTorrent" = {
+            "BitTorrent" = mkIf (cfg.networkInterface != null) {
               "Session\\Interface" = cfg.networkInterface;
               "Session\\InterfaceName" = cfg.networkInterface;
             };
