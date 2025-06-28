@@ -4,8 +4,6 @@
   ...
 }: let
   cfg = config.custom.services.samba.client;
-
-  defaultOptions = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,credentials=${cfg.credentialsFile}";
 in {
   options = {
     custom.services.samba.client = {
@@ -14,7 +12,7 @@ in {
       credentialsFile = lib.mkOption {
         type = lib.types.str;
         description = "The location of the credentials file";
-        default = "/etc/nixos/smb-secrets";
+        default = "/secrets/samba/client";
       };
 
       shares = lib.mkOption {
@@ -70,7 +68,18 @@ in {
     fileSystems = builtins.listToAttrs (map (share: {
         name = share.host.dir;
         value = {
-          options = ["${defaultOptions},uid=${toString share.host.uid},gid=${toString share.host.gid},dir_mode=${share.host.dirMode},file_mode=${share.host.fileMode}"];
+          options = [
+            "x-systemd.automount"
+            "noauto"
+            "x-systemd.idle-timeout=60"
+            "x-systemd.device-timeout=5s"
+            "x-systemd.mount-timeout=5s"
+            "credentials=${cfg.credentialsFile}"
+            "uid=${toString share.host.uid}"
+            "gid=${toString share.host.gid}"
+            "dir_mode=${share.host.dirMode}"
+            "file_mode=${share.host.fileMode}"
+          ];
 
           device = "//${share.remote.host}/${share.remote.dir}";
           fsType = "cifs";

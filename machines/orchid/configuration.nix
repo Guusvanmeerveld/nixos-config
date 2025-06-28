@@ -53,12 +53,23 @@
     hostId = "04ae0999";
   };
 
-  users.users = lib.listToAttrs (map (user: {
-    key = user;
-    value = {
-      extraGroups = ["media"];
-    };
-  }) ["radarr" "sonarr" "prowlarr"]);
+  users = {
+    groups.media = {};
+
+    users =
+      {
+        media = {
+          group = "media";
+          isSystemUser = true;
+        };
+      }
+      // (lib.listToAttrs (map (user: {
+        key = user;
+        value = {
+          extraGroups = ["media"];
+        };
+      }) ["radarr" "sonarr" "prowlarr"]));
+  };
 
   vpnNamespaces.mullvad = {
     # The name is limited to 7 characters
