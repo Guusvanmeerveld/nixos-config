@@ -19,6 +19,8 @@
     optionalString
     ;
 
+  cfg = config.services.qbittorrent;
+
   iniFormat = pkgs.formats.ini {};
 
   defaultSettings = {
@@ -27,6 +29,8 @@
       "WebUI\\AlternativeUIEnabled" = toString (cfg.theme != null);
       # If specified theme is "vuetorrent", link to their files.
       "WebUI\\RootFolder" = optionalString (cfg.theme == "vuetorrent") "${pkgs.vuetorrent}/share/vuetorrent";
+
+      "WebUI\\Address" = optionalString (cfg.address != null) cfg.address;
     };
 
     BitTorrent = {
@@ -48,7 +52,6 @@
     )
     settingsCombined);
 
-  cfg = config.services.qbittorrent;
   UID = 888;
   GID = 888;
 in {
@@ -85,6 +88,12 @@ in {
       description = ''
         qBittorrent web UI port.
       '';
+    };
+
+    address = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "The address to bind to";
     };
 
     torrentPort = mkOption {

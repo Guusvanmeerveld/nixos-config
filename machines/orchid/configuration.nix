@@ -64,11 +64,18 @@
         };
       }
       // (lib.listToAttrs (map (user: {
-        key = user;
+        name = user;
         value = {
           extraGroups = ["media"];
         };
-      }) ["radarr" "sonarr" "prowlarr"]));
+      }) ["radarr" "sonarr"]));
+  };
+
+  services.qbittorrent.address = "192.168.15.1";
+
+  systemd.services.qbittorrent.vpnConfinement = {
+    enable = true;
+    vpnNamespace = "mullvad";
   };
 
   vpnNamespaces.mullvad = {
@@ -78,7 +85,7 @@
     wireguardConfigFile = "/secrets/mullvad/wgFile";
 
     accessibleFrom = [
-      "192.168.2.0/24"
+      "127.0.0.0/24"
     ];
 
     portMappings = [
@@ -89,11 +96,6 @@
         to = qbtPort;
       })
     ];
-  };
-
-  systemd.services.qbittorrent.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "mullvad";
   };
 
   custom = {

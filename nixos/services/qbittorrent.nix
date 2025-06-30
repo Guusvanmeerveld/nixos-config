@@ -36,12 +36,6 @@ in {
         description = "Open qBittorrent ports in firewall";
       };
 
-      networkInterface = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-        description = "The network interface to run qBittorrent on";
-      };
-
       caddy.url = mkOption {
         type = with types; nullOr str;
         default = null;
@@ -59,9 +53,14 @@ in {
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
-            "${cfg.caddy.url}" = {
+            "${cfg.caddy.url}" = let
+              address =
+                if config.qbittorrent.address != null
+                then config.qbittorrent.address
+                else "localhost";
+            in {
               extraConfig = ''
-                reverse_proxy http://localhost:${toString cfg.webUIPort}
+                reverse_proxy http://${address}:${toString cfg.webUIPort}
                 tls internal
               '';
             };
@@ -74,13 +73,6 @@ in {
           inherit (cfg) webUIPort saveDir;
 
           theme = "vuetorrent";
-
-          settings = {
-            "BitTorrent" = mkIf (cfg.networkInterface != null) {
-              "Session\\Interface" = cfg.networkInterface;
-              "Session\\InterfaceName" = cfg.networkInterface;
-            };
-          };
         };
       };
     };
