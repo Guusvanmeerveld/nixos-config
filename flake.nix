@@ -100,6 +100,11 @@
     };
 
     vpn-confinement.url = "github:Maroka-chan/VPN-Confinement";
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -117,6 +122,7 @@
     nix-github-actions,
     nix-on-droid,
     pre-commit-hooks,
+    nixos-generators,
     ...
   } @ inputs: let
     systems = [
@@ -176,18 +182,33 @@
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages = forAllSystems (
-      with lib; (
-        system:
-          (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
-          // {
-            inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
+    packages =
+      (forAllSystems (
+        with lib; (
+          system:
+            (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
+            // {
+              inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
 
-            hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
-            mconnect = inputs.mconnect-nix.packages."${system}".default;
-          }
-      )
-    );
+              hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
+              mconnect = inputs.mconnect-nix.packages."${system}".default;
+            }
+        )
+      ))
+      // {
+        aarch64-linux = {
+          orchid = nixos-generators.nixosGenerate {
+            inherit specialArgs;
+
+            system = "aarch64-linux";
+            format = "sd-aarch64";
+
+            modules = [
+              ./machines/orchid/configuration.nix
+            ];
+          };
+        };
+      };
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'

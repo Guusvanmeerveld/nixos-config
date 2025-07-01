@@ -41,6 +41,8 @@
     raspberry-pi."4" = {
       i2c1.enable = true;
     };
+
+    enableRedistributableFirmware = true;
   };
 
   # Enable networking
@@ -68,7 +70,7 @@
         value = {
           extraGroups = ["media"];
         };
-      }) ["radarr" "sonarr"]));
+      }) ["radarr" "sonarr" "qbittorrent"]));
   };
 
   services.qbittorrent.address = "192.168.15.1";

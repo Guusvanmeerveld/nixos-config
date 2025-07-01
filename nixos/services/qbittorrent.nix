@@ -55,8 +55,8 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = let
               address =
-                if config.qbittorrent.address != null
-                then config.qbittorrent.address
+                if config.services.qbittorrent.address != null
+                then config.services.qbittorrent.address
                 else "localhost";
             in {
               extraConfig = ''
