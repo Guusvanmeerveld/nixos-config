@@ -121,7 +121,7 @@ in {
 
       mailserver = {
         enable = true;
-        stateVersion = 1;
+        stateVersion = 3;
 
         inherit (cfg) openFirewall;
 
