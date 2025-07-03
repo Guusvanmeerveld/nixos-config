@@ -182,33 +182,39 @@
 
     # Your custom packages
     # Accessible through 'nix build', 'nix shell', etc
-    packages =
-      (forAllSystems (
-        with lib; (
-          system:
-            (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
-            // {
-              inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
+    packages = forAllSystems (
+      with lib; (
+        system:
+          (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
+          // {
+            inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
 
-              hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
-              mconnect = inputs.mconnect-nix.packages."${system}".default;
-            }
-        )
-      ))
-      // {
-        aarch64-linux = {
-          orchid = nixos-generators.nixosGenerate {
-            inherit specialArgs;
+            hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
+            mconnect = inputs.mconnect-nix.packages."${system}".default;
 
-            system = "aarch64-linux";
-            format = "sd-aarch64";
+            orchid = nixos-generators.nixosGenerate {
+              inherit specialArgs;
 
-            modules = [
-              ./machines/orchid/configuration.nix
-            ];
-          };
-        };
-      };
+              system = "aarch64-linux";
+              format = "sd-aarch64";
+
+              modules = [
+                ./machines/orchid/configuration.nix
+              ];
+            };
+
+            iso = nixos-generators.nixosGenerate {
+              inherit specialArgs system;
+
+              format = "install-iso";
+
+              modules = [
+                ./machines/iso/configuration.nix
+              ];
+            };
+          }
+      )
+    );
 
     # Formatter for your nix files, available through 'nix fmt'
     # Other options beside 'alejandra' include 'nixpkgs-fmt'

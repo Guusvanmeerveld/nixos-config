@@ -24,7 +24,7 @@ in {
       inherit (cfg) openFirewall;
 
       settings = {
-        PermitRootLogin = lib.mkDefault "no";
+        PermitRootLogin = lib.mkForce "no";
         PasswordAuthentication = false;
       };
     };
