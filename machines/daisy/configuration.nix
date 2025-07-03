@@ -1,11 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../../nixos
 
@@ -75,7 +71,7 @@
 
         epicGamesEmail = "mail@guusvanmeerveld.dev";
 
-        secretsFile = config.age.secrets.feg.path;
+        secretsFile = "/secrets/feg";
       };
 
       caddy = {
