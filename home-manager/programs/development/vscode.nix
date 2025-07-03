@@ -191,6 +191,9 @@ in {
 
             "metals.javaHome" = "${pkgs.openjdk}/lib/openjdk";
             "metals.metalsJavaHome" = "${pkgs.openjdk}/lib/openjdk";
+            "metals.mavenScript" = lib.getExe pkgs.maven;
+            "metals.millScript" = lib.getExe pkgs.mill;
+            "metals.sbtScript" = "${pkgs.sbt}/bin/sbt";
 
             "python.defaultInterpreterPath" = lib.getExe pkgs.python3;
 
@@ -205,6 +208,7 @@ in {
             "files.watcherExclude" = {
               "**/.bloop" = true;
               "**/.metals" = true;
+              "**/target" = true;
             };
           };
 
