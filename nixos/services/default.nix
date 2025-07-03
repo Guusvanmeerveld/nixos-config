@@ -35,5 +35,7 @@
     ./restic
     ./adguard.nix
     ./jellyseerr.nix
+    ./free-epic-games.nix
+    ./twitch-miner
   ];
 }
