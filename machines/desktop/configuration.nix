@@ -11,18 +11,24 @@
   networking.networkmanager.enable = true;
 
   # Bootloader.
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+  boot = {
+    tmp = {
+      cleanOnBoot = true;
     };
 
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 20;
-    };
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
 
-    timeout = 0;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 20;
+      };
+
+      timeout = 0;
+    };
   };
 
   # Prevent USB controller from awaking the system from suspend.

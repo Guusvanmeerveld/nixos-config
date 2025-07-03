@@ -6,10 +6,16 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-    timeout = 0;
+  boot = {
+    tmp = {
+      cleanOnBoot = true;
+    };
+
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 0;
+    };
   };
 
   networking = {
@@ -87,8 +93,6 @@
       };
 
       restic.client.enable = true;
-
-      # qbittorrent.enable = true;
     };
 
     dm.greetd = {

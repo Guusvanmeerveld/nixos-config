@@ -12,7 +12,7 @@ in {
       credentialsFile = lib.mkOption {
         type = lib.types.str;
         description = "The location of the credentials file";
-        default = "/secrets/samba/client";
+        default = "/secrets/samba/client/default";
       };
 
       shares = lib.mkOption {
@@ -43,6 +43,12 @@ in {
                 type = lib.types.str;
                 default = "0644";
               };
+
+              credentialsFile = lib.mkOption {
+                type = lib.types.str;
+                description = "The location of the credentials file";
+                default = cfg.credentialsFile;
+              };
             };
 
             remote = {
@@ -69,16 +75,18 @@ in {
         name = share.host.dir;
         value = {
           options = [
-            "x-systemd.automount"
-            "noauto"
-            "x-systemd.idle-timeout=60"
-            "x-systemd.device-timeout=5s"
-            "x-systemd.mount-timeout=5s"
-            "credentials=${cfg.credentialsFile}"
-            "uid=${toString share.host.uid}"
-            "gid=${toString share.host.gid}"
-            "dir_mode=${share.host.dirMode}"
-            "file_mode=${share.host.fileMode}"
+            (lib.concatStringsSep "," [
+              "noauto"
+              "x-systemd.automount"
+              "x-systemd.idle-timeout=60"
+              "x-systemd.device-timeout=5s"
+              "x-systemd.mount-timeout=5s"
+              "credentials=${share.host.credentialsFile}"
+              "uid=${toString share.host.uid}"
+              "gid=${toString share.host.gid}"
+              "dir_mode=${share.host.dirMode}"
+              "file_mode=${share.host.fileMode}"
+            ])
           ];
 
           device = "//${share.remote.host}/${share.remote.dir}";

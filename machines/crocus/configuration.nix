@@ -9,9 +9,9 @@
     ./hardware-configuration.nix
   ];
 
-  boot.tmp.cleanOnBoot = true;
+  boot.tmp.useTmpfs = true;
 
-  # zramSwap.enable = true;
+  zramSwap.enable = true;
 
   networking.hostName = "crocus";
 
