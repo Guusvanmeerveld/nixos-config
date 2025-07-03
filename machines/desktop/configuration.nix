@@ -6,9 +6,12 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "desktop";
+  networking = {
+    hostName = "desktop";
+    networkmanager.enable = true;
+  };
 
-  networking.networkmanager.enable = true;
+  hardware.enableRedistributableFirmware = true;
 
   # Bootloader.
   boot = {

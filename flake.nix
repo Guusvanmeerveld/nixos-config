@@ -321,6 +321,14 @@
           ./machines/tulip/configuration.nix
         ];
       };
+
+      framework-13 = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+
+        modules = [
+          ./machines/framework-13/configuration.nix
+        ];
+      };
     };
   };
 }
