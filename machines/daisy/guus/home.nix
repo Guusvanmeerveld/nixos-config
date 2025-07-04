@@ -4,14 +4,8 @@
   ];
 
   custom = {
-    services = {
-      syncthing.enable = true;
-      vscode-server.enable = true;
-    };
-
-    programs.cli = {
-      default.enable = true;
-    };
+    services.vscode-server.enable = true;
+    programs.cli.default.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

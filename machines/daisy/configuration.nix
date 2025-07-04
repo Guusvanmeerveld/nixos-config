@@ -58,6 +58,8 @@
     services = {
       motd.enable = true;
 
+      caddy.enable = true;
+
       free-epic-games = {
         enable = true;
 
