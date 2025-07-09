@@ -146,6 +146,8 @@ in {
             "unifi"
             "ntfy"
             "evohome"
+            "tplink"
+            "tplink_tapo"
             "mobile_app"
           ];
         };
