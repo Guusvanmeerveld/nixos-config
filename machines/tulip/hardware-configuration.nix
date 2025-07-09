@@ -34,15 +34,18 @@
     {device = "/dev/disk/by-uuid/4fafa899-f915-4a2c-8c12-24b49d07fea2";}
   ];
 
+  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD"; # Or "i965" if using older driver
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Same here
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      vpl-gpu-rt
+      intel-media-driver
       # OpenCL support for intel CPUs before 12th gen
       # see: https://github.com/NixOS/nixpkgs/issues/356535
       intel-compute-runtime-legacy1
       intel-media-sdk # QSV up to 11th gen
-      intel-ocl # OpenCL support
+      intel-ocl
     ];
   };
 

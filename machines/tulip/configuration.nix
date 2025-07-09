@@ -16,6 +16,8 @@
       systemd-boot.enable = true;
       timeout = 0;
     };
+
+    binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
   networking.hostName = "tulip";
@@ -67,6 +69,7 @@
           {
             host = {
               dir = "/mnt/share/media";
+              credentialsFile = "/secrets/samba/client/media";
 
               inherit (config.users.users.jellyfin) uid;
               inherit (config.users.groups.jellyfin) gid;
@@ -124,7 +127,7 @@
       jellyfin = {
         enable = true;
 
-        caddy.url = "https://jellyfin.tlp";
+        caddy.url = "http://jellyfin.tlp";
       };
 
       jellyseerr = {
