@@ -70,6 +70,8 @@ in {
         isNormalUser = true;
         extraGroups = ["networkmanager" "video" "audio" "storage" "disk"] ++ (lib.optional config.isSuperUser "wheel") ++ config.groups ++ globalGroups;
 
+        initialPassword = "changeme123";
+
         openssh.authorizedKeys.keys = config.ssh.keys;
       })
       cfg;
