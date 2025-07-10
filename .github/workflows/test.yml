@@ -2,8 +2,7 @@ name: Check if config is valid
 
 on:
   pull_request:
-    branches:
-      - "bot/update"
+    types: [opened]
 
   push:
     paths:

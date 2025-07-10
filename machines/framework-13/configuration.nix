@@ -22,7 +22,7 @@
 
   networking = {
     hostName = "framework-13";
-    networkmanager = true;
+    networkmanager.enable = true;
   };
 
   # BIOS updates are distributed through LVFS, which can be used by enabling the fwupd service
@@ -47,15 +47,15 @@
     security.keyring.enable = true;
     certificates.enable = true;
 
-    networking.wireguard = {
-      enable = true;
+    # networking.wireguard = {
+    #   enable = true;
 
-      networks = {
-        "garden" = {
-          enable = true;
-        };
-      };
-    };
+    #   networks = {
+    #     "garden" = {
+    #       enable = true;
+    #     };
+    #   };
+    # };
 
     hardware = {
       backlight.enable = true;
