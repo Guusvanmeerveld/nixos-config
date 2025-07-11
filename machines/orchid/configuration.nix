@@ -230,6 +230,12 @@
         caddy.url = "https://prowlarr.chd";
       };
 
+      bazarr = {
+        enable = true;
+
+        caddy.url = "https://bazarr.chd";
+      };
+
       samba.server = {
         enable = true;
 
