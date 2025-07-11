@@ -45,37 +45,37 @@
   folders = {
     "minecraft" = {
       label = "Minecraft";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "code" = {
       label = "Code";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "games" = {
       label = "Games";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "music" = {
       label = "Music";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone" "framework-13"];
     };
 
     "seedvault-backup" = {
       label = "Phone Backup";
-      devices = ["orchid" "thuisthuis" "desktop" "phone"];
+      devices = ["orchid" "thuisthuis" "desktop" "phone" "framework-13"];
     };
 
     "dictionaries" = {
       label = "Word Dictionaries";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "firefox-profile" = {
       label = "Firefox Profile";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop"];
+      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
   };
 in {
