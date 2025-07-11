@@ -28,7 +28,8 @@
 
         output = {
           "eDP-1" = {
-            mode = "1920x1080@60Hz";
+            mode = "2256x1504@59.999Hz";
+            scale = toString 1.5;
             bg = "${../wallpaper.png} stretch";
           };
         };

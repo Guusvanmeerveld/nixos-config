@@ -35,6 +35,11 @@
       id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
       addresses = ["tcp://10.10.10.10:22000"];
     };
+
+    "framework-13" = {
+      id = "QBKBECQ-OW6BZ5K-RADYZVU-Y5YWXIX-TSQD3CD-PBTQA64-DTBYXQV-CEME4QK";
+      addresses = ["tcp://10.10.10.12:22000"];
+    };
   };
 
   folders = {

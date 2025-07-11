@@ -30,7 +30,7 @@
   services.fwupd.enable = true;
 
   services.logind = {
-    lidSwitch = "hibernate";
+    lidSwitch = "poweroff";
   };
 
   custom = {
@@ -47,15 +47,15 @@
     security.keyring.enable = true;
     certificates.enable = true;
 
-    # networking.wireguard = {
-    #   enable = true;
+    networking.wireguard = {
+      enable = true;
 
-    #   networks = {
-    #     "garden" = {
-    #       enable = true;
-    #     };
-    #   };
-    # };
+      networks = {
+        "garden" = {
+          enable = true;
+        };
+      };
+    };
 
     hardware = {
       backlight.enable = true;
@@ -100,17 +100,7 @@
       restic.client.enable = true;
     };
 
-    dm.greetd = {
-      enable = true;
-
-      outputs = {
-        "eDP-1" = {
-          resolution = "1920x1080";
-          refreshRate = 60.0;
-          background = "${./wallpaper.png} stretch";
-        };
-      };
-    };
+    dm.greetd.enable = true;
 
     wm.wayland.sway.enable = true;
   };

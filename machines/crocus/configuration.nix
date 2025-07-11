@@ -33,6 +33,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINtf3QLEGFwNipavG1GIuX122Wy0zhh6kl0yEOGp8UTW guus@laptop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB07nFBwusgZ/teTPodEkQkwo9A3cHGN+D9TuJ6SC/HF guus@thuisthuis"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN/xxHZBPK+bPbQRiEEGmufiEpLm2AqLTPVKs+3x7qJB guus@phone"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILeMun+e0fe1B+YeSsGb8lxyDDQfhGmnlTOcKncuVoOL guus@framework-13"
       ];
     };
 

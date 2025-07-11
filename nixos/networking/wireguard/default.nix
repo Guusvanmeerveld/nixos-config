@@ -78,6 +78,12 @@
           address = "10.10.10.11";
           tld = "daniel";
         };
+
+        framework-13 = {
+          publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs=";
+          address = "10.10.10.12";
+          tld = "framework";
+        };
       };
     };
   };

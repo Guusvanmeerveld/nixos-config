@@ -62,6 +62,7 @@
       ssh.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAbtyJ9N/jgR9L04Y09PAlHPR6n2PwdBF3WAn9tUd+fn guus@desktop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGu7eHkmd1YUi3sjbYG299Gvwlq2fpy2AIlLTXgUR49j guus@laptop"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDJPCjORqUI36CLKFecdYTWMznUqaNsVMQlYL7Kb9fxO guus@framework-13"
       ];
     };
 
