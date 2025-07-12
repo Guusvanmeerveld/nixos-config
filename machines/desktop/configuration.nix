@@ -125,17 +125,7 @@
       };
     };
 
-    dm.greetd = {
-      enable = true;
-
-      outputs = {
-        "DP-3" = {
-          resolution = "3440x1440";
-          refreshRate = 164.9;
-          background = "${./wallpaper.png} stretch";
-        };
-      };
-    };
+    dm.greetd.enable = true;
 
     wm.wayland.sway.enable = true;
   };

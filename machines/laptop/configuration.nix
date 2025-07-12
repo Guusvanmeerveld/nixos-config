@@ -95,17 +95,7 @@
       restic.client.enable = true;
     };
 
-    dm.greetd = {
-      enable = true;
-
-      outputs = {
-        "eDP-1" = {
-          resolution = "1920x1080";
-          refreshRate = 60.0;
-          background = "${./wallpaper.png} stretch";
-        };
-      };
-    };
+    dm.greetd.enable = true;
 
     wm.wayland.sway.enable = true;
   };

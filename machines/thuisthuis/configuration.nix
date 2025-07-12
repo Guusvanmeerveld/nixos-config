@@ -117,26 +117,7 @@
       docker.enable = true;
     };
 
-    dm.greetd = {
-      enable = true;
-
-      outputs = {
-        "HDMI-A-1" = {
-          resolution = "1920x1080";
-          refreshRate = 180.003;
-          background = "${./wallpaper-right.png} stretch";
-          position = {
-            x = 2560;
-          };
-        };
-
-        "DP-1" = {
-          resolution = "2560x1440";
-          refreshRate = 74.968;
-          background = "${./wallpaper-left.png} stretch";
-        };
-      };
-    };
+    dm.greetd.enable = true;
 
     wm.wayland.sway.enable = true;
   };
