@@ -9,4 +9,5 @@
   vscode-server = import ./vscode-server;
   wl-screenrec = import ./wl-screenrec.nix;
   tidal-hifi = import ./tidal-hifi.nix;
+  whatsie = import ./whatsie.nix;
 }

@@ -1,11 +1,14 @@
 {
   lib,
   config,
+  outputs,
   pkgs,
   ...
 }: let
   cfg = config.custom.programs.messaging.whatsapp;
 in {
+  imports = [outputs.homeManagerModules.whatsie];
+
   options = {
     custom.programs.messaging.whatsapp = {
       enable = lib.mkEnableOption "Enable Whatsapp for Linux";
@@ -33,13 +36,26 @@ in {
       };
     };
 
-    home.packages =
-      [
-        cfg.package
-      ]
-      ++ lib.optional cfg.autostart (pkgs.makeAutostartItem {
-        name = "com.ktechpit.whatsie";
-        inherit (cfg) package;
-      });
+    home.packages = lib.optional cfg.autostart (pkgs.makeAutostartItem {
+      name = "com.ktechpit.whatsie";
+      inherit (cfg) package;
+    });
+
+    programs.whatsie = {
+      enable = true;
+
+      settings = {
+        General = {
+          firstrun_tray = false;
+          notificationCombo = 0;
+          widgetStyle = "kvantum-dark";
+          windowTheme = "dark";
+        };
+
+        permissions = {
+          Notifications = true;
+        };
+      };
+    };
   };
 }
