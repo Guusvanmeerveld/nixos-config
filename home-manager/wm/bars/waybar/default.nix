@@ -182,7 +182,7 @@ in {
           background: ${status-color};
         }
 
-        #power-profiles-daemon, #privacy, #mpris, #custom-hcfs, #custom-mconnect, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-reboot, #custom-swaync, #tray {
+        #power-profiles-daemon, #privacy, #mpris, #custom-hcfs, #custom-mconnect, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-logout, #custom-reboot, #custom-swaync, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -421,7 +421,7 @@ in {
               transition-duration = 500;
             };
 
-            modules = ["custom/power"] ++ lib.optional cfg.features.lockscreen.enable "custom/lock" ++ ["custom/reboot"];
+            modules = ["custom/power" "custom/logout"] ++ lib.optional cfg.features.lockscreen.enable "custom/lock" ++ ["custom/reboot"];
           };
 
           "custom/power" = {
@@ -434,6 +434,12 @@ in {
             format = "󰌾";
             tooltip-format = "Lock";
             on-click = cfg.features.lockscreen.path;
+          };
+
+          "custom/logout" = {
+            format = "󰍃";
+            tooltip-format = "Logout";
+            on-click = "swaymsg exit";
           };
 
           "custom/reboot" = {
