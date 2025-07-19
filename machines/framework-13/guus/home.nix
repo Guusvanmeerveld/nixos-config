@@ -3,6 +3,18 @@
     ../../../home-manager
   ];
 
+  # By default, the speakers do not sound very balanced (due to downward firing speakers), so you may want to use an equalizer to fix this. The recommended method is to install EasyEffects and use the official preset
+  # From: https://wiki.archlinux.org/title/Framework_Laptop_13#Speakers
+  services.easyeffects = {
+    enable = true;
+
+    preset = "fw13-easy-effects";
+
+    extraPresets = {
+      fw13-easy-effects = builtins.fromJSON (builtins.readFile ./fw13-easy-effects.json);
+    };
+  };
+
   custom = {
     wm = {
       notifications.swaync.enable = true;
