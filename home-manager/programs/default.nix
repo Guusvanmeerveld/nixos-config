@@ -37,6 +37,7 @@ in {
     ./eduvpn.nix
     ./missioncenter.nix
     ./tidal.nix
+    ./cheese.nix
   ];
 
   options = {
@@ -82,6 +83,7 @@ in {
       gnome-calculator.enable = true;
       freetube.enable = true;
       missioncenter.enable = true;
+      cheese.enable = true;
     };
   };
 }
