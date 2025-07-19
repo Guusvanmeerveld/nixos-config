@@ -276,6 +276,10 @@ in {
               natural_scroll = "enabled";
               tap = "enabled";
             };
+
+            "*" = {
+              xkb_options = "compose:rctrl";
+            };
           };
 
         modifier = cfg.modifierKey;
