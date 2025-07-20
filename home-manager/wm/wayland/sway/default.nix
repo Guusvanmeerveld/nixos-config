@@ -240,7 +240,18 @@ in {
 
       inherit package;
 
-      systemd.xdgAutostart = true;
+      systemd = {
+        xdgAutostart = true;
+
+        extraCommands = [
+          "systemctl --user import-environment PATH"
+          "systemctl --user restart xdg-desktop-portal.service"
+          "systemctl --user reset-failed"
+          "systemctl --user start sway-session.target"
+          "swaymsg -mt subscribe '[]' || true"
+          "systemctl --user stop sway-session.target"
+        ];
+      };
 
       # Required to use the current nixpkgs version of swayfx.
       # See https://github.com/nix-community/home-manager/issues/5379
