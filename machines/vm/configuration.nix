@@ -37,14 +37,7 @@
       sudo-rs.enable = true;
     };
 
-    dm.greetd = {
-      enable = true;
-      outputs = {
-        "Virtual-1" = {
-          background = "${./wallpaper.jpg} stretch";
-        };
-      };
-    };
+    dm.greetd.enable = true;
 
     wm.wayland.sway = {
       enable = true;
