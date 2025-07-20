@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{config, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -20,10 +24,25 @@
     binfmt.emulatedSystems = ["aarch64-linux"];
   };
 
-  networking.hostName = "tulip";
+  systemd.services.jellyfin.environment.LIBVA_DRIVER_NAME = "iHD"; # Or "i965" if using older driver
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Same here
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      # OpenCL support for intel CPUs before 12th gen
+      # see: https://github.com/NixOS/nixpkgs/issues/356535
+      intel-compute-runtime-legacy1
+      vpl-gpu-rt # QSV
+      intel-ocl
+    ];
+  };
+
+  environment.systemPackages = with pkgs; [intel-gpu-tools];
+
+  networking.hostName = "tulip";
+  systemd.network.enable = true;
 
   custom = {
     users."guus" = {
