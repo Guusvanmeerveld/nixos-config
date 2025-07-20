@@ -169,12 +169,10 @@ in {
         virusScanning = true;
         localDnsResolver = false;
 
-        dmarcReporting = {
-          enable = true;
+        dmarcReporting.enable = true;
 
-          domain = cfg.mailDomain;
-          organizationName = "Nixos Mailserver";
-        };
+        systemName = "Nixos Mailserver";
+        systemDomain = cfg.mailDomain;
 
         certificateScheme = "manual";
         certificateFile = "${caddyCertDir}/${fqdn}/${fqdn}.crt";
