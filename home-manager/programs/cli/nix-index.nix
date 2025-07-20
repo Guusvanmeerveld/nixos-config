@@ -6,7 +6,7 @@
 }: let
   cfg = config.custom.programs.cli.nix-index;
 in {
-  imports = [inputs.nix-index-database.hmModules.nix-index];
+  imports = [inputs.nix-index-database.homeModules.nix-index];
 
   options = {
     custom.programs.cli.nix-index = {
