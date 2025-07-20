@@ -18,19 +18,27 @@
       efi.canTouchEfiVariables = true;
       timeout = 0;
     };
+
+    kernelParams = ["mem_sleep_default=s2idle" "amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
   };
+
+  hardware.wirelessRegulatoryDatabase = true;
 
   networking = {
     hostName = "framework-13";
     networkmanager.enable = true;
   };
 
-  # BIOS updates are distributed through LVFS, which can be used by enabling the fwupd service
-  # From: https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_13
-  services.fwupd.enable = true;
+  services = {
+    # BIOS updates are distributed through LVFS, which can be used by enabling the fwupd service
+    # From: https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_13
+    fwupd.enable = true;
 
-  services.logind = {
-    lidSwitch = "poweroff";
+    logind = {
+      lidSwitch = "poweroff";
+    };
+
+    colord.enable = true;
   };
 
   custom = {
@@ -89,8 +97,9 @@
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
           "games" = "~/Backups/Games";
+          "seedvault-backup" = "~/Backups/Phone";
+          "firefox-sync" = "~/Backups/Librewolf";
           "dictionaries" = "~/.config/dictionaries";
-          "firefox-profile" = "~/.librewolf/default";
         };
 
         caddy.url = "https://syncthing.framework";

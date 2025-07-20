@@ -73,8 +73,8 @@
       devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
-    "firefox-profile" = {
-      label = "Firefox Profile";
+    "firefox-sync" = {
+      label = "Firefox Sync";
       devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
   };

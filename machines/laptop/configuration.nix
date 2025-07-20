@@ -84,8 +84,8 @@
           "minecraft" = "~/Minecraft";
           "music" = "~/Music";
           "games" = "~/Backups/Games";
+          "firefox-sync" = "~/Backups/Librewolf";
           "dictionaries" = "~/.config/dictionaries";
-          "firefox-profile" = "~/.librewolf/default";
         };
 
         caddy.url = "https://syncthing.laptop";

@@ -187,8 +187,8 @@
           "music" = "${dataDir}/Music";
           "games" = "${dataDir}/Games";
           "seedvault-backup" = "${dataDir}/Backups/Phone";
+          "firefox-sync" = "${dataDir}/Backups/Librewolf";
           "dictionaries" = "${dataDir}/Dictionaries";
-          "firefox-profile" = "${dataDir}/Firefox-Profile";
         };
 
         caddy.url = "http://syncthing.chd";

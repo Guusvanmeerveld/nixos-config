@@ -91,8 +91,8 @@
           "music" = "~/Music";
           "games" = "~/Backups/Games";
           "seedvault-backup" = "~/Backups/Phone";
+          "firefox-sync" = "~/Backups/Librewolf";
           "dictionaries" = "~/.config/dictionaries";
-          "firefox-profile" = "~/.librewolf/default";
         };
 
         caddy.url = "http://syncthing.desktop";
