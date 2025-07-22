@@ -32,10 +32,14 @@
   services = {
     # BIOS updates are distributed through LVFS, which can be used by enabling the fwupd service
     # From: https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_13
-    fwupd.enable = true;
+    fwupd = {
+      enable = true;
+
+      extraRemotes = ["lvfs-testing"];
+    };
 
     logind = {
-      lidSwitch = "poweroff";
+      lidSwitch = "hibernate";
     };
 
     colord.enable = true;
