@@ -86,9 +86,11 @@ in {
             files,
             services,
             passwordFile,
+            user,
             location,
+            ...
           }: {
-            inherit passwordFile;
+            inherit passwordFile user;
 
             backupPrepareCommand = getExe (pkgs.writeShellApplication {
               name = "prepare-backup-${name}";

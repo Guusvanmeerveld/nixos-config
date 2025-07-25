@@ -35,9 +35,18 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.jellyfin = {
+        location = "jellyfin";
+        services = ["jellyfin"];
+        files = [
+          config.services.jellyfin.configDir
+          "${config.services.jellyfin.dataDir}/data"
+        ];
+      };
+
       users.users.jellyfin = {
         uid = 7788;
-        extraGroups = ["input" "media" "render" "video"];
+        extraGroups = ["input" "render" "video"];
       };
 
       users.groups.jellyfin = {
@@ -50,7 +59,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-                tls internal
               '';
             };
           };
