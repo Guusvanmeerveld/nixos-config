@@ -4,27 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mergeAttrs mapAttrsToList flatten;
   cfg = config.custom.services.restic.client;
-
-  userSecrets = flatten (mapAttrsToList (name: _: let
-      homeDir = "/home/${name}";
-    in [
-      "${homeDir}/.ssh"
-      "${homeDir}/.gnupg"
-    ])
-    config.custom.users);
-
-  backups =
-    mergeAttrs
-    cfg.backups
-    {
-      secrets = {
-        location = "secrets-${config.networking.hostName}";
-        files = ["/secrets"] ++ userSecrets;
-        passwordFile = "/secrets/restic/secrets/passwordFile";
-      };
-    };
 in {
   options = {
     custom.services.restic.client = let
@@ -41,6 +21,30 @@ in {
                 type = listOf str;
                 default = [];
                 description = "List of files to back up";
+              };
+
+              sqliteDBs = mkOption {
+                type = listOf str;
+                default = [];
+                description = "List of sqlite db's to back up";
+              };
+
+              postgresDBs = mkOption {
+                type = listOf str;
+                default = [];
+                description = "List of PostgresQL db's to back up";
+              };
+
+              services = mkOption {
+                type = listOf str;
+                default = [];
+                description = "List of systemd services that should be stopped while the backup is running";
+              };
+
+              user = mkOption {
+                type = str;
+                default = "root";
+                description = "The user to run the backup as";
               };
 
               location = mkOption {
@@ -71,19 +75,44 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf mapAttrs;
+    inherit (lib) mkIf mapAttrs optionalString getExe concatStringsSep;
   in
     mkIf cfg.enable {
       environment.systemPackages = with pkgs; [restic];
 
       services.restic.backups =
         mapAttrs (
-          _: {
+          name: {
             files,
+            services,
             passwordFile,
             location,
           }: {
             inherit passwordFile;
+
+            backupPrepareCommand = getExe (pkgs.writeShellApplication {
+              name = "prepare-backup-${name}";
+
+              runtimeInputs = with pkgs; [systemd];
+
+              text = ''
+                ${optionalString (services != []) ''
+                  systemctl stop ${concatStringsSep " " services}
+                ''}
+              '';
+            });
+
+            backupCleanupCommand = getExe (pkgs.writeShellApplication {
+              name = "cleanup-backup-${name}";
+
+              runtimeInputs = with pkgs; [systemd];
+
+              text = ''
+                ${optionalString (services != []) ''
+                  systemctl start ${concatStringsSep " " services}
+                ''}
+              '';
+            });
 
             paths = files;
 
@@ -94,6 +123,6 @@ in {
             environmentFile = cfg.restEnvFile;
           }
         )
-        backups;
+        cfg.backups;
     };
 }
