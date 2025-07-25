@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -19,7 +23,24 @@
       timeout = 0;
     };
 
-    kernelParams = ["mem_sleep_default=s2idle" "amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
+    kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
+  };
+
+  # Custom systemd service that unloads the wifi driver for the wifi card before hibernation and suspend, because they will otherwise fail.
+  # This should get fixed in a future kernel update
+  systemd.services.unload-wifi-mod-before-sleep = {
+    description = "Disable wifi and bluetooth before suspend";
+    before = ["hibernate.target" "suspend.target"];
+    wantedBy = ["hibernate.target" "suspend.target"];
+
+    serviceConfig = let
+      modprobe = "${pkgs.kmod}/bin/modprobe";
+    in {
+      Type = "oneshot";
+
+      ExecStart = "${modprobe} -r mt7925e";
+      ExecStop = "${modprobe} mt7925e";
+    };
   };
 
   hardware.wirelessRegulatoryDatabase = true;
@@ -39,7 +60,7 @@
     };
 
     logind = {
-      lidSwitch = "hibernate";
+      lidSwitch = "suspend";
     };
 
     colord.enable = true;
