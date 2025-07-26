@@ -7,7 +7,6 @@
     ./vaultwarden.nix
     ./invidious.nix
     ./syncthing.nix
-    ./minecraft.nix
     ./openssh.nix
     ./fail2ban.nix
     ./dnsmasq.nix

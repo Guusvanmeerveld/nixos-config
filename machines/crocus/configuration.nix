@@ -7,6 +7,8 @@
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    ./minecraft.nix
   ];
 
   boot.tmp.useTmpfs = true;
@@ -50,22 +52,7 @@
       };
     };
 
-    virtualisation.docker = {
-      enable = true;
-
-      watchtower = {
-        enable = true;
-        schedule = "0 0 5 * * 1";
-      };
-    };
-
     services = {
-      minecraft = {
-        openFirewall = true;
-        openGeyserFirewall = true;
-        openVoiceChatFirewall = true;
-      };
-
       caddy = {
         enable = true;
         openFirewall = true;
