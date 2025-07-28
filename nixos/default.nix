@@ -17,5 +17,6 @@
     ./unfree.nix
     ./builders.nix
     ./overlays.nix
+    ./alerts.nix
   ];
 }

@@ -60,7 +60,7 @@
     };
 
     logind = {
-      lidSwitch = "suspend";
+      lidSwitch = "hibernate";
     };
 
     colord.enable = true;
@@ -98,6 +98,10 @@
 
       sound.pipewire.enable = true;
       video.amd.enable = true;
+    };
+
+    alerts = {
+      disk-space.enable = true;
     };
 
     programs = {

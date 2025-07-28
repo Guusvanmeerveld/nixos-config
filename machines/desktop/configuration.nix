@@ -66,6 +66,11 @@
       hyperx.cloud-flight-s.enable = true;
     };
 
+    alerts = {
+      power.enable = true;
+      disk-space.enable = true;
+    };
+
     programs = {
       zsh.enable = true;
       adb.enable = true;

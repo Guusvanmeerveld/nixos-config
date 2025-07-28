@@ -81,6 +81,11 @@
       fail2ban.enable = true;
     };
 
+    alerts = {
+      power.enable = true;
+      disk-space.enable = true;
+    };
+
     programs = {
       zsh.enable = true;
       sudo-rs.enable = true;

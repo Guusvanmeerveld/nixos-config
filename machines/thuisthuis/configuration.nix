@@ -117,6 +117,11 @@
       docker.enable = true;
     };
 
+    alerts = {
+      power.enable = true;
+      disk-space.enable = true;
+    };
+
     dm.greetd.enable = true;
 
     wm.wayland.sway.enable = true;
