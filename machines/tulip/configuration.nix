@@ -34,7 +34,6 @@
       # OpenCL support for intel CPUs before 12th gen
       # see: https://github.com/NixOS/nixpkgs/issues/356535
       intel-compute-runtime-legacy1
-      vpl-gpu-rt # QSV
       intel-ocl
     ];
   };
@@ -42,7 +41,7 @@
   environment.systemPackages = with pkgs; [intel-gpu-tools];
 
   networking.hostName = "tulip";
-  systemd.network.enable = true;
+  networking.networkmanager.enable = true;
 
   custom = {
     users."guus" = {
@@ -122,6 +121,7 @@
       openssh.enable = true;
       fail2ban.enable = true;
       autoUpgrade.enable = true;
+      restic.client.enable = true;
 
       caddy = {
         enable = true;
