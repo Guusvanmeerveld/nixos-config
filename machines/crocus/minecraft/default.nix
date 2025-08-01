@@ -1,10 +1,14 @@
 {
   inputs,
-  lib,
   pkgs,
+  lib,
   ...
 }: {
-  imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
+  imports = [
+    inputs.nix-minecraft.nixosModules.minecraft-servers
+    ./enigmatica
+  ];
+
   nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
   networking.firewall.allowedUDPPorts = [
@@ -27,7 +31,7 @@
         mcVersion = "1.21.8";
         serverVersion = lib.replaceStrings ["."] ["_"] "paper-${mcVersion}";
       in {
-        enable = true;
+        enable = false;
         package = pkgs.paperServers.${serverVersion};
 
         jvmOpts = "-Xmx8G -Xms2G";
@@ -54,7 +58,7 @@
           gamemode = "survival";
           motd = "fornite on steroids";
           pvp = true;
-          server-port = 25565;
+          server-port = 25545;
           simulation-distance = 10;
           view-distance = 12;
           spawn-protection = 0;
