@@ -7,7 +7,7 @@
   cfg = config.custom.services.qbittorrent;
 in {
   imports = [
-    outputs.nixosModules.qbittorrent
+    outputs.nixosModules.qbittorrent-nox
   ];
 
   options = {
@@ -67,7 +67,7 @@ in {
           };
         };
 
-        qbittorrent = {
+        qbittorrent-nox = {
           enable = true;
 
           inherit (cfg) webUIPort saveDir;

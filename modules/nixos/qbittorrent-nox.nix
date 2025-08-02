@@ -19,7 +19,7 @@
     optionalString
     ;
 
-  cfg = config.services.qbittorrent;
+  cfg = config.services.qbittorrent-nox;
 
   iniFormat = pkgs.formats.ini {};
 
@@ -55,7 +55,7 @@
   UID = 888;
   GID = 888;
 in {
-  options.services.qbittorrent = {
+  options.services.qbittorrent-nox = {
     enable = mkEnableOption "Enable headless qBittorrent service";
 
     user = mkOption {
@@ -156,7 +156,7 @@ in {
 
     environment.systemPackages = [cfg.package];
 
-    systemd.services.qbittorrent = {
+    systemd.services.qbittorrent-nox = {
       # based on the plex.nix service module and
       # https://github.com/qbittorrent/qBittorrent/blob/master/dist/unix/systemd/qbittorrent-nox%40.service.in
       description = "qBittorrent-nox service";
