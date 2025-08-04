@@ -70,7 +70,7 @@
         value = {
           extraGroups = ["media"];
         };
-      }) ["radarr" "sonarr" "qbittorrent"]));
+      }) ["radarr" "sonarr" "bazarr" "qbittorrent"]));
   };
 
   services.qbittorrent.address = "192.168.15.1";
