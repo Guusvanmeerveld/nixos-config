@@ -73,7 +73,7 @@
       }) ["radarr" "sonarr" "bazarr" "qbittorrent"]));
   };
 
-  services.qbittorrent.address = "192.168.15.1";
+  services.qbittorrent-nox.address = "192.168.15.1";
 
   systemd.services.qbittorrent.vpnConfinement = {
     enable = true;
@@ -92,7 +92,7 @@
 
     portMappings = [
       (let
-        qbtPort = config.services.qbittorrent.webUIPort;
+        qbtPort = config.services.qbittorrent-nox.webUIPort;
       in {
         from = qbtPort;
         to = qbtPort;

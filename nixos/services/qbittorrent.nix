@@ -48,15 +48,15 @@ in {
     inherit (lib) mkIf optionals;
   in
     mkIf cfg.enable {
-      networking.firewall.allowedUDPPorts = optionals cfg.openFirewall [config.services.qbittorrent.torrentPort];
+      networking.firewall.allowedUDPPorts = optionals cfg.openFirewall [config.services.qbittorrent-nox.torrentPort];
 
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
             "${cfg.caddy.url}" = let
               address =
-                if config.services.qbittorrent.address != null
-                then config.services.qbittorrent.address
+                if config.services.qbittorrent-nox.address != null
+                then config.services.qbittorrent-nox.address
                 else "localhost";
             in {
               extraConfig = ''
