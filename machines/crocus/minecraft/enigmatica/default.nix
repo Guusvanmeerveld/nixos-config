@@ -46,6 +46,7 @@
 in {
   services.minecraft-servers.servers.enigmatica-10 = {
     enable = true;
+    enableReload = true;
 
     package = pkgs.writeShellApplication {
       name = "neoforge-start";
@@ -88,15 +89,12 @@ in {
       "-Dfml.queryResult=confirm" # auto /fmlconfirm
     ];
 
-    symlinks = {
-      "config/AdvancedBackups.properties" = ./config/AdvancedBackups.properties;
-    };
-
     files =
       collectFilesAt modpack "config"
       // collectFilesAt modpack "defaultconfigs"
       // {
         "mods" = "/var/lib/minecraft/enigmatica-10/mods";
+        "config/AdvancedBackups.properties" = ./config/AdvancedBackups.properties;
       };
 
     operators = {
@@ -106,6 +104,8 @@ in {
     whitelist = {
       "Xeeon" = "a617bf06-976b-468f-8c4e-a0107aac2445";
       "maxlyre" = "256c70c8-8b5e-45b2-a2d1-d9286fd4f465";
+      "Gerda6" = "f4307d4d-29a0-4721-ab0e-95f790722383";
+      "IAngryDonut" = "8035043d-4d51-416f-b396-a3c391d24c72";
     };
 
     serverProperties = {
@@ -114,6 +114,7 @@ in {
       difficulty = "medium";
       gamemode = "survival";
       pvp = true;
+      allow-flight = true;
       server-port = 25565;
       simulation-distance = 10;
       view-distance = 12;
