@@ -62,7 +62,7 @@ in {
             statistics = {
               enabled = true;
 
-              interval = "2160h";
+              interval = "720h";
             };
           };
         };
