@@ -29,6 +29,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.prowlarr = {
+        services = ["prowlarr"];
+
+        files = [
+          config.services.prowlarr.dataDir
+          config.services.bazarr.dataDir
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

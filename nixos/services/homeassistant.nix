@@ -30,6 +30,18 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.home-assistant = {
+        services = ["home-assistant"];
+
+        files = [
+          config.services.home-assistant.configDir
+        ];
+
+        excluded = [
+          "*.log*"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

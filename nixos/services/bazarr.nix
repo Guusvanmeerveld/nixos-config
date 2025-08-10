@@ -29,6 +29,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.bazarr = {
+        services = ["bazarr"];
+
+        files = [
+          "${config.services.bazarr.dataDir}/config/config.yaml"
+          "${config.services.bazarr.dataDir}/db"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

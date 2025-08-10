@@ -29,6 +29,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.jellyseerr = {
+        services = ["jellyseerr"];
+
+        files = [
+          "${config.services.jellyseerr.configDir}/settings.json"
+          "${config.services.jellyseerr.configDir}/db"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

@@ -29,6 +29,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.sonarr = {
+        services = ["sonarr"];
+
+        files = [
+          config.services.sonarr.dataDir
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

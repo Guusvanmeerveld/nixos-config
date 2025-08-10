@@ -29,6 +29,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.radarr = {
+        services = ["radarr"];
+
+        files = [
+          config.services.radarr.dataDir
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

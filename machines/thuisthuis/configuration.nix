@@ -87,6 +87,8 @@
       gamemode.enable = true;
       gvfs.enable = true;
 
+      restic.client.enable = true;
+
       kdeconnect.openFirewall = true;
 
       caddy.enable = true;

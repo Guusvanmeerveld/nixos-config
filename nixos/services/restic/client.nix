@@ -23,6 +23,18 @@ in {
                 description = "List of files to back up";
               };
 
+              excluded = mkOption {
+                type = listOf str;
+                default = [];
+                description = "List of files to NOT back up";
+              };
+
+              timer = mkOption {
+                type = str;
+                default = "05:00";
+                description = "List of files to back up";
+              };
+
               sqliteDBs = mkOption {
                 type = listOf str;
                 default = [];
@@ -50,6 +62,7 @@ in {
               location = mkOption {
                 type = str;
                 description = "Name of the location to store the backup";
+                default = name;
                 example = "jellyfin";
               };
 
@@ -84,43 +97,69 @@ in {
         mapAttrs (
           name: {
             files,
+            excluded,
             services,
+            sqliteDBs,
             passwordFile,
+            timer,
             user,
             location,
             ...
-          }: {
+          }: let
+            needsToRestartServices = services != [];
+            needsSqliteBackup = sqliteDBs != [];
+          in {
             inherit passwordFile user;
 
-            backupPrepareCommand = getExe (pkgs.writeShellApplication {
+            backupPrepareCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
               name = "prepare-backup-${name}";
 
               runtimeInputs = with pkgs; [systemd];
 
               text = ''
-                ${optionalString (services != []) ''
+                ${optionalString needsToRestartServices ''
                   systemctl stop ${concatStringsSep " " services}
                 ''}
               '';
-            });
+            }));
 
-            backupCleanupCommand = getExe (pkgs.writeShellApplication {
+            backupCleanupCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
               name = "cleanup-backup-${name}";
 
               runtimeInputs = with pkgs; [systemd];
 
               text = ''
-                ${optionalString (services != []) ''
+                ${optionalString needsToRestartServices ''
                   systemctl start ${concatStringsSep " " services}
                 ''}
               '';
-            });
+            }));
 
             paths = files;
+            exclude = excluded;
+
+            dynamicFilesFrom = mkIf needsSqliteBackup (getExe (pkgs.writeShellApplication {
+              name = "${name}-backup-dynamic";
+
+              runtimeInputs = with pkgs; [sqlite];
+
+              text = ''
+                ${concatStringsSep "\n" (lib.imap0
+                  (i: location: ''sqlite3 ${location} ".backup '/tmp/${name}_${toString i}_db.sqlite3.bak'" '')
+                  sqliteDBs)}
+
+                find /tmp/${name}_*_db.sqlite3.bak
+              '';
+            }));
 
             initialize = true;
 
             repository = "${cfg.repository}/${location}";
+
+            timerConfig = {
+              OnCalendar = timer;
+              RandomizedDelaySec = "1h";
+            };
 
             environmentFile = cfg.restEnvFile;
           }

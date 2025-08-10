@@ -36,8 +36,8 @@ in {
   in
     mkIf cfg.enable {
       custom.services.restic.client.backups.jellyfin = {
-        location = "jellyfin";
         services = ["jellyfin"];
+
         files = [
           config.services.jellyfin.configDir
           "${config.services.jellyfin.dataDir}/data"

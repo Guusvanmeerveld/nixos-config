@@ -75,7 +75,7 @@
 
   services.qbittorrent-nox.address = "192.168.15.1";
 
-  systemd.services.qbittorrent.vpnConfinement = {
+  systemd.services.qbittorrent-nox.vpnConfinement = {
     enable = true;
     vpnNamespace = "mullvad";
   };
@@ -195,13 +195,17 @@
         openFirewall = true;
       };
 
-      restic.server = {
-        enable = true;
+      restic = {
+        server = {
+          enable = true;
 
-        dataDir = "/mnt/data/backups";
-        passwordFile = "/secrets/restic/passwordFile";
+          dataDir = "/mnt/data/backups";
+          passwordFile = "/secrets/restic/passwordFile";
 
-        caddy.url = "https://restic.chd";
+          caddy.url = "https://restic.chd";
+        };
+
+        client.enable = true;
       };
 
       qbittorrent = {
