@@ -7,7 +7,7 @@
 }: let
   cfg = config.custom.programs.cli.neovim;
 in {
-  imports = [inputs.nixvim.homeManagerModules.nixvim];
+  imports = [inputs.nixvim.homeModules.nixvim];
 
   options = {
     custom.programs.cli.neovim = {
