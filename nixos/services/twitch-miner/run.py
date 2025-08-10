@@ -21,7 +21,7 @@ twitch_miner = TwitchChannelPointsMiner(
         time_zone=os.environ['TIMEZONE'],       # Set a specific time zone for console and file loggers. Use tz database names. Example: "America/Denver"
         webhook=Webhook(
                 endpoint=os.environ['NTFY_ENDPOINT'],
-                method="GET",
+                method="POST",
                 events=[Events.STREAMER_ONLINE],
             )
     ),

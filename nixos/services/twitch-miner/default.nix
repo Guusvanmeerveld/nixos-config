@@ -23,10 +23,18 @@ in {
         description = "The username linked to the Twitch account to watch streams for";
       };
 
-      ntfyEndpoint = mkOption {
-        type = types.str;
-        default = "https://ntfy.tlp/twitch-miner";
-        description = "The ntfy backend url";
+      ntfy = {
+        url = mkOption {
+          type = types.str;
+          default = "https://ntfy.tlp";
+          description = "The ntfy backend url";
+        };
+
+        topic = mkOption {
+          type = types.str;
+          default = "twitch-miner";
+          description = "The ntfy backend url";
+        };
       };
 
       caddy.url = mkOption {
@@ -54,10 +62,12 @@ in {
           hash = "sha256-HjDR9pmC3RDJYxWLhjEwttF/PXGrP+icHxDob6ivpXE=";
         };
 
+        extraOptions = ["--network=host"];
+
         environment = {
           TWITCH_USERNAME = cfg.username;
           TIMEZONE = config.time.timeZone;
-          NTFY_ENDPOINT = cfg.ntfyEndpoint;
+          NTFY_ENDPOINT = "${cfg.ntfy.url}/${cfg.ntfy.topic}";
         };
 
         volumes = [

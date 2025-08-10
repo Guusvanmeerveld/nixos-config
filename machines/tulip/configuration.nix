@@ -218,6 +218,23 @@
         caddy.url = "https://unifi";
       };
 
+      free-epic-games = {
+        enable = true;
+
+        email = "mail@guusvanmeerveld.dev";
+
+        ntfy.url = "http://0.0.0.0:${toString config.custom.services.ntfy.port}";
+
+        caddy.url = "http://free-epic-games.tlp";
+      };
+
+      twitch-miner = {
+        enable = true;
+        username = "guusvanmeerveld";
+
+        ntfy.url = "http://localhost:${toString config.custom.services.ntfy.port}";
+      };
+
       dnsmasq = {
         enable = true;
 

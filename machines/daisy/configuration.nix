@@ -66,19 +66,6 @@
 
       caddy.enable = true;
 
-      free-epic-games = {
-        enable = true;
-
-        email = "mail@guusvanmeerveld.dev";
-
-        caddy.url = "http://free-epic-games.dsy";
-      };
-
-      twitch-miner = {
-        enable = true;
-        username = "guusvanmeerveld";
-      };
-
       openssh.enable = true;
       fail2ban.enable = true;
       autoUpgrade.enable = true;

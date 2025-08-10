@@ -75,6 +75,8 @@ in {
           hash = "sha256-JPAjrdZrBolxOOqoGxLBqn84eDWS8B7OJtoQmTtBpjM=";
         };
 
+        extraOptions = ["--network=host"];
+
         volumes = let
           jsonFormat = pkgs.formats.json {};
 
@@ -90,6 +92,10 @@ in {
 
             webPortalConfig = {
               baseUrl = "${cfg.caddy.url}";
+
+              listenOpts = {
+                inherit (cfg) port;
+              };
             };
 
             accounts = [
@@ -110,8 +116,6 @@ in {
 
           configFile = jsonFormat.generate "free-epic-games" settings;
         in ["${configFile}:/usr/app/config/config.json"];
-
-        ports = ["127.0.0.1:${toString cfg.port}:3000"];
       };
     };
 }
