@@ -95,22 +95,6 @@ in {
 
             automation = [
               {
-                alias = "Backup Home Assistant";
-                triggers = [
-                  {
-                    trigger = "time";
-                    at = "03:00:00";
-                  }
-                ];
-
-                actions = [
-                  {
-                    alias = "Create backup";
-                    action = "backup.create";
-                  }
-                ];
-              }
-              {
                 alias = "Send notification on doorbell ring";
                 triggers = [
                   {
