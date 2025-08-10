@@ -18,7 +18,7 @@ in {
 
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --issue --remember --time --cmd sway";
+          command = "${lib.getExe pkgs.tuigreet} --issue --remember --time --cmd sway";
         };
       };
     };
