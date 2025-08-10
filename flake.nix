@@ -220,17 +220,17 @@
         };
 
         x86_64-linux = {
-          iso = nixos-generators.nixosGenerate {
-            inherit specialArgs;
+          # iso = nixos-generators.nixosGenerate {
+          #   inherit specialArgs;
 
-            system = "x86_64-linux";
+          #   system = "x86_64-linux";
 
-            format = "install-iso";
+          #   format = "install-iso";
 
-            modules = [
-              ./machines/iso/configuration.nix
-            ];
-          };
+          #   modules = [
+          #     ./machines/iso/configuration.nix
+          #   ];
+          # };
         };
       };
 
@@ -295,14 +295,6 @@
 
         modules = [
           ./machines/vm/configuration.nix
-        ];
-      };
-
-      rose = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-
-        modules = [
-          ./machines/rose/configuration.nix
         ];
       };
 

@@ -1,6 +1,0 @@
-cloudflare: true
-
-servers:
-  guusvanmeerveld.dev:
-    subdomains:
-      bitwarden: "http://vaultwarden:80"
