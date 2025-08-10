@@ -65,6 +65,7 @@ in {
       settings = {
         tray = true;
         enableSplashScreen = false;
+        hardwareVideoAcceleration = true;
       };
 
       vencord.settings = {
@@ -73,7 +74,6 @@ in {
         plugins = {
           "BiggerStreamPreview".enabled = true;
           "CallTimer".enabled = true;
-          # "BetterFolders".enabled = true;
           "BetterSettings".enabled = true;
           "AlwaysTrust".enabled = true;
           "FriendsSince".enabled = true;
