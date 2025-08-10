@@ -35,6 +35,10 @@ in {
         files = [
           config.services.radarr.dataDir
         ];
+
+        excluded = [
+          "logs*"
+        ];
       };
 
       services = {

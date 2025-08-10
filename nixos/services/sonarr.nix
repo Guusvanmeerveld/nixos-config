@@ -35,6 +35,10 @@ in {
         files = [
           config.services.sonarr.dataDir
         ];
+
+        excluded = [
+          "logs*"
+        ];
       };
 
       services = {

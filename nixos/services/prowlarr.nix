@@ -34,7 +34,10 @@ in {
 
         files = [
           config.services.prowlarr.dataDir
-          config.services.bazarr.dataDir
+        ];
+
+        excluded = [
+          "logs*"
         ];
       };
 
