@@ -11,8 +11,6 @@
     "apple_cursor"
     "steam"
     "steam-unwrapped"
-    "steam-original"
-    "steam-run"
     "teamviewer"
     "nvidia-x11"
     "nvidia-settings"
