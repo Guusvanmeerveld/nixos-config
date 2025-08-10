@@ -6,15 +6,13 @@
 }: let
   cfg = config.custom.programs.grim;
 
-  app-name = "grimshot";
-
   application = pkgs.writeShellApplication {
-    name = app-name;
+    name = "grimshot";
 
-    runtimeInputs = with pkgs; [grim slurp wl-clipboard];
+    runtimeInputs = with pkgs; [grim slurp satty];
 
     text = ''
-      grim -g "$(slurp -d)" - | wl-copy -t image/png
+      grim -g "$(slurp -d)" -t ppm - | satty --filename - --output-filename ~/Pictures/Screenshots/satty-"$(date '+%Y%m%d-%H:%M:%S')".png
     '';
   };
 in {
@@ -27,7 +25,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.programs.defaultApplications.screenshot = {
       name = "grim";
-      path = "${application}/bin/${app-name}";
+      path = lib.getExe application;
       wm-class = "grim";
     };
 
