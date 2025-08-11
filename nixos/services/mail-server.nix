@@ -108,14 +108,13 @@ in {
         postfix = mkIf cfg.smtpRelay.enable {
           mapFiles."sasl_passwd" = toString cfg.smtpRelay.secretsFile;
 
-          relayHost = cfg.smtpRelay.domain;
-          relayPort = cfg.smtpRelay.port;
+          settings.main = {
+            relayhost = ["${cfg.smtpRelay.domain}:${toString cfg.smtpRelay.port}"];
 
-          extraConfig = ''
-            smtp_sasl_password_maps = hash:/var/lib/postfix/conf/sasl_passwd
-            smtp_sasl_auth_enable = yes
-            smtp_sasl_security_options = noanonymous
-          '';
+            smtp_sasl_password_maps = "hash:/var/lib/postfix/conf/sasl_passwd";
+            smtp_sasl_auth_enable = "yes";
+            smtp_sasl_security_options = "noanonymous";
+          };
         };
       };
 
