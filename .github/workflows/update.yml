@@ -35,3 +35,4 @@ jobs:
           branch: bot/update
           delete-branch: true
           title: Update flake inputs
+          token: ${{ secrets.PERSONAL_TOKEN }}
