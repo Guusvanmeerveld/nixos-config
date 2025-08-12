@@ -235,6 +235,12 @@
         ntfy.url = "http://localhost:${toString config.custom.services.ntfy.port}";
       };
 
+      mealie = {
+        enable = true;
+
+        caddy.url = "https://mealie.tlp";
+      };
+
       dnsmasq = {
         enable = true;
 

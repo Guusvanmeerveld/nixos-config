@@ -37,5 +37,6 @@
     ./free-epic-games.nix
     ./twitch-miner
     ./bazarr.nix
+    ./mealie.nix
   ];
 }
