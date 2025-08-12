@@ -11,7 +11,7 @@
       ipRange = "10.10.10.0/24";
 
       server = {
-        publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ=";
+        publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ="; # pragma: allowlist secret
         address = "10.10.10.1";
         hostname = "crocus";
         tld = "crocus";
@@ -20,67 +20,67 @@
 
       clients = {
         desktop = {
-          publicKey = "dVOXBUprtiJSOMazEujx0zh7m86YEoXDdQ3muMpQIHw=";
+          publicKey = "dVOXBUprtiJSOMazEujx0zh7m86YEoXDdQ3muMpQIHw="; # pragma: allowlist secret
           address = "10.10.10.2";
           tld = "desktop";
         };
 
         laptop = {
-          publicKey = "4cfYFYG7zvU+Hy1hVRT1rbNBbeVXCKy9GoRP6Mpv738=";
+          publicKey = "4cfYFYG7zvU+Hy1hVRT1rbNBbeVXCKy9GoRP6Mpv738="; # pragma: allowlist secret
           address = "10.10.10.3";
           tld = "laptop";
         };
 
         phone = {
-          publicKey = "/JKDqqU3tVqKJP4tlcOol5VacFu0Ea4cLRwMjFbqj1M=";
+          publicKey = "/JKDqqU3tVqKJP4tlcOol5VacFu0Ea4cLRwMjFbqj1M="; # pragma: allowlist secret
           address = "10.10.10.4";
           tld = "phone";
         };
 
         tulip = {
-          publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38=";
+          publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38="; # pragma: allowlist secret
           address = "10.10.10.5";
           tld = "tlp";
         };
 
         thuisthuis = {
-          publicKey = "6lNZjXUkvfdG1prJVJh7yl32yRU1j+2+Suhyq8XySmU=";
+          publicKey = "6lNZjXUkvfdG1prJVJh7yl32yRU1j+2+Suhyq8XySmU="; # pragma: allowlist secret
           address = "10.10.10.6";
           tld = "thsths";
         };
 
         daisy = {
-          publicKey = "WvESBhla1yU9irR4izmGRJuifyrFT47Qry1JsLgcXhY=";
+          publicKey = "WvESBhla1yU9irR4izmGRJuifyrFT47Qry1JsLgcXhY="; # pragma: allowlist secret
           address = "10.10.10.7";
           tld = "dsy";
         };
 
         rose = {
-          publicKey = "HNKWUiePIoh48jayDHxVF/iAcx2JXLHbneKMVDayqg8=";
+          publicKey = "HNKWUiePIoh48jayDHxVF/iAcx2JXLHbneKMVDayqg8="; # pragma: allowlist secret
           address = "10.10.10.8";
           tld = "rose";
         };
 
         pd = {
-          publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ=";
+          publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ="; # pragma: allowlist secret
           address = "10.10.10.9";
           tld = "peerdroog";
         };
 
         orchid = {
-          publicKey = "GTL4lYhzwhrk72/Rr6vaamGo8txoj/Cy3hpGSiNvt18=";
+          publicKey = "GTL4lYhzwhrk72/Rr6vaamGo8txoj/Cy3hpGSiNvt18="; # pragma: allowlist secret
           address = "10.10.10.10";
           tld = "chd";
         };
 
         dd = {
-          publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg=";
+          publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg="; # pragma: allowlist secret
           address = "10.10.10.11";
           tld = "daniel";
         };
 
         framework-13 = {
-          publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs=";
+          publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs="; # pragma: allowlist secret
           address = "10.10.10.12";
           tld = "framework";
         };

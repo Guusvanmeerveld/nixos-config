@@ -168,6 +168,8 @@
 
           # Check if in-use version of nixpkgs is still maintained.
           flake-checker.enable = true;
+
+          ripsecrets.enable = true;
         };
       };
     });
