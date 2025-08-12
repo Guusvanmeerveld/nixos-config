@@ -28,6 +28,26 @@
       device = "zpool/data";
       fsType = "zfs";
     };
+
+    "/mnt/bigdata/restic" = {
+      device = "bigdata/restic";
+      fsType = "zfs";
+    };
+
+    "/mnt/bigdata/syncthing" = {
+      device = "bigdata/syncthing";
+      fsType = "zfs";
+    };
+
+    "/mnt/bigdata/immich" = {
+      device = "bigdata/immich";
+      fsType = "zfs";
+    };
+
+    "/mnt/bigdata/media" = {
+      device = "bigdata/media";
+      fsType = "zfs";
+    };
   };
 
   swapDevices = [
@@ -179,7 +199,7 @@
       syncthing = rec {
         enable = true;
 
-        dataDir = "/mnt/data/apps/syncthing";
+        dataDir = "/mnt/bigdata/syncthing";
 
         folders = {
           "code" = "${dataDir}/Code";
@@ -199,7 +219,7 @@
         server = {
           enable = true;
 
-          dataDir = "/mnt/data/backups";
+          dataDir = "/mnt/bigdata/restic";
           passwordFile = "/secrets/restic/passwordFile";
 
           caddy.url = "https://restic.chd";
@@ -211,7 +231,7 @@
       qbittorrent = {
         enable = true;
 
-        saveDir = "/mnt/data/media/download";
+        saveDir = "/mnt/bigdata/media/download";
 
         caddy.url = "https://qbittorrent.chd";
       };
@@ -246,8 +266,8 @@
         shares = {
           iso = "/mnt/data/iso";
           games = "/mnt/data/games";
-          media = "/mnt/data/media";
-          immich = "/mnt/data/apps/immich";
+          media = "/mnt/bigdata/media";
+          immich = "/mnt/bigdata/immich";
         };
       };
 
@@ -257,6 +277,7 @@
         settings = {
           fileSystems = {
             "data" = "/mnt/data";
+            "media" = "/mnt/bigdata/media";
           };
         };
       };
