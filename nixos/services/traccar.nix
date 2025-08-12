@@ -45,17 +45,19 @@ in {
           enable = true;
 
           settings = {
-            webPort = toString cfg.port;
+            web.port = toString cfg.port;
 
-            databaseDriver = "org.h2.Driver";
-            databaseUrl = "jdbc:h2:/var/lib/traccar/db";
-            databaseUser = "sa";
-            databasePassword = "";
+            database = {
+              driver = "org.h2.Driver";
+              url = "jdbc:h2:/var/lib/traccar/db";
+              user = "sa";
+              password = "";
+            };
 
-            loggerConsole = "true";
+            logger.console = "true";
 
-            mediaPath = "/var/lib/traccar/media";
-            templatesRoot = "/var/lib/traccar/templates";
+            media.path = "/var/lib/traccar/media";
+            templates.root = "/var/lib/traccar/templates";
           };
         };
       };
