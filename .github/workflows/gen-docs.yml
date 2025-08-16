@@ -2,6 +2,8 @@ name: Publish docs via GitHub Pages
 
 on:
   push:
+    branches:
+      - "main"
     paths:
       - "nixos/**"
       - "home-manager/**"

@@ -6,11 +6,6 @@ on:
       - "pkgs/**"
       - "flake.lock"
 
-  pull_request:
-    paths:
-      - "pkgs/**"
-      - "flake.lock"
-
   workflow_dispatch:
 
 jobs:
