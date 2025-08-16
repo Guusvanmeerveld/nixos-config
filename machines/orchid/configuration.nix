@@ -90,14 +90,21 @@
         value = {
           extraGroups = ["media"];
         };
-      }) ["radarr" "sonarr" "bazarr" "qbittorrent"]));
+      }) ["radarr" "sonarr" "bazarr" "qbittorrent" "lidarr" "slskd"]));
   };
 
   services.qbittorrent-nox.address = "192.168.15.1";
 
-  systemd.services.qbittorrent-nox.vpnConfinement = {
-    enable = true;
-    vpnNamespace = "mullvad";
+  systemd.services = {
+    qbittorrent-nox.vpnConfinement = {
+      enable = true;
+      vpnNamespace = "mullvad";
+    };
+
+    slskd.vpnConfinement = {
+      enable = true;
+      vpnNamespace = "mullvad";
+    };
   };
 
   vpnNamespaces.mullvad = {
@@ -117,8 +124,16 @@
         from = qbtPort;
         to = qbtPort;
       })
+      (let
+        slskdPort = config.services.slskd.settings.web.port;
+      in {
+        from = slskdPort;
+        to = slskdPort;
+      })
     ];
   };
+
+  services.soularr.lidarr.apiKey = "e0d013be2a0c4c1bbba82a33028fec4a"; # pragma: allowlist secret`
 
   custom = {
     users."guus" = {
@@ -260,6 +275,12 @@
         caddy.url = "https://bazarr.chd";
       };
 
+      lidarr = {
+        enable = true;
+
+        caddy.url = "https://lidarr.chd";
+      };
+
       samba.server = {
         enable = true;
 
@@ -269,6 +290,19 @@
           media = "/mnt/bigdata/media";
           immich = "/mnt/bigdata/immich";
         };
+      };
+
+      soulseek = {
+        enable = true;
+
+        address = "192.168.15.1";
+
+        downloadDir = "/mnt/bigdata/media/download/slskd";
+        sharedDirs = ["/mnt/bigdata/media/music"];
+
+        environmentFile = "/secrets/slskd/environmentFile";
+
+        caddy.url = "https://soulseek.chd";
       };
 
       motd = {
@@ -291,17 +325,6 @@
     programs = {
       zsh.enable = true;
       sudo-rs.enable = true;
-    };
-
-    builders = {
-      enable = true;
-
-      machines = [
-        {
-          hostName = "crocus";
-          system = "aarch64-linux";
-        }
-      ];
     };
   };
 

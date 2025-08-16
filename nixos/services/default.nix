@@ -38,5 +38,7 @@
     ./twitch-miner
     ./bazarr.nix
     ./mealie.nix
+    ./soulseek.nix
+    ./lidarr.nix
   ];
 }
