@@ -14,28 +14,8 @@
     if cfg.useSwayFx
     then pkgs.swayfx
     else pkgs.sway;
-
-  lockscreen-timeout = 300;
-  screenoff-timeout = lockscreen-timeout + 60;
-  suspend-timeout = screenoff-timeout + 300;
-
-  lockscreen-cfg = "timeout ${toString lockscreen-timeout} '${config.custom.wm.lockscreens.default.executable}' \\";
-
-  idle-manager = pkgs.writeShellApplication {
-    name = "run-sway-idle";
-
-    runtimeInputs = (with pkgs; [swayidle systemd]) ++ [package];
-
-    text = ''
-      swayidle -w \
-        ${lockscreen-cfg}
-        timeout ${toString screenoff-timeout} 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-        timeout ${toString suspend-timeout} 'systemctl suspend'
-    '';
-  };
 in {
-  imports = [./osd.nix];
+  imports = [./osd.nix ./idle.nix];
 
   options = {
     custom.wm.wayland.sway = {
@@ -282,12 +262,6 @@ in {
               text = font-color;
             };
           };
-
-          startup =
-            # Manage monitor on idle
-            lib.singleton {
-              command = lib.getExe idle-manager;
-            };
 
           modes = {
             present = let
