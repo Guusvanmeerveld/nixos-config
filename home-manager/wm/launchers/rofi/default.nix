@@ -8,23 +8,22 @@
 
   package =
     if cfg.wayland
-    then pkgs.rofi-wayland
+    then
+      pkgs.rofi-wayland.override {
+        plugins = with pkgs; [
+          rofi-calc
+          rofi-emoji-wayland
+          rofi-rbw-wayland
+          rofi-games
+        ];
+      }
     else pkgs.rofi;
 
-  modi = ["drun" "window" "run" "ssh"];
   default = "drun";
-
-  startCommand = ''${lib.getExe package} -modi '${lib.concatStringsSep "," modi}' -show ${default}'';
 in {
   options = {
     custom.wm.launchers.rofi = {
       enable = lib.mkEnableOption "Enable Rofi start menu";
-
-      terminal = lib.mkOption {
-        type = lib.types.str;
-        default = config.custom.programs.defaultApplications.terminal.path;
-        description = "The default terminal to use";
-      };
 
       wayland = lib.mkOption {
         type = lib.types.bool;
@@ -41,14 +40,36 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.programs.defaultApplications.menu = {
-      name = "rofi";
-      path = startCommand;
-      wm-class = "Rofi";
-    };
+    custom.wm.applications = [
+      {
+        executable = ''${lib.getExe package} -show ${default}'';
+        appId = "rofi";
+        keybind = "$mod+space";
+      }
+    ];
 
     programs.rofi = {
       inherit package;
+
+      modes = [
+        "drun"
+        "window"
+        "calc"
+        "games"
+        "emoji"
+        "run"
+        "ssh"
+        # {
+        #   name = "rbw";
+        #   path = let
+        #     package =
+        #       if cfg.wayland
+        #       then pkgs.rofi-rbw-wayland
+        #       else pkgs.rofi-rbw-x11;
+        #   in
+        #     lib.getExe package;
+        # }
+      ];
 
       # Config highly inspired by https://github.com/catppuccin/rofi
       enable = true;
@@ -57,11 +78,7 @@ in {
 
       cycle = true;
 
-      inherit (cfg) terminal;
-
       extraConfig = {
-        modi = "drun,ssh,run,window,filebrowser";
-
         case-sensitive = false;
         show-icons = true;
         steal-focus = false;
@@ -71,7 +88,7 @@ in {
         sidebar-mode = true;
 
         # Matching settings
-        matching = "fuzzy";
+        matching = "glob";
         tokenize = true;
 
         # SSH settings
@@ -108,126 +125,6 @@ in {
       };
 
       theme = ./themes/macos-launchpad.rasi;
-
-      # theme = let
-      #   inherit (config.lib.formats.rasi) mkLiteral;
-
-      #   height = 360;
-      #   width = 600;
-
-      #   bg-color = mkLiteral "#${config.colorScheme.palette.base00}";
-      #   alt-bg-color = mkLiteral "#${config.colorScheme.palette.base01}";
-
-      #   font-color = mkLiteral "#${config.colorScheme.palette.base06}";
-      #   alt-font-color = mkLiteral "#${config.colorScheme.palette.base05}";
-
-      #   primary-color = mkLiteral "#${config.colorScheme.palette.base0D}";
-      # in {
-      #   # "*" = {
-
-      #   # };
-
-      #   "window" = {
-      #     width = mkLiteral (toString width);
-      #     height = mkLiteral (toString height);
-
-      #     border-radius = mkLiteral "5px";
-
-      #     border = mkLiteral "3px";
-      #     border-color = alt-bg-color;
-
-      #     background-color = bg-color;
-      #   };
-
-      #   "mainbox" = {
-      #     background-color = bg-color;
-      #   };
-
-      #   "inputbar" = {
-      #     children = [(mkLiteral "prompt") (mkLiteral "entry")];
-
-      #     background-color = bg-color;
-      #     border-radius = mkLiteral "5px";
-      #     padding = mkLiteral "2px";
-      #   };
-
-      #   "prompt" = {
-      #     background-color = primary-color;
-      #     text-color = font-color;
-      #     padding = mkLiteral "6px 10px 6px 10px";
-      #     border-radius = mkLiteral "3px";
-      #     margin = mkLiteral "20px 0 0 20px";
-      #   };
-
-      #   "entry" = {
-      #     background-color = bg-color;
-      #     text-color = font-color;
-      #     padding = mkLiteral "6px";
-      #     margin = mkLiteral "20px 0 0 10px";
-      #   };
-
-      #   "listview" = {
-      #     background-color = bg-color;
-
-      #     border = mkLiteral "0 0 0";
-      #     padding = mkLiteral "6px 0 0";
-      #     margin = mkLiteral "10px 20px 0 20px";
-
-      #     columns = mkLiteral "2";
-      #     lines = mkLiteral "5";
-      #   };
-
-      #   "element-text, element-icon, mode-switcher" = {
-      #     background-color = mkLiteral "inherit";
-      #     text-color = mkLiteral "inherit";
-      #   };
-
-      #   "element" = {
-      #     background-color = bg-color;
-      #     text-color = alt-font-color;
-
-      #     # margin = mkLiteral "0 20px 0 0";
-      #     padding = mkLiteral "5px";
-      #   };
-
-      #   "element-icon" = {
-      #     size = mkLiteral "25px";
-      #   };
-
-      #   "element selected" = {
-      #     background-color = alt-bg-color;
-      #     text-color = font-color;
-
-      #     border-radius = mkLiteral "3px";
-      #   };
-
-      #   "mode-switcher" = {
-      #     spacing = mkLiteral "0";
-      #   };
-
-      #   "button" = {
-      #     background-color = alt-bg-color;
-      #     text-color = alt-font-color;
-
-      #     vertical-align = mkLiteral "0.5";
-      #     horizontal-align = mkLiteral "0.5";
-
-      #     padding = mkLiteral "10px";
-      #   };
-
-      #   "button selected" = {
-      #     background-color = bg-color;
-      #     text-color = primary-color;
-      #   };
-
-      #   # "message" = {
-      #   #   background-color
-      #   # }
-      # };
-
-      plugins = with pkgs; [
-        rofi-calc
-      ];
     };
   };
 }

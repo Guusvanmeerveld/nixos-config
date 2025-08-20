@@ -24,17 +24,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."1" = [
-        {
-          app_id = "^com.ktechpit.whatsie$";
-        }
-      ];
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+v" =
-          pkgs.custom.scripts.swayFocusOrStart "com.ktechpit.whatsie" (lib.getExe cfg.package);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit (cfg) package;
+        appId = "com.ktechpit.whatsie";
+        keybind = "$mod+v";
+        workspace = 1;
+      }
+    ];
 
     home.packages = lib.optional cfg.autostart (pkgs.makeAutostartItem {
       name = "com.ktechpit.whatsie";
@@ -43,6 +40,8 @@ in {
 
     programs.whatsie = {
       enable = true;
+
+      inherit (cfg) package;
 
       settings = {
         General = {

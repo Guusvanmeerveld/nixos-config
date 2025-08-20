@@ -16,12 +16,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.programs.defaultApplications.file-explorer = {
-      name = "thunar";
-      path = "${package}/bin/thunar";
-      wm-class = "Thunar";
-    };
-
     home.packages = [
       package
     ];

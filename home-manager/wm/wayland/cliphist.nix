@@ -6,15 +6,7 @@
 }: let
   cfg = config.custom.wm.wayland.cliphist;
 
-  menu = pkgs.writeShellApplication {
-    name = "cliphist-menu";
-
-    runtimeInputs = with pkgs; [nwg-clipman wl-clipboard];
-
-    text = ''
-      nwg-clipman
-    '';
-  };
+  package = pkgs.clipman;
 in {
   options = {
     custom.wm.wayland.cliphist = {
@@ -27,12 +19,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [menu];
+    custom.wm.applications = [
+      {
+        keybind = "Ctrl+Alt+v";
+        executable = lib.getExe package;
+      }
+    ];
 
-    services.cliphist = {
-      enable = true;
+    home.packages = [package];
 
-      systemdTargets = ["sway-session.target"];
-    };
+    services.cliphist.enable = true;
   };
 }

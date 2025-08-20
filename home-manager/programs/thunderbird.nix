@@ -12,6 +12,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.wm.applications = [
+      {
+        inherit (config.programs.thunderbird) package;
+        appId = "thunderbird";
+        keybind = "$mod+a";
+      }
+    ];
+
     programs.thunderbird = {
       enable = true;
 

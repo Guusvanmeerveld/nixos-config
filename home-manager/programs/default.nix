@@ -1,11 +1,9 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs;
-  settingsFormat = pkgs.formats.json {};
 in {
   imports = [
     ./development
@@ -22,7 +20,7 @@ in {
     ./spotify.nix
     ./jellyfin.nix
     ./thunderbird.nix
-    ./grim.nix
+    ./wayland-screenshot.nix
     ./mpv.nix
     ./loupe.nix
     ./file-roller.nix
@@ -43,28 +41,6 @@ in {
   options = {
     custom.programs = {
       default.enable = lib.mkEnableOption "Enable default applications";
-
-      defaultApplications = lib.mkOption {
-        default = {};
-
-        type = lib.types.attrsOf (lib.types.submodule (_: {
-          freeformType = settingsFormat.type;
-
-          options = {
-            name = lib.mkOption {
-              type = lib.types.str;
-            };
-
-            path = lib.mkOption {
-              type = lib.types.str;
-            };
-
-            wm-class = lib.mkOption {
-              type = lib.types.str;
-            };
-          };
-        }));
-      };
     };
   };
 
@@ -73,7 +49,6 @@ in {
       evince.enable = true;
       librewolf.enable = true;
       kitty.enable = true;
-      grim.enable = true;
       nautilus.enable = true;
       tidal.enable = true;
       thunderbird.enable = true;

@@ -9,6 +9,8 @@
   theme-package = cfg.theme;
   theme-path = "${theme-package}/share/firefox";
 in {
+  imports = [./backup.nix];
+
   options = {
     custom.programs.librewolf = {
       enable = lib.mkEnableOption "Enable Librewolf browser";
@@ -18,18 +20,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."3" = [
-        {
-          app_id = "^librewolf$";
-        }
-      ];
-
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+c" =
-          pkgs.custom.scripts.swayFocusOrStart "librewolf" (lib.getExe config.programs.librewolf.package);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit (config.programs.librewolf) package;
+        appId = "librewolf";
+        keybind = "$mod+c";
+        workspace = 3;
+      }
+    ];
 
     xdg.mimeApps.defaultApplications = {
       "x-scheme-handler/http" = "librewolf.desktop";
@@ -39,13 +37,6 @@ in {
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = 1;
     };
-
-    # Tell Syncthing (if enabled) to ignore every file in the profile directory, except for the places.sqlite (which contains the browser history).
-    # This is (a bit of a crude) way to sync my browser history across multiple devices.
-    home.file.".librewolf/default/.stignore".text = ''
-      !/places.sqlite*
-      **
-    '';
 
     programs.librewolf = {
       enable = true;
@@ -151,6 +142,24 @@ in {
 
                     iconMapObj."16" = "https://mynixos.com/favicon.ico";
                     definedAliases = ["@mn"];
+                  };
+
+                  noogle = {
+                    name = "Noogle";
+                    urls = [
+                      {
+                        template = "https://noogle.dev/q";
+                        params = [
+                          {
+                            name = "term";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+
+                    iconMapObj."16" = "https://noogle.dev/favicon.ico";
+                    definedAliases = ["@no"];
                   };
 
                   nixos-wiki = {

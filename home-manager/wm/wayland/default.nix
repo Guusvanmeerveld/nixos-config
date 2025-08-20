@@ -1,8 +1,11 @@
 {
   lib,
   config,
+  pkgs,
   ...
-}: {
+}: let
+  cfg = config. custom.wm.wayland;
+in {
   imports = [./sway ./cliphist.nix];
 
   options = {
@@ -13,5 +16,11 @@
         description = "Enable Wayland";
       };
     };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [wdisplays];
+
+    custom.programs.wayland-screenshot.enable = true;
   };
 }

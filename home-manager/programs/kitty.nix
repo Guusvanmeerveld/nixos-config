@@ -7,7 +7,6 @@
   cfg = config.custom.programs.kitty;
 
   package = pkgs.kitty;
-  execPath = lib.getExe package;
 in {
   options = {
     custom.programs.kitty = {
@@ -22,14 +21,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.programs.defaultApplications.terminal = {
-      name = "kitty";
-      path = execPath;
-      wm-class = "kitty";
-    };
+    custom.wm.applications = [
+      {
+        inherit package;
+        keybind = "$mod+Return";
+        appId = "kitty";
+      }
+    ];
 
     home.sessionVariables = {
-      TERMINAL = execPath;
+      TERMINAL = lib.getExe package;
     };
 
     programs.zsh.initContent = ''
@@ -60,8 +61,6 @@ in {
         color5 = "#${config.colorScheme.palette.base0E}";
         color6 = "#${config.colorScheme.palette.base0C}";
         color7 = "#${config.colorScheme.palette.base07}";
-
-        window_padding_width = 10;
       };
 
       font = {

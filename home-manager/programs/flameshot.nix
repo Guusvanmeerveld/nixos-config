@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs.flameshot;
@@ -13,14 +12,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.programs.defaultApplications.screenshot = {
-      name = "flameshot";
-      path = "${pkgs.flameshot}/bin/flameshot gui";
-      wm-class = "flameshot";
-    };
+    custom.wm.applications = [
+      {
+        inherit (config.services.flameshot) package;
+        keybind = "Print";
+      }
+    ];
 
     services.flameshot = {
       enable = true;
+
       settings = {
         General = {
           disabledTrayIcon = true;

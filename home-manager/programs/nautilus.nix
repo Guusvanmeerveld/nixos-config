@@ -15,11 +15,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.programs.defaultApplications.file-explorer = {
-      name = "nautilus";
-      path = lib.getExe package;
-      wm-class = "Nautilus";
-    };
+    custom.wm.applications = [
+      {
+        inherit package;
+        keybind = "$mod+e";
+        appId = "org.gnome.Nautilus";
+      }
+    ];
 
     home.packages = [
       package

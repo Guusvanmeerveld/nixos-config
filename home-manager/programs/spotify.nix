@@ -17,17 +17,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."2" = [
-        {
-          app_id = "^spotify$";
-        }
-      ];
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+x" =
-          pkgs.custom.scripts.swayFocusOrStart "spotify" (lib.getExe config.programs.spicetify.spotifywmPackage);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit (config.programs.spicetify) package;
+        appId = "spotify";
+        keybind = "$mod+z";
+      }
+    ];
 
     xdg.desktopEntries = {
       spotify = {

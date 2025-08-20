@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.custom.programs.missioncenter;
+
+  package = pkgs.mission-center;
 in {
   options = {
     custom.programs.missioncenter = {
@@ -13,8 +15,16 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      mission-center
+    custom.wm.applications = [
+      {
+        inherit package;
+        appId = "io.missioncenter.MissionCenter";
+        keybind = "$mod+q";
+      }
+    ];
+
+    home.packages = [
+      package
     ];
   };
 }

@@ -25,7 +25,7 @@ in {
       features = {
         sway = lib.mkOption {
           type = lib.types.bool;
-          default = config.custom.wm.default.name == "sway";
+          default = config.custom.wm.wayland.sway.enable;
           description = "Enable sway support";
         };
 
@@ -63,7 +63,7 @@ in {
           path = lib.mkOption {
             type = lib.types.str;
             description = "The path to the lock screen";
-            default = config.custom.wm.lockscreens.default.path;
+            default = config.custom.wm.lockscreens.default.executable;
           };
         };
 
@@ -95,14 +95,10 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [material-design-icons];
 
-    services.playerctld = {
-      enable = cfg.features.media;
-    };
-
-    # Configure bar in sway
-    wayland.windowManager.sway.config.bars = [
+    # Configure bar in window manager
+    custom.wm.bars.bars = [
       {
-        command = lib.getExe pkgs.waybar;
+        inherit (config.programs.waybar) package;
       }
     ];
 

@@ -3,13 +3,13 @@
 
   options = {
     custom.wm.lockscreens.default = {
-      name = lib.mkOption {
+      keybind = lib.mkOption {
         type = lib.types.str;
-        description = "The lock screens name";
+        description = "Keybind to show the lockscreen";
       };
 
-      path = lib.mkOption {
-        type = lib.types.str;
+      executable = lib.mkOption {
+        type = lib.types.path;
         description = "The path to the lock screens executable file";
       };
     };

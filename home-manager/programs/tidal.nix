@@ -18,17 +18,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."2" = [
-        {
-          app_id = "^tidal-hifi$";
-        }
-      ];
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+x" =
-          pkgs.custom.scripts.swayFocusOrStart "tidal-hifi" (lib.getExe package);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit package;
+        workspace = 2;
+        appId = "tidal-hifi";
+        keybind = "$mod+x";
+      }
+    ];
 
     programs.tidal-hifi = {
       enable = true;

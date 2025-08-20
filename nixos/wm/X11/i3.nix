@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.wm.x11.i3;
@@ -13,11 +12,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.wm.default = {
-      name = "i3";
-      path = "${pkgs.i3}/bin/i3";
-    };
-
     services = {
       xserver = {
         enable = true;

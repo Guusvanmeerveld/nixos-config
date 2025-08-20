@@ -53,6 +53,7 @@
     services = {
       kdeconnect.enable = true;
       poweralertd.enable = true;
+      playerctld.enable = true;
     };
 
     programs = {

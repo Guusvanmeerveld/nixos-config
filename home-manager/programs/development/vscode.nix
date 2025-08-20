@@ -27,18 +27,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."4" = [
-        {
-          app_id = "^codium$";
-        }
-      ];
-
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+d" =
-          pkgs.custom.scripts.swayFocusOrStart "codium" (lib.getExe config.programs.vscode.package);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit (config.programs.vscode) package;
+        appId = "codium";
+        keybind = "$mod+d";
+        workspace = 4;
+      }
+    ];
 
     xdg.mimeApps.defaultApplications = builtins.listToAttrs (map (mimeType: {
         name = mimeType;

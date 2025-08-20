@@ -5,8 +5,8 @@
   ...
 }: let
   cfg = config.custom.wm.lockscreens.swaylock;
+
   package = pkgs.swaylock-fancy;
-  executable = "swaylock-fancy";
 in {
   options = {
     custom.wm.lockscreens.swaylock = {
@@ -16,8 +16,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     custom.wm.lockscreens.default = {
-      name = "swaylock";
-      path = "${package}/bin/${executable} --daemonize";
+      keybind = "$mod+0";
+      executable = lib.getExe package;
     };
 
     programs.swaylock = {

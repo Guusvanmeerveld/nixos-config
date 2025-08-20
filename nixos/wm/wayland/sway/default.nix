@@ -7,7 +7,7 @@
   cfg = config.custom.wm.wayland.sway;
 
   package =
-    if cfg.useFx
+    if cfg.useSwayFx
     then pkgs.swayfx
     else pkgs.sway;
 in {
@@ -17,7 +17,7 @@ in {
     custom.wm.wayland.sway = {
       enable = lib.mkEnableOption "Enable sway window manager";
 
-      useFx = lib.mkOption {
+      useSwayFx = lib.mkOption {
         type = lib.types.bool;
         default = true;
       };
@@ -29,11 +29,6 @@ in {
       inherit package;
 
       enable = true;
-    };
-
-    custom.wm.default = {
-      name = "sway";
-      path = "sway";
     };
 
     environment.sessionVariables = {

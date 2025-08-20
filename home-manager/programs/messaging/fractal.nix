@@ -15,18 +15,14 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.sway.config = {
-      assigns."1" = [
-        {
-          app_id = "^org.gnome.Fractal$";
-        }
-      ];
-
-      keybindings = {
-        "${config.wayland.windowManager.sway.config.modifier}+b" =
-          pkgs.custom.scripts.swayFocusOrStart "org.gnome.Fractal" (lib.getExe package);
-      };
-    };
+    custom.wm.applications = [
+      {
+        inherit package;
+        appId = "org.gnome.Fractal";
+        keybind = "$mod+b";
+        workspace = 1;
+      }
+    ];
 
     home.packages = [
       package

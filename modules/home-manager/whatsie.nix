@@ -30,6 +30,8 @@ in {
   options.programs.whatsie = {
     enable = mkEnableOption "Enable Whatsie whatsapp application";
 
+    package = lib.mkPackageOption pkgs "whatsie" {};
+
     settings = mkOption {
       inherit (iniFormat) type;
       default = {};
@@ -38,7 +40,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [whatsie];
+    home.packages = [cfg.package];
 
     xdg.configFile."org.keshavnrj.ubuntu/WhatSie.conf".source =
       iniFormat.generate "whatsie-settings" settings;

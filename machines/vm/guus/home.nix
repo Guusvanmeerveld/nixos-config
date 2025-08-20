@@ -18,7 +18,7 @@
       wayland.sway = {
         enable = true;
 
-        useFx = false;
+        useSwayFx = false;
 
         output = {
           "Virtual-1" = {
