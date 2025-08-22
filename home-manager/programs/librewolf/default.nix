@@ -9,8 +9,6 @@
   theme-package = cfg.theme;
   theme-path = "${theme-package}/share/firefox";
 in {
-  imports = [./backup.nix];
-
   options = {
     custom.programs.librewolf = {
       enable = lib.mkEnableOption "Enable Librewolf browser";
