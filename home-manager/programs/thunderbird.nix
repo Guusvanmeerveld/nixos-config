@@ -16,6 +16,7 @@ in {
       {
         inherit (config.programs.thunderbird) package;
         appId = "thunderbird";
+        workspace = 6;
         keybind = "$mod+a";
       }
     ];

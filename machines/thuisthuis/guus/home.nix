@@ -74,7 +74,7 @@ in {
 
     services = {
       kdeconnect.enable = true;
-      vscode-server.enable = true;
+      playerctld.enable = true;
     };
 
     programs = {

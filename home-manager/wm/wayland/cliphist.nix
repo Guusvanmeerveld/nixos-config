@@ -6,7 +6,15 @@
 }: let
   cfg = config.custom.wm.wayland.cliphist;
 
-  package = pkgs.clipman;
+  package = pkgs.writeShellApplication {
+    name = "cliphist-menu";
+
+    runtimeInputs = with pkgs; [nwg-clipman wl-clipboard];
+
+    text = ''
+      nwg-clipman
+    '';
+  };
 in {
   options = {
     custom.wm.wayland.cliphist = {
@@ -21,8 +29,8 @@ in {
   config = lib.mkIf cfg.enable {
     custom.wm.applications = [
       {
+        inherit package;
         keybind = "Ctrl+Alt+v";
-        executable = lib.getExe package;
       }
     ];
 

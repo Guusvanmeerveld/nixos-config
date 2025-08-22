@@ -8,8 +8,6 @@
   workspaces = lib.range 1 9;
   gapSize = 5;
 
-  swayosd-client = "${pkgs.swayosd}/bin/swayosd-client";
-
   package =
     if cfg.useSwayFx
     then pkgs.swayfx
@@ -31,33 +29,6 @@ in {
         type = lib.types.str;
         default = "Mod4"; # Super / Windows key
         description = "The main key for all key combinations";
-      };
-
-      keybinds = {
-        backlight = lib.mkOption {
-          type = lib.types.bool;
-          description = "Enable backlight hotkey configuration";
-          default = false;
-        };
-
-        sound = lib.mkOption {
-          type = lib.types.bool;
-          description = "Enable sound hotkey configuration";
-          default = true;
-        };
-
-        osd = lib.mkOption {
-          type = lib.types.bool;
-          description = "Enable osd for brightness and volume controls";
-          default = config.custom.wm.wayland.sway.osd.enable;
-        };
-
-        wlsr = lib.mkOption {
-          type = lib.types.bool;
-          description = "Enable WLSR replay saving keybind";
-          # default = config.services.wl-screenrec.enable;
-          default = false;
-        };
       };
 
       output = lib.mkOption {
@@ -284,7 +255,11 @@ in {
           };
 
           keybindings = lib.mkMerge [
-            {
+            (let
+              pactl = lib.getExe' pkgs.pulseaudio "pactl";
+              light = lib.getExe pkgs.light;
+              playerctl = lib.getExe pkgs.playerctl;
+            in {
               # Directional focus
               "${modifier}+${left}" = "focus left";
               "${modifier}+${up}" = "focus up";
@@ -307,11 +282,29 @@ in {
               "${modifier}+s" = "floating toggle";
               "${modifier}+f" = "fullscreen toggle";
 
-              "${modifier}+u" = lib.mkIf cfg.keybinds.wlsr "exec wlsr-save-replay";
-
               # Allow switching to present mode
               "${modifier}+p " = ''mode "present"'';
-            }
+
+              # Audio control keybinds
+              "XF86AudioRaiseVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
+              "XF86AudioLowerVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
+
+              "XF86AudioMute" = lib.mkDefault "exec ${pactl} set-sink-mute @DEFAULT_SINK@ true";
+              "XF86AudioMicMute" = lib.mkDefault "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ true";
+
+              # Screen backlight keybinds
+              "XF86MonBrightnessUp" = lib.mkDefault "exec ${light} -A 5";
+              "XF86MonBrightnessDown" = lib.mkDefault "exec ${light} -U 5";
+
+              # Music playback keybinds
+              "XF86AudioPlay" = lib.mkDefault "exec ${playerctl} play";
+              "XF86AudioStop" = lib.mkDefault "exec ${playerctl} pause";
+              "XF86AudioPause" = lib.mkDefault "exec ${playerctl} play-pause";
+              "XF86AudioNext" = lib.mkDefault "exec ${playerctl} next";
+              "XF86AudioPrev" = lib.mkDefault "exec ${playerctl} previous";
+
+              ${config.custom.wm.lockscreens.default.keybind} = "exec ${config.custom.wm.lockscreens.default.executable}";
+            })
 
             # Workspace switchers
             (builtins.listToAttrs
@@ -328,63 +321,27 @@ in {
               })
               workspaces))
 
-            # Audio control keybinds
             (
-              lib.optionalAttrs cfg.keybinds.sound (let
-                pactl = "${pkgs.pulseaudio}/bin/pactl";
-
-                raise-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --output-volume +5"
-                  else "${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
-
-                lower-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --output-volume -5"
-                  else "${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
-
-                mute-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --output-volume mute-toggle"
-                  else "";
-
-                mic-mute-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --input-volume mute-toggle"
-                  else "";
-              in {
-                "XF86AudioRaiseVolume" = "exec ${raise-command}";
-                "XF86AudioLowerVolume" = "exec ${lower-command}";
-
-                "XF86AudioMute" = "exec ${mute-command}";
-                "XF86AudioMicMute" = "exec ${mic-mute-command}";
-              })
-            )
-
-            # Screen backlight keybinds
-            (
-              lib.optionalAttrs cfg.keybinds.backlight (let
-                light = "${pkgs.light}/bin/light";
-
-                up-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --brightness +5"
-                  else "${light} -A 5";
-
-                down-command =
-                  if cfg.keybinds.osd
-                  then "${swayosd-client} --brightness -5"
-                  else "${light} -U 5";
-              in {
-                "XF86MonBrightnessUp" = "exec ${up-command}";
-                "XF86MonBrightnessDown" = "exec ${down-command}";
-              })
-            )
-
-            (
-              lib.listToAttrs (map (application: {
-                  name = application.keybind;
-                  value = "exec ${application.executable}";
+              lib.listToAttrs (map ({
+                  appId,
+                  keybind,
+                  executable,
+                  ...
+                }: let
+                  # If we are given an app id, we want to be able to focus an existing window using the keybind.
+                  runnable =
+                    if appId != null
+                    then
+                      # If we cannot focus the window, start it.
+                      pkgs.writeShellScript "sway-focus-or-start-${appId}" ''
+                        if ! swaymsg [app_id="${appId}"] focus; then
+                          exec ${executable};
+                        fi
+                      ''
+                    else executable;
+                in {
+                  name = keybind;
+                  value = "exec ${runnable}";
                 }) (builtins.filter (application:
                   application.keybind != null)
                 config.custom.wm.applications))
@@ -399,16 +356,13 @@ in {
             )
             config.custom.wm.bars.bars;
 
-          assigns = lib.listToAttrs (map (application: {
-              name = toString application.workspace;
-              value = [
-                {
-                  app_id = "^${application.appId}$";
-                }
-              ];
-            }) (builtins.filter (application:
-              application.workspace != null && application.appId != null)
-            config.custom.wm.applications));
+          assigns = lib.mapAttrs (_workspace: applications:
+            map ({appId, ...}: {
+              app_id = "^${appId}$";
+            })
+            applications) (builtins.groupBy (application: toString application.workspace) (builtins.filter (application:
+            application.workspace != null && application.appId != null)
+          config.custom.wm.applications));
         };
       };
     };

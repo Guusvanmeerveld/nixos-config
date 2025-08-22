@@ -55,6 +55,7 @@ in {
 
     services = {
       kdeconnect.enable = true;
+      playerctld.enable = true;
     };
 
     programs = {

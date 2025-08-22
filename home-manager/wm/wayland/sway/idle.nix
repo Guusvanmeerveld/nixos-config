@@ -35,14 +35,7 @@ in {
         }
         {
           timeout = suspendTimeout;
-          command = "systemctl hibernate";
-        }
-      ];
-
-      events = [
-        {
-          event = "before-sleep";
-          command = config.custom.wm.lockscreens.default.executable;
+          command = "systemctl suspend";
         }
       ];
     };

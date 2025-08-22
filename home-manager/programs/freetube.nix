@@ -18,6 +18,15 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    custom.wm.applications = [
+      {
+        inherit (config.programs.freetube) package;
+        appId = "FreeTube";
+        workspace = 5;
+        keybind = "$mod+d";
+      }
+    ];
+
     programs.freetube = {
       enable = true;
 
