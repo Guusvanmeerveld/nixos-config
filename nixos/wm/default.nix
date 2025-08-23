@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./X11 ./wayland ./kodi.nix];
+  imports = [./X11 ./wayland ./kodi.nix ./lockscreens];
 }

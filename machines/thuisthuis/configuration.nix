@@ -116,6 +116,8 @@
         graphical = true;
       };
 
+      waydroid.enable = true;
+
       docker.enable = true;
     };
 
@@ -126,7 +128,10 @@
 
     dm.greetd.enable = true;
 
-    wm.wayland.sway.enable = true;
+    wm = {
+      wayland.sway.enable = true;
+      lockscreens.gtklock.enable = true;
+    };
   };
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: {
@@ -34,7 +35,7 @@
     wantedBy = ["hibernate.target" "suspend.target"];
 
     serviceConfig = let
-      modprobe = "${pkgs.kmod}/bin/modprobe";
+      modprobe = lib.getExe' pkgs.kmod "modprobe";
     in {
       Type = "oneshot";
 
@@ -140,7 +141,10 @@
 
     dm.greetd.enable = true;
 
-    wm.wayland.sway.enable = true;
+    wm = {
+      wayland.sway.enable = true;
+      lockscreens.gtklock.enable = true;
+    };
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

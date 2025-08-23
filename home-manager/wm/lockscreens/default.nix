@@ -1,5 +1,5 @@
 {lib, ...}: {
-  imports = [./swaylock.nix];
+  imports = [./swaylock.nix ./gtklock.nix];
 
   options = {
     custom.wm.lockscreens.default = {

@@ -18,7 +18,7 @@
   custom = {
     wm = {
       notifications.swaync.enable = true;
-      lockscreens.swaylock.enable = true;
+      lockscreens.gtklock.enable = true;
       launchers.rofi.enable = true;
 
       bars.waybar = {
@@ -33,10 +33,6 @@
 
       wayland.sway = {
         enable = true;
-
-        keybinds = {
-          backlight = true;
-        };
 
         output = {
           "eDP-1" = {

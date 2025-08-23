@@ -8,7 +8,7 @@ in {
   custom = {
     wm = {
       notifications.swaync.enable = true;
-      lockscreens.swaylock.enable = true;
+      lockscreens.gtklock.enable = true;
       launchers.rofi.enable = true;
       widgets.eww.enable = true;
 
