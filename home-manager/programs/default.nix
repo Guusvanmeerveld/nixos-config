@@ -36,6 +36,7 @@ in {
     ./missioncenter.nix
     ./tidal.nix
     ./cheese.nix
+    ./tauon.nix
   ];
 
   options = {
@@ -50,7 +51,7 @@ in {
       librewolf.enable = true;
       kitty.enable = true;
       nautilus.enable = true;
-      tidal.enable = true;
+      tauon.enable = true;
       thunderbird.enable = true;
       mpv.enable = true;
       loupe.enable = true;
