@@ -23,7 +23,7 @@ in {
         inherit (config.programs.freetube) package;
         appId = "FreeTube";
         workspace = 5;
-        keybind = "$mod+d";
+        keybind = "$mod+r";
       }
     ];
 
