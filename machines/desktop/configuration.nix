@@ -132,7 +132,10 @@
 
     dm.greetd.enable = true;
 
-    wm.wayland.sway.enable = true;
+    wm = {
+      lockscreens.gtklock.enable = true;
+      wayland.sway.enable = true;
+    };
   };
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

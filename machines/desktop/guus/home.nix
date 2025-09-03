@@ -8,7 +8,7 @@ in {
   custom = {
     wm = {
       notifications.swaync.enable = true;
-      lockscreens.swaylock.enable = true;
+      lockscreens.gtklock.enable = true;
       launchers.rofi.enable = true;
 
       bars.waybar = {
@@ -87,9 +87,6 @@ in {
         gpg.enable = true;
       };
 
-      openshot.enable = true;
-      jellyfin.enable = true;
-      cantata.enable = true;
       parsec.enable = true;
       eduvpn.enable = true;
 
