@@ -20,13 +20,11 @@ in {
       protontricks.enable = true;
 
       extraCompatPackages = with pkgs; [proton-ge-bin];
-      gamescopeSession.enable = true;
 
       package = pkgs.steam.override {
         extraPkgs = pkgs:
           with pkgs; [
             gamemode
-            gamescope
           ];
       };
     };
