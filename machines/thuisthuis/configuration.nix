@@ -6,9 +6,21 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "thuisthuis";
+  fileSystems = {
+    "/mnt/games" = {
+      device = "homework/games";
+      fsType = "zfs";
+    };
+  };
 
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "thuisthuis";
+
+    # Required for ZFS
+    hostId = "379d3527";
+
+    networkmanager.enable = true;
+  };
 
   # Bootloader.
   boot = {
@@ -46,6 +58,8 @@
 
     security.keyring.enable = true;
     certificates.enable = true;
+
+    fs.zfs.enable = true;
 
     hardware = {
       video.amd.enable = true;

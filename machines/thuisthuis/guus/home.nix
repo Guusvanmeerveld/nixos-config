@@ -84,6 +84,7 @@ in {
 
       games = {
         enable = true;
+        scarab.enable = true;
       };
 
       theming.enable = true;
@@ -99,7 +100,6 @@ in {
         gpg.enable = true;
       };
 
-      jellyfin.enable = true;
       parsec.enable = true;
       eduvpn.enable = true;
 
