@@ -17,6 +17,7 @@ in {
     custom.programs.office = {
       gimp.enable = true;
       libreoffice.enable = true;
+      teams.enable = true;
       latex.enable = true;
     };
   };
