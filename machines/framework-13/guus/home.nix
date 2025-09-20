@@ -1,7 +1,9 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ../../../home-manager
   ];
+
+  home.packages = with pkgs; [powertop];
 
   # By default, the speakers do not sound very balanced (due to downward firing speakers), so you may want to use an equalizer to fix this. The recommended method is to install EasyEffects and use the official preset
   # From: https://wiki.archlinux.org/title/Framework_Laptop_13#Speakers
