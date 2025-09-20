@@ -17,7 +17,7 @@ in {
     custom.programs.messaging = {
       fractal.enable = true;
       vesktop.enable = true;
-      whatsapp.enable = true;
+      # whatsapp.enable = true;
     };
   };
 }
