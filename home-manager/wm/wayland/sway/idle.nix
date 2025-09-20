@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.wm.wayland.sway.idle;
@@ -28,14 +29,16 @@ in {
           timeout = lockTimeout;
           command = config.custom.wm.lockscreens.default.executable;
         }
-        {
+        (let
+          swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
+        in {
           timeout = screenOffTimeout;
-          command = ''swaymsg "output * dpms on'';
-          resumeCommand = ''swaymsg "output * dpms on'';
-        }
+          command = ''${swaymsg} "output * dpms off"'';
+          resumeCommand = ''${swaymsg} "output * dpms on"'';
+        })
         {
           timeout = suspendTimeout;
-          command = "systemctl suspend";
+          command = let systemctl = lib.getExe' pkgs.systemd "systemctl"; in "${systemctl} suspend";
         }
       ];
     };

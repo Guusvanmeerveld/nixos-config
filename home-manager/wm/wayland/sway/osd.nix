@@ -48,7 +48,7 @@ in {
       }
       {
         keybind = "XF86AudioPlay";
-        executable = "${swayosd-client} --playerctl play";
+        executable = "${swayosd-client} --playerctl play-pause";
       }
       {
         keybind = "XF86AudioStop";
