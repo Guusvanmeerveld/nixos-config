@@ -17,7 +17,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.wm.lockscreens.default = {
       keybind = "$mod+0";
-      executable = lib.getExe package;
+      executable = "${lib.getExe package} --daemonize";
     };
 
     home.packages = [package];
