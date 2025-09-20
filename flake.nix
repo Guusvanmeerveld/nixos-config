@@ -78,11 +78,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    apple-fonts = {
-      url = "github:lyndeno/apple-fonts.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -191,8 +186,6 @@
         system:
           (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
           // {
-            inherit (inputs.apple-fonts.packages."${system}") sf-pro-nerd;
-
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
             mconnect = inputs.mconnect-nix.packages."${system}".default;
           }
