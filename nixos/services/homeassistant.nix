@@ -68,9 +68,9 @@ in {
         home-assistant = {
           enable = true;
 
-          openFirewall = true;
-
-          config = {
+          config = let
+            writableMediaDir = "/var/lib/hass/media";
+          in {
             homeassistant = {
               name = "Guus' home";
 
@@ -93,6 +93,19 @@ in {
               password = "!secret honeywell_password";
             };
 
+            notify = [
+              {
+                name = "ntfy";
+                platform = "ntfy";
+                url = "https://ntfy.tlp";
+                topic = "homeassistant";
+                verify_ssl = false;
+                allow_topic_override = true;
+              }
+            ];
+
+            allowlist_external_dirs = [writableMediaDir];
+
             automation = [
               {
                 alias = "Send notification on doorbell ring";
@@ -103,12 +116,32 @@ in {
                   }
                 ];
 
-                actions = [
+                actions = let
+                  snapshotPath = "${writableMediaDir}/deurbel-snapshot.png";
+                in [
                   {
-                    action = "notify.send_message";
+                    action = "camera.snapshot";
+                    metadata = {};
                     data = {
-                      message = "The doorbell is ringing!";
-                      entity_id = "notify.deurbel";
+                      filename = snapshotPath;
+                    };
+                    target = {
+                      entity_id = "camera.deurbel_live_view";
+                    };
+                  }
+                  {
+                    action = "notify.ntfy";
+                    data = {
+                      title = "The doorbell is ringing!";
+                      message = "Check the attachments to see who it was";
+
+                      data = {
+                        topic = "deurbel";
+
+                        attach_file = snapshotPath;
+                        attachment_filename = "ring.jpg";
+                        attachment_compress_image = 80;
+                      };
                     };
                   }
                 ];
@@ -118,6 +151,7 @@ in {
 
           customComponents = with pkgs.home-assistant-custom-components; [
             localtuya
+            ntfy
           ];
 
           extraPackages = python3Packages:
@@ -140,7 +174,6 @@ in {
             "solaredge"
             "traccar"
             "unifi"
-            "ntfy"
             "evohome"
             "tplink"
             "tplink_tapo"
