@@ -41,8 +41,12 @@ in {
         files = [
           config.services.jellyfin.configDir
           "${config.services.jellyfin.dataDir}/data"
+          "${config.services.jellyfin.dataDir}/plugins"
         ];
       };
+
+      # Open port for DLNA
+      networking.firewall.allowedUDPPorts = [1900];
 
       users.users.jellyfin = {
         uid = 7788;
@@ -69,7 +73,9 @@ in {
 
           enabledPlugins = with pkgs.jellyfin-plugins;
           with pkgs.custom.jellyfin; {
-            inherit kodisyncqueue intro-skipper;
+            inherit kodisyncqueue intro-skipper trakt dlna;
+
+            "ListenBrainz_${listen-brainz.version}" = listen-brainz;
           };
         };
       };
