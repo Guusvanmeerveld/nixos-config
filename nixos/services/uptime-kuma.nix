@@ -29,6 +29,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.uptime-kuma = {
+        services = ["uptime-kuma"];
+
+        files = [
+          config.services.uptime-kuma.settings.DATA_DIR
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
