@@ -68,6 +68,11 @@ in {
           settings = {
             server.externalDomain = cfg.caddy.url;
 
+            ffmpeg = {
+              accel = "vaapi";
+              accelDecode = true;
+            };
+
             storageTemplate = {
               enabled = true;
               hashVerificationEnabled = true;
