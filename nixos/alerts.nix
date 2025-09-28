@@ -66,7 +66,7 @@ in {
             ExecStart = lib.getExe (pkgs.writeShellApplication {
               name = "disk-space-alert";
 
-              runtimeInputs = with pkgs; [procps gawk];
+              runtimeInputs = with pkgs; [procps curl gawk];
 
               text = ''
                 THRESHOLD=90
