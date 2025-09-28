@@ -6,30 +6,20 @@
 }: let
   cfg = config.custom.wm.launchers.rofi;
 
-  package =
-    if cfg.wayland
-    then
-      pkgs.rofi-wayland.override {
-        plugins = with pkgs; [
-          rofi-calc
-          rofi-emoji-wayland
-          rofi-rbw-wayland
-          rofi-games
-        ];
-      }
-    else pkgs.rofi;
+  package = pkgs.rofi.override {
+    plugins = with pkgs; [
+      rofi-calc
+      rofi-emoji
+      rofi-rbw
+      rofi-games
+    ];
+  };
 
   default = "drun";
 in {
   options = {
     custom.wm.launchers.rofi = {
       enable = lib.mkEnableOption "Enable Rofi start menu";
-
-      wayland = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.wm.wayland.enable;
-        description = "Whether to use the wayland version of rofi";
-      };
 
       font = lib.mkOption {
         type = lib.types.str;
@@ -59,16 +49,6 @@ in {
         "emoji"
         "run"
         "ssh"
-        # {
-        #   name = "rbw";
-        #   path = let
-        #     package =
-        #       if cfg.wayland
-        #       then pkgs.rofi-rbw-wayland
-        #       else pkgs.rofi-rbw-x11;
-        #   in
-        #     lib.getExe package;
-        # }
       ];
 
       # Config highly inspired by https://github.com/catppuccin/rofi
