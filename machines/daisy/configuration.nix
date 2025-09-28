@@ -62,7 +62,7 @@
     };
 
     services = {
-      motd.enable = true;
+      # motd.enable = true;
 
       caddy.enable = true;
 

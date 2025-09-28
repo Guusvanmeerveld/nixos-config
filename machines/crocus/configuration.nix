@@ -122,10 +122,6 @@
 
         caddy.url = "http://adguard.crocus";
       };
-
-      motd = {
-        enable = true;
-      };
     };
 
     alerts = {

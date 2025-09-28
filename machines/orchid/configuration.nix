@@ -306,7 +306,7 @@
       };
 
       motd = {
-        enable = true;
+        # enable = true;
 
         settings = {
           fileSystems = {
