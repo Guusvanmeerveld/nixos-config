@@ -1,13 +1,10 @@
 {
   config,
   lib,
-  outputs,
   ...
 }: let
   cfg = config.custom.services.soulseek;
 in {
-  imports = [outputs.nixosModules.soularr];
-
   options = {
     custom.services.soulseek = let
       inherit (lib) mkEnableOption mkOption types;
@@ -65,10 +62,6 @@ in {
           };
         };
 
-        soularr = {
-          enable = true;
-        };
-
         slskd = {
           enable = true;
 
@@ -76,24 +69,51 @@ in {
 
           domain = null;
 
+          user = "lidarr";
+          group = "lidarr";
+
           inherit (cfg) environmentFile;
 
           settings = {
             directories = {
               downloads = cfg.downloadDir;
-              incomplete = "${cfg.downloadDir}/incomplete";
+            };
+
+            global = {
+              upload = {
+                slots = 5;
+                speed_limit = 5 * 1000; # kibibytes
+              };
+
+              limits = {
+                queued = {
+                  files = 500;
+                  megabytes = 5000;
+                };
+
+                daily = {
+                  files = 1000;
+                  megabytes = 50 * 1000;
+                  failures = 200;
+                };
+
+                weekly = {
+                  files = 5000;
+                  megabytes = 7 * 50 * 1000;
+                  failures = 1000;
+                };
+              };
             };
 
             shares.directories = cfg.sharedDirs;
 
-            authentication.api_keys = {
-              "soularr" = {
-                key = builtins.hashString "sha512" "soularr";
-                cidr = "0.0.0.0/0,::/0";
+            web = {
+              inherit (cfg) port;
+
+              authentication.api_keys = {
+                lidarr.key = "vbz72HzWIy@vkgw5BZYIr3m&tVpEWbbk";
               };
             };
-
-            web.port = cfg.port;
           };
         };
       };
