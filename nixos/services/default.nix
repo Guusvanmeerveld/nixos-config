@@ -40,5 +40,6 @@
     ./mealie.nix
     ./soulseek.nix
     ./lidarr.nix
+    ./recyclarr.nix
   ];
 }
