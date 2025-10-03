@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.lidarr;
@@ -41,6 +42,11 @@ in {
         ];
       };
 
+      nixpkgs.config.permittedInsecurePackages = [
+        "dotnet-sdk-6.0.428"
+        "aspnetcore-runtime-6.0.36"
+      ];
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
@@ -55,6 +61,8 @@ in {
 
         lidarr = {
           enable = true;
+
+          package = pkgs.custom.lidarr-plugins;
 
           settings = {
             server = {
