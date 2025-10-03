@@ -37,6 +37,7 @@ in {
     ./tidal.nix
     ./cheese.nix
     ./tauon.nix
+    ./feishin.nix
   ];
 
   options = {
@@ -51,7 +52,7 @@ in {
       librewolf.enable = true;
       kitty.enable = true;
       nautilus.enable = true;
-      tauon.enable = true;
+      feishin.enable = true;
       thunderbird.enable = true;
       mpv.enable = true;
       loupe.enable = true;
