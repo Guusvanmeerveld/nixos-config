@@ -19,6 +19,7 @@ in {
     environment = {
       systemPackages = with pkgs; [
         radeontop
+        nvtopPackages.amd
       ];
 
       variables = lib.mkIf cfg.polaris.enable {
@@ -37,22 +38,9 @@ in {
 
     boot.initrd.kernelModules = ["amdgpu"];
 
-    # systemd.tmpfiles.rules = [
-    #   # Most software has the HIP libraries hard-coded. This works around that.
-    #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-    # ];
-
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-
-      extraPackages = with pkgs; [
-        # OpenCL support
-        # rocmPackages.clr.icd
-
-        # Vulkan support
-        amdvlk
-      ];
     };
   };
 }
