@@ -53,6 +53,8 @@ in {
           };
         };
 
+        flaresolverr.enable = true;
+
         prowlarr = {
           enable = true;
 
