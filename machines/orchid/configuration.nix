@@ -90,10 +90,14 @@
         value = {
           extraGroups = ["media"];
         };
-      }) ["radarr" "sonarr" "bazarr" "qbittorrent" "lidarr" "slskd"]));
+      }) ["radarr" "sonarr" "bazarr" "qbittorrent" "lidarr"]));
   };
 
   services.qbittorrent-nox.address = "192.168.15.1";
+
+  services.slskd.settings.soulseek = {
+    listen_port = 7717;
+  };
 
   systemd.services = {
     qbittorrent-nox.vpnConfinement = {
@@ -117,6 +121,17 @@
       "127.0.0.0/24"
     ];
 
+    openVPNPorts = [
+      {
+        port = 10100;
+        protocol = "both";
+      }
+      {
+        port = config.services.slskd.settings.soulseek.listen_port;
+        protocol = "both";
+      }
+    ];
+
     portMappings = [
       (let
         qbtPort = config.services.qbittorrent-nox.webUIPort;
@@ -132,8 +147,6 @@
       })
     ];
   };
-
-  services.soularr.lidarr.apiKey = "e0d013be2a0c4c1bbba82a33028fec4a"; # pragma: allowlist secret`
 
   custom = {
     users."guus" = {
@@ -281,6 +294,13 @@
         caddy.url = "https://lidarr.chd";
       };
 
+      recyclarr = {
+        enable = true;
+
+        radarr.keyPath = "/secrets/radarr/api-key";
+        sonarr.keyPath = "/secrets/sonarr/api-key";
+      };
+
       samba.server = {
         enable = true;
 
@@ -298,22 +318,11 @@
         address = "192.168.15.1";
 
         downloadDir = "/mnt/bigdata/media/download/slskd";
-        sharedDirs = ["/mnt/bigdata/media/music"];
+        sharedDirs = ["/mnt/bigdata/media/music" "/mnt/bigdata/media/classics"];
 
         environmentFile = "/secrets/slskd/environmentFile";
 
         caddy.url = "https://soulseek.chd";
-      };
-
-      motd = {
-        # enable = true;
-
-        settings = {
-          fileSystems = {
-            "data" = "/mnt/data";
-            "media" = "/mnt/bigdata/media";
-          };
-        };
       };
     };
 
