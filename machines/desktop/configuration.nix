@@ -56,6 +56,7 @@
     hardware = {
       openrgb.enable = true;
       plymouth.enable = true;
+      bluetooth.enable = true;
 
       video.amd.enable = true;
       power.thermald.enable = true;
