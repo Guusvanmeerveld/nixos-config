@@ -7,15 +7,12 @@
   radb = pkgs.callPackage ./radb.nix {};
   nwg-dock = pkgs.callPackage ./nwg-dock.nix {};
   ryubing = pkgs.callPackage ./ryubing {};
+  lidarr-plugins = pkgs.callPackage ./lidarr-plugins {};
 
   nx_tzdb = pkgs.callPackage ./sudachi/nx_tzdb.nix {};
   sudachi = pkgs.callPackage ./sudachi (pkgs.kdePackages // {inherit nx_tzdb;});
 
   pythonPackages = import ./python {inherit pkgs;};
-
-  soularr = pkgs.callPackage ./soularr.nix {
-    inherit (pythonPackages) slskd-api;
-  };
 
   kodiPackages = import ./kodi {inherit pkgs;};
 
@@ -23,7 +20,7 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
-    inherit mpdris2 radb ryubing soularr;
+    inherit mpdris2 radb ryubing lidarr-plugins;
     inherit (pythonPackages) textblob;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
