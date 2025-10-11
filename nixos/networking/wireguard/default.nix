@@ -82,7 +82,13 @@
         framework-13 = {
           publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs="; # pragma: allowlist secret
           address = "10.10.10.12";
-          tld = "framework";
+          tld = "fw13";
+        };
+
+        sunflower = {
+          publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
+          address = "10.10.10.13";
+          tld = "sun";
         };
       };
     };

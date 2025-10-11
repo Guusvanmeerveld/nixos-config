@@ -332,6 +332,14 @@
         ];
       };
 
+      sunflower = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+
+        modules = [
+          ./machines/sunflower/configuration.nix
+        ];
+      };
+
       framework-13 = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 

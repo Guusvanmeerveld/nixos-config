@@ -10,8 +10,60 @@
     ../../nixos
 
     # Include the results of the hardware scan.
-    # ./hardware-configuration.nix
+    ./hardware-configuration.nix
   ];
+
+  fileSystems = {
+    "/" = {
+      device = "root/root";
+      fsType = "zfs";
+    };
+
+    "/nix" = {
+      device = "root/nix";
+      fsType = "zfs";
+    };
+
+    "/var" = {
+      device = "root/var";
+      fsType = "zfs";
+    };
+
+    "/home" = {
+      device = "root/home";
+      fsType = "zfs";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-label/BOOT";
+      fsType = "vfat";
+    };
+
+    # "/mnt/data" = {
+    #   device = "zpool/data";
+    #   fsType = "zfs";
+    # };
+
+    # "/mnt/bigdata/restic" = {
+    #   device = "bigdata/restic";
+    #   fsType = "zfs";
+    # };
+
+    # "/mnt/bigdata/syncthing" = {
+    #   device = "bigdata/syncthing";
+    #   fsType = "zfs";
+    # };
+
+    # "/mnt/bigdata/immich" = {
+    #   device = "bigdata/immich";
+    #   fsType = "zfs";
+    # };
+
+    # "/mnt/bigdata/media" = {
+    #   device = "bigdata/media";
+    #   fsType = "zfs";
+    # };
+  };
 
   boot = {
     tmp.cleanOnBoot = true;
@@ -30,8 +82,11 @@
 
   environment.systemPackages = with pkgs; [radeontop nvtopPackages.amd];
 
-  networking.hostName = "sunflower";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "sunflower";
+    hostId = "deadb33f";
+    networkmanager.enable = true;
+  };
 
   custom = {
     users."guus" = {
@@ -48,11 +103,11 @@
       ];
     };
 
-    hardware = {
-      power.thermald.enable = true;
-    };
+    hardware.power.thermald.enable = true;
 
     certificates.enable = true;
+
+    fs.zfs.enable = true;
 
     networking.wireguard = {
       enable = true;
