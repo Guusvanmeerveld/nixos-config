@@ -36,6 +36,19 @@ in {
         allowedUDPPorts = lib.optional cfg.openFirewall 53;
       };
 
+      custom.services.restic.client.backups.adguard = {
+        services = ["adguardhome"];
+
+        files = [
+          "/var/lib/AdGuardHome/data"
+        ];
+      };
+
+      networking.hosts = {
+        # Required since we would be unable to query the DNS server if it is offline during backups
+        "10.10.10.10" = ["restic.chd"];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
