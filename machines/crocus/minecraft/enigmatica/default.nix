@@ -45,7 +45,7 @@
   };
 in {
   services.minecraft-servers.servers.enigmatica-10 = {
-    enable = true;
+    enable = false;
     enableReload = true;
 
     package = pkgs.writeShellApplication {
