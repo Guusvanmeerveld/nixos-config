@@ -60,15 +60,8 @@
         ipFilter = {
           enable = true;
 
-          vHosts = ["http://syncthing.crocus" "http://adguard.crocus"];
+          vHosts = ["http://adguard.crocus"];
         };
-      };
-
-      syncthing = {
-        enable = true;
-
-        caddy.url = "http://syncthing.crocus";
-        openFirewall = true;
       };
 
       openssh.enable = true;
@@ -95,10 +88,6 @@
                 "Games" = ["epicgames.com"];
               };
             };
-          };
-
-          "feg" = {
-            sendOnly = true;
           };
 
           "bitwarden" = {
