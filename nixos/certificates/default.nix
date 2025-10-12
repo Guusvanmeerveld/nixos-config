@@ -20,6 +20,7 @@ in {
       security.pki.certificates = [
         (readFile ./tulip.crt)
         (readFile ./orchid.crt)
+        (readFile ./sunflower.crt)
       ];
     };
 }
