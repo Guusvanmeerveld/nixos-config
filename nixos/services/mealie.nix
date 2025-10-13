@@ -29,6 +29,32 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.mealie = {
+        postgresDBs = [
+          {
+            dbName = "mealie";
+            user = "mealie";
+          }
+        ];
+
+        services = ["mealie"];
+
+        files = [
+          "/var/lib/mealie"
+        ];
+      };
+
+      users.users.mealie = {
+        group = "mealie";
+        isSystemUser = true;
+      };
+
+      users.groups.mealie = {};
+
+      systemd.services.mealie.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

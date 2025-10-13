@@ -34,6 +34,21 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.vaultwarden = {
+        services = ["vaultwarden"];
+
+        postgresDBs = [
+          {
+            dbName = "vaultwarden";
+            user = "vaultwarden";
+          }
+        ];
+
+        files = [
+          "/var/lib/bitwarden_rs"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

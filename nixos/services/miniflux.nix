@@ -37,6 +37,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.miniflux = {
+        postgresDBs = [
+          {
+            dbName = "miniflux";
+            user = "miniflux";
+          }
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

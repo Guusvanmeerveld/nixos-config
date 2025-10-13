@@ -37,6 +37,19 @@ in {
         ];
       };
 
+      users.users.uptime-kuma = {
+        group = "uptime-kuma";
+        isSystemUser = true;
+      };
+
+      users.groups.uptime-kuma = {};
+
+      # Disable dynamic user since it prevents even the root user from accessing the files.
+      systemd.services.uptime-kuma.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "uptime-kuma";
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

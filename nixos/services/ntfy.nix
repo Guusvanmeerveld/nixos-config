@@ -4,6 +4,11 @@
   ...
 }: let
   cfg = config.custom.services.ntfy;
+
+  storageDir = "/var/lib/ntfy-sh";
+  authFile = "${storageDir}/user.db";
+  attachementsCache = "${storageDir}/attachments";
+  cacheFile = "${storageDir}/cache-file.db";
 in {
   options = {
     custom.services.ntfy = let
@@ -29,6 +34,16 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.ntfy = {
+        services = ["ntfy-sh"];
+
+        files = [
+          authFile
+          attachementsCache
+          cacheFile
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
@@ -50,6 +65,10 @@ in {
             behind-proxy = true;
             enable-signup = true;
             enable-login = true;
+
+            auth-file = authFile;
+            attachment-cache-dir = attachementsCache;
+            cache-file = cacheFile;
           };
         };
       };

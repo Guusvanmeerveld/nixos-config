@@ -32,6 +32,14 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.unifi = {
+        services = ["unifi"];
+
+        files = [
+          "/var/lib/unifi"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

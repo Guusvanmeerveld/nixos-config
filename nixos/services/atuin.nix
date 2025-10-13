@@ -29,6 +29,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.atuin = {
+        postgresDBs = [
+          {
+            dbName = "atuin";
+            user = "atuin";
+          }
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

@@ -35,6 +35,15 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.immich = {
+        postgresDBs = [
+          {
+            dbName = "immich";
+            user = "immich";
+          }
+        ];
+      };
+
       users.users.immich = {
         uid = 6677;
       };

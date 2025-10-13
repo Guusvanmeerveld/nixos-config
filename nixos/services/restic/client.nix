@@ -42,7 +42,20 @@ in {
               };
 
               postgresDBs = mkOption {
-                type = listOf str;
+                type = listOf (submodule (_: {
+                  options = {
+                    dbName = mkOption {
+                      type = str;
+                      description = "The name of the database";
+                    };
+
+                    user = mkOption {
+                      type = str;
+                      default = cfg.${name}.user;
+                      description = "The user to run the backup as";
+                    };
+                  };
+                }));
                 default = [];
                 description = "List of PostgresQL db's to back up";
               };
@@ -88,11 +101,9 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf mapAttrs optionalString getExe concatStringsSep;
+    inherit (lib) mkIf mapAttrs optionalString optional optionals getExe concatStringsSep concatStrings;
   in
     mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [restic];
-
       services.restic.backups =
         mapAttrs (
           name: {
@@ -100,6 +111,7 @@ in {
             excluded,
             services,
             sqliteDBs,
+            postgresDBs,
             passwordFile,
             timer,
             user,
@@ -108,6 +120,8 @@ in {
           }: let
             needsToRestartServices = services != [];
             needsSqliteBackup = sqliteDBs != [];
+            needsPostgresBackup = postgresDBs != [];
+            needsDBBackup = needsPostgresBackup || needsSqliteBackup;
           in {
             inherit passwordFile user;
 
@@ -138,17 +152,42 @@ in {
             paths = files;
             exclude = excluded;
 
-            dynamicFilesFrom = mkIf needsSqliteBackup (getExe (pkgs.writeShellApplication {
-              name = "${name}-backup-dynamic";
+            dynamicFilesFrom = mkIf needsDBBackup (getExe (pkgs.writeShellApplication {
+              name = "${name}-backup-dynamic-files";
 
-              runtimeInputs = with pkgs; [sqlite];
+              runtimeInputs = with pkgs; ([findutils]
+                ++ (optionals needsPostgresBackup [postgresql sudo-rs coreutils])
+                ++ (optional needsSqliteBackup sqlite));
 
-              text = ''
-                ${concatStringsSep "\n" (lib.imap0
-                  (i: location: ''sqlite3 ${location} ".backup '/tmp/${name}_${toString i}_db.sqlite3.bak'" '')
-                  sqliteDBs)}
+              text = let
+                sqliteBackupScript = optional needsSqliteBackup (
+                  concatStringsSep "\n" (lib.imap0
+                    (i: location: ''
+                      sqlite3 ${location} ".backup '/tmp/${name}_${toString i}_db.sqlite3.bak'"
+                    '')
+                    sqliteDBs)
+                );
 
-                find /tmp/${name}_*_db.sqlite3.bak
+                postgresBackupScript = optional needsPostgresBackup (
+                  concatStringsSep "\n" (map
+                    ({
+                      dbName,
+                      user,
+                    }: ''
+                      sudo -u ${user} pg_dump ${dbName} | sudo -u ${user} tee '/tmp/${name}_${toString dbName}_db.psql.bak' > /dev/null
+                    '')
+                    postgresDBs)
+                );
+              in ''
+                umask 077
+
+                ${concatStrings (sqliteBackupScript ++ postgresBackupScript)}
+
+                find ${
+                  concatStringsSep " "
+                  ((optional needsSqliteBackup "/tmp/${name}_*_db.sqlite3.bak")
+                    ++ (optional needsPostgresBackup "/tmp/${name}_*_db.psql.bak"))
+                }
               '';
             }));
 

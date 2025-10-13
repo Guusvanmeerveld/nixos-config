@@ -39,9 +39,7 @@ in {
         services = ["jellyfin"];
 
         files = [
-          config.services.jellyfin.configDir
-          "${config.services.jellyfin.dataDir}/data"
-          "${config.services.jellyfin.dataDir}/plugins"
+          config.services.jellyfin.dataDir
         ];
       };
 
