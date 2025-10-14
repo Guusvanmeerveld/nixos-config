@@ -187,7 +187,6 @@
           (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
           // {
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
-            mconnect = inputs.mconnect-nix.packages."${system}".default;
           }
       )
     );

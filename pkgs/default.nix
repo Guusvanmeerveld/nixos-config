@@ -13,7 +13,6 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
-    inherit (pythonPackages) textblob;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
   };
