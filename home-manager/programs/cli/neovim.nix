@@ -94,10 +94,10 @@ in {
             };
           };
 
-          window = {
+          settings.window = {
             width = 40;
             height = 15;
-            autoExpandWidth = false;
+            auto_expand_width = false;
             mappings = {
               "<space>" = "none";
             };
