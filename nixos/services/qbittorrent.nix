@@ -50,6 +50,14 @@ in {
     mkIf cfg.enable {
       networking.firewall.allowedUDPPorts = optionals cfg.openFirewall [config.services.qbittorrent-nox.torrentPort];
 
+      custom.services.restic.client.backups.qbittorrent = {
+        services = ["qbittorrent-nox"];
+
+        files = [
+          "/var/lib/qbittorrent"
+        ];
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

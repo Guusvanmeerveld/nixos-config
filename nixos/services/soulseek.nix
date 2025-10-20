@@ -11,7 +11,7 @@ in {
     in {
       enable = mkEnableOption "Enable Soulseek";
 
-      port = mkOption {
+      webUIPort = mkOption {
         type = types.ints.u16;
         default = 3434;
         description = "The port to run the web ui on";
@@ -55,7 +55,7 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
-                reverse_proxy http://${cfg.address}:${toString cfg.port}
+                reverse_proxy http://${cfg.address}:${toString cfg.webUIPort}
                 tls internal
               '';
             };
@@ -108,7 +108,7 @@ in {
             shares.directories = cfg.sharedDirs;
 
             web = {
-              inherit (cfg) port;
+              port = cfg.webUIPort;
 
               authentication.api_keys = {
                 lidarr.key = "vbz72HzWIy@vkgw5BZYIr3m&tVpEWbbk";

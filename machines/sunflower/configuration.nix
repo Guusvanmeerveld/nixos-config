@@ -2,8 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  # config,
+  config,
   pkgs,
+  inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -11,6 +13,8 @@
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
+    inputs.vpn-confinement.nixosModules.default
   ];
 
   fileSystems = {
@@ -44,25 +48,25 @@
     #   fsType = "zfs";
     # };
 
-    # "/mnt/bigdata/restic" = {
-    #   device = "bigdata/restic";
-    #   fsType = "zfs";
-    # };
+    "/mnt/bigdata/restic" = {
+      device = "bigdata/restic";
+      fsType = "zfs";
+    };
 
-    # "/mnt/bigdata/syncthing" = {
-    #   device = "bigdata/syncthing";
-    #   fsType = "zfs";
-    # };
+    "/mnt/bigdata/syncthing" = {
+      device = "bigdata/syncthing";
+      fsType = "zfs";
+    };
 
-    # "/mnt/bigdata/immich" = {
-    #   device = "bigdata/immich";
-    #   fsType = "zfs";
-    # };
+    "/mnt/bigdata/immich" = {
+      device = "bigdata/immich";
+      fsType = "zfs";
+    };
 
-    # "/mnt/bigdata/media" = {
-    #   device = "bigdata/media";
-    #   fsType = "zfs";
-    # };
+    "/mnt/bigdata/media" = {
+      device = "bigdata/media";
+      fsType = "zfs";
+    };
   };
 
   boot = {
@@ -88,6 +92,90 @@
     networkmanager.enable = true;
   };
 
+  users = {
+    groups.media = {};
+
+    users =
+      {
+        media = {
+          group = "media";
+          isSystemUser = true;
+        };
+      }
+      // (lib.listToAttrs (map (user: {
+          name = user;
+          value = {
+            extraGroups = ["media"];
+          };
+        }) [
+          "radarr"
+          "sonarr"
+          "bazarr"
+          "lidarr"
+          "qbittorrent"
+          "jellyfin"
+        ]));
+  };
+
+  services.qbittorrent-nox.address = "192.168.15.1";
+
+  services.slskd.settings.soulseek = {
+    listen_port = 7717;
+  };
+
+  systemd.services = {
+    qbittorrent-nox.vpnConfinement = {
+      enable = true;
+      vpnNamespace = "vpn";
+    };
+
+    slskd.vpnConfinement = {
+      enable = true;
+      vpnNamespace = "vpn";
+    };
+  };
+
+  vpnNamespaces.vpn = {
+    # The name is limited to 7 characters
+
+    enable = true;
+    wireguardConfigFile = "/secrets/vpn/wgFile";
+
+    accessibleFrom = [
+      "127.0.0.0/24"
+    ];
+
+    openVPNPorts = [
+      {
+        port = 10100;
+        protocol = "both";
+      }
+      {
+        port = config.services.slskd.settings.soulseek.listen_port;
+        protocol = "both";
+      }
+    ];
+
+    portMappings = [
+      (let
+        qbtPort = config.services.qbittorrent-nox.webUIPort;
+      in {
+        from = qbtPort;
+        to = qbtPort;
+      })
+      (let
+        slskdPort = config.services.slskd.settings.web.port;
+      in {
+        from = slskdPort;
+        to = slskdPort;
+      })
+    ];
+  };
+
+  environment.variables = {
+    ROC_ENABLE_PRE_VEGA = "1";
+  };
+
   custom = {
     users."guus" = {
       isSuperUser = true;
@@ -100,6 +188,8 @@
 
       ssh.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIdNGCw0MURAoLliBBn3+LGGXZu17yNYUuOAMDHXoqj guus@thuisthuis"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxp38hLC2UUaKt7wkiqSHUHI9FxrY8gHJTO2sAElZID guus@framework-13"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICZ3RNokgR4jcvxvCHtMS5zd8BPPNPb+7tZKBVz4y6SU guus@desktop"
       ];
     };
 
@@ -122,127 +212,263 @@
 
     services = {
       openssh.enable = true;
-      fail2ban.enable = true;
       autoUpgrade.enable = true;
-      restic.client.enable = true;
 
       caddy = {
         enable = true;
 
-        # ca = {
-        #   enable = true;
+        ca = {
+          enable = true;
 
-        #   cert = "${../../nixos/certificates/sunflower.crt}";
-        #   key = "/secrets/caddy/ca/root.key";
-        # };
+          cert = "${../../nixos/certificates/sunflower.crt}";
+          key = "/secrets/caddy/ca/root.key";
+        };
 
         openFirewall = true;
       };
 
-      # immich = {
-      #   enable = true;
+      jellyfin = {
+        enable = true;
 
-      #   mediaDir = "/mnt/bigdata/apps/immich/upload";
+        port = 8000;
 
-      #   caddy.url = "http://immich.sun";
-      # };
+        caddy.url = "http://jellyfin.sun";
+      };
 
-      # jellyfin = {
-      #   enable = true;
+      jellyseerr = {
+        enable = true;
 
-      #   caddy.url = "http://jellyfin.sun";
-      # };
+        port = 8001;
 
-      # jellyseerr = {
-      #   enable = true;
+        caddy.url = "https://jellyseerr.sun";
+      };
 
-      #   caddy.url = "https://jellyseerr.sun";
-      # };
+      uptime-kuma = {
+        enable = true;
 
-      # uptime-kuma = {
-      #   enable = true;
+        port = 8002;
 
-      #   caddy.url = "https://uptime.sun";
-      # };
+        caddy.url = "https://uptime.sun";
+      };
 
-      # homeassistant = {
-      #   enable = true;
+      homeassistant = {
+        enable = true;
 
-      #   caddy.url = "https://homeassistant.sun";
-      # };
+        port = 8003;
 
-      # ntfy = {
-      #   enable = true;
+        ntfy.url = "https://ntfy.sun";
 
-      #   caddy.url = "https://ntfy.sun";
-      # };
+        caddy.url = "https://homeassistant.sun";
+      };
 
-      # miniflux = {
-      #   enable = true;
+      ntfy = {
+        enable = true;
 
-      #   adminCredentialsFile = "/secrets/miniflux/adminCredentials";
+        port = 8004;
 
-      #   caddy.url = "https://miniflux.sun";
-      # };
+        caddy.url = "https://ntfy.sun";
+      };
 
-      # vaultwarden = {
-      #   enable = true;
+      miniflux = {
+        enable = true;
 
-      #   environmentFile = "/secrets/vaultwarden/environmentFile";
+        port = 8005;
 
-      #   caddy.url = "https://bitwarden.sun";
-      # };
+        adminCredentialsFile = "/secrets/miniflux/adminCredentials";
+
+        caddy.url = "https://miniflux.sun";
+      };
+
+      vaultwarden = {
+        enable = true;
+
+        port = 8006;
+
+        environmentFile = "/secrets/vaultwarden/environmentFile";
+
+        caddy.url = "https://bitwarden.sun";
+      };
 
       # traccar = {
       #   enable = true;
 
+      # port = 8007;
+
       #   caddy.url = "https://traccar.sun";
       # };
 
-      # radicale = {
+      radicale = {
+        enable = true;
+
+        port = 8008;
+
+        htpasswdFile = "/secrets/radicale/htpasswdFile";
+
+        caddy.url = "https://radicale.sun";
+      };
+
+      atuin = {
+        enable = true;
+
+        port = 8009;
+
+        caddy.url = "https://atuin.sun";
+      };
+
+      unifi = {
+        enable = true;
+
+        port = 8443;
+
+        openFirewall = true;
+
+        caddy.url = "https://unifi";
+      };
+
+      free-epic-games = {
+        enable = true;
+
+        port = 8011;
+
+        email = "mail@guusvanmeerveld.dev";
+
+        ntfy.url = "http://0.0.0.0:${toString config.custom.services.ntfy.port}";
+
+        caddy.url = "http://free-epic-games.sun";
+      };
+
+      twitch-miner = {
+        enable = true;
+        username = "guusvanmeerveld";
+
+        ntfy.url = "http://localhost:${toString config.custom.services.ntfy.port}";
+      };
+
+      mealie = {
+        enable = true;
+
+        port = 8012;
+
+        caddy.url = "https://mealie.sun";
+      };
+
+      # syncthing = rec {
       #   enable = true;
 
-      #   htpasswdFile = "/secrets/radicale/htpasswdFile";
+      # port = 8013;
 
-      #   caddy.url = "https://radicale.sun";
-      # };
+      #   dataDir = "/mnt/bigdata/syncthing";
 
-      # atuin = {
-      #   enable = true;
+      #   folders = {
+      #     "code" = "${dataDir}/Code";
+      #     "minecraft" = "${dataDir}/Minecraft";
+      #     "music" = "${dataDir}/Music";
+      #     "games" = "${dataDir}/Games";
+      #     "seedvault-backup" = "${dataDir}/Backups/Phone";
+      #     "firefox-sync" = "${dataDir}/Backups/Librewolf";
+      #     "dictionaries" = "${dataDir}/Dictionaries";
+      #   };
 
-      #   caddy.url = "https://atuin.sun";
-      # };
-
-      # unifi = {
-      #   enable = true;
-
+      #   caddy.url = "http://syncthing.sun";
       #   openFirewall = true;
-
-      #   caddy.url = "https://unifi";
       # };
+      #
+      restic = {
+        server = {
+          enable = true;
 
-      # free-epic-games = {
-      #   enable = true;
+          port = 8014;
 
-      #   email = "mail@guusvanmeerveld.dev";
+          dataDir = "/mnt/bigdata/restic";
+          passwordFile = "/secrets/restic/passwordFile";
 
-      #   ntfy.url = "http://0.0.0.0:${toString config.custom.services.ntfy.port}";
+          caddy.url = "https://restic.sun";
+        };
 
-      #   caddy.url = "http://free-epic-games.sun";
-      # };
+        client.enable = true;
+      };
 
-      # twitch-miner = {
-      #   enable = true;
-      #   username = "guusvanmeerveld";
+      radarr = {
+        enable = true;
 
-      #   ntfy.url = "http://localhost:${toString config.custom.services.ntfy.port}";
-      # };
+        port = 8015;
 
-      # mealie = {
-      #   enable = true;
+        caddy.url = "https://radarr.sun";
+      };
 
-      #   caddy.url = "https://mealie.sun";
-      # };
+      sonarr = {
+        enable = true;
+
+        port = 8016;
+
+        caddy.url = "https://sonarr.sun";
+      };
+
+      prowlarr = {
+        enable = true;
+
+        port = 8017;
+
+        caddy.url = "https://prowlarr.sun";
+      };
+
+      bazarr = {
+        enable = true;
+
+        port = 8018;
+
+        caddy.url = "https://bazarr.sun";
+      };
+
+      lidarr = {
+        enable = true;
+
+        port = 8019;
+
+        caddy.url = "https://lidarr.sun";
+      };
+
+      recyclarr = {
+        enable = true;
+
+        radarr.keyPath = "/secrets/radarr/api-key";
+        sonarr.keyPath = "/secrets/sonarr/api-key";
+      };
+
+      qbittorrent = {
+        enable = true;
+
+        webUIPort = 8020;
+
+        saveDir = "/mnt/bigdata/media/download";
+
+        caddy.url = "https://qbittorrent.sun";
+      };
+
+      soulseek = {
+        enable = true;
+
+        webUIPort = 8021;
+
+        address = "192.168.15.1";
+
+        downloadDir = "/mnt/bigdata/media/download/slskd";
+        sharedDirs = ["/mnt/bigdata/media/music" "/mnt/bigdata/media/classics"];
+
+        environmentFile = "/secrets/slskd/environmentFile";
+
+        caddy.url = "https://soulseek.sun";
+      };
+
+      immich = {
+        enable = true;
+
+        port = 8022;
+
+        mediaDir = "/mnt/bigdata/immich/upload";
+
+        caddy.url = "http://immich.sun";
+      };
 
       dnsmasq = {
         enable = true;
@@ -252,10 +478,10 @@
         redirects = {
           "mijnmodem.kpn" = "192.168.2.254";
 
-          ".sun" = "192.168.2.35";
+          ".sun" = "192.168.2.119";
 
-          "unifi" = "192.168.2.35";
-          "unifi.home" = "192.168.2.35";
+          "unifi" = "192.168.2.119";
+          "unifi.home" = "192.168.2.119";
         };
       };
     };

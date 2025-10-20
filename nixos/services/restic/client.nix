@@ -90,7 +90,7 @@ in {
 
       repository = mkOption {
         type = types.str;
-        default = "rest:https://restic.chd";
+        default = "rest:https://restic.sun";
       };
 
       restEnvFile = mkOption {

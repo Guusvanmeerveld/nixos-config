@@ -44,6 +44,10 @@ in {
         ];
       };
 
+      systemd.services.ntfy-sh.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

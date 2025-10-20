@@ -18,6 +18,11 @@ in {
         description = "The port to run the service on";
       };
 
+      ntfy.url = mkOption {
+        type = types.str;
+        description = "The ntfy url to use for notifications";
+      };
+
       caddy.url = mkOption {
         type = with types; nullOr str;
         default = null;
@@ -97,7 +102,7 @@ in {
               {
                 name = "ntfy";
                 platform = "ntfy";
-                url = "https://ntfy.tlp";
+                inherit (cfg.ntfy) url;
                 topic = "homeassistant";
                 verify_ssl = false;
                 allow_topic_override = true;

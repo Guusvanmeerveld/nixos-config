@@ -74,6 +74,10 @@ in {
 
           mediaLocation = cfg.mediaDir;
 
+          machine-learning.environment = {
+            HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+          };
+
           settings = {
             server.externalDomain = cfg.caddy.url;
 

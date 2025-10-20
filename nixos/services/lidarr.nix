@@ -12,7 +12,7 @@ in {
     in {
       enable = mkEnableOption "Enable Lidarr";
 
-      webUIPort = lib.mkOption {
+      port = lib.mkOption {
         type = lib.types.ints.u16;
         default = 8686;
         description = "The port to run the web ui on";
@@ -52,7 +52,7 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
-                reverse_proxy http://localhost:${toString cfg.webUIPort}
+                reverse_proxy http://localhost:${toString cfg.port}
                 tls internal
               '';
             };
@@ -67,7 +67,7 @@ in {
           settings = {
             server = {
               urlbase = "localhost";
-              port = cfg.webUIPort;
+              inherit (cfg) port;
               bindaddress = "*";
             };
           };

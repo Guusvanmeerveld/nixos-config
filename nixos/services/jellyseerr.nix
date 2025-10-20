@@ -38,6 +38,18 @@ in {
         ];
       };
 
+      users.users.jellyseerr = {
+        group = "jellyseerr";
+        isSystemUser = true;
+      };
+
+      users.groups.jellyseerr = {};
+
+      systemd.services.jellyseerr.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "jellyseerr";
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {

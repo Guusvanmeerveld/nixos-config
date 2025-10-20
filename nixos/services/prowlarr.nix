@@ -11,7 +11,7 @@ in {
     in {
       enable = mkEnableOption "Enable Prowlarr";
 
-      webUIPort = lib.mkOption {
+      port = lib.mkOption {
         type = lib.types.ints.u16;
         default = 7878;
         description = "The port to run the web ui on";
@@ -41,12 +41,24 @@ in {
         ];
       };
 
+      users.users.prowlarr = {
+        group = "prowlarr";
+        isSystemUser = true;
+      };
+
+      users.groups.prowlarr = {};
+
+      systemd.services.prowlarr.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+        User = "prowlarr";
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
-                reverse_proxy http://localhost:${toString cfg.webUIPort}
+                reverse_proxy http://localhost:${toString cfg.port}
                 tls internal
               '';
             };
@@ -59,7 +71,7 @@ in {
           enable = true;
 
           settings = {
-            server.port = cfg.webUIPort;
+            server.port = cfg.port;
           };
         };
       };

@@ -7,8 +7,13 @@
   cfg = config.custom.alerts;
 in {
   options.custom.alerts = let
-    inherit (lib) mkEnableOption;
+    inherit (lib) mkEnableOption mkOption types;
   in {
+    ntfy.url = mkOption {
+      type = types.str;
+      default = "https://ntfy.sun";
+    };
+
     power = {
       enable = mkEnableOption "Enable alerts for when the system powers up/down";
     };
@@ -50,8 +55,8 @@ in {
           in {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = ''${curl} -d "Joepie" -H "Tags: green_circle" -H "Title: ${config.networking.hostName} starting up" https://ntfy.tlp/power'';
-            ExecStop = pkgs.writeShellScript "power-alert-down" ''${curl} -d "System uptime: $(${uptime} -p)" -H "Tags: red_circle" -H "Title: ${config.networking.hostName} powering down" https://ntfy.tlp/power'';
+            ExecStart = ''${curl} -d "Joepie" -H "Tags: green_circle" -H "Title: ${config.networking.hostName} starting up" ${cfg.ntfy.url}/power'';
+            ExecStop = pkgs.writeShellScript "power-alert-down" ''${curl} -d "System uptime: $(${uptime} -p)" -H "Tags: red_circle" -H "Title: ${config.networking.hostName} powering down" ${cfg.ntfy.url}/power'';
           };
         };
 
@@ -79,7 +84,7 @@ in {
                     -d "Disk usage at $USAGE%" \
                     -H "Tags: cd" \
                     -H "Title: Low disk space on ${config.networking.hostName}" \
-                    https://ntfy.tlp/disk-space
+                    ${cfg.ntfy.url}/disk-space
                 fi
               '';
             });

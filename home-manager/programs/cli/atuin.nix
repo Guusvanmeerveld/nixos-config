@@ -12,7 +12,7 @@ in {
       server = lib.mkOption {
         type = lib.types.str;
         description = "The remote Atuin server to connect to";
-        default = "https://atuin.tlp";
+        default = "https://atuin.sun";
       };
     };
   };

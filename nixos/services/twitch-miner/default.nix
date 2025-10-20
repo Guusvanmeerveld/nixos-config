@@ -26,7 +26,7 @@ in {
       ntfy = {
         url = mkOption {
           type = types.str;
-          default = "https://ntfy.tlp";
+          default = "https://ntfy.sun";
           description = "The ntfy backend url";
         };
 

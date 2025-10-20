@@ -11,7 +11,7 @@ in {
     in {
       enable = mkEnableOption "Enable Radarr";
 
-      webUIPort = lib.mkOption {
+      port = lib.mkOption {
         type = lib.types.ints.u16;
         default = 5656;
         description = "The port to run the web ui on";
@@ -46,7 +46,7 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
-                reverse_proxy http://localhost:${toString cfg.webUIPort}
+                reverse_proxy http://localhost:${toString cfg.port}
                 tls internal
               '';
             };
@@ -57,7 +57,7 @@ in {
           enable = true;
 
           settings = {
-            server.port = cfg.webUIPort;
+            server.port = cfg.port;
           };
         };
       };
