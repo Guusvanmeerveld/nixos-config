@@ -40,42 +40,47 @@
       id = "QBKBECQ-OW6BZ5K-RADYZVU-Y5YWXIX-TSQD3CD-PBTQA64-DTBYXQV-CEME4QK";
       addresses = ["tcp://10.10.10.12:22000"];
     };
+
+    "sunflower" = {
+      id = "BNZF27J-LXH5YLM-NXQ6UXK-N4STNE6-5AH2NDZ-W2SMVIQ-EGWAVXD-VKBAGQA";
+      addresses = ["tcp://10.10.10.13:22000"];
+    };
   };
 
   folders = {
     "minecraft" = {
       label = "Minecraft";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "code" = {
       label = "Code";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "games" = {
       label = "Games";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "music" = {
       label = "Music";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "phone" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "phone" "framework-13"];
     };
 
     "seedvault-backup" = {
       label = "Phone Backup";
-      devices = ["orchid" "thuisthuis" "desktop" "phone" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "phone" "framework-13"];
     };
 
     "dictionaries" = {
       label = "Word Dictionaries";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
 
     "firefox-sync" = {
       label = "Firefox Sync";
-      devices = ["orchid" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
     };
   };
 in {
