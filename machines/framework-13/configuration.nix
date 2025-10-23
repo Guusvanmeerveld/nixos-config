@@ -60,9 +60,7 @@
       extraRemotes = ["lvfs-testing"];
     };
 
-    logind = {
-      lidSwitch = "hibernate";
-    };
+    logind.settings.Login.HandleLidSwitch = "hibernate";
 
     colord.enable = true;
   };
