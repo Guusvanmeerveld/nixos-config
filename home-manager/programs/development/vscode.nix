@@ -201,6 +201,8 @@ in {
             "dev.containers.dockerComposePath" = "${lib.getExe pkgs.docker} compose";
             "dev.containers.dockerPath" = lib.getExe pkgs.docker;
 
+            "terminal.integrated.stickyScroll.enabled" = false;
+
             "files.watcherExclude" = {
               "**/.bloop" = true;
               "**/.metals" = true;
