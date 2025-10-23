@@ -28,6 +28,7 @@ in {
             mode = "3440x1440@164.900Hz";
             bg = "${../wallpaper.png} stretch";
             pos = "0 0";
+            scale = "1.25";
           };
         };
 
@@ -70,7 +71,6 @@ in {
 
         emulators = {
           desmume.enable = true;
-          ryujinx.enable = true;
         };
       };
 
