@@ -1,20 +1,19 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
-  cfg = config.custom.programs.jellyfin;
+  cfg = config.custom.programs.jellyfin-client;
 in {
   options = {
-    custom.programs.jellyfin = {
+    custom.programs.jellyfin-client = {
       enable = lib.mkEnableOption "Enable Jellyfin client application";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      jellyfin-media-player
-    ];
+    services.jellyfin-mpv-shim = {
+      enable = true;
+    };
   };
 }

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.programs.mpv;
@@ -40,9 +41,13 @@ in {
     programs.mpv = {
       enable = true;
 
+      scripts = with pkgs.mpvScripts; [mpv-osc-modern];
+
       config = {
         force-window = true;
         ytdl-format = "bestvideo+bestaudio";
+
+        volume = 50;
 
         save-position-on-quit = true;
       };

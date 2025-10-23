@@ -18,7 +18,7 @@ in {
     ./flameshot.nix
     ./thunar.nix
     ./spotify.nix
-    ./jellyfin.nix
+    ./jellyfin-client.nix
     ./thunderbird.nix
     ./wayland-screenshot.nix
     ./mpv.nix
@@ -61,6 +61,7 @@ in {
       freetube.enable = true;
       missioncenter.enable = true;
       cheese.enable = true;
+      jellyfin-client.enable = true;
     };
   };
 }
