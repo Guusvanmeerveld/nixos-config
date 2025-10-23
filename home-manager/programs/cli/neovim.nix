@@ -84,22 +84,25 @@ in {
         # File tree
         neo-tree = {
           enable = true;
-          autoCleanAfterSessionRestore = true;
-          closeIfLastWindow = true;
 
-          buffers = {
-            bindToCwd = false;
-            followCurrentFile = {
-              enabled = true;
+          settings = {
+            auto_clean_after_session_restore = true;
+            close_if_last_window = true;
+
+            buffers = {
+              bind_to_cwd = false;
+              follow_current_file = {
+                enabled = true;
+              };
             };
-          };
 
-          settings.window = {
-            width = 40;
-            height = 15;
-            auto_expand_width = false;
-            mappings = {
-              "<space>" = "none";
+            window = {
+              width = 40;
+              height = 15;
+              auto_expand_width = false;
+              mappings = {
+                "<space>" = "none";
+              };
             };
           };
         };
