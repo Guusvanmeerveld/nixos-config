@@ -27,6 +27,10 @@ in {
       };
     };
 
+    systemd.tmpfiles.rules = [
+      "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+    ];
+
     services.xserver = {
       deviceSection = lib.mkIf cfg.vrr.enable ''
         Option "TearFree" "true"
