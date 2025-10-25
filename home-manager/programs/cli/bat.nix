@@ -16,7 +16,15 @@ in {
     programs.bat = {
       enable = true;
 
-      extraPackages = with pkgs.bat-extras; [batdiff batman batgrep batwatch prettybat];
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        # TODO: re-enable batgrep when its fixed:
+        # https://github.com/NixOS/nixpkgs/issues/454391
+        # batgrep
+        batwatch
+        prettybat
+      ];
     };
   };
 }
