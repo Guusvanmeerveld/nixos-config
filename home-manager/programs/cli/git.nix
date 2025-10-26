@@ -12,20 +12,30 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.git = {
-      enable = true;
-      userName = "Guus van Meerveld";
-      userEmail = "mail@guusvanmeerveld.dev";
-
-      signing = {
-        # Set to null to let GnuPG decide what signing key to use depending on commit's author.
-        key = null;
-        signByDefault = lib.mkDefault config.programs.gpg.enable;
+    programs = {
+      difftastic = {
+        enable = true;
+        git.enable = true;
       };
 
-      lfs.enable = true;
-      maintenance.enable = true;
-      difftastic.enable = true;
+      git = {
+        enable = true;
+        settings = {
+          user = {
+            name = "Guus van Meerveld";
+            email = "mail@guusvanmeerveld.dev";
+          };
+        };
+
+        signing = {
+          # Set to null to let GnuPG decide what signing key to use depending on commit's author.
+          key = null;
+          signByDefault = lib.mkDefault config.programs.gpg.enable;
+        };
+
+        lfs.enable = true;
+        maintenance.enable = true;
+      };
     };
   };
 }
