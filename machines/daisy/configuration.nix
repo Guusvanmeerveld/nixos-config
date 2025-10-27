@@ -16,9 +16,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  services.logind.extraConfig = ''
-    RuntimeDirectorySize=2G
-  '';
+  services.logind.settings.Login = {
+    RuntimeDirectorySize = "2G";
+  };
 
   custom = {
     users."guus" = {
@@ -31,10 +31,10 @@
       };
 
       ssh.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDsTe0VL1j/6gHUUEM+ZBlsFKUZ9X7w/986R64hxcSrD guus@laptop"
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCpr5+qSs4FRs0CRu2GX8lD/uETy4DgbVvYbukjerUvA61chVxkk3esm6KnWP4U9g0fM2UuU2RCcUFt4xPBJDmg4DzEBZrIcwthg3/LgGbTyxLsSvhLE7TIrZ59R8KL1ppD1d5c/2hoImXNccXFHW4TJ08ziSKS6h8GEpN8YOe6lLbTMaEDkMRm3bu2Z3NRDkyjHvjQ+rk76cv4IUgWnDVOnw1owzOd2uIjJRc+gmGXFaO77l2pqib9NAUKERNq/K0Q0zXTeKNf/zBpsE2/GTxa3zZN2Iylqac/1ZVE6B+U8RhFOulK95vPiJZyXsMpbiVsIbhTXcx3xqPnQD5gH6N8AvkiMV6nRlUAWvNI4Pflm0GMKLMq3CSKJjCFDDoc0ZYYw2aIBzH2dU1lZ/NO4S6pN7sEQWwFtWeuY2trIgYl75lAXwds9aKKtNC2/6C24qr6S8PCba7EkCLZxgWyuADvuIe/lAWFLrUUC9qkG/bcbhxcCMa6DjzPLa1H6+fBJ20= guus@desktop"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIo/BdLnkczmsSoGruK/5ITnOnUqZbJbwsG8B8sefwpc guus@phone"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaKXB270OnVQQd1Vtj39vIblkCf5/d3iYDul3m4z8Az guus@framework-13"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAEdUGhKB39lTbRRw+6YomIDg6rK6dlrLYRJYkcIHz/+ guus@thuisthuis"
       ];
     };
 
@@ -62,10 +62,6 @@
     };
 
     services = {
-      # motd.enable = true;
-
-      caddy.enable = true;
-
       openssh.enable = true;
       fail2ban.enable = true;
       autoUpgrade.enable = true;
