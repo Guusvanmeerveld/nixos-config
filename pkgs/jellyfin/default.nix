@@ -1,9 +1,7 @@
 {pkgs}: let
   mkJellyfinPlugin = about:
     pkgs.stdenvNoCC.mkDerivation {
-      pname = about.name;
-
-      inherit (about) version src;
+      inherit (about) version src pname;
 
       nativeBuildInputs = with pkgs; [unzip];
 
@@ -21,7 +19,8 @@ in {
     sub-release = "10.10";
   in
     mkJellyfinPlugin rec {
-      name = "jellyfin-plugin-intro-skipper";
+      pname = "jellyfin-plugin-intro-skipper";
+
       src = pkgs.fetchurl {
         url = "https://github.com/intro-skipper/intro-skipper/releases/download/${sub-release}%2Fv${version}/intro-skipper-v${version}.zip";
         hash = "sha256-c7WllWk+VtWIQgh6f40qvqZQ+I+4CT2ialHCno12IYI=";
@@ -33,7 +32,7 @@ in {
     major-version = "26";
   in
     mkJellyfinPlugin rec {
-      name = "jellyfin-plugin-trakt";
+      pname = "jellyfin-plugin-trakt";
       version = "${major-version}.0.0.0";
       src = pkgs.fetchurl {
         url = "https://github.com/jellyfin/jellyfin-plugin-trakt/releases/download/v${major-version}/trakt_${version}.zip";
@@ -42,7 +41,7 @@ in {
     };
 
   listen-brainz = mkJellyfinPlugin rec {
-    name = "jellyfin-plugin-listenbrainz";
+    pname = "jellyfin-plugin-listenbrainz";
     version = "5.2.0.4";
     src = pkgs.fetchurl {
       url = "https://github.com/lyarenei/jellyfin-plugin-listenbrainz/releases/download/${version}/listenbrainz_${version}.zip";
@@ -54,7 +53,7 @@ in {
     major-version = "8";
   in
     mkJellyfinPlugin rec {
-      name = "jellyfin-plugin-dlna";
+      pname = "jellyfin-plugin-dlna";
       version = "${major-version}.0.0.0";
       src = pkgs.fetchurl {
         url = "https://github.com/jellyfin/jellyfin-plugin-dlna/releases/download/v${major-version}/dlna_${version}.zip";

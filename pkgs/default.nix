@@ -4,6 +4,7 @@
   # example = pkgs.callPackage ./example { };
 
   lidarr-plugins = pkgs.callPackage ./lidarr-plugins {};
+  free-epic-games = pkgs.callPackage ./free-epic-games.nix {};
 
   pythonPackages = import ./python {inherit pkgs;};
 
@@ -13,6 +14,8 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
+    inherit free-epic-games;
+    inherit (jellyfin) intro-skipper trakt listen-brainz dlna;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
   };
