@@ -29,7 +29,10 @@ in {
       };
 
       monospace = {
-        package = lib.mkPackageOption pkgs defaultFontOptions.monospace.package {};
+        package = lib.mkOption {
+          type = lib.types.package;
+          default = defaultFontOptions.monospace.package pkgs;
+        };
 
         name = lib.mkOption {
           type = lib.types.str;
@@ -54,6 +57,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [cfg.serif.package cfg.monospace.package];
+
     fonts.fontconfig = {
       enable = true;
 

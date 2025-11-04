@@ -9,7 +9,7 @@
 
     monospace = {
       name = "FiraCode Nerd Font Mono";
-      package = "fira-code-nerdfont";
+      package = pkgs: pkgs.nerd-fonts.fira-code;
     };
 
     emoji = {
