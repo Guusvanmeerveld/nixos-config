@@ -14,6 +14,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    ./forgejo-runner.nix
+
     inputs.vpn-confinement.nixosModules.default
   ];
 
@@ -65,6 +67,11 @@
 
     "/mnt/bigdata/media" = {
       device = "bigdata/media";
+      fsType = "zfs";
+    };
+
+    "/mnt/bigdata/forgejo" = {
+      device = "bigdata/forgejo";
       fsType = "zfs";
     };
   };
@@ -315,16 +322,6 @@
         caddy.url = "https://atuin.sun";
       };
 
-      unifi = {
-        enable = true;
-
-        port = 8443;
-
-        openFirewall = true;
-
-        caddy.url = "https://unifi";
-      };
-
       free-epic-games = {
         enable = true;
 
@@ -352,27 +349,27 @@
         caddy.url = "https://mealie.sun";
       };
 
-      # syncthing = rec {
-      #   enable = true;
+      syncthing = rec {
+        enable = true;
 
-      # port = 8013;
+        port = 8013;
 
-      #   dataDir = "/mnt/bigdata/syncthing";
+        dataDir = "/mnt/bigdata/syncthing";
 
-      #   folders = {
-      #     "code" = "${dataDir}/Code";
-      #     "minecraft" = "${dataDir}/Minecraft";
-      #     "music" = "${dataDir}/Music";
-      #     "games" = "${dataDir}/Games";
-      #     "seedvault-backup" = "${dataDir}/Backups/Phone";
-      #     "firefox-sync" = "${dataDir}/Backups/Librewolf";
-      #     "dictionaries" = "${dataDir}/Dictionaries";
-      #   };
+        folders = {
+          "code" = "${dataDir}/Code";
+          "minecraft" = "${dataDir}/Minecraft";
+          "music" = "${dataDir}/Music";
+          "games" = "${dataDir}/Games";
+          "seedvault-backup" = "${dataDir}/Backups/Phone";
+          "firefox-sync" = "${dataDir}/Backups/Librewolf";
+          "dictionaries" = "${dataDir}/Dictionaries";
+        };
 
-      #   caddy.url = "http://syncthing.sun";
-      #   openFirewall = true;
-      # };
-      #
+        caddy.url = "http://syncthing.sun";
+        openFirewall = true;
+      };
+
       restic = {
         server = {
           enable = true;
@@ -470,19 +467,18 @@
         caddy.url = "http://immich.sun";
       };
 
-      dnsmasq = {
+      rustdesk = {
+        enable = true;
+      };
+
+      forgejo = {
         enable = true;
 
-        openFirewall = true;
+        largeStorageDir = "/mnt/bigdata/forgejo";
 
-        redirects = {
-          "mijnmodem.kpn" = "192.168.2.254";
+        port = 8023;
 
-          ".sun" = "192.168.2.119";
-
-          "unifi" = "192.168.2.119";
-          "unifi.home" = "192.168.2.119";
-        };
+        caddy.url = "https://forgejo.sun";
       };
     };
 

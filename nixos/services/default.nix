@@ -41,5 +41,7 @@
     ./soulseek.nix
     ./lidarr.nix
     ./recyclarr.nix
+    ./rust-desk.nix
+    ./forgejo.nix
   ];
 }

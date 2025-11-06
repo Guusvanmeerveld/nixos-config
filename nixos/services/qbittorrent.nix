@@ -51,8 +51,6 @@ in {
       networking.firewall.allowedUDPPorts = optionals cfg.openFirewall [config.services.qbittorrent-nox.torrentPort];
 
       custom.services.restic.client.backups.qbittorrent = {
-        services = ["qbittorrent-nox"];
-
         files = [
           "/var/lib/qbittorrent"
         ];
