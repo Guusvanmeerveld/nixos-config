@@ -10,21 +10,7 @@
     cp -R ./*.dll $out/.
   '';
 in {
-  intro-skipper = let
-    sub-release = "10.10";
-  in
-    pkgs.stdenvNoCC.mkDerivation rec {
-      pname = "jellyfin-plugin-intro-skipper";
-
-      src = pkgs.fetchurl {
-        url = "https://github.com/intro-skipper/intro-skipper/releases/download/${sub-release}%2Fv${version}/intro-skipper-v${version}.zip";
-        hash = "sha256-c7WllWk+VtWIQgh6f40qvqZQ+I+4CT2ialHCno12IYI=";
-      };
-
-      version = "1.${sub-release}.23";
-
-      inherit nativeBuildInputs unpackPhase installPhase;
-    };
+  intro-skipper = pkgs.callPackage ./intro-skipper {};
 
   trakt = let
     major-version = "26";
