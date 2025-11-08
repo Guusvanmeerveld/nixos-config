@@ -19,11 +19,13 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
+  enableParallelBuilding = false;
+
   projectFile = "Jellyfin.Plugin.Dlna.sln";
   nugetDeps = ./deps.json;
 
   postFixup = ''
-    cp -r $out/lib/${pname}/* $out
+    cp -r $out/lib/${pname}/Jellyfin.Plugin.Dlna.dll $out
     rm -r $out/lib
   '';
 }

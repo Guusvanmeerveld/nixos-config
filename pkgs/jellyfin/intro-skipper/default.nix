@@ -19,11 +19,13 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
+  enableParallelBuilding = false;
+
   projectFile = "IntroSkipper.sln";
   nugetDeps = ./deps.json;
 
   postFixup = ''
-    cp -r $out/lib/${pname}/* $out
-    rm -r $out/lib
+    cp -r $out/lib/${pname}/IntroSkipper.dll $out
+    rm -r $out/bin
   '';
 }
