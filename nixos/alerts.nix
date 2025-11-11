@@ -5,13 +5,22 @@
   ...
 }: let
   cfg = config.custom.alerts;
+
+  ntfyUrl = "${cfg.ntfy.protocol}://${cfg.ntfy.domain}";
 in {
   options.custom.alerts = let
     inherit (lib) mkEnableOption mkOption types;
   in {
-    ntfy.url = mkOption {
-      type = types.str;
-      default = "https://ntfy.sun";
+    ntfy = {
+      domain = mkOption {
+        type = types.str;
+        default = "ntfy.sun";
+      };
+
+      protocol = mkOption {
+        type = types.enum ["http" "https"];
+        default = "https";
+      };
     };
 
     power = {
@@ -55,8 +64,13 @@ in {
           in {
             Type = "oneshot";
             RemainAfterExit = true;
-            ExecStart = ''${curl} -d "Joepie" -H "Tags: green_circle" -H "Title: ${config.networking.hostName} starting up" ${cfg.ntfy.url}/power'';
-            ExecStop = pkgs.writeShellScript "power-alert-down" ''${curl} -d "System uptime: $(${uptime} -p)" -H "Tags: red_circle" -H "Title: ${config.networking.hostName} powering down" ${cfg.ntfy.url}/power'';
+
+            Restart = "on-failure";
+            RestartSec = 5;
+
+            ExecCondition = "${lib.getExe pkgs.unixtools.ping} -c 1 -W 5 ${cfg.ntfy.domain}";
+            ExecStart = ''${curl} -d "Joepie" -H "Tags: green_circle" -H "Title: ${config.networking.hostName} starting up" ${ntfyUrl}/power'';
+            ExecStop = pkgs.writeShellScript "power-alert-down" ''${curl} -d "System uptime: $(${uptime} -p)" -H "Tags: red_circle" -H "Title: ${config.networking.hostName} powering down" ${ntfyUrl}/power'';
           };
         };
 
@@ -68,6 +82,10 @@ in {
           serviceConfig = {
             Type = "oneshot";
 
+            Restart = "on-failure";
+            RestartSec = 5;
+
+            ExecCondition = "${lib.getExe pkgs.unixtools.ping} -c 1 -W 5 ${cfg.ntfy.domain}";
             ExecStart = lib.getExe (pkgs.writeShellApplication {
               name = "disk-space-alert";
 
@@ -84,7 +102,7 @@ in {
                     -d "Disk usage at $USAGE%" \
                     -H "Tags: cd" \
                     -H "Title: Low disk space on ${config.networking.hostName}" \
-                    ${cfg.ntfy.url}/disk-space
+                    ${ntfyUrl}/disk-space
                 fi
               '';
             });
