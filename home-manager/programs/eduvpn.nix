@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  # pkgs,
   ...
 }: let
   cfg = config.custom.programs.eduvpn;
@@ -13,6 +13,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [eduvpn-client];
+    # TODO: enable eduvpn-client when it is fixed
+    # home.packages = with pkgs; [eduvpn-client];
   };
 }
