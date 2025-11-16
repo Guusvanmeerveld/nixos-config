@@ -275,14 +275,6 @@
         ];
       };
 
-      laptop = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-
-        modules = [
-          ./machines/laptop/configuration.nix
-        ];
-      };
-
       vm = nixpkgs.lib.nixosSystem {
         inherit specialArgs;
 
@@ -312,22 +304,6 @@
 
         modules = [
           ./machines/lavender/configuration.nix
-        ];
-      };
-
-      orchid = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-
-        modules = [
-          ./machines/orchid/configuration.nix
-        ];
-      };
-
-      tulip = nixpkgs.lib.nixosSystem {
-        inherit specialArgs;
-
-        modules = [
-          ./machines/tulip/configuration.nix
         ];
       };
 
