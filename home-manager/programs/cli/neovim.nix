@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs.cli.neovim;
@@ -108,24 +107,7 @@ in {
         };
 
         # Linting
-        lint = {
-          enable = true;
-
-          linters = {
-            jsonlint = {
-              cmd = "${pkgs.nodePackages.jsonlint}/bin/jsonlint";
-            };
-
-            yamllint = {
-              cmd = "${pkgs.yamllint}/bin/yamllint";
-            };
-          };
-
-          lintersByFt = {
-            json = ["jsonlint"];
-            yaml = ["yamllint"];
-          };
-        };
+        lint.enable = true;
 
         # Language servers
         lsp = {
