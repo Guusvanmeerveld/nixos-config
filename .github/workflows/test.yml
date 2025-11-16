@@ -62,4 +62,7 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v4
 
       - name: Check flake for errors
-        run: nix run github:Mic92/nix-fast-build -- --eval-max-memory-size 2048 --no-nom --flake .#checks
+        run: nix run github:Mic92/nix-fast-build -- --eval-max-memory-size 2048 --no-nom --skip-cached --flake .#checks
+
+      - name: Check machine configs for errors
+        run: nix flake check --all-systems
