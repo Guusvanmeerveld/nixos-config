@@ -20,7 +20,7 @@
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = _final: prev: {
+  modifications = final: prev: {
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
@@ -32,26 +32,23 @@
     #   '';
     # });
 
+    # xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (_old: {
+    #   patches = [
+    #     (final.fetchpatch {
+    #       url = "https://github.com/emersion/xdg-desktop-portal-wlr/commit/2099d31d1a9fb969b7d781d64d4ed48a17ddd4db.patch";
+    #       hash = "sha256-g4esAs4HfQH4vTUcG2L0WhA92RFqDrOGmcGRdXWD1KE=";
+    #     })
+    #   ];
+    # });
+
+    electron_36 = final.electron_37;
+
     whatsie = prev.whatsie.overrideAttrs (_old: {
       # Fix .desktop file and icons not being discovered
       postInstall = ''
         mkdir -p $out/share/{applications,icons} -p
         cp $src/dist/linux/*.desktop $out/share/applications -r
         cp $src/dist/linux/hicolor $out/share/icons -r
-      '';
-    });
-
-    jellyfin-web = prev.jellyfin-web.overrideAttrs (_: {
-      installPhase = ''
-        runHook preInstall
-
-        # this is the important line
-        sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
-
-        mkdir -p $out/share
-        cp -a dist $out/share/jellyfin-web
-
-        runHook postInstall
       '';
     });
   };
