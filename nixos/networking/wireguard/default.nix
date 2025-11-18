@@ -180,7 +180,7 @@ in {
           in
             lib.optionals network.enable (map (
                 peer: {
-                  domain = "*.${peer.tld}";
+                  domain = "*.${peer.tld}.guusvanmeerveld.dev";
                   answer = peer.address;
                 }
               )

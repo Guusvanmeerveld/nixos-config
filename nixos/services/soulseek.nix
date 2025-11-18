@@ -56,7 +56,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://${cfg.address}:${toString cfg.webUIPort}
-                tls internal
               '';
             };
           };

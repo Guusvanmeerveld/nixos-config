@@ -46,6 +46,8 @@ in {
 
       users.users.immich = {
         uid = 6677;
+        group = "immich";
+        extraGroups = ["video" "render"];
       };
 
       users.groups.immich = {
@@ -76,6 +78,7 @@ in {
 
           machine-learning.environment = {
             HSA_OVERRIDE_GFX_VERSION = "10.3.0";
+            HSA_USE_SVM = "0";
           };
 
           settings = {

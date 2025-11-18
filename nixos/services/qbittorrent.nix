@@ -67,7 +67,6 @@ in {
             in {
               extraConfig = ''
                 reverse_proxy http://${address}:${toString cfg.webUIPort}
-                tls internal
               '';
             };
           };

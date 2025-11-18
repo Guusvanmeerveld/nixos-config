@@ -93,6 +93,29 @@
 
   environment.systemPackages = with pkgs; [radeontop nvtopPackages.amd];
 
+  # Configure Cloudflare DNS for Caddy challenges so we don't need to expose any ports.
+  services.caddy = {
+    package = pkgs.caddy.withPlugins {
+      plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
+      hash = "sha256-RLOwzx7+SH9sWVlr+gTOp5VKlS1YhoTXHV4k6r5BJ3U=";
+    };
+
+    environmentFile = "/secrets/caddy/environmentFile";
+
+    virtualHosts = {
+      "*.sun.guusvanmeerveld.dev" = {
+        extraConfig = ''
+          tls {
+            dns cloudflare {
+              zone_token {$CF_ZONE_TOKEN}
+              api_token {$CF_API_TOKEN}
+            }
+          }
+        '';
+      };
+    };
+  };
+
   networking = {
     hostName = "sunflower";
     hostId = "deadb33f";
@@ -224,13 +247,6 @@
       caddy = {
         enable = true;
 
-        ca = {
-          enable = true;
-
-          cert = "${../../nixos/certificates/sunflower.crt}";
-          key = "/secrets/caddy/ca/root.key";
-        };
-
         openFirewall = true;
       };
 
@@ -239,7 +255,7 @@
 
         port = 8000;
 
-        caddy.url = "http://jellyfin.sun";
+        caddy.url = "https://jellyfin.sun.guusvanmeerveld.dev";
       };
 
       jellyseerr = {
@@ -247,7 +263,7 @@
 
         port = 8001;
 
-        caddy.url = "https://jellyseerr.sun";
+        caddy.url = "https://jellyseerr.sun.guusvanmeerveld.dev";
       };
 
       uptime-kuma = {
@@ -255,7 +271,7 @@
 
         port = 8002;
 
-        caddy.url = "https://uptime.sun";
+        caddy.url = "https://uptime.sun.guusvanmeerveld.dev";
       };
 
       homeassistant = {
@@ -263,9 +279,9 @@
 
         port = 8003;
 
-        ntfy.url = "https://ntfy.sun";
+        ntfy.url = "https://ntfy.sun.guusvanmeerveld.dev";
 
-        caddy.url = "https://homeassistant.sun";
+        caddy.url = "https://homeassistant.sun.guusvanmeerveld.dev";
       };
 
       ntfy = {
@@ -273,7 +289,7 @@
 
         port = 8004;
 
-        caddy.url = "https://ntfy.sun";
+        caddy.url = "https://ntfy.sun.guusvanmeerveld.dev";
       };
 
       miniflux = {
@@ -283,7 +299,7 @@
 
         adminCredentialsFile = "/secrets/miniflux/adminCredentials";
 
-        caddy.url = "https://miniflux.sun";
+        caddy.url = "https://miniflux.sun.guusvanmeerveld.dev";
       };
 
       vaultwarden = {
@@ -293,7 +309,7 @@
 
         environmentFile = "/secrets/vaultwarden/environmentFile";
 
-        caddy.url = "https://bitwarden.sun";
+        caddy.url = "https://bitwarden.sun.guusvanmeerveld.dev";
       };
 
       # traccar = {
@@ -311,7 +327,7 @@
 
         htpasswdFile = "/secrets/radicale/htpasswdFile";
 
-        caddy.url = "https://radicale.sun";
+        caddy.url = "https://radicale.sun.guusvanmeerveld.dev";
       };
 
       atuin = {
@@ -319,7 +335,7 @@
 
         port = 8009;
 
-        caddy.url = "https://atuin.sun";
+        caddy.url = "https://atuin.sun.guusvanmeerveld.dev";
       };
 
       free-epic-games = {
@@ -331,7 +347,7 @@
 
         ntfy.url = "http://0.0.0.0:${toString config.custom.services.ntfy.port}";
 
-        caddy.url = "http://free-epic-games.sun";
+        caddy.url = "http://free-epic-games.sun.guusvanmeerveld.dev";
       };
 
       twitch-miner = {
@@ -346,7 +362,7 @@
 
         port = 8012;
 
-        caddy.url = "https://mealie.sun";
+        caddy.url = "https://mealie.sun.guusvanmeerveld.dev";
       };
 
       syncthing = rec {
@@ -366,7 +382,7 @@
           "dictionaries" = "${dataDir}/Dictionaries";
         };
 
-        caddy.url = "http://syncthing.sun";
+        caddy.url = "https://syncthing.sun.guusvanmeerveld.dev";
         openFirewall = true;
       };
 
@@ -379,7 +395,7 @@
           dataDir = "/mnt/bigdata/restic";
           passwordFile = "/secrets/restic/passwordFile";
 
-          caddy.url = "https://restic.sun";
+          caddy.url = "https://restic.sun.guusvanmeerveld.dev";
         };
 
         client.enable = true;
@@ -390,7 +406,7 @@
 
         port = 8015;
 
-        caddy.url = "https://radarr.sun";
+        caddy.url = "https://radarr.sun.guusvanmeerveld.dev";
       };
 
       sonarr = {
@@ -398,7 +414,7 @@
 
         port = 8016;
 
-        caddy.url = "https://sonarr.sun";
+        caddy.url = "https://sonarr.sun.guusvanmeerveld.dev";
       };
 
       prowlarr = {
@@ -406,7 +422,7 @@
 
         port = 8017;
 
-        caddy.url = "https://prowlarr.sun";
+        caddy.url = "https://prowlarr.sun.guusvanmeerveld.dev";
       };
 
       bazarr = {
@@ -414,7 +430,7 @@
 
         port = 8018;
 
-        caddy.url = "https://bazarr.sun";
+        caddy.url = "https://bazarr.sun.guusvanmeerveld.dev";
       };
 
       lidarr = {
@@ -422,7 +438,7 @@
 
         port = 8019;
 
-        caddy.url = "https://lidarr.sun";
+        caddy.url = "https://lidarr.sun.guusvanmeerveld.dev";
       };
 
       recyclarr = {
@@ -439,7 +455,7 @@
 
         saveDir = "/mnt/bigdata/media/download";
 
-        caddy.url = "https://qbittorrent.sun";
+        caddy.url = "https://qbittorrent.sun.guusvanmeerveld.dev";
       };
 
       soulseek = {
@@ -454,7 +470,7 @@
 
         environmentFile = "/secrets/slskd/environmentFile";
 
-        caddy.url = "https://soulseek.sun";
+        caddy.url = "https://soulseek.sun.guusvanmeerveld.dev";
       };
 
       immich = {
@@ -464,7 +480,7 @@
 
         mediaDir = "/mnt/bigdata/immich/upload";
 
-        caddy.url = "http://immich.sun";
+        caddy.url = "https://immich.sun.guusvanmeerveld.dev";
       };
 
       rustdesk = {
@@ -478,7 +494,15 @@
 
         port = 8023;
 
-        caddy.url = "https://forgejo.sun";
+        caddy.url = "https://forgejo.sun.guusvanmeerveld.dev";
+      };
+
+      grafana = {
+        enable = true;
+
+        port = 8024;
+
+        caddy.url = "https://grafana.sun.guusvanmeerveld.dev";
       };
     };
 

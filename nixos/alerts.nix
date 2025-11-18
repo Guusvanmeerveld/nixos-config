@@ -14,7 +14,7 @@ in {
     ntfy = {
       domain = mkOption {
         type = types.str;
-        default = "ntfy.sun";
+        default = "ntfy.sun.guusvanmeerveld.dev";
       };
 
       protocol = mkOption {

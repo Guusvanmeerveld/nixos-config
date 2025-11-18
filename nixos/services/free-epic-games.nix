@@ -26,7 +26,7 @@ in {
       ntfy = {
         url = mkOption {
           type = types.str;
-          default = "https://ntfy.sun";
+          default = "https://ntfy.sun.guusvanmeerveld.dev";
           description = "The ntfy backend url";
         };
 
@@ -55,7 +55,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-                tls internal
               '';
             };
           };

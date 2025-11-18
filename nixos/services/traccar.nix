@@ -35,7 +35,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-                tls internal
               '';
             };
           };

@@ -90,7 +90,7 @@ in {
 
       repository = mkOption {
         type = types.str;
-        default = "rest:https://restic.sun";
+        default = "rest:https://restic.sun.guusvanmeerveld.dev";
       };
 
       restEnvFile = mkOption {

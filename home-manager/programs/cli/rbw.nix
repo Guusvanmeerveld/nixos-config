@@ -14,7 +14,7 @@ in {
 
       bitwardenUrl = mkOption {
         type = types.str;
-        default = "https://bitwarden.sun";
+        default = "https://bitwarden.sun.guusvanmeerveld.dev";
 
         description = "Url to the remote bitwarden server";
       };

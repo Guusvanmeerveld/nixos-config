@@ -10,6 +10,8 @@
 
     programs.cli = {
       default.enable = true;
+
+      gpg.enable = true;
     };
   };
 

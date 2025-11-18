@@ -48,7 +48,7 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf optionals concatStringsSep listToAttrs;
+    inherit (lib) mkIf optionals concatStringsSep optionalString listToAttrs;
   in
     mkIf cfg.enable {
       services.caddy = {
@@ -73,21 +73,24 @@ in {
             })
             cfg.ipFilter.vHosts));
 
-        globalConfig = mkIf cfg.ca.enable ''
-          # Disable admin page on port 2019
-          admin off
+        globalConfig = concatStringsSep "\n" [
+          ''
+            # Disable admin page on port 2019
+            admin off
+          ''
+          (optionalString cfg.ca.enable ''
+            pki {
+              ca local {
+                name "Local CA"
 
-          pki {
-          	ca local {
-          		name "Local CA"
-
-              root {
-                cert ${cfg.ca.cert}
-                key ${cfg.ca.key}
+                root {
+                  cert ${cfg.ca.cert}
+                  key ${cfg.ca.key}
+                }
               }
-          	}
-          }
-        '';
+            }
+          '')
+        ];
       };
 
       networking.firewall.allowedTCPPorts = optionals cfg.openFirewall [80 443];

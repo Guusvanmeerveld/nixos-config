@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }: {
@@ -24,7 +23,7 @@
 
       name = "Sunflower Runner";
 
-      url = "http://sunflower:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+      url = "https://forgejo.sun.guusvanmeerveld.dev";
 
       tokenFile = "/secrets/forgejo-runner/tokenFile";
 

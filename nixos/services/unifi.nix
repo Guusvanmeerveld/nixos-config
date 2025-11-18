@@ -53,7 +53,7 @@ in {
                   header_up - Authorization  # sets header to be passed to the controller
                 }
 
-                tls internal
+
               '';
             };
           };

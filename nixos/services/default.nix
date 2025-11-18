@@ -43,5 +43,6 @@
     ./recyclarr.nix
     ./rust-desk.nix
     ./forgejo.nix
+    ./grafana.nix
   ];
 }
