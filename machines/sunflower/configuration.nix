@@ -94,26 +94,31 @@
   environment.systemPackages = with pkgs; [radeontop nvtopPackages.amd];
 
   # Configure Cloudflare DNS for Caddy challenges so we don't need to expose any ports.
-  services.caddy = {
-    package = pkgs.caddy.withPlugins {
-      plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
-      hash = "sha256-RLOwzx7+SH9sWVlr+gTOp5VKlS1YhoTXHV4k6r5BJ3U=";
-    };
+  services = {
+    caddy = {
+      package = pkgs.caddy.withPlugins {
+        plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
+        hash = "sha256-RLOwzx7+SH9sWVlr+gTOp5VKlS1YhoTXHV4k6r5BJ3U=";
+      };
 
-    environmentFile = "/secrets/caddy/environmentFile";
+      environmentFile = "/secrets/caddy/environmentFile";
 
-    virtualHosts = {
-      "*.sun.guusvanmeerveld.dev" = {
-        extraConfig = ''
-          tls {
-            dns cloudflare {
-              zone_token {$CF_ZONE_TOKEN}
-              api_token {$CF_API_TOKEN}
+      virtualHosts = {
+        "*.sun.guusvanmeerveld.dev" = {
+          extraConfig = ''
+            tls {
+              dns cloudflare {
+                zone_token {$CF_ZONE_TOKEN}
+                api_token {$CF_API_TOKEN}
+              }
             }
-          }
-        '';
+          '';
+        };
       };
     };
+
+    qbittorrent-nox.address = "192.168.15.1";
+    slskd.settings.soulseek.listen_port = 7717;
   };
 
   networking = {
@@ -145,12 +150,6 @@
           "qbittorrent"
           "jellyfin"
         ]));
-  };
-
-  services.qbittorrent-nox.address = "192.168.15.1";
-
-  services.slskd.settings.soulseek = {
-    listen_port = 7717;
   };
 
   systemd.services = {

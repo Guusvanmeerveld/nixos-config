@@ -6,6 +6,8 @@
 }: let
   cfg = config.custom.networking.wireguard;
 
+  internalDomain = "guusvanmeerveld.dev";
+
   networks = {
     garden = {
       ipRange = "10.10.10.0/24";
@@ -89,6 +91,32 @@
           publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
           address = "10.10.10.13";
           tld = "sun";
+        };
+      };
+    };
+
+    shared-backups = {
+      ipRange = "10.11.12.0/24";
+
+      server = {
+        publicKey = ""; # pragma: allowlist secret
+        address = "10.11.12.1";
+        hostname = "daisy";
+        tld = "dsy";
+        endpoint = "141.148.241.201";
+      };
+
+      clients = {
+        sunflower = {
+          publicKey = "mvX0ZnLjNZH2X7qogQE84T9GEunSgwSgGQFHsUjgh34="; # pragma: allowlist secret
+          address = "10.11.12.2";
+          tld = "sun";
+        };
+
+        earth = {
+          publicKey = "efXpAlCNOdHnyMK3ZgfD3/TZa1dZ4ACmoZx4XmHHP3E="; # pragma: allowlist secret
+          address = "10.11.12.3";
+          tld = "earth";
         };
       };
     };
@@ -180,7 +208,7 @@ in {
           in
             lib.optionals network.enable (map (
                 peer: {
-                  domain = "*.${peer.tld}.guusvanmeerveld.dev";
+                  domain = "*.${peer.tld}.${internalDomain}";
                   answer = peer.address;
                 }
               )
@@ -251,8 +279,14 @@ in {
       networks = with lib;
         mapAttrs (networkName: network: let
           networkConfig = networks.${networkName};
+
           server = networkConfig.server.address;
           isServer = networkConfig.server.hostname == config.networking.hostName;
+
+          # List of all peers
+          peers =
+            [networkConfig.server]
+            ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
 
           clientConfig =
             if isServer
@@ -266,6 +300,7 @@ in {
               address = ["${clientConfig.address}/24"];
 
               dns = [server];
+              domains = map (peer: "~${peer.tld}.${internalDomain}") peers;
 
               networkConfig = mkIf isServer {
                 IPv4Forwarding = true;
