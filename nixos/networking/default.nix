@@ -1,7 +1,6 @@
 {
   imports = [
     ./wireguard
-    ./mullvad.nix
   ];
 
   config = {

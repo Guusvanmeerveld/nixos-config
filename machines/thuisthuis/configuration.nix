@@ -77,8 +77,6 @@
     };
 
     networking = {
-      mullvad.enable = true;
-
       wireguard = {
         enable = true;
 
