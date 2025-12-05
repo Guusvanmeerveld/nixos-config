@@ -44,7 +44,7 @@ in {
       };
 
       # Open port for DLNA
-      networking.firewall.allowedUDPPorts = [1900];
+      networking.firewall.allowedUDPPorts = [1900 7359];
 
       users.users.jellyfin = {
         uid = 7788;

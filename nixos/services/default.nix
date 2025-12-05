@@ -44,5 +44,6 @@
     ./rust-desk.nix
     ./forgejo.nix
     ./grafana.nix
+    ./glance.nix
   ];
 }

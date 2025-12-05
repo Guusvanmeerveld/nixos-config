@@ -346,7 +346,7 @@
 
         ntfy.url = "http://0.0.0.0:${toString config.custom.services.ntfy.port}";
 
-        caddy.url = "http://free-epic-games.sun.guusvanmeerveld.dev";
+        caddy.url = "https://free-epic-games.sun.guusvanmeerveld.dev";
       };
 
       twitch-miner = {
@@ -502,6 +502,14 @@
         port = 8024;
 
         caddy.url = "https://grafana.sun.guusvanmeerveld.dev";
+      };
+
+      glance = {
+        enable = true;
+
+        port = 8025;
+
+        caddy.url = "https://glance.sun.guusvanmeerveld.dev";
       };
     };
 
