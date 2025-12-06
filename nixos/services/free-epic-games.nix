@@ -90,7 +90,7 @@ in {
             logLevel = "info";
 
             webPortalConfig = {
-              baseUrl = "${cfg.caddy.url}";
+              baseUrl = cfg.caddy.url;
 
               listenOpts = {
                 inherit (cfg) port;

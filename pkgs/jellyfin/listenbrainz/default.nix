@@ -5,15 +5,15 @@
   ...
 }:
 buildDotnetModule rec {
-  pname = "jellyfin-plugin-dlna";
+  pname = "jellyfin-plugin-listenbrainz";
 
-  version = "10";
+  version = "6.0.1.1";
 
   src = fetchFromGitHub {
-    owner = "jellyfin";
+    owner = "lyarenei";
     repo = pname;
-    tag = "v${version}";
-    hash = "sha256-pPhMmH17RKktIX16ozSxsigxo6tU8tlST4IAm3vpjrw=";
+    tag = version;
+    hash = "sha256-voOdC5pnG22c3tOtOluRX6T+BSdfsSArMttOeyGTJZY=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
@@ -21,10 +21,10 @@ buildDotnetModule rec {
 
   enableParallelBuilding = false;
 
-  projectFile = "src/Jellyfin.Plugin.Dlna/Jellyfin.Plugin.Dlna.csproj";
+  projectFile = "src/Jellyfin.Plugin.ListenBrainz/Jellyfin.Plugin.ListenBrainz.csproj";
   nugetDeps = ./deps.json;
 
   postFixup = ''
-    cp -r $out/lib/${pname}/Jellyfin.Plugin.Dlna.dll $out
+    cp -r $out/lib/${pname}/Jellyfin.Plugin.ListenBrainz.dll $out
   '';
 }

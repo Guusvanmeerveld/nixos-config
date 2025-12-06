@@ -71,9 +71,9 @@ in {
 
           enabledPlugins = with pkgs.jellyfin-plugins;
           with pkgs.custom.jellyfin; {
-            inherit kodisyncqueue intro-skipper trakt dlna;
+            inherit kodisyncqueue intro-skipper trakt dlna lyrics;
 
-            "ListenBrainz_${listen-brainz.version}" = listen-brainz;
+            "ListenBrainz_${listenbrainz.version}" = listenbrainz;
           };
         };
       };

@@ -5,15 +5,15 @@
   ...
 }:
 buildDotnetModule rec {
-  pname = "jellyfin-plugin-dlna";
+  pname = "jellyfin-plugin-trakt";
 
-  version = "10";
+  version = "27";
 
   src = fetchFromGitHub {
     owner = "jellyfin";
     repo = pname;
     tag = "v${version}";
-    hash = "sha256-pPhMmH17RKktIX16ozSxsigxo6tU8tlST4IAm3vpjrw=";
+    hash = "sha256-T4T+0ZsOcNxZHk/TzCTH7gpQz8pvSWGyJ0l7XESPu+c=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
@@ -21,10 +21,10 @@ buildDotnetModule rec {
 
   enableParallelBuilding = false;
 
-  projectFile = "src/Jellyfin.Plugin.Dlna/Jellyfin.Plugin.Dlna.csproj";
+  projectFile = "Trakt/Trakt.csproj";
   nugetDeps = ./deps.json;
 
   postFixup = ''
-    cp -r $out/lib/${pname}/Jellyfin.Plugin.Dlna.dll $out
+    cp -r $out/lib/${pname}/Trakt.dll $out
   '';
 }

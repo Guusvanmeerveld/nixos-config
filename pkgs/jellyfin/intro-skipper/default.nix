@@ -7,13 +7,13 @@
 buildDotnetModule rec {
   pname = "intro-skipper";
 
-  version = "1.10.11.7";
+  version = "1.10.11.9";
 
   src = fetchFromGitHub {
     owner = "intro-skipper";
     repo = pname;
     tag = "10.11/v${version}";
-    hash = "sha256-hl1OrnNPFkM5g1WYMVwCKdNLkNai0Vk7JBQ36vz5YCw=";
+    hash = "sha256-j4Q90QAPA3Np0tmp7IVumQwCoKRKeXqW0cFltSlkIJ4=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
@@ -21,11 +21,10 @@ buildDotnetModule rec {
 
   enableParallelBuilding = false;
 
-  projectFile = "IntroSkipper.sln";
+  projectFile = "IntroSkipper/IntroSkipper.csproj";
   nugetDeps = ./deps.json;
 
   postFixup = ''
     cp -r $out/lib/${pname}/IntroSkipper.dll $out
-    rm -r $out/bin
   '';
 }

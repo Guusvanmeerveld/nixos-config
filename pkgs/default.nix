@@ -15,7 +15,7 @@
 
   export = {
     inherit free-epic-games;
-    inherit (jellyfin) intro-skipper trakt listen-brainz dlna;
+    inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
   };
