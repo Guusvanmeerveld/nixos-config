@@ -6,8 +6,9 @@
 }: let
   cfg = config.custom.hardware.input.corsair;
 
+  # Tracked by https://github.com/NixOS/nixpkgs/issues/444209
   package = pkgs.ckb-next.overrideAttrs (old: {
-    cmakeFlags = (old.cmakeFlags or []) ++ ["-DUSE_DBUS_MENU=0"];
+    cmakeFlags = (old.cmakeFlags or []) ++ ["-DUSE_DBUS_MENU=0" "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"];
   });
 in {
   options = {
