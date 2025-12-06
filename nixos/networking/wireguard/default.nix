@@ -6,8 +6,6 @@
 }: let
   cfg = config.custom.networking.wireguard;
 
-  internalDomain = "guusvanmeerveld.dev";
-
   networks = {
     garden = {
       ipRange = "10.10.10.0/24";
@@ -16,7 +14,7 @@
         publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ="; # pragma: allowlist secret
         address = "10.10.10.1";
         hostname = "crocus";
-        tld = "crocus";
+        domains = ["*.crocus.guusvanmeerveld.dev"];
         endpoint = "143.47.189.158";
       };
 
@@ -24,73 +22,48 @@
         desktop = {
           publicKey = "dVOXBUprtiJSOMazEujx0zh7m86YEoXDdQ3muMpQIHw="; # pragma: allowlist secret
           address = "10.10.10.2";
-          tld = "desktop";
         };
 
         laptop = {
           publicKey = "4cfYFYG7zvU+Hy1hVRT1rbNBbeVXCKy9GoRP6Mpv738="; # pragma: allowlist secret
           address = "10.10.10.3";
-          tld = "laptop";
         };
 
         phone = {
           publicKey = "/JKDqqU3tVqKJP4tlcOol5VacFu0Ea4cLRwMjFbqj1M="; # pragma: allowlist secret
           address = "10.10.10.4";
-          tld = "phone";
-        };
-
-        tulip = {
-          publicKey = "/7j5rVEgQVe4eVY6v/DkA+tn/IXqxH+X7641iAPPa38="; # pragma: allowlist secret
-          address = "10.10.10.5";
-          tld = "tlp";
         };
 
         thuisthuis = {
           publicKey = "6lNZjXUkvfdG1prJVJh7yl32yRU1j+2+Suhyq8XySmU="; # pragma: allowlist secret
           address = "10.10.10.6";
-          tld = "thsths";
         };
 
         daisy = {
           publicKey = "WvESBhla1yU9irR4izmGRJuifyrFT47Qry1JsLgcXhY="; # pragma: allowlist secret
           address = "10.10.10.7";
-          tld = "dsy";
-        };
-
-        rose = {
-          publicKey = "HNKWUiePIoh48jayDHxVF/iAcx2JXLHbneKMVDayqg8="; # pragma: allowlist secret
-          address = "10.10.10.8";
-          tld = "rose";
+          tld = ["*.daisy.guusvanmeerveld.dev"];
         };
 
         pd = {
           publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ="; # pragma: allowlist secret
           address = "10.10.10.9";
-          tld = "peerdroog";
-        };
-
-        orchid = {
-          publicKey = "GTL4lYhzwhrk72/Rr6vaamGo8txoj/Cy3hpGSiNvt18="; # pragma: allowlist secret
-          address = "10.10.10.10";
-          tld = "chd";
         };
 
         dd = {
           publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg="; # pragma: allowlist secret
           address = "10.10.10.11";
-          tld = "daniel";
         };
 
         framework-13 = {
           publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs="; # pragma: allowlist secret
           address = "10.10.10.12";
-          tld = "fw13";
         };
 
         sunflower = {
           publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
           address = "10.10.10.13";
-          tld = "sun";
+          domains = ["*.sun.guusvanmeerveld.dev"];
         };
       };
     };
@@ -102,7 +75,7 @@
         publicKey = ""; # pragma: allowlist secret
         address = "10.11.12.1";
         hostname = "daisy";
-        tld = "dsy";
+        domains = ["*.daisy.guusvanmeerveld.dev"];
         endpoint = "141.148.241.201";
       };
 
@@ -110,13 +83,12 @@
         sunflower = {
           publicKey = "mvX0ZnLjNZH2X7qogQE84T9GEunSgwSgGQFHsUjgh34="; # pragma: allowlist secret
           address = "10.11.12.2";
-          tld = "sun";
+          domains = ["*.sun.guusvanmeerveld.dev"];
         };
 
         earth = {
           publicKey = "efXpAlCNOdHnyMK3ZgfD3/TZa1dZ4ACmoZx4XmHHP3E="; # pragma: allowlist secret
           address = "10.11.12.3";
-          tld = "earth";
         };
       };
     };
@@ -196,7 +168,7 @@ in {
       DNSStubListener=no
     '';
 
-    # Map all TLD's of the peers in adguard.
+    # Map all domains of the peers in adguard.
     services.adguardhome.settings.filtering.rewrites = with lib;
       flatten (mapAttrsToList (
           networkName: network: let
@@ -205,14 +177,23 @@ in {
             peers =
               [networkConfig.server]
               ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
+
+            peersWithDomains = filter (peer: (hasAttr "domains" peer) && (peer.domains != [])) peers;
           in
-            lib.optionals network.enable (map (
-                peer: {
-                  domain = "*.${peer.tld}.${internalDomain}";
-                  answer = peer.address;
-                }
+            lib.optionals network.enable (
+              flatten (
+                map (
+                  peer: (map (domain: {
+                      inherit domain;
+
+                      answer = peer.address;
+                      enabled = true;
+                    })
+                    peer.domains)
+                )
+                peersWithDomains
               )
-              peers)
+            )
         )
         cfg.networks);
 
@@ -288,6 +269,8 @@ in {
             [networkConfig.server]
             ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
 
+          peersWithDomains = filter (peer: (hasAttr "domains" peer) && (peer.domains != [])) peers;
+
           clientConfig =
             if isServer
             then networkConfig.server
@@ -300,7 +283,12 @@ in {
               address = ["${clientConfig.address}/24"];
 
               dns = [server];
-              domains = map (peer: "~${peer.tld}.${internalDomain}") peers;
+              domains = flatten (
+                map (
+                  peer: (map (domain: replaceStrings ["*."] ["~"] domain) peer.domains)
+                )
+                peersWithDomains
+              );
 
               networkConfig = mkIf isServer {
                 IPv4Forwarding = true;
