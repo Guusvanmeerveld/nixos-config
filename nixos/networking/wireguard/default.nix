@@ -72,7 +72,7 @@
       ipRange = "10.11.12.0/24";
 
       server = {
-        publicKey = ""; # pragma: allowlist secret
+        publicKey = "bRqHoLBezSYg2mYx1qHSdu/8c7ivuGMfnmzeJCRKZjQ="; # pragma: allowlist secret
         address = "10.11.12.1";
         hostname = "daisy";
         domains = ["*.daisy.guusvanmeerveld.dev"];

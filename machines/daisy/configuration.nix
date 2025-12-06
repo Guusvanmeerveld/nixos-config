@@ -38,13 +38,6 @@
       ];
     };
 
-    certificates.enable = true;
-
-    alerts = {
-      power.enable = true;
-      disk-space.enable = true;
-    };
-
     programs = {
       zsh.enable = true;
       sudo-rs.enable = true;
@@ -54,9 +47,8 @@
       enable = true;
 
       networks = {
-        "garden" = {
+        "shared-backups" = {
           enable = true;
-          keepAlive = true;
         };
       };
     };
