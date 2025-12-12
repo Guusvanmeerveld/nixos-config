@@ -18,5 +18,6 @@
     ./builders.nix
     ./overlays.nix
     ./alerts.nix
+    ./uptime.nix
   ];
 }
