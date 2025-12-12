@@ -2,7 +2,6 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.custom.services.jellyfin;
@@ -68,13 +67,6 @@ in {
 
         jellyfin = {
           enable = true;
-
-          enabledPlugins = with pkgs.jellyfin-plugins;
-          with pkgs.custom.jellyfin; {
-            inherit kodisyncqueue intro-skipper trakt dlna lyrics;
-
-            "ListenBrainz_${listenbrainz.version}" = listenbrainz;
-          };
         };
       };
     };
