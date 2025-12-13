@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs.office.latex;
@@ -13,8 +12,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      texlive.combined.scheme-full
-    ];
+    programs.texlive = {
+      enable = true;
+
+      extraPackages = tpkgs: {
+        inherit
+          (tpkgs)
+          collection-basic
+          collection-latexrecommended
+          collection-fontsrecommended
+          latexmk
+          latexindent
+          ;
+      };
+    };
   };
 }
