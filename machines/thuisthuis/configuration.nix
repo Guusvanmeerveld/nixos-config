@@ -13,13 +13,35 @@
     };
   };
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   networking = {
     hostName = "thuisthuis";
 
     # Required for ZFS
     hostId = "379d3527";
 
-    networkmanager.enable = true;
+    useDHCP = false;
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks."10-wan" = {
+      matchConfig.Name = "enp34s0";
+
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv6AcceptRA = true;
+      };
+
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  # Use SystemD's builtin DNS resolver
+  services.resolved = {
+    enable = true;
   };
 
   # Bootloader.
@@ -41,8 +63,6 @@
 
       timeout = 0;
     };
-
-    kernelParams = ["atkbd.reset" "usbcore.autosuspend=-1" "amdgpu.gpu_recovery=1"];
   };
 
   custom = {
@@ -91,7 +111,6 @@
     programs = {
       zsh.enable = true;
       steam.enable = true;
-      teamviewer.enable = true;
       sudo-rs.enable = true;
     };
 
