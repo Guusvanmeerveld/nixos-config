@@ -11,6 +11,8 @@
   imports = [
     ../../nixos
 
+    # ./containers
+
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
@@ -124,7 +126,27 @@
   networking = {
     hostName = "sunflower";
     hostId = "deadb33f";
-    networkmanager.enable = true;
+    useDHCP = false;
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks."10-wan" = {
+      matchConfig.Name = "enp2s0";
+
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv6AcceptRA = true;
+      };
+
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  # Use SystemD's builtin DNS resolver
+  services.resolved = {
+    enable = true;
   };
 
   users = {
