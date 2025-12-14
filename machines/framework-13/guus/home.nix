@@ -73,6 +73,7 @@
       };
 
       eduvpn.enable = true;
+      jellyfin-client.enable = false;
     };
   };
 

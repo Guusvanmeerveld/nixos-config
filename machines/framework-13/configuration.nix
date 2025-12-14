@@ -14,9 +14,7 @@
   ];
 
   boot = {
-    tmp = {
-      useTmpfs = true;
-    };
+    tmp.useTmpfs = true;
 
     loader = {
       systemd-boot.enable = true;
@@ -24,7 +22,7 @@
       timeout = 0;
     };
 
-    kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
+    # kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
   };
 
   # Custom systemd service that unloads the wifi driver for the wifi card before hibernation and suspend, because they will otherwise fail.
@@ -51,6 +49,10 @@
     networkmanager.enable = true;
   };
 
+  # Disable since networkmanager is responsible for managing main internet connection
+  # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
+  systemd.network.wait-online.enable = false;
+
   services = {
     # BIOS updates are distributed through LVFS, which can be used by enabling the fwupd service
     # From: https://wiki.nixos.org/wiki/Hardware/Framework/Laptop_13
@@ -58,6 +60,15 @@
       enable = true;
 
       extraRemotes = ["lvfs-testing"];
+    };
+
+    # Use SystemD's builtin DNS resolver
+    resolved = {
+      enable = true;
+      dnsovertls = "opportunistic";
+      extraConfig = ''
+        Cache=yes
+      '';
     };
 
     logind.settings.Login.HandleLidSwitch = "hibernate";
@@ -101,6 +112,7 @@
 
     alerts = {
       disk-space.enable = true;
+      power.enable = true;
     };
 
     programs = {
@@ -133,8 +145,6 @@
         caddy.url = "https://syncthing.framework";
         openFirewall = true;
       };
-
-      restic.client.enable = true;
     };
 
     dm.greetd.enable = true;

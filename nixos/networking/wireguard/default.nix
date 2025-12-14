@@ -164,10 +164,6 @@ in {
 
     environment.systemPackages = with pkgs; [wireguard-tools];
 
-    services.resolved.extraConfig = ''
-      DNSStubListener=no
-    '';
-
     # Map all domains of the peers in adguard.
     services.adguardhome.settings.filtering.rewrites = with lib;
       flatten (mapAttrsToList (
@@ -199,9 +195,6 @@ in {
 
     systemd.network = {
       enable = true;
-
-      # Rebuild will get stuck if using systemd-networkd together with NetworkManager.
-      wait-online.enable = false;
 
       netdevs = with lib;
         mapAttrs' (networkName: network: let
@@ -279,6 +272,9 @@ in {
           mkIf network.enable (mkMerge [
             {
               matchConfig.Name = networkName;
+
+              # Even if we cannot connect to Wireguard peers, we should still be able to be online
+              linkConfig.RequiredForOnline = "no";
 
               address = ["${clientConfig.address}/24"];
 

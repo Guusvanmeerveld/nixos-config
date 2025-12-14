@@ -13,7 +13,7 @@
     };
   };
 
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "performance";
 
   networking = {
     hostName = "thuisthuis";
@@ -42,6 +42,9 @@
   # Use SystemD's builtin DNS resolver
   services.resolved = {
     enable = true;
+    extraConfig = ''
+      Cache=yes
+    '';
   };
 
   # Bootloader.

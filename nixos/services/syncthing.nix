@@ -196,6 +196,7 @@ in {
 
           options = {
             localAnnounceEnabled = false;
+            globalAnnounceEnabled = false;
             urAccepted = -1;
           };
 
