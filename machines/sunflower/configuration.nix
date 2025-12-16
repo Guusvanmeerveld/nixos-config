@@ -136,7 +136,7 @@
       matchConfig.Name = "enp2s0";
 
       networkConfig = {
-        DHCP = "ipv4";
+        DHCP = "yes";
         IPv6AcceptRA = true;
       };
 

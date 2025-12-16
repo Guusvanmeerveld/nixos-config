@@ -31,9 +31,12 @@
       matchConfig.Name = "enp34s0";
 
       networkConfig = {
-        DHCP = "ipv4";
+        DHCP = "yes";
         IPv6AcceptRA = true;
       };
+
+      # Route all DNS requests to this FQDN via network router
+      domains = ["~sun.guusvanmeerveld.dev" "~localdomain"];
 
       linkConfig.RequiredForOnline = "routable";
     };
