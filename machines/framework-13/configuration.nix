@@ -22,7 +22,7 @@
       timeout = 0;
     };
 
-    # kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
+    kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
   };
 
   # Custom systemd service that unloads the wifi driver for the wifi card before hibernation and suspend, because they will otherwise fail.

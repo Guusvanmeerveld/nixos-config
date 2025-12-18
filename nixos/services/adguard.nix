@@ -37,16 +37,9 @@ in {
       };
 
       custom.services.restic.client.backups.adguard = {
-        services = ["adguardhome"];
-
         files = [
           "/var/lib/AdGuardHome/data"
         ];
-      };
-
-      networking.hosts = {
-        # Required since we would be unable to query the DNS server if it is offline during backups
-        "10.10.10.10" = ["restic.chd"];
       };
 
       services = {
@@ -68,9 +61,7 @@ in {
           mutableSettings = false;
 
           settings = {
-            dns = {
-              bootstrap_dns = ["1.1.1.1"];
-            };
+            filtering.blocked_response_ttl = 60 * 60;
 
             statistics = {
               enabled = true;

@@ -286,16 +286,20 @@ in {
                 peersWithDomains
               );
 
-              networkConfig = mkIf isServer {
-                IPv4Forwarding = true;
-                IPMasquerade = "ipv4";
-              };
+              networkConfig = lib.mkMerge [
+                {
+                  DNSOverTLS = false;
+                  DNSSEC = false;
+                }
+                (mkIf (!isServer) {
+                  IPv6AcceptRA = false;
+                })
+                (mkIf isServer {
+                  IPv4Forwarding = true;
+                  IPMasquerade = "ipv4";
+                })
+              ];
             }
-            (optionalAttrs (!isServer) {
-              networkConfig = {
-                IPv6AcceptRA = false;
-              };
-            })
           ]))
         cfg.networks;
     };

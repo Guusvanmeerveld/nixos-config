@@ -168,7 +168,7 @@ in {
         virusScanning = true;
         localDnsResolver = false;
 
-        dmarcReporting.enable = true;
+        dmarcReporting.enable = false;
 
         systemName = "Nixos Mailserver";
         systemDomain = cfg.mailDomain;

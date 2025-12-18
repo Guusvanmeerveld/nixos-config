@@ -98,10 +98,7 @@
   # Configure Cloudflare DNS for Caddy challenges so we don't need to expose any ports.
   services = {
     caddy = {
-      package = pkgs.caddy.withPlugins {
-        plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
-        hash = "sha256-ea8PC/+SlPRdEVVF/I3c1CBprlVp1nrumKM5cMwJJ3U=";
-      };
+      package = pkgs.custom.caddy-with-plugins;
 
       environmentFile = "/secrets/caddy/environmentFile";
 
@@ -119,14 +116,37 @@
       };
     };
 
+    # Use SystemD's builtin DNS resolver
+    resolved = {
+      enable = true;
+
+      dnsovertls = "true";
+      dnssec = "true";
+
+      extraConfig = ''
+        Cache=yes
+      '';
+    };
+
     qbittorrent-nox.address = "192.168.15.1";
     slskd.settings.soulseek.listen_port = 7717;
   };
 
   networking = {
     hostName = "sunflower";
+
+    # Required for ZFS
     hostId = "deadb33f";
+
+    # We use systemd-networkd for configuring default interface
     useDHCP = false;
+
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+      "2620:fe::fe"
+      "2620:fe::9"
+    ];
   };
 
   systemd.network = {
@@ -138,15 +158,15 @@
       networkConfig = {
         DHCP = "yes";
         IPv6AcceptRA = true;
+
+        DNSOverTLS = true;
+        DNSSEC = true;
       };
+
+      dns = config.networking.nameservers;
 
       linkConfig.RequiredForOnline = "routable";
     };
-  };
-
-  # Use SystemD's builtin DNS resolver
-  services.resolved = {
-    enable = true;
   };
 
   users = {
