@@ -140,13 +140,6 @@
 
     # We use systemd-networkd for configuring default interface
     useDHCP = false;
-
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-      "2620:fe::fe"
-      "2620:fe::9"
-    ];
   };
 
   systemd.network = {
@@ -159,8 +152,8 @@
         DHCP = "yes";
         IPv6AcceptRA = true;
 
-        DNSOverTLS = true;
-        DNSSEC = true;
+        DNSOverTLS = false;
+        DNSSEC = false;
       };
 
       dns = config.networking.nameservers;
