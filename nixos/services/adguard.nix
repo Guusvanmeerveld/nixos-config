@@ -61,6 +61,8 @@ in {
           mutableSettings = false;
 
           settings = {
+            dns.bootstrap_dns = config.networking.nameservers;
+
             filtering.blocked_response_ttl = 60 * 60;
 
             statistics = {
