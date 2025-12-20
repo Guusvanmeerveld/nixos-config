@@ -173,9 +173,10 @@ in {
         systemName = "Nixos Mailserver";
         systemDomain = cfg.mailDomain;
 
-        certificateScheme = "manual";
-        certificateFile = "${caddyCertDir}/${fqdn}/${fqdn}.crt";
-        keyFile = "${caddyCertDir}/${fqdn}/${fqdn}.key";
+        x509 = {
+          certificateFile = "${caddyCertDir}/${fqdn}/${fqdn}.crt";
+          privateKeyFile = "${caddyCertDir}/${fqdn}/${fqdn}.key";
+        };
       };
     };
 }
