@@ -42,18 +42,12 @@ in {
         ];
       };
 
-      nixpkgs.config.permittedInsecurePackages = [
-        "dotnet-sdk-6.0.428"
-        "aspnetcore-runtime-6.0.36"
-      ];
-
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-
               '';
             };
           };
