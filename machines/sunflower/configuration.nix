@@ -11,7 +11,7 @@
   imports = [
     ../../nixos
 
-    # ./containers
+    ./containers
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -47,11 +47,6 @@
       fsType = "vfat";
     };
 
-    # "/mnt/data" = {
-    #   device = "zpool/data";
-    #   fsType = "zfs";
-    # };
-
     "/mnt/bigdata/restic" = {
       device = "bigdata/restic";
       fsType = "zfs";
@@ -76,10 +71,15 @@
       device = "bigdata/forgejo";
       fsType = "zfs";
     };
+
+    "/mnt/bigdata/shared-backups" = {
+      device = "bigdata/shared-backups";
+      fsType = "zfs";
+    };
   };
 
   boot = {
-    tmp.cleanOnBoot = true;
+    tmp.useTmpfs = true;
 
     loader = {
       systemd-boot.enable = true;
@@ -106,10 +106,7 @@
         "*.sun.guusvanmeerveld.dev" = {
           extraConfig = ''
             tls {
-              dns cloudflare {
-                zone_token {$CF_ZONE_TOKEN}
-                api_token {$CF_API_TOKEN}
-              }
+              dns cloudflare {$CF_API_TOKEN}
             }
           '';
         };
