@@ -78,6 +78,13 @@
     };
   };
 
+  swapDevices = [
+    {
+      device = "/dev/sdc";
+      options = ["discard"];
+    }
+  ];
+
   boot = {
     tmp.useTmpfs = true;
 
@@ -125,7 +132,11 @@
       '';
     };
 
-    qbittorrent-nox.address = "192.168.15.1";
+    qbittorrent.serverConfig = {
+      BitTorrent.Session.Port = 10100;
+      Preferences.WebUI.Address = "192.168.15.1";
+    };
+
     slskd.settings.soulseek.listen_port = 7717;
   };
 
@@ -146,7 +157,7 @@
       matchConfig.Name = "enp2s0";
 
       networkConfig = {
-        DHCP = "yes";
+        DHCP = "ipv4";
         IPv6AcceptRA = true;
 
         DNSOverTLS = false;
@@ -185,7 +196,7 @@
   };
 
   systemd.services = {
-    qbittorrent-nox.vpnConfinement = {
+    qbittorrent.vpnConfinement = {
       enable = true;
       vpnNamespace = "vpn";
     };
@@ -208,7 +219,7 @@
 
     openVPNPorts = [
       {
-        port = 10100;
+        port = config.services.qbittorrent.serverConfig.BitTorrent.Session.Port;
         protocol = "both";
       }
       {
@@ -219,7 +230,7 @@
 
     portMappings = [
       (let
-        qbtPort = config.services.qbittorrent-nox.webUIPort;
+        qbtPort = config.services.qbittorrent.webuiPort;
       in {
         from = qbtPort;
         to = qbtPort;

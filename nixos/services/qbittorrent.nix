@@ -1,14 +1,15 @@
 {
-  outputs,
+  # outputs,
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.qbittorrent;
 in {
-  imports = [
-    outputs.nixosModules.qbittorrent-nox
-  ];
+  # imports = [
+  #   outputs.nixosModules.qbittorrent-nox
+  # ];
 
   options = {
     custom.services.qbittorrent = let
@@ -45,14 +46,12 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf optionals;
+    inherit (lib) mkIf;
   in
     mkIf cfg.enable {
-      networking.firewall.allowedUDPPorts = optionals cfg.openFirewall [config.services.qbittorrent-nox.torrentPort];
-
       custom.services.restic.client.backups.qbittorrent = {
         files = [
-          "/var/lib/qbittorrent"
+          config.services.qbittorrent.profileDir
         ];
       };
 
@@ -61,8 +60,8 @@ in {
           virtualHosts = {
             "${cfg.caddy.url}" = let
               address =
-                if config.services.qbittorrent-nox.address != null
-                then config.services.qbittorrent-nox.address
+                if config.services.qbittorrent.serverConfig.Preferences.WebUI.Address != null
+                then config.services.qbittorrent.serverConfig.Preferences.WebUI.Address
                 else "localhost";
             in {
               extraConfig = ''
@@ -72,12 +71,45 @@ in {
           };
         };
 
-        qbittorrent-nox = {
+        qbittorrent = {
           enable = true;
 
-          inherit (cfg) webUIPort saveDir;
+          inherit (cfg) openFirewall;
 
-          theme = "vuetorrent";
+          profileDir = "/var/lib/qbittorrent";
+
+          webuiPort = cfg.webUIPort;
+
+          serverConfig = {
+            LegalNotice.Accepted = true;
+
+            Application = {
+              MemoryWorkingSetLimit = 4096;
+            };
+
+            BitTorrent.Session = {
+              AnonymousModeEnabled = true;
+
+              DefaultSavePath = cfg.saveDir;
+
+              ultiConnectionsPerIp = true;
+
+              GlobalUPSpeedLimit = 5000;
+              GlobalDLSpeedLimit = 20000;
+            };
+
+            Preferences = {
+              WebUI = {
+                Username = "admin";
+                Password_PBKDF2 = "@ByteArray(tc2Q2C5ty2vsc4lMKY06lQ==:ubZ2/CKM5955c4DfpARBgRTcOwo9locV7m+s0/fpCAGQiTzX5vPAzhYuLN5blTJ0qAcrIImLOcN9NCCxqOElAA==)";
+
+                AlternativeUIEnabled = true;
+                RootFolder = "${pkgs.vuetorrent}/share/vuetorrent";
+              };
+
+              General.Locale = "en";
+            };
+          };
         };
       };
     };
