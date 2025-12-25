@@ -14,6 +14,8 @@ in {
   };
 
   services = {
+    resolved.enable = true;
+
     restic.server = {
       enable = true;
 
@@ -41,7 +43,7 @@ in {
 
       wireguardPeers = [
         {
-          PublicKey = "bRqHoLBezSYg2mYx1qHSdu/8c7ivuGMfnmzeJCRKZjQ=";
+          PublicKey = "bRqHoLBezSYg2mYx1qHSdu/8c7ivuGMfnmzeJCRKZjQ="; # pragma: allowlist secret
           AllowedIPs = "10.11.12.0/24";
           Endpoint = "141.148.241.201:49999";
           PersistentKeepalive = 25;

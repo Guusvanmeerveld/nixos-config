@@ -16,8 +16,8 @@
 
       hostAddress = "192.168.100.10";
       localAddress = "192.168.100.1";
-      # hostAddress6 = "fc00::1";
-      # localAddress6 = "fc00::2";
+      hostAddress6 = "fc00::1";
+      localAddress6 = "fc00::2";
 
       config = import ./shared-backups.nix;
 
