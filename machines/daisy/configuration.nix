@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-{...}: {
+{config, ...}: {
   imports = [
     ../../nixos
 
@@ -9,15 +9,57 @@
     ./hardware-configuration.nix
   ];
 
-  boot.tmp.cleanOnBoot = true;
+  boot.tmp.useTmpfs = true;
 
-  networking.hostName = "daisy";
+  networking = {
+    hostName = "daisy";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+      # Ipv6 is not configured on Oracle cloud free tier
+      # "2620:fe::fe"
+      # "2620:fe::9"
+    ];
 
-  services.logind.settings.Login = {
-    RuntimeDirectorySize = "2G";
+    useDHCP = false;
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks."10-wan" = {
+      matchConfig.Name = "ens3";
+
+      networkConfig = {
+        DHCP = "yes";
+
+        DNSOverTLS = true;
+        DNSSEC = true;
+      };
+
+      dns = config.networking.nameservers;
+
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  services = {
+    logind.settings.Login = {
+      RuntimeDirectorySize = "2G";
+    };
+
+    # Use SystemD's builtin DNS resolver
+    resolved = {
+      enable = true;
+
+      dnsovertls = "true";
+      dnssec = "true";
+
+      extraConfig = ''
+        Cache=yes
+      '';
+    };
   };
 
   custom = {
@@ -45,6 +87,7 @@
 
     networking.wireguard = {
       enable = true;
+      openFirewall = true;
 
       networks = {
         "shared-backups" = {
