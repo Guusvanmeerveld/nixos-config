@@ -43,16 +43,16 @@
       registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
       channel.enable = false;
-
-      gc = {
-        automatic = true;
-        options = "--delete-older-than 30d";
-        dates = "weekly";
-      };
     };
 
     programs.nh = {
       enable = true;
+
+      clean = {
+        enable = true;
+
+        extraArgs = "--keep 3 --keep-since 3d";
+      };
     };
   };
 }
