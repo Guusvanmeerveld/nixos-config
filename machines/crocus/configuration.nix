@@ -91,10 +91,7 @@
             }
 
             tls {
-              dns cloudflare {
-                zone_token {$CF_ZONE_TOKEN}
-                api_token {$CF_API_TOKEN}
-              }
+              dns cloudflare {$CF_API_TOKEN}
             }
           '';
         };
