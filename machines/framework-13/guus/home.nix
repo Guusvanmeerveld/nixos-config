@@ -52,6 +52,16 @@
       kdeconnect.enable = true;
       poweralertd.enable = true;
       playerctld.enable = true;
+      ntfy-client = {
+        enable = true;
+
+        servers = [
+          {
+            url = "ntfy.sun.guusvanmeerveld.dev";
+            topics = ["jellyseerr" "power" "twitch-miner" "disk-space" "uptime" "free-epic-games"];
+          }
+        ];
+      };
     };
 
     programs = {
@@ -73,7 +83,6 @@
       };
 
       eduvpn.enable = true;
-      jellyfin-client.enable = false;
     };
   };
 

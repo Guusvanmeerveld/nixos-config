@@ -7,5 +7,6 @@
     ./poweralertd.nix
     ./kdeconnect.nix
     ./playerctld.nix
+    ./ntfy-client.nix
   ];
 }
