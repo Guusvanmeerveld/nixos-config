@@ -8,7 +8,33 @@
 
   networking = {
     hostName = "desktop";
-    networkmanager.enable = true;
+
+    useDHCP = false;
+  };
+
+  systemd.network = {
+    enable = true;
+
+    networks."10-wan" = {
+      matchConfig.Name = "enp6s0";
+
+      networkConfig = {
+        DHCP = "ipv4";
+        IPv6AcceptRA = true;
+
+        DNSOverTLS = false;
+        DNSSEC = false;
+      };
+
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  services.resolved = {
+    enable = true;
+    extraConfig = ''
+      Cache=yes
+    '';
   };
 
   hardware.enableRedistributableFirmware = true;
@@ -33,6 +59,8 @@
       timeout = 0;
     };
   };
+
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Prevent USB controller from awaking the system from suspend.
   services.udev.extraRules = ''
@@ -76,7 +104,6 @@
       zsh.enable = true;
       adb.enable = true;
       steam.enable = true;
-      teamviewer.enable = true;
       sudo-rs.enable = true;
     };
 
@@ -104,8 +131,6 @@
         caddy.url = "http://syncthing.desktop";
         openFirewall = true;
       };
-
-      restic.client.enable = true;
     };
 
     virtualisation = {
