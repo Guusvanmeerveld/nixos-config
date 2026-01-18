@@ -81,21 +81,17 @@
 
       environmentFile = "/secrets/caddy/environmentFile";
 
-      virtualHosts = {
-        "*.crocus.guusvanmeerveld.dev" = {
-          extraConfig = ''
-            @external not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8 127.0.0.1/8
-
-            handle @external {
-              respond "Not found" 404
-            }
-
-            tls {
-              dns cloudflare {$CF_API_TOKEN}
-            }
-          '';
+      virtualHosts =
+        # Configure TLS certificates for all subdomains
+        {
+          "*.crocus.guusvanmeerveld.dev" = {
+            extraConfig = ''
+              tls {
+                dns cloudflare {$CF_API_TOKEN}
+              }
+            '';
+          };
         };
-      };
     };
   };
 
@@ -131,10 +127,30 @@
       };
     };
 
+    virtualisation.docker.enable = true;
+
     services = {
       caddy = {
         enable = true;
         openFirewall = true;
+
+        ipFilter = {
+          enable = true;
+
+          # Don't let anyone but my personal devices access these domains
+          virtualHosts = let
+            whitelist = ["10.10.10.2" "10.10.10.4" "10.10.10.6" "10.10.10.12"];
+          in [
+            {
+              inherit whitelist;
+              domain = "https://adguard.crocus.guusvanmeerveld.dev";
+            }
+            {
+              inherit whitelist;
+              domain = "https://uptime.crocus.guusvanmeerveld.dev";
+            }
+          ];
+        };
       };
 
       openssh.enable = true;
@@ -182,7 +198,26 @@
 
         openFirewall = true;
 
+        port = 8000;
+
         caddy.url = "https://adguard.crocus.guusvanmeerveld.dev";
+      };
+
+      uptime-kuma = {
+        enable = true;
+
+        port = 8001;
+
+        caddy.url = "https://uptime.crocus.guusvanmeerveld.dev";
+      };
+
+      ntfy = {
+        enable = true;
+        isPubliclyAccessible = true;
+
+        port = 8002;
+
+        caddy.url = "https://ntfy.guusvanmeerveld.dev";
       };
     };
 

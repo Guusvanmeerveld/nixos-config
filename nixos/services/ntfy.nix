@@ -16,6 +16,8 @@ in {
     in {
       enable = mkEnableOption "Enable the Ntfy service";
 
+      isPubliclyAccessible = mkEnableOption "Whether this instance is expected to be accessable by the internet";
+
       port = mkOption {
         type = types.ints.u16;
         default = 3333;
@@ -65,9 +67,18 @@ in {
 
           settings = {
             listen-http = ":${toString cfg.port}";
-            base-url = cfg.caddy.url;
-            behind-proxy = true;
-            enable-signup = true;
+
+            base-url =
+              if cfg.caddy.url != null
+              then cfg.caddy.url
+              else null;
+            behind-proxy = cfg.caddy.url != null;
+            # Disable signups if publicly available
+            enable-signup = !cfg.isPubliclyAccessible;
+            auth-default-access =
+              if cfg.isPubliclyAccessible
+              then "write-only"
+              else "read-write";
             enable-login = true;
 
             auth-file = authFile;

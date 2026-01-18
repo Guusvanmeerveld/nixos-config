@@ -45,12 +45,12 @@
           tld = ["*.daisy.guusvanmeerveld.dev"];
         };
 
-        pd = {
+        cattle = {
           publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ="; # pragma: allowlist secret
           address = "10.10.10.9";
         };
 
-        dd = {
+        chimpanzee = {
           publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg="; # pragma: allowlist secret
           address = "10.10.10.11";
         };
@@ -64,6 +64,11 @@
           publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
           address = "10.10.10.13";
           domains = ["*.sun.guusvanmeerveld.dev"];
+        };
+
+        oribi = {
+          publicKey = "0Ce9BqYxPmYjvf/y0ydZecx5S5UYMuYW/LtZoA3xjBE="; # pragma: allowlist secret
+          address = "10.10.10.14";
         };
       };
     };

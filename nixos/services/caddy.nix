@@ -16,14 +16,22 @@ in {
       ipFilter = {
         enable = mkEnableOption "Enable ip blocking";
 
-        whitelist = mkOption {
-          type = types.listOf types.str;
-          default = ["10.10.10.0/24"];
-          description = "List of ip ranges that are allowed to connect to Caddy";
-        };
+        virtualHosts = mkOption {
+          type = types.listOf (types.submodule (_: {
+            options = {
+              whitelist = mkOption {
+                type = types.listOf types.str;
+                default = [];
+                description = "List of IP's that are allowed to access this domain";
+              };
 
-        vHosts = mkOption {
-          type = types.listOf types.str;
+              domain = mkOption {
+                type = types.str;
+                description = "The domain that the ip filter should be enabled for";
+              };
+            };
+          }));
+
           default = [];
           description = "Virtual hosts that this filter should be enabled for";
         };
@@ -48,7 +56,7 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf optionals concatStringsSep optionalString listToAttrs;
+    inherit (lib) mkIf optionals optionalString;
   in
     mkIf cfg.enable {
       services.caddy = {
@@ -59,21 +67,24 @@ in {
 
         email = "caddy@guusvanmeerveld.dev";
 
-        virtualHosts = let
-          blockIps = ''
-            @blocked not remote_ip ${concatStringsSep " " cfg.ipFilter.whitelist}
-            respond @blocked "Access Denied" 403
-          '';
-        in
-          mkIf cfg.ipFilter.enable (listToAttrs (map (vHost: {
-              name = vHost;
-              value = {
-                extraConfig = blockIps;
-              };
-            })
-            cfg.ipFilter.vHosts));
+        virtualHosts = mkIf cfg.ipFilter.enable (builtins.listToAttrs (map ({
+            domain,
+            whitelist,
+          }: {
+            name = domain;
+            value = {
+              extraConfig = ''
+                @blocked not remote_ip ${builtins.concatStringsSep " " whitelist}
 
-        globalConfig = concatStringsSep "\n" [
+                handle @blocked {
+                  abort
+                }
+              '';
+            };
+          })
+          cfg.ipFilter.virtualHosts));
+
+        globalConfig = builtins.concatStringsSep "\n" [
           ''
             # Disable admin page on port 2019
             admin off
