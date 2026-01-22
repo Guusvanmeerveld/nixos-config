@@ -164,6 +164,8 @@
         DNSSEC = false;
       };
 
+      domains = ["~sun.guusvanmeerveld.dev" "~localdomain"];
+
       dns = config.networking.nameservers;
 
       linkConfig.RequiredForOnline = "routable";
@@ -189,9 +191,9 @@
           "radarr"
           "sonarr"
           "bazarr"
-          "lidarr"
           "qbittorrent"
           "jellyfin"
+          "guus"
         ]));
   };
 
@@ -475,13 +477,13 @@
         caddy.url = "https://bazarr.sun.guusvanmeerveld.dev";
       };
 
-      lidarr = {
-        enable = true;
+      # lidarr = {
+      #   enable = true;
 
-        port = 8019;
+      #   port = 8019;
 
-        caddy.url = "https://lidarr.sun.guusvanmeerveld.dev";
-      };
+      #   caddy.url = "https://lidarr.sun.guusvanmeerveld.dev";
+      # };
 
       recyclarr = {
         enable = true;
@@ -495,7 +497,7 @@
 
         webUIPort = 8020;
 
-        saveDir = "/mnt/bigdata/media/download";
+        saveDir = "/mnt/bigdata/media/download/qbittorrent";
 
         caddy.url = "https://qbittorrent.sun.guusvanmeerveld.dev";
       };

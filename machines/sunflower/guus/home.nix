@@ -12,6 +12,12 @@
       default.enable = true;
 
       gpg.enable = true;
+
+      beets = {
+        enable = true;
+
+        musicDirectory = "/mnt/bigdata/media/music";
+      };
     };
   };
 
