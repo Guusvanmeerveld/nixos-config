@@ -21,6 +21,7 @@ in {
     ./tmux.nix
     ./bat.nix
     ./rbw.nix
+    ./beets.nix
   ];
 
   options = {
