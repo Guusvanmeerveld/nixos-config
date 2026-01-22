@@ -65,10 +65,11 @@
     # Use SystemD's builtin DNS resolver
     resolved = {
       enable = true;
-      dnsovertls = "opportunistic";
-      extraConfig = ''
-        Cache=yes
-      '';
+
+      settings.Resolve = {
+        DNSOverTLS = "opportunistic";
+        Cache = "yes";
+      };
     };
 
     logind.settings.Login.HandleLidSwitch = "hibernate";

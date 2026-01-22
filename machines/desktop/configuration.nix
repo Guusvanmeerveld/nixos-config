@@ -32,9 +32,8 @@
 
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      Cache=yes
-    '';
+
+    settings.Resolve.Cache = "yes";
   };
 
   hardware.enableRedistributableFirmware = true;
