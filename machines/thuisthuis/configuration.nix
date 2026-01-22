@@ -45,9 +45,7 @@
   # Use SystemD's builtin DNS resolver
   services.resolved = {
     enable = true;
-    extraConfig = ''
-      Cache=yes
-    '';
+    settings.Resolve.Cache = "yes";
   };
 
   # Bootloader.

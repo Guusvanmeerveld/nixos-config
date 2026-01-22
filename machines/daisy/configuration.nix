@@ -53,12 +53,11 @@
     resolved = {
       enable = true;
 
-      dnsovertls = "true";
-      dnssec = "true";
-
-      extraConfig = ''
-        Cache=yes
-      '';
+      settings.Resolve = {
+        DNSOverTLS = true;
+        DNSSEC = true;
+        Cache = "yes";
+      };
     };
   };
 
