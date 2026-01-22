@@ -92,10 +92,12 @@ in {
 
               DefaultSavePath = cfg.saveDir;
 
-              ultiConnectionsPerIp = true;
+              MultiConnectionsPerIp = true;
 
               GlobalUPSpeedLimit = 5000;
               GlobalDLSpeedLimit = 20000;
+
+              DiskIOType = "Posix";
             };
 
             Preferences = {
