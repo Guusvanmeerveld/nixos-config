@@ -1,15 +1,10 @@
 {
-  inputs,
   config,
   lib,
   ...
 }: let
   cfg = config.custom.services.jellyfin;
 in {
-  imports = [
-    inputs.jellyfin-plugins.nixosModules.jellyfin-plugins
-  ];
-
   options = {
     custom.services.jellyfin = let
       inherit (lib) mkEnableOption mkOption types;

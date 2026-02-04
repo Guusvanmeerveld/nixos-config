@@ -23,6 +23,8 @@
     };
 
     kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
+
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   # Custom systemd service that unloads the wifi driver for the wifi card before hibernation and suspend, because they will otherwise fail.
@@ -72,7 +74,7 @@
       };
     };
 
-    logind.settings.Login.HandleLidSwitch = "hibernate";
+    logind.settings.Login.HandleLidSwitch = "poweroff";
 
     colord.enable = true;
   };
@@ -129,7 +131,6 @@
       gvfs.enable = true;
       kdeconnect.openFirewall = true;
 
-      caddy.enable = true;
       syncthing = {
         enable = true;
 
@@ -143,7 +144,6 @@
           "dictionaries" = "~/.config/dictionaries";
         };
 
-        caddy.url = "https://syncthing.framework";
         openFirewall = true;
       };
     };

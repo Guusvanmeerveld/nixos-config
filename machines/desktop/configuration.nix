@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ../../nixos
 
@@ -57,6 +57,8 @@
 
       timeout = 0;
     };
+
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -109,7 +111,6 @@
     services = {
       gamemode.enable = true;
       gvfs.enable = true;
-      autoUpgrade.enable = true;
 
       kdeconnect.openFirewall = true;
 

@@ -1,4 +1,8 @@
-{...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ../../nixos
 
@@ -33,6 +37,9 @@
       networkConfig = {
         DHCP = "yes";
         IPv6AcceptRA = true;
+
+        DNSOverTLS = false;
+        DNSSEC = false;
       };
 
       # Route all DNS requests to this FQDN via network router
@@ -51,7 +58,7 @@
   # Bootloader.
   boot = {
     tmp = {
-      cleanOnBoot = true;
+      useTmpfs = true;
     };
 
     loader = {
@@ -67,6 +74,10 @@
 
       timeout = 0;
     };
+
+    # Replace kernel by CachyOS kernel
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
+    zfs.package = config.boot.kernelPackages.zfs_cachyos;
   };
 
   custom = {

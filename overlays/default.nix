@@ -14,13 +14,12 @@
 
     hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${final.system}".default;
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
-    jellyfin-plugins = inputs.jellyfin-plugins.packages."${final.system}";
   };
 
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = final: prev: {
+  modifications = _: prev: {
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
@@ -41,7 +40,7 @@
     #   ];
     # });
 
-    electron_36 = final.electron_37;
+    # electron_36 = final.electron_37;
 
     whatsie = prev.whatsie.overrideAttrs (_old: {
       # Fix .desktop file and icons not being discovered
