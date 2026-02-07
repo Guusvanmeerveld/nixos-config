@@ -777,6 +777,18 @@
         "type": "github"
       }
     },
+    "qbittorrent-excluded-files": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-OeUak7r7+ZIFW9+5zTdQ/7HzKx4C/O4uhBSrzn+5rWw=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist"
+      }
+    },
     "root": {
       "inputs": {
         "argonone-nix": "argonone-nix",
@@ -798,6 +810,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
+        "qbittorrent-excluded-files": "qbittorrent-excluded-files",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "spicetify-nix": "spicetify-nix",
         "systems": "systems_6",

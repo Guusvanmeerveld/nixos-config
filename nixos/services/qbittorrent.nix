@@ -1,16 +1,12 @@
 {
-  # outputs,
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.custom.services.qbittorrent;
 in {
-  # imports = [
-  #   outputs.nixosModules.qbittorrent-nox
-  # ];
-
   options = {
     custom.services.qbittorrent = let
       inherit (lib) mkEnableOption mkOption types;
@@ -55,6 +51,13 @@ in {
         ];
       };
 
+      systemd.services.qbittorrent = {
+        serviceConfig = {
+          MemoryHigh = "3G";
+          MemoryMax = "4G";
+        };
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
@@ -87,17 +90,24 @@ in {
               MemoryWorkingSetLimit = 4096;
             };
 
-            BitTorrent.Session = {
-              AnonymousModeEnabled = true;
+            BitTorrent = {
+              ExcludedFileNamesEnabled = true;
 
-              DefaultSavePath = cfg.saveDir;
+              Session = {
+                AnonymousModeEnabled = true;
 
-              MultiConnectionsPerIp = true;
+                DefaultSavePath = cfg.saveDir;
 
-              GlobalUPSpeedLimit = 5000;
-              GlobalDLSpeedLimit = 20000;
+                MultiConnectionsPerIp = true;
+                MaxActiveUploads = 8;
 
-              DiskIOType = "Posix";
+                GlobalUPSpeedLimit = 5000;
+                GlobalDLSpeedLimit = 20000;
+
+                DiskIOType = "Posix";
+
+                ExcludedFileNames = lib.concatStringsSep ", " (lib.splitString "\n" (builtins.readFile inputs.qbittorrent-excluded-files));
+              };
             };
 
             Preferences = {

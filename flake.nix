@@ -153,6 +153,12 @@
         flake-utils.follows = "flake-utils";
       };
     };
+
+    qbittorrent-excluded-files = {
+      url = "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist";
+
+      flake = false;
+    };
   };
 
   nixConfig = {
