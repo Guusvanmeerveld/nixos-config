@@ -157,7 +157,7 @@
 
       networkConfig = {
         DHCP = "ipv4";
-        IPv6AcceptRA = true;
+        # IPv6AcceptRA = "yes";
 
         DNSOverTLS = false;
         DNSSEC = false;
