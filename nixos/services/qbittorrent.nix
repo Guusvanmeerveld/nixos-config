@@ -101,7 +101,7 @@ in {
                 MultiConnectionsPerIp = true;
                 MaxActiveUploads = 8;
 
-                GlobalUPSpeedLimit = 5000;
+                GlobalUPSpeedLimit = 10000;
                 GlobalDLSpeedLimit = 20000;
 
                 DiskIOType = "Posix";
