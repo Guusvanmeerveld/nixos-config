@@ -27,8 +27,19 @@ in {
 
   config = let
     inherit (lib) mkIf;
+    dataDir = "/var/lib/traccar";
   in
     mkIf cfg.enable {
+      custom.services.restic.client.backups.traccar = {
+        files = [
+          dataDir
+        ];
+      };
+
+      systemd.services.traccar.serviceConfig = {
+        DynamicUser = lib.mkForce false;
+      };
+
       services = {
         caddy = mkIf (cfg.caddy.url != null) {
           virtualHosts = {
@@ -48,15 +59,15 @@ in {
 
             database = {
               driver = "org.h2.Driver";
-              url = "jdbc:h2:/var/lib/traccar/db";
+              url = "jdbc:h2:${dataDir}/db";
               user = "sa";
               password = "";
             };
 
             logger.console = "true";
 
-            media.path = "/var/lib/traccar/media";
-            templates.root = "/var/lib/traccar/templates";
+            media.path = "${dataDir}/media";
+            templates.root = "${dataDir}/templates";
           };
         };
       };

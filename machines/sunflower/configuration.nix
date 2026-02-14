@@ -78,12 +78,12 @@
     };
   };
 
-  swapDevices = [
-    {
-      device = "/dev/sdc";
-      options = ["discard"];
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/dev/sdc";
+  #     options = ["discard"];
+  #   }
+  # ];
 
   boot = {
     tmp.useTmpfs = true;
@@ -94,6 +94,12 @@
     };
 
     binfmt.emulatedSystems = ["aarch64-linux"];
+
+    # Set max arc size to 8GB and minimum to 4GB
+    kernelParams = [
+      "zfs.zfs_arc_max=${toString (6 * 1024 * 1024 * 1024)}"
+      "zfs.zfs_arc_min=${toString (4 * 1024 * 1024 * 1024)}"
+    ];
   };
 
   hardware.graphics = {
@@ -290,6 +296,55 @@
       caddy = {
         enable = true;
 
+        ipFilter = {
+          enable = true;
+
+          virtualHosts = let
+            # Don't let anyone but my personal devices access these services
+            whitelist = [
+              # Wireguard devices
+              "10.10.10.1"
+              "10.10.10.2"
+              "10.10.10.4"
+              "10.10.10.6"
+              "10.10.10.12"
+              "10.10.10.13"
+              # Home ip's are also allowed
+              "192.168.1.0/16"
+              # Localhost
+              "127.0.0.1"
+            ];
+            services = [
+              "uptime"
+              "homeassistant"
+              "ntfy"
+              "miniflux"
+              "bitwarden"
+              "radicale"
+              "atuin"
+              "mealie"
+              "syncthing"
+              "radarr"
+              "sonarr"
+              "prowlarr"
+              "bazarr"
+              "qbittorrent"
+              "soulseek"
+              "grafana"
+              "glance"
+              "restic"
+              "traccar"
+            ];
+
+            subDomain = "sun.guusvanmeerveld.dev";
+          in
+            map (service: {
+              inherit whitelist;
+              domain = "https://${service}.${subDomain}";
+            })
+            services;
+        };
+
         openFirewall = true;
       };
 
@@ -355,13 +410,13 @@
         caddy.url = "https://bitwarden.sun.guusvanmeerveld.dev";
       };
 
-      # traccar = {
-      #   enable = true;
+      traccar = {
+        enable = true;
 
-      # port = 8007;
+        port = 8007;
 
-      #   caddy.url = "https://traccar.sun";
-      # };
+        caddy.url = "https://traccar.sun.guusvanmeerveld.dev";
+      };
 
       radicale = {
         enable = true;
