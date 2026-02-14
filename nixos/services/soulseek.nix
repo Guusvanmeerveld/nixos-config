@@ -68,9 +68,6 @@ in {
 
           domain = null;
 
-          user = "lidarr";
-          group = "lidarr";
-
           inherit (cfg) environmentFile;
 
           settings = {
@@ -108,10 +105,6 @@ in {
 
             web = {
               port = cfg.webUIPort;
-
-              authentication.api_keys = {
-                lidarr.key = "vbz72HzWIy@vkgw5BZYIr3m&tVpEWbbk";
-              };
             };
           };
         };
