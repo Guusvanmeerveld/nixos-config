@@ -334,6 +334,7 @@
               "glance"
               "restic"
               "traccar"
+              "cleanuparr"
             ];
 
             subDomain = "sun.guusvanmeerveld.dev";
@@ -531,14 +532,6 @@
         caddy.url = "https://bazarr.sun.guusvanmeerveld.dev";
       };
 
-      # lidarr = {
-      #   enable = true;
-
-      #   port = 8019;
-
-      #   caddy.url = "https://lidarr.sun.guusvanmeerveld.dev";
-      # };
-
       recyclarr = {
         enable = true;
 
@@ -609,6 +602,14 @@
         port = 8025;
 
         caddy.url = "https://glance.sun.guusvanmeerveld.dev";
+      };
+
+      cleanuparr = {
+        enable = true;
+
+        port = 8026;
+
+        caddy.url = "https://cleanuparr.sun.guusvanmeerveld.dev";
       };
     };
 

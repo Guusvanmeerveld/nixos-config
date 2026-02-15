@@ -85,6 +85,23 @@
         "type": "github"
       }
     },
+    "cleanuparr": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1770976373,
+        "narHash": "sha256-CjM2J0breMU32IfSOby8q8DymqwvXpQ7ZZ+K1ZT0znA=",
+        "owner": "Cleanuparr",
+        "repo": "Cleanuparr",
+        "rev": "c43936ce81423bf4c0540efa038ba2482c3e6842",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cleanuparr",
+        "ref": "v2.6.1",
+        "repo": "Cleanuparr",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -775,21 +792,10 @@
         "type": "github"
       }
     },
-    "qbittorrent-excluded-files": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-OeUak7r7+ZIFW9+5zTdQ/7HzKx4C/O4uhBSrzn+5rWw=",
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist"
-      },
-      "original": {
-        "type": "file",
-        "url": "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist"
-      }
-    },
     "root": {
       "inputs": {
         "argonone-nix": "argonone-nix",
+        "cleanuparr": "cleanuparr",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils_2",
@@ -808,7 +814,6 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "pre-commit-hooks": "pre-commit-hooks",
-        "qbittorrent-excluded-files": "qbittorrent-excluded-files",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "spicetify-nix": "spicetify-nix",
         "systems": "systems_7",

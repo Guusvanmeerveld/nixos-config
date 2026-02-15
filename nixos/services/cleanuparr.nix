@@ -1,19 +1,22 @@
 {
   config,
+  outputs,
   lib,
   ...
 }: let
-  cfg = config.custom.services.radarr;
+  cfg = config.custom.services.cleanuparr;
 in {
+  imports = [outputs.nixosModules.cleanuparr];
+
   options = {
-    custom.services.radarr = let
+    custom.services.cleanuparr = let
       inherit (lib) mkEnableOption mkOption types;
     in {
-      enable = mkEnableOption "Enable Radarr";
+      enable = mkEnableOption "Enable cleanuparr";
 
       port = lib.mkOption {
         type = lib.types.ints.u16;
-        default = 5656;
+        default = 11011;
         description = "The port to run the web ui on";
       };
 
@@ -29,15 +32,16 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
-      custom.services.restic.client.backups.radarr = {
-        services = ["radarr"];
+      custom.services.restic.client.backups.cleanuparr = {
+        services = ["cleanuparr"];
 
         files = [
-          config.services.radarr.dataDir
+          config.services.cleanuparr.dataDir
         ];
 
         excluded = [
           "logs*"
+          "wwwroot"
         ];
       };
 
@@ -52,12 +56,10 @@ in {
           };
         };
 
-        radarr = {
+        cleanuparr = {
           enable = true;
 
-          settings = {
-            server.port = cfg.port;
-          };
+          port = cfg.port;
         };
       };
     };

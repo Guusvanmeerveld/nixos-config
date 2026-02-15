@@ -45,5 +45,6 @@
     ./forgejo.nix
     ./grafana.nix
     ./glance.nix
+    ./cleanuparr.nix
   ];
 }

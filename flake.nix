@@ -131,7 +131,6 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
       };
     };
@@ -154,8 +153,8 @@
       };
     };
 
-    qbittorrent-excluded-files = {
-      url = "https://raw.githubusercontent.com/Cleanuparr/Cleanuparr/refs/heads/main/blacklist";
+    cleanuparr = {
+      url = "github:Cleanuparr/Cleanuparr/v2.6.1";
 
       flake = false;
     };
@@ -241,7 +240,10 @@
     packages = forAllSystems (
       with lib; (
         system:
-          (getAttr "export" (import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};}))
+          (getAttr "export" (import ./pkgs {
+            pkgs = nixpkgs.legacyPackages.${system};
+            inherit inputs;
+          }))
           // {
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
           }

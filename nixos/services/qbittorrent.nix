@@ -106,7 +106,7 @@ in {
 
                 DiskIOType = "Posix";
 
-                ExcludedFileNames = lib.concatStringsSep ", " (lib.splitString "\n" (builtins.readFile inputs.qbittorrent-excluded-files));
+                ExcludedFileNames = lib.concatStringsSep ", " (lib.splitString "\n" (builtins.readFile "${inputs.cleanuparr}/blacklist"));
               };
             };
 

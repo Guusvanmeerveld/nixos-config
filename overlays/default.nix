@@ -3,7 +3,10 @@
   additions = final: _prev: {
     # This one brings our custom packages from the 'pkgs' directory
     custom =
-      (import ../pkgs {pkgs = final;})
+      (import ../pkgs {
+        pkgs = final;
+        inherit inputs;
+      })
       // {
         scripts = import ../scripts {pkgs = final;};
         utils = import ../utils rec {
