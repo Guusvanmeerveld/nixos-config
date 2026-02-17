@@ -47,6 +47,6 @@ in
       homepage = "https://cleanuparr.github.io/Cleanuparr/";
       license = lib.licenses.mit;
       mainProgram = "Cleanuparr";
-      platforms = dotnet-runtime.meta.platforms;
+      inherit (dotnet-runtime.meta) platforms;
     };
   }

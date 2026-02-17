@@ -59,7 +59,7 @@ in {
         cleanuparr = {
           enable = true;
 
-          port = cfg.port;
+          inherit (cfg) port;
         };
       };
     };

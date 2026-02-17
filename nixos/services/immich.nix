@@ -89,11 +89,7 @@ in {
               accelDecode = true;
             };
 
-            storageTemplate = {
-              enabled = true;
-              hashVerificationEnabled = true;
-              template = "{{y}}/{{y}}-{{MM}}-{{dd}}/{{filename}}";
-            };
+            storageTemplate.enabled = true;
           };
         };
       };
