@@ -84,13 +84,16 @@ in {
                 description = "Path to the file containing the repository password";
                 default = "/secrets/restic/${name}/passwordFile";
               };
+
+              repositories = mkOption {
+                type = with types; listOf str;
+                default = [
+                  "rest:https://restic.sun.guusvanmeerveld.dev"
+                  "s3:https://s3.eu-central-003.backblazeb2.com/guusvanmeerveld-restic-backups"
+                ];
+              };
             };
           }));
-      };
-
-      repository = mkOption {
-        type = types.str;
-        default = "rest:https://restic.sun.guusvanmeerveld.dev";
       };
 
       restEnvFile = mkOption {
@@ -101,114 +104,146 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf mapAttrs optionalString optional optionals getExe concatStringsSep concatStrings;
+    inherit (lib) mkIf listToAttrs attrsToList flatten optionalString optional optionals getExe concatStringsSep concatStrings;
   in
     mkIf cfg.enable {
-      services.restic.backups =
-        mapAttrs (
-          name: {
-            files,
-            excluded,
-            services,
-            sqliteDBs,
-            postgresDBs,
-            passwordFile,
-            timer,
-            user,
-            location,
-            ...
-          }: let
-            needsToRestartServices = services != [];
-            needsSqliteBackup = sqliteDBs != [];
-            needsPostgresBackup = postgresDBs != [];
-            needsDBBackup = needsPostgresBackup || needsSqliteBackup;
-          in {
-            inherit passwordFile user;
+      services.restic.backups = listToAttrs (
+        flatten (
+          map (
+            {
+              name,
+              value,
+            }:
+              map (
+                repository: let
+                  inherit
+                    (value)
+                    files
+                    excluded
+                    services
+                    sqliteDBs
+                    postgresDBs
+                    passwordFile
+                    timer
+                    user
+                    location
+                    ;
 
-            backupPrepareCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
-              name = "prepare-backup-${name}";
+                  needsToRestartServices = services != [];
+                  needsSqliteBackup = sqliteDBs != [];
+                  needsPostgresBackup = postgresDBs != [];
+                  needsDBBackup = needsPostgresBackup || needsSqliteBackup;
 
-              runtimeInputs = with pkgs; [systemd];
+                  # substringUntil = {
+                  #   str,
+                  #   delimiter,
+                  # }: let
+                  #   pos = builtins.elemAt (builtins.match (".*?" + delimiter) str) 0;
+                  #   pos1 = lib.trace pos pos;
+                  # in
+                  #   if pos1 != null
+                  #   then builtins.substring 0 (builtins.stringLength pos1) str
+                  #   else str;
 
-              text = ''
-                ${optionalString needsToRestartServices ''
-                  systemctl stop ${concatStringsSep " " services}
-                ''}
-              '';
-            }));
+                  repositoryType = lib.substring 0 2 repository;
+                in {
+                  name = "${repositoryType}-${name}";
+                  value = {
+                    inherit passwordFile user;
 
-            backupCleanupCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
-              name = "cleanup-backup-${name}";
+                    backupPrepareCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
+                      name = "prepare-backup-${name}";
 
-              runtimeInputs = with pkgs; [systemd];
+                      runtimeInputs = with pkgs; [systemd];
 
-              text = ''
-                ${optionalString needsToRestartServices ''
-                  systemctl start ${concatStringsSep " " services}
-                ''}
-              '';
-            }));
+                      text = ''
+                        ${optionalString needsToRestartServices ''
+                          systemctl stop ${concatStringsSep " " services}
+                        ''}
+                      '';
+                    }));
 
-            paths = files;
-            exclude = excluded;
+                    backupCleanupCommand = mkIf needsToRestartServices (getExe (pkgs.writeShellApplication {
+                      name = "cleanup-backup-${name}";
 
-            dynamicFilesFrom = mkIf needsDBBackup (getExe (pkgs.writeShellApplication {
-              name = "${name}-backup-dynamic-files";
+                      runtimeInputs = with pkgs; [systemd];
 
-              runtimeInputs = with pkgs; ([findutils]
-                ++ (optionals needsPostgresBackup [postgresql sudo-rs coreutils])
-                ++ (optional needsSqliteBackup sqlite));
+                      text = ''
+                        ${optionalString needsToRestartServices ''
+                          systemctl start ${concatStringsSep " " services}
+                        ''}
+                      '';
+                    }));
 
-              text = let
-                sqliteBackupScript = optional needsSqliteBackup (
-                  concatStringsSep "\n" (lib.imap0
-                    (i: location: ''
-                      sqlite3 ${location} ".backup '/tmp/${name}_${toString i}_db.sqlite3.bak'"
-                    '')
-                    sqliteDBs)
-                );
+                    paths = files;
+                    exclude = excluded;
 
-                postgresBackupScript = optional needsPostgresBackup (
-                  concatStringsSep "\n" (map
-                    ({
-                      dbName,
-                      user,
-                    }: ''
-                      sudo -u ${user} pg_dump ${dbName} | sudo -u ${user} tee '/tmp/${name}_${toString dbName}_db.psql.bak' > /dev/null
-                    '')
-                    postgresDBs)
-                );
-              in ''
-                umask 077
+                    dynamicFilesFrom = mkIf needsDBBackup (getExe (pkgs.writeShellApplication {
+                      name = "${name}-backup-dynamic-files";
 
-                ${concatStrings (sqliteBackupScript ++ postgresBackupScript)}
+                      runtimeInputs = with pkgs; ([findutils]
+                        ++ (optionals needsPostgresBackup [postgresql sudo-rs coreutils])
+                        ++ (optional needsSqliteBackup sqlite));
 
-                find ${
-                  concatStringsSep " "
-                  ((optional needsSqliteBackup "/tmp/${name}_*_db.sqlite3.bak")
-                    ++ (optional needsPostgresBackup "/tmp/${name}_*_db.psql.bak"))
+                      text = let
+                        sqliteBackupScript = optional needsSqliteBackup (
+                          concatStringsSep "\n" (lib.imap0
+                            (i: location: ''
+                              sqlite3 ${location} ".backup '/tmp/${name}_${toString i}_db.sqlite3.bak'"
+                            '')
+                            sqliteDBs)
+                        );
+
+                        postgresBackupScript = optional needsPostgresBackup (
+                          concatStringsSep "\n" (map
+                            ({
+                              dbName,
+                              user,
+                            }: ''
+                              sudo -u ${user} pg_dump ${dbName} | sudo -u ${user} tee '/tmp/${name}_${toString dbName}_db.psql.bak' > /dev/null
+                            '')
+                            postgresDBs)
+                        );
+                      in ''
+                        umask 077
+
+                        ${concatStrings (sqliteBackupScript ++ postgresBackupScript)}
+
+                        find ${
+                          concatStringsSep " "
+                          ((optional needsSqliteBackup "/tmp/${name}_*_db.sqlite3.bak")
+                            ++ (optional needsPostgresBackup "/tmp/${name}_*_db.psql.bak"))
+                        }
+                      '';
+                    }));
+
+                    pruneOpts = [
+                      "--keep-daily 7"
+                      "--keep-weekly 5"
+                      "--keep-monthly 12"
+                    ];
+
+                    checkOpts = [
+                      "--with-cache"
+                    ];
+
+                    initialize = true;
+
+                    repository = "${repository}/${location}";
+
+                    timerConfig = {
+                      OnCalendar = timer;
+                      RandomizedDelaySec = "2h";
+                    };
+
+                    environmentFile = cfg.restEnvFile;
+                  };
                 }
-              '';
-            }));
-
-            pruneOpts = [
-              "--keep-daily 7"
-              "--keep-weekly 5"
-              "--keep-monthly 12"
-            ];
-
-            initialize = true;
-
-            repository = "${cfg.repository}/${location}";
-
-            timerConfig = {
-              OnCalendar = timer;
-              RandomizedDelaySec = "1h";
-            };
-
-            environmentFile = cfg.restEnvFile;
-          }
+              )
+              value.repositories
+          )
+          (attrsToList cfg.backups)
         )
-        cfg.backups;
+      );
     };
 }

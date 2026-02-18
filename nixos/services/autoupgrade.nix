@@ -25,7 +25,7 @@ in {
 
       randomizedDelaySec = "30min";
 
-      dates = "Fri 05:00";
+      dates = "Fri 04:00";
     };
   };
 }

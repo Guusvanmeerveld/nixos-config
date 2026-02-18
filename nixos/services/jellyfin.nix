@@ -35,6 +35,13 @@ in {
         files = [
           config.services.jellyfin.dataDir
         ];
+
+        excluded = [
+          # These can be regenerated after backup, and they use a lot of space
+          "metadata"
+          "data/introskipper"
+          "data/trickplay"
+        ];
       };
 
       # Open port for DLNA

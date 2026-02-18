@@ -1,7 +1,5 @@
 {...}: {
   imports = [
-    ./searx.nix
-    ./nginx.nix
     ./radicale.nix
     ./miniflux.nix
     ./vaultwarden.nix
