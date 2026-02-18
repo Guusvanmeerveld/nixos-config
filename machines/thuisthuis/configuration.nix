@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+_: {
   imports = [
     ../../nixos
 
@@ -35,8 +31,8 @@
       matchConfig.Name = "enp34s0";
 
       networkConfig = {
-        DHCP = "yes";
-        IPv6AcceptRA = true;
+        DHCP = "ipv4";
+        IPv6AcceptRA = false;
 
         DNSOverTLS = false;
         DNSSEC = false;
@@ -74,10 +70,6 @@
 
       timeout = 0;
     };
-
-    # Replace kernel by CachyOS kernel
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
-    zfs.package = config.boot.kernelPackages.zfs_cachyos;
   };
 
   custom = {
@@ -93,6 +85,8 @@
 
     security.keyring.enable = true;
     certificates.enable = true;
+
+    linux.cachyos.useKernel = true;
 
     fs.zfs.enable = true;
 

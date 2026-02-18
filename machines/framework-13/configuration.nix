@@ -23,8 +23,6 @@
     };
 
     kernelParams = ["amdgpu.dcdebugmask=0x10" "pcie_aspm=off"];
-
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   # Custom systemd service that unloads the wifi driver for the wifi card before hibernation and suspend, because they will otherwise fail.
@@ -89,6 +87,8 @@
         config = ./guus/home.nix;
       };
     };
+
+    linux.cachyos.useKernel = true;
 
     security.keyring.enable = true;
     certificates.enable = true;

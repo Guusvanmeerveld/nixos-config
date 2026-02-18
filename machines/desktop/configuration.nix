@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   imports = [
     ../../nixos
 
@@ -57,8 +57,6 @@
 
       timeout = 0;
     };
-
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest;
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -78,6 +76,8 @@
         config = ./guus/home.nix;
       };
     };
+
+    linux.cachyos.useKernel = true;
 
     security.keyring.enable = true;
     certificates.enable = true;

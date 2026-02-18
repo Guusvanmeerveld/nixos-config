@@ -19,5 +19,6 @@
     ./overlays.nix
     ./alerts.nix
     ./uptime.nix
+    ./linux.nix
   ];
 }
