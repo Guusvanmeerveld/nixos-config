@@ -97,12 +97,22 @@ in {
                 AnonymousModeEnabled = true;
 
                 DefaultSavePath = cfg.saveDir;
+                # Enable automatic torrent management mode
+                DisableAutoTMMByDefault = false;
+                # Relocate files automatically when save path changed
+                DisableAutoTMMTriggers = {
+                  CategorySavePathChanged = false;
+                  DefaultSavePathChanged = false;
+                };
 
                 MultiConnectionsPerIp = true;
                 MaxActiveUploads = 8;
 
-                GlobalUPSpeedLimit = 10000;
-                GlobalDLSpeedLimit = 20000;
+                GlobalUPSpeedLimit = 62 * (1000 - 20);
+                GlobalDLSpeedLimit = 100 * (1000 - 20);
+
+                AlternativeGlobalUPSpeedLimit = 5 * (1000 - 20);
+                AlternativeGlobalDLSpeedLimit = 10 * (1000 - 20);
 
                 DiskIOType = "Posix";
 

@@ -4,8 +4,6 @@
 {
   config,
   pkgs,
-  inputs,
-  lib,
   ...
 }: {
   imports = [
@@ -17,8 +15,7 @@
     ./hardware-configuration.nix
 
     ./forgejo-runner.nix
-
-    inputs.vpn-confinement.nixosModules.default
+    ./media.nix
   ];
 
   fileSystems = {
@@ -78,13 +75,6 @@
     };
   };
 
-  # swapDevices = [
-  #   {
-  #     device = "/dev/sdc";
-  #     options = ["discard"];
-  #   }
-  # ];
-
   boot = {
     tmp.useTmpfs = true;
 
@@ -93,9 +83,7 @@
       timeout = 0;
     };
 
-    binfmt.emulatedSystems = ["aarch64-linux"];
-
-    # Set max arc size to 8GB and minimum to 4GB
+    # Set max arc size to 6GB and minimum to 4GB
     kernelParams = [
       "zfs.zfs_arc_max=${toString (6 * 1024 * 1024 * 1024)}"
       "zfs.zfs_arc_min=${toString (4 * 1024 * 1024 * 1024)}"
@@ -136,13 +124,6 @@
         Cache = "yes";
       };
     };
-
-    qbittorrent.serverConfig = {
-      BitTorrent.Session.Port = 10100;
-      Preferences.WebUI.Address = "192.168.15.1";
-    };
-
-    slskd.settings.soulseek.listen_port = 7717;
   };
 
   networking = {
@@ -177,80 +158,6 @@
     };
   };
 
-  users = {
-    groups.media = {};
-
-    users =
-      {
-        media = {
-          group = "media";
-          isSystemUser = true;
-        };
-      }
-      // (lib.listToAttrs (map (user: {
-          name = user;
-          value = {
-            extraGroups = ["media"];
-          };
-        }) [
-          "radarr"
-          "sonarr"
-          "bazarr"
-          "qbittorrent"
-          "jellyfin"
-          "guus"
-        ]));
-  };
-
-  systemd.services = {
-    qbittorrent.vpnConfinement = {
-      enable = true;
-      vpnNamespace = "vpn";
-    };
-
-    slskd.vpnConfinement = {
-      enable = true;
-      vpnNamespace = "vpn";
-    };
-  };
-
-  vpnNamespaces.vpn = {
-    # The name is limited to 7 characters
-
-    enable = true;
-    wireguardConfigFile = "/secrets/vpn/wgFile";
-
-    accessibleFrom = [
-      "127.0.0.0/24"
-    ];
-
-    openVPNPorts = [
-      {
-        port = config.services.qbittorrent.serverConfig.BitTorrent.Session.Port;
-        protocol = "both";
-      }
-      {
-        port = config.services.slskd.settings.soulseek.listen_port;
-        protocol = "both";
-      }
-    ];
-
-    portMappings = [
-      (let
-        qbtPort = config.services.qbittorrent.webuiPort;
-      in {
-        from = qbtPort;
-        to = qbtPort;
-      })
-      (let
-        slskdPort = config.services.slskd.settings.web.port;
-      in {
-        from = slskdPort;
-        to = slskdPort;
-      })
-    ];
-  };
-
   environment.variables = {
     ROC_ENABLE_PRE_VEGA = "1";
   };
@@ -269,6 +176,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKIdNGCw0MURAoLliBBn3+LGGXZu17yNYUuOAMDHXoqj guus@thuisthuis"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOxp38hLC2UUaKt7wkiqSHUHI9FxrY8gHJTO2sAElZID guus@framework-13"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICZ3RNokgR4jcvxvCHtMS5zd8BPPNPb+7tZKBVz4y6SU guus@desktop"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIghXLOviAKrfk0X0GoXIXTBJvJea9dmSBTKc7jyvnIS guus@phone"
       ];
     };
 
@@ -335,6 +243,7 @@
               "restic"
               "traccar"
               "cleanuparr"
+              "immich"
             ];
 
             subDomain = "sun.guusvanmeerveld.dev";
