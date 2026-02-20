@@ -19,6 +19,7 @@
     "mongodb"
     "intel-ocl"
     "vscode-extension-ms-vscode-remote-remote-containers"
+    "minecraft-server"
   ];
 in {
   config.nixpkgs = {

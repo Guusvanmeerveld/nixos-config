@@ -44,5 +44,6 @@
     ./grafana.nix
     ./glance.nix
     ./cleanuparr.nix
+    ./murmur.nix
   ];
 }

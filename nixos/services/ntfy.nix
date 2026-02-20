@@ -81,6 +81,9 @@ in {
               else "read-write";
             enable-login = true;
 
+            # Disable Web UI
+            web-root = "disable";
+
             auth-file = authFile;
             attachment-cache-dir = attachementsCache;
             cache-file = cacheFile;

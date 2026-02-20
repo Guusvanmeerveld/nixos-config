@@ -218,6 +218,12 @@
 
         caddy.url = "https://ntfy.guusvanmeerveld.dev";
       };
+
+      murmur = {
+        enable = true;
+
+        caddy.hostname = "voice.guusvanmeerveld.dev";
+      };
     };
 
     alerts = {
