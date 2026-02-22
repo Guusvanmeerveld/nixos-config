@@ -2,6 +2,7 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [
@@ -69,7 +70,12 @@
         AutoRun = {
           enabled = true;
 
-          program = ''chmod -R 770 \"%F/\" && chown qbittorrent:media \"%F/\" -R'';
+          program = let
+            fixScript = pkgs.writeShellScript "fix-qbittorrent-perms" ''
+              chmod -R 770 "$1"
+              chown -R qbittorrent:media "$1"
+            '';
+          in ''${fixScript} \"%F/\"'';
         };
       };
     };

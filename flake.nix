@@ -154,7 +154,7 @@
     };
 
     cleanuparr = {
-      url = "github:Cleanuparr/Cleanuparr/v2.6.1";
+      url = "github:Cleanuparr/Cleanuparr";
 
       flake = false;
     };
@@ -242,7 +242,6 @@
         system:
           (getAttr "export" (import ./pkgs {
             pkgs = nixpkgs.legacyPackages.${system};
-            inherit inputs;
           }))
           // {
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;

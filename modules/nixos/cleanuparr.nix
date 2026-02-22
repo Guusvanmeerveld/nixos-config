@@ -75,7 +75,7 @@ in {
           UMask = "0077";
 
           WorkingDirectory = cfg.dataDir;
-          ExecStart = "${lib.getExe cfg.package}";
+          ExecStart = lib.getExe cfg.package;
           Restart = "on-failure";
           TimeoutSec = 15;
 

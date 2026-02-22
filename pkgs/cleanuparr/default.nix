@@ -2,20 +2,51 @@
   buildDotnetModule,
   dotnetCorePackages,
   pkgs,
-  inputs,
+  fetchFromGitHub,
+  buildNpmPackage,
   lib,
   ...
 }: let
   qbittorrentClient = pkgs.callPackage ./qbittorrent {};
   transmissionClient = pkgs.callPackage ./transmission {};
-  frontend = pkgs.callPackage ./frontend.nix {inherit inputs;};
+
+  version = "2.7.0";
+
+  src = fetchFromGitHub {
+    owner = "cleanuparr";
+    repo = "cleanuparr";
+    tag = "v${version}";
+    hash = "sha256-Y71furJ5ubjkAYgg7kmB+6W9/12rE8vD8oSL1HSZpAY=";
+  };
+
+  frontend = buildNpmPackage {
+    pname = "Cleanuparr-Frontend";
+    inherit version;
+
+    src = "${src}/code/frontend";
+    npmDepsHash = "sha256-MrRUlm4rBwrT7eTVBMKX3icOKeFRSUfbW0mEh87L7KI=";
+
+    buildPhase = ''
+      npm run build
+    '';
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r dist/ui/browser $out/wwwroot
+    '';
+
+    meta = {
+      description = "Cleanup system for *arr services";
+      homepage = "https://cleanuparr.github.io/Cleanuparr/";
+      license = lib.licenses.mit;
+      mainProgram = "Cleanuparr";
+    };
+  };
 in
   buildDotnetModule rec {
     pname = "Cleanuparr";
 
-    version = "2.6.1";
-
-    src = inputs.cleanuparr;
+    inherit version src;
 
     dotnet-sdk = dotnetCorePackages.sdk_10_0;
     dotnet-runtime = dotnetCorePackages.runtime_10_0;
@@ -35,7 +66,7 @@ in
       "code/backend/Cleanuparr.Api/Cleanuparr.Api.csproj"
     ];
 
-    enableParallelBuilding = false;
+    # enableParallelBuilding = false;
     selfContainedBuild = true;
 
     executables = ["Cleanuparr"];

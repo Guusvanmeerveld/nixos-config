@@ -1,15 +1,11 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-{
-  pkgs,
-  inputs,
-}: rec {
+{pkgs}: rec {
   # example = pkgs.callPackage ./example { };
 
   lidarr-plugins = pkgs.callPackage ./lidarr-plugins {};
 
-  cleanuparr = pkgs.callPackage ./cleanuparr {inherit inputs;};
-  cleanuparr-frontend = pkgs.callPackage ./cleanuparr/frontend.nix {inherit inputs;};
+  cleanuparr = pkgs.callPackage ./cleanuparr {};
   qbittorrent-net-client = pkgs.callPackage ./cleanuparr/qbittorrent {};
   transmission-net-client = pkgs.callPackage ./cleanuparr/transmission {};
 
@@ -24,7 +20,7 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
-    inherit free-epic-games lidarr-plugins caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client cleanuparr-frontend;
+    inherit free-epic-games lidarr-plugins caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client;
     inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;

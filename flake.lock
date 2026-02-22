@@ -88,16 +88,15 @@
     "cleanuparr": {
       "flake": false,
       "locked": {
-        "lastModified": 1770976373,
-        "narHash": "sha256-CjM2J0breMU32IfSOby8q8DymqwvXpQ7ZZ+K1ZT0znA=",
+        "lastModified": 1771782554,
+        "narHash": "sha256-Y71furJ5ubjkAYgg7kmB+6W9/12rE8vD8oSL1HSZpAY=",
         "owner": "Cleanuparr",
         "repo": "Cleanuparr",
-        "rev": "c43936ce81423bf4c0540efa038ba2482c3e6842",
+        "rev": "e1cc0dba28985b383bfadc7a89524ede65b19222",
         "type": "github"
       },
       "original": {
         "owner": "Cleanuparr",
-        "ref": "v2.6.1",
         "repo": "Cleanuparr",
         "type": "github"
       }

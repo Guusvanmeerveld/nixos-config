@@ -5,7 +5,6 @@
     custom =
       (import ../pkgs {
         pkgs = final;
-        inherit inputs;
       })
       // {
         scripts = import ../scripts {pkgs = final;};
