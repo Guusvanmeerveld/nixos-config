@@ -120,6 +120,7 @@ in {
             security = {
               content_security_policy = true;
               cookie_secure = true;
+              secret_key = "$__file{/secrets/grafana/secret-key}";
             };
           };
         };
