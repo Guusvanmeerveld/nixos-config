@@ -45,6 +45,7 @@ in {
         shellAliases = {
           hms = "${nh} home switch ${config.custom.nixConfigLocation}";
           nbs = "${nh} os switch ${config.custom.nixConfigLocation}";
+          nbso = "${nh} os switch ${config.custom.nixConfigLocation} --offline";
 
           edit = "$EDITOR";
 
