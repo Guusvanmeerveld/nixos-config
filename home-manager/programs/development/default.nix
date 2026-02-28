@@ -16,9 +16,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     custom.programs.development = {
-      zed.enable = true;
       vscode.enable = true;
-      bruno.enable = true;
     };
 
     home.packages = with pkgs; [zap];
