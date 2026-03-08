@@ -2,7 +2,9 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+  cachePort = 10500;
+in {
   users.users.gitea-runner = {
     isSystemUser = true;
     group = "gitea-runner";
@@ -13,6 +15,14 @@
 
   systemd.services.gitea-runner-default.serviceConfig = {
     DynamicUser = lib.mkForce false;
+  };
+
+  services.caddy.virtualHosts = {
+    "https://forgejo-cache.sun.guusvanmeerveld.dev" = {
+      extraConfig = ''
+        reverse_proxy http://localhost:${toString cachePort}
+      '';
+    };
   };
 
   services.gitea-actions-runner = {
@@ -33,6 +43,16 @@
         "ubuntu-20.04:docker://node:lts-bullseye"
         "ubuntu-18.04:docker://node:lts-buster"
       ];
+
+      settings = {
+        cache = {
+          enabled = true;
+
+          port = cachePort;
+
+          actions_cache_url_override = "https://forgejo-cache.sun.guusvanmeerveld.dev";
+        };
+      };
     };
   };
 }

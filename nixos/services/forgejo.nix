@@ -66,6 +66,8 @@ in {
               HTTP_PORT = cfg.port;
             };
 
+            service.DISABLE_REGISTRATION = true;
+
             actions = {
               ENABLED = true;
               DEFAULT_ACTIONS_URL = "github";
