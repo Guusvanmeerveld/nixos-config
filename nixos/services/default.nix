@@ -27,7 +27,6 @@
     ./unifi.nix
     ./homeassistant.nix
     ./mail-server.nix
-    ./traccar.nix
     ./atuin.nix
     ./restic
     ./adguard.nix
@@ -45,5 +44,6 @@
     ./glance.nix
     ./cleanuparr.nix
     ./murmur.nix
+    ./dawarich.nix
   ];
 }

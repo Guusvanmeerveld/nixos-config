@@ -241,7 +241,7 @@
               "grafana"
               "glance"
               "restic"
-              "traccar"
+              "dawarich"
               "cleanuparr"
               "immich"
             ];
@@ -320,12 +320,12 @@
         caddy.url = "https://bitwarden.sun.guusvanmeerveld.dev";
       };
 
-      traccar = {
+      dawarich = {
         enable = true;
 
         port = 8007;
 
-        caddy.url = "https://traccar.sun.guusvanmeerveld.dev";
+        caddy.domain = "dawarich.sun.guusvanmeerveld.dev";
       };
 
       radicale = {
@@ -366,7 +366,7 @@
       };
 
       mealie = {
-        enable = true;
+        enable = false;
 
         port = 8012;
 
