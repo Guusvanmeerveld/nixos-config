@@ -104,7 +104,6 @@
     };
 
     hardware = {
-      backlight.enable = true;
       bluetooth.enable = true;
       upower.enable = true;
       plymouth.enable = true;
