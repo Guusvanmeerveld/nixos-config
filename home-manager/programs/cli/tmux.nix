@@ -17,8 +17,6 @@ in {
       enable = true;
       clock24 = true;
 
-      tmuxp.enable = true;
-
       plugins = with pkgs; [
         tmuxPlugins.cpu
         {
