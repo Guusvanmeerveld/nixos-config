@@ -106,7 +106,9 @@ in {
                 };
 
                 MultiConnectionsPerIp = true;
-                MaxActiveUploads = 8;
+                MaxActiveDownloads = 20;
+                MaxActiveUploads = 20;
+                MaxActiveTorrents = 25;
 
                 GlobalUPSpeedLimit = 62 * (1000 - 20);
                 GlobalDLSpeedLimit = 100 * (1000 - 20);
