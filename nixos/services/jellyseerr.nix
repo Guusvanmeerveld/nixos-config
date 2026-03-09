@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.jellyseerr;
@@ -64,6 +65,8 @@ in {
 
         jellyseerr = {
           enable = true;
+
+          package = pkgs.custom.seerr;
 
           inherit (cfg) port;
         };
