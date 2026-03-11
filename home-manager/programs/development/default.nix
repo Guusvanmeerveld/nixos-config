@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs.development;
@@ -18,7 +17,5 @@ in {
     custom.programs.development = {
       vscode.enable = true;
     };
-
-    home.packages = with pkgs; [zap];
   };
 }
