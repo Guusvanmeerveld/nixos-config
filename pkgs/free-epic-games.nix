@@ -14,11 +14,11 @@ in {
   src = fetchFromGitHub {
     owner = "claabs";
     repo = "epicgames-freegames-node";
-    rev = "0a44b5b6f6dac797e7cb23d73087110b0e96d15b";
-    hash = "sha256-dNDxaGPNEu9pSG2u1xCm7/FP0XtYoPmVSs7BjGrZgOI=";
+    rev = "40ef654990ad639cf3d13dd1c9c4db2f1e5ecb79";
+    hash = "sha256-FDNtZjqWusBbtHmPUXrqNR4G/WwKNmRYhV0SGw4IkZ0=";
   };
 
-  npmDepsHash = "sha256-CSFKckhPf2S5SRfGRBMBPHm0mfSwE1onRzf5lUoGguA=";
+  npmDepsHash = "sha256-y/TfbYKkjzBmigV3/KwuHVh5j21MCOsOyn/L9y5UrnU=";
 
   postPatch = ''
     mv package.json 2.json

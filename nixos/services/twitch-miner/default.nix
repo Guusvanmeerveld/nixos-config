@@ -56,10 +56,10 @@ in {
         image = "${name}:${version}";
         imageFile = pkgs.dockerTools.pullImage {
           imageName = "rdavidoff/twitch-channel-points-miner-v2";
-          imageDigest = "sha256:03a46627173caab35afeba99451f55bb74229a732ccbf8458d3aa5016503d5cd";
+          imageDigest = "sha256:f160a2e6fd2a558d28c929552fb0992a12a37564a035d9bcec5ffaf76f5fcd05";
           finalImageName = "${name}";
           finalImageTag = "${version}";
-          hash = "sha256-HjDR9pmC3RDJYxWLhjEwttF/PXGrP+icHxDob6ivpXE=";
+          hash = "sha256-jvEaUi9LhSclqncesvXpdPkaUb/uQJHVAveoplchFII=";
         };
 
         extraOptions = ["--network=host"];

@@ -1,5 +1,5 @@
 _: rec {
-  hexToDecimal = hex: (builtins.fromTOML "a = 0x${hex}").a;
+  hexToDecimal = hex: (fromTOML "a = 0x${hex}").a;
 
   makeTransparent = hex: transparancy: let
     r = hexToDecimal (builtins.substring 1 2 hex);

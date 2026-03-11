@@ -3,7 +3,6 @@
 {pkgs}: rec {
   # example = pkgs.callPackage ./example { };
 
-  lidarr-plugins = pkgs.callPackage ./lidarr-plugins {};
   seerr = pkgs.callPackage ./seerr.nix {};
 
   samsung-jellyfin-installer = pkgs.callPackage ./samsung-jellyfin-installer {};
@@ -23,7 +22,7 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
-    inherit free-epic-games lidarr-plugins caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer seerr;
+    inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer seerr;
     inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
