@@ -162,6 +162,8 @@ in {
             "latex-workshop.message.error.show" = false;
             "latex-workshop.message.warning.show" = false;
 
+            "rust-analyzer.check.command" = "clippy";
+
             "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
             "clangd.arguments" = [
               "--background-index"
@@ -178,7 +180,8 @@ in {
               "workbench.action.tasks.runTask"
             ];
 
-            "sqlfluff.dialect" = "duckdb";
+            # "sqlfluff.dialect" = "duckdb";
+            # "sqlfluff.executablePath" =  lib.getExe pkgs.sqlfluff;
 
             "tabby.endpoint" = "http://localhost:11029";
             "tabby.config.telemetry" = true;
@@ -202,6 +205,7 @@ in {
             "dev.containers.dockerPath" = lib.getExe pkgs.docker;
 
             "terminal.integrated.stickyScroll.enabled" = false;
+            "terminal.integrated.suggest.enabled" = true;
 
             "files.watcherExclude" = {
               "**/.bloop" = true;
@@ -242,7 +246,7 @@ in {
               esbenp.prettier-vscode
               tabbyml.vscode-tabby
               mkhl.direnv
-              eamodio.gitlens
+              # eamodio.gitlens
               ms-dotnettools.vscode-dotnet-runtime
 
               # Syntax
@@ -251,7 +255,7 @@ in {
               # LSPs
               scalameta.metals
               ms-python.python
-              sqlfluff.vscode-sqlfluff
+              # sqlfluff.vscode-sqlfluff
               twxs.cmake
               muhammad-sammy.csharp
               llvm-vs-code-extensions.vscode-clangd
@@ -284,8 +288,6 @@ in {
       nixd
 
       go
-
-      sqlfluff
     ];
   };
 }
