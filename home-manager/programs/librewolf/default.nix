@@ -58,12 +58,6 @@ in {
               react-devtools
               consent-o-matic
             ];
-
-            settings = {
-              "uBlock0@raymondhill.net".settings = import ./extensions/ublock.nix {inherit lib;};
-              "addon@darkreader.org".settings = import ./extensions/darkreader.nix;
-              "7esoorv3@alefvanoon.anonaddy.me".settings = import ./extensions/libredirect.nix;
-            };
           };
 
           bookmarks = {
