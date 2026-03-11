@@ -144,15 +144,6 @@
       };
     };
 
-    hytale-launcher = {
-      url = "github:TNAZEP/HytaleLauncherFlake";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     cleanuparr = {
       url = "github:Cleanuparr/Cleanuparr";
 

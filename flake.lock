@@ -320,29 +320,6 @@
         "type": "github"
       }
     },
-    "hytale-launcher": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768349407,
-        "narHash": "sha256-T8wgwnZcDLpAU9tQ1OUSYqFv2EYWkwH3+7R+cOnpak4=",
-        "owner": "TNAZEP",
-        "repo": "HytaleLauncherFlake",
-        "rev": "52bde7280b55863f9cc21cc1c063c7f657206fb6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "TNAZEP",
-        "repo": "HytaleLauncherFlake",
-        "type": "github"
-      }
-    },
     "mconnect-nix": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -800,7 +777,6 @@
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "hyperx-cloud-flight-s": "hyperx-cloud-flight-s",
-        "hytale-launcher": "hytale-launcher",
         "mconnect-nix": "mconnect-nix",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-colors": "nix-colors",
