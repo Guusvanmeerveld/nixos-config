@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.custom.programs.jellyfin-client;
@@ -12,8 +13,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.jellyfin-mpv-shim = {
-      enable = true;
-    };
+    home.packages = with pkgs; [jellyfin-desktop];
   };
 }
