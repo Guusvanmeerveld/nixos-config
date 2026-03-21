@@ -1,5 +1,5 @@
 {pkgs, ...}:
 pkgs.caddy.withPlugins {
   plugins = ["github.com/caddy-dns/cloudflare@v0.2.3"];
-  hash = "sha256-mmkziFzEMBcdnCWCRiT3UyWPNbINbpd3KUJ0NMW632w=";
+  hash = "sha256-bL1cpMvDogD/pdVxGA8CAMEXazWpFDBiGBxG83SmXLA=";
 }
