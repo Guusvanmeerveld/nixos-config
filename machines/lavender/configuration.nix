@@ -12,7 +12,7 @@
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 
     # Module that allows the tv remote to control kodi
-    ./cec.nix
+    # ./cec.nix
   ];
 
   fileSystems = {
@@ -40,14 +40,32 @@
     raspberry-pi."4" = {
       fkms-3d.enable = true;
       i2c1.enable = true;
-      audio.enable = true;
     };
   };
 
   networking.hostName = "lavender";
 
+  services.adguardhome.settings.dns = {
+    bind_hosts = ["192.168.0.2"];
+  };
+
   # Enable networking
-  networking.networkmanager.enable = true;
+  systemd.network = {
+    enable = true;
+
+    networks."10-wan" = {
+      matchConfig.Name = "end0";
+
+      networkConfig = {
+        DHCP = "ipv4";
+
+        DNSOverTLS = false;
+        DNSSEC = false;
+      };
+
+      linkConfig.RequiredForOnline = "routable";
+    };
+  };
 
   custom = {
     users."guus" = {
@@ -74,11 +92,22 @@
 
     certificates.enable = true;
 
-    wm.kodi.enable = true;
-
     services = {
       openssh.enable = true;
       fail2ban.enable = true;
+
+      adguard.enable = true;
+    };
+
+    networking.wireguard = {
+      enable = true;
+
+      networks = {
+        "garden" = {
+          enable = true;
+          keepAlive = true;
+        };
+      };
     };
 
     alerts = {
