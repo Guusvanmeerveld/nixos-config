@@ -18,9 +18,16 @@ in {
         description = "The port to run the service on";
       };
 
-      ntfy.url = mkOption {
-        type = types.str;
-        description = "The ntfy url to use for notifications";
+      integrations = {
+        ntfy = {
+          enable = mkEnableOption "Enable ntfy integration";
+          url = mkOption {
+            type = types.str;
+            description = "The ntfy url to use for notifications";
+          };
+        };
+
+        evohome.enable = mkEnableOption "Enable evohome integration";
       };
 
       caddy.url = mkOption {
@@ -32,7 +39,7 @@ in {
   };
 
   config = let
-    inherit (lib) mkIf;
+    inherit (lib) mkIf optional;
   in
     mkIf cfg.enable {
       custom.services.restic.client.backups.home-assistant = {
@@ -53,7 +60,6 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-
               '';
             };
           };
@@ -93,12 +99,12 @@ in {
 
             mobile_app = {};
 
-            evohome = {
+            evohome = mkIf cfg.integrations.evohome.enable {
               username = "!secret honeywell_username";
               password = "!secret honeywell_password";
             };
 
-            notify = [
+            notify = mkIf cfg.integrations.ntfy.enable [
               {
                 name = "ntfy";
                 platform = "ntfy";
@@ -110,54 +116,11 @@ in {
             ];
 
             allowlist_external_dirs = [writableMediaDir];
-
-            automation = [
-              {
-                alias = "Send notification on doorbell ring";
-                triggers = [
-                  {
-                    trigger = "state";
-                    entity_id = ["event.deurbel_ding"];
-                  }
-                ];
-
-                actions = let
-                  snapshotPath = "${writableMediaDir}/deurbel-snapshot.png";
-                in [
-                  {
-                    action = "camera.snapshot";
-                    metadata = {};
-                    data = {
-                      filename = snapshotPath;
-                    };
-                    target = {
-                      entity_id = "camera.deurbel_live_view";
-                    };
-                  }
-                  {
-                    action = "notify.ntfy";
-                    data = {
-                      title = "The doorbell is ringing!";
-                      message = "Check the attachments to see who it was";
-
-                      data = {
-                        topic = "deurbel";
-
-                        attach_file = snapshotPath;
-                        attachment_filename = "ring.jpg";
-                        attachment_compress_image = 80;
-                      };
-                    };
-                  }
-                ];
-              }
-            ];
           };
 
-          customComponents = with pkgs.home-assistant-custom-components; [
-            localtuya
-            ntfy
-          ];
+          customComponents = with pkgs.home-assistant-custom-components; (
+            [localtuya dirigera_platform] ++ (optional cfg.integrations.ntfy.enable ntfy)
+          );
 
           extraPackages = python3Packages:
             with python3Packages; [
@@ -177,7 +140,6 @@ in {
             "ring"
             "wiz"
             "solaredge"
-            "traccar"
             "unifi"
             "evohome"
             "tplink"

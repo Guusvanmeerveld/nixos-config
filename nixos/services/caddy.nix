@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.services.caddy;
@@ -12,6 +13,11 @@ in {
       enable = mkEnableOption "Enable Caddy web server";
 
       openFirewall = mkEnableOption "Open Caddy ports in firewall";
+
+      environmentFile = mkOption {
+        type = types.path;
+        default = "/secrets/caddy/environmentFile";
+      };
 
       ipFilter = {
         enable = mkEnableOption "Enable ip blocking";
@@ -62,10 +68,14 @@ in {
       services.caddy = {
         enable = true;
 
+        package = pkgs.custom.caddy-with-plugins;
+
         # Does not work if admin page is off, so we disable it.
         enableReload = false;
 
         email = "caddy@guusvanmeerveld.dev";
+
+        environmentFile = "/secrets/caddy/environmentFile";
 
         virtualHosts = mkIf cfg.ipFilter.enable (builtins.listToAttrs (map ({
             domain,

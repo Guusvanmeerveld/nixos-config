@@ -1,11 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  pkgs,
-  config,
-  ...
-}: {
+{config, ...}: {
   imports = [
     ../../nixos
 
@@ -75,23 +71,17 @@
       enable_dnssec = true;
     };
 
-    caddy = {
-      package = pkgs.custom.caddy-with-plugins;
-
-      environmentFile = "/secrets/caddy/environmentFile";
-
-      virtualHosts =
-        # Configure TLS certificates for all subdomains
-        {
-          "*.crocus.guusvanmeerveld.dev" = {
-            extraConfig = ''
-              tls {
-                dns cloudflare {$CF_API_TOKEN}
-              }
-            '';
-          };
+    caddy.virtualHosts =
+      # Configure TLS certificates for all subdomains
+      {
+        "*.crocus.guusvanmeerveld.dev" = {
+          extraConfig = ''
+            tls {
+              dns cloudflare {$CF_API_TOKEN}
+            }
+          '';
         };
-    };
+      };
   };
 
   custom = {

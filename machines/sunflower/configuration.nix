@@ -98,19 +98,13 @@
 
   # Configure Cloudflare DNS for Caddy challenges so we don't need to expose any ports.
   services = {
-    caddy = {
-      package = pkgs.custom.caddy-with-plugins;
-
-      environmentFile = "/secrets/caddy/environmentFile";
-
-      virtualHosts = {
-        "*.sun.guusvanmeerveld.dev" = {
-          extraConfig = ''
-            tls {
-              dns cloudflare {$CF_API_TOKEN}
-            }
-          '';
-        };
+    caddy.virtualHosts = {
+      "*.sun.guusvanmeerveld.dev" = {
+        extraConfig = ''
+          tls {
+            dns cloudflare {$CF_API_TOKEN}
+          }
+        '';
       };
     };
 
@@ -287,7 +281,14 @@
 
         port = 8003;
 
-        ntfy.url = "https://ntfy.sun.guusvanmeerveld.dev";
+        integrations = {
+          ntfy = {
+            enable = true;
+            url = "https://ntfy.sun.guusvanmeerveld.dev";
+          };
+
+          evohome.enable = true;
+        };
 
         caddy.url = "https://homeassistant.sun.guusvanmeerveld.dev";
       };

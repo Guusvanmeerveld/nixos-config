@@ -23,7 +23,12 @@
     };
   };
 
-  boot.kernelParams = ["snd_bcm2835.enable_hdmi=1"];
+  boot.kernelParams = [
+    "snd_bcm2835.enable_hdmi=1"
+    "zswap.enabled=1" # enables zswap
+    "zswap.max_pool_percent=20" # maximum percentage of RAM that zswap is allowed to use
+    "zswap.shrinker_enabled=1" # whether to shrink the pool proactively on high memory pressure
+  ];
 
   swapDevices = [
     {
@@ -43,10 +48,11 @@
     };
   };
 
-  networking.hostName = "lavender";
+  networking = {
+    hostName = "lavender";
 
-  services.adguardhome.settings.dns = {
-    bind_hosts = ["192.168.0.2"];
+    # We use systemd-networkd for configuring default interface
+    useDHCP = false;
   };
 
   # Enable networking
@@ -64,6 +70,33 @@
       };
 
       linkConfig.RequiredForOnline = "routable";
+    };
+  };
+
+  services = {
+    caddy.virtualHosts = {
+      "*.lav.guusvanmeerveld.dev" = {
+        extraConfig = ''
+          tls {
+            dns cloudflare {$CF_API_TOKEN}
+          }
+        '';
+      };
+    };
+
+    # Use SystemD's builtin DNS resolver
+    resolved = {
+      enable = true;
+
+      settings.Resolve = {
+        DNSOverTLS = true;
+        DNSSEC = true;
+        Cache = "yes";
+      };
+    };
+
+    adguardhome.settings.dns = {
+      bind_hosts = ["192.168.0.229"];
     };
   };
 
@@ -96,7 +129,23 @@
       openssh.enable = true;
       fail2ban.enable = true;
 
-      adguard.enable = true;
+      adguard = {
+        enable = true;
+        openFirewall = true;
+
+        caddy.url = "https://adguard.lav.guusvanmeerveld.dev";
+      };
+
+      homeassistant = {
+        enable = true;
+
+        caddy.url = "https://homeassistant.lav.guusvanmeerveld.dev";
+      };
+
+      caddy = {
+        enable = true;
+        openFirewall = true;
+      };
     };
 
     networking.wireguard = {

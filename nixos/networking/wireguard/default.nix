@@ -72,7 +72,7 @@
         };
 
         lavender = {
-          publicKey = "BLrQSVGvczwkxO5ufkLAK5z+FQLdSXqDTXArclNvzxc=";
+          publicKey = "BLrQSVGvczwkxO5ufkLAK5z+FQLdSXqDTXArclNvzxc="; # pragma: allowlist secret
           address = "10.10.10.15";
           domains = ["*.lav.guusvanmeerveld.dev"];
         };
