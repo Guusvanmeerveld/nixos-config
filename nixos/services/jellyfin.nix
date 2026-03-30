@@ -39,6 +39,8 @@ in {
         excluded = [
           # These can be regenerated after backup, and they use a lot of space
           "metadata"
+          "cache"
+          "data/subtitles"
           "data/introskipper"
           "data/trickplay"
         ];

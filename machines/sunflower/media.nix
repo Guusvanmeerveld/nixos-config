@@ -2,7 +2,6 @@
   lib,
   config,
   inputs,
-  pkgs,
   ...
 }: {
   imports = [
@@ -35,18 +34,34 @@
         ]));
   };
 
-  # Allow users in same group as jellyfin to access files created by Jellyfin, so programs like Sonarr & Radarr can manage these files.
-  systemd.services.jellyfin.serviceConfig = {
-    UMask = lib.mkForce "0007";
-  };
-
   services = {
     jellyfin.group = "media";
+    sonarr.group = "media";
+    radarr.group = "media";
+    bazarr.group = "media";
   };
 
-  # Configure vpn confinement for qBittorrent & Soulseek
   systemd.services = {
+    # Allow users in same group as jellyfin to access files created by Jellyfin, so programs like Sonarr & Radarr can manage these files.
+    jellyfin.serviceConfig = {
+      UMask = lib.mkForce "0007";
+    };
+
+    sonarr.serviceConfig = {
+      UMask = lib.mkForce "0007";
+    };
+
+    radarr.serviceConfig = {
+      UMask = lib.mkForce "0007";
+    };
+
+    # Configure vpn confinement for qBittorrent & Soulseek
+
     qbittorrent = {
+      serviceConfig = {
+        UMask = "0007";
+      };
+
       vpnConfinement = {
         enable = true;
         vpnNamespace = "vpn";
@@ -62,21 +77,11 @@
   # Configure port & listen address for both services
   services = {
     qbittorrent = {
+      group = "media";
+
       serverConfig = {
         BitTorrent.Session.Port = 10100;
         Preferences.WebUI.Address = "192.168.15.1";
-
-        # Set correct group and permissions for downloaded torrents.
-        AutoRun = {
-          enabled = true;
-
-          program = let
-            fixScript = pkgs.writeShellScript "fix-qbittorrent-perms" ''
-              chmod -R 770 "$1"
-              chown -R qbittorrent:media "$1"
-            '';
-          in ''${fixScript} \"%F/\"'';
-        };
       };
     };
 
@@ -112,6 +117,7 @@
         from = qbtPort;
         to = qbtPort;
       })
+
       (let
         slskdPort = config.services.slskd.settings.web.port;
       in {

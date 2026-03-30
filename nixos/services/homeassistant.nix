@@ -108,7 +108,7 @@ in {
               {
                 name = "ntfy";
                 platform = "ntfy";
-                inherit (cfg.ntfy) url;
+                inherit (cfg.integrations.ntfy) url;
                 topic = "homeassistant";
                 verify_ssl = false;
                 allow_topic_override = true;

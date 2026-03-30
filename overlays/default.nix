@@ -18,21 +18,8 @@
     mconnect = inputs.mconnect-nix.packages."${final.system}".default;
   };
 
-  # This one contains whatever you want to overlay
-  # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = _: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
-
-    # eduvpn-client = prev.eduvpn-client.overrideAttrs (_old: {
-    #   # Fix .desktop file and icons not being discovered
-    #   postInstall = ''
-    #     cp $out/lib/python3.12/site-packages/eduvpn/data/share $out -r
-    #   '';
-    # });
-
     # xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (_old: {
     #   patches = [
     #     (final.fetchpatch {
@@ -41,8 +28,6 @@
     #     })
     #   ];
     # });
-
-    # electron_36 = final.electron_37;
 
     whatsie = prev.whatsie.overrideAttrs (_old: {
       # Fix .desktop file and icons not being discovered
@@ -53,13 +38,4 @@
       '';
     });
   };
-
-  # When applied, the unstable nixpkgs set (declared in the flake inputs) will
-  # be accessible through 'pkgs.unstable'
-  # unstable-packages = final: _prev: {
-  #   unstable = import inputs.nixpkgs-unstable {
-  #     inherit (final) system;
-  #     config.allowUnfree = true;
-  #   };
-  # };
 }
