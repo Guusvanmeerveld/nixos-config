@@ -31,6 +31,7 @@ in
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       inherit pnpm;
+
       fetcherVersion = 1;
       hash = "sha256-J4SZBM5oKIKGLDKDquBhMdW/BtrDygTPZYzJe5evlOo=";
     };
