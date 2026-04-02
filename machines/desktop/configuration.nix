@@ -57,6 +57,8 @@ _: {
 
       timeout = 0;
     };
+
+    kernelModules = ["ntsync"];
   };
 
   powerManagement.cpuFreqGovernor = "performance";
@@ -114,7 +116,6 @@ _: {
 
       kdeconnect.openFirewall = true;
 
-      caddy.enable = true;
       syncthing = {
         enable = true;
 
@@ -128,7 +129,6 @@ _: {
           "dictionaries" = "~/.config/dictionaries";
         };
 
-        caddy.url = "http://syncthing.desktop";
         openFirewall = true;
       };
     };

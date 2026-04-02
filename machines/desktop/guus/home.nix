@@ -70,6 +70,7 @@ in {
         scarab.enable = true;
 
         emulators = {
+          ryujinx.enable = true;
           desmume.enable = true;
         };
       };
