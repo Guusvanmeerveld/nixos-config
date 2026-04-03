@@ -445,14 +445,19 @@
     "hash": "sha256-v3DIpG6yfIToZBpHOjtQHRo2BhXGDoE70EVs6kBtrRg="
   },
   {
+    "pname": "Microsoft.IdentityModel.Protocols",
+    "version": "8.7.0",
+    "hash": "sha256-/OlAb36kV5/9klk2CI8Z8tmVa7pI2XvaS+z+iTJ6GCg="
+  },
+  {
     "pname": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
     "version": "8.0.1",
     "hash": "sha256-ZHKaZxqESk+OU1SFTFGxvZ71zbdgWqv1L6ET9+fdXX0="
   },
   {
-    "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "8.0.1",
-    "hash": "sha256-beVbbVQy874HlXkTKarPTT5/r7XR1NGHA/50ywWp7YA="
+    "pname": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
+    "version": "8.7.0",
+    "hash": "sha256-nHknSlnCeFjxPbz6OieJJHz62mBbeBJ0QhWrRtjj67c="
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
