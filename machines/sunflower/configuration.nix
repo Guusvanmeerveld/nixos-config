@@ -521,6 +521,14 @@
 
         caddy.url = "https://cleanuparr.sun.guusvanmeerveld.dev";
       };
+
+      romm = {
+        enable = true;
+
+        port = 8027;
+
+        caddy.url = "https://romm.sun.guusvanmeerveld.dev";
+      };
     };
 
     alerts = {

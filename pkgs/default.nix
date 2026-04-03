@@ -16,6 +16,8 @@
 
   pythonPackages = import ./python {inherit pkgs;};
 
+  dockerPackages = import ./docker {inherit pkgs;};
+
   kodiPackages = import ./kodi {inherit pkgs;};
 
   firefox = import ./firefox {inherit pkgs;};
@@ -27,5 +29,7 @@
     inherit (pythonPackages) romm rq-scheduler;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
+
+    romm-docker = dockerPackages.romm;
   };
 }

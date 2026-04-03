@@ -45,5 +45,6 @@
     ./cleanuparr.nix
     ./murmur.nix
     ./dawarich.nix
+    ./romm.nix
   ];
 }
