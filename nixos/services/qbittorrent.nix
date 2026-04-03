@@ -106,9 +106,10 @@ in {
                 };
 
                 MultiConnectionsPerIp = true;
-                MaxActiveDownloads = 20;
-                MaxActiveUploads = 20;
-                MaxActiveTorrents = 25;
+                QueueingSystemEnabled = false;
+                # MaxActiveDownloads = 20;
+                # MaxActiveUploads = 20;
+                # MaxActiveTorrents = 25;
 
                 GlobalUPSpeedLimit = 62 * (1000 - 20);
                 GlobalDLSpeedLimit = 100 * (1000 - 20);
