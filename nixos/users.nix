@@ -76,6 +76,9 @@ in {
       })
       cfg;
 
-    nix.settings.trusted-users = ["root"] ++ lib.mapAttrsToList (username: _: username) cfg;
+    nix.settings = {
+      trusted-users = ["root"] ++ lib.mapAttrsToList (username: _: username) cfg;
+      allowed-users = ["@wheel" "@builders"];
+    };
   };
 }

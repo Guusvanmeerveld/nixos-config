@@ -15,7 +15,6 @@ in {
     programs = {
       difftastic = {
         enable = true;
-        git.enable = true;
       };
 
       git = {

@@ -6,9 +6,9 @@
 }: let
   cfg = config.custom.programs.development.vscode;
 
-  vscodeVersion = config.programs.vscode.package.version;
+  # vscodeVersion = config.programs.vscode.package.version;
 
-  compatibleExtensions = pkgs.forVSCodeVersion vscodeVersion;
+  # compatibleExtensions = pkgs.forVSCodeVersion vscodeVersion;
 
   desktopFile = "codium.desktop";
 
@@ -218,12 +218,12 @@ in {
             (with pkgs.vscode-extensions; [
               ms-vscode-remote.remote-containers
             ])
-            ++ (with compatibleExtensions.vscode-marketplace; [
+            ++ (with pkgs.nix-vscode-extensions.vscode-marketplace; [
               eww-yuck.yuck
 
               allenli1231.zeppelin-vscode
             ])
-            ++ (with compatibleExtensions.open-vsx; [
+            ++ (with pkgs.nix-vscode-extensions.open-vsx; [
               ms-azuretools.vscode-docker
               # Keybindings
               ms-vscode.atom-keybindings
