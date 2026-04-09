@@ -26,10 +26,10 @@
   export = {
     inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer;
     inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
-    inherit (pythonPackages) romm rq-scheduler;
+    inherit (pythonPackages) romm;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
 
-    romm-docker = dockerPackages.romm;
+    # romm-docker = dockerPackages.romm;
   };
 }
