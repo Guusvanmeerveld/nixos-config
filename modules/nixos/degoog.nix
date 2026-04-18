@@ -1,0 +1,132 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.services.degoog;
+in {
+  options = {
+    services.degoog = {
+      enable = lib.mkEnableOption "Enable Degoog, a Search engine aggregator with a comprehensive plugin/extension system";
+
+      package = lib.mkPackageOption pkgs.custom "degoog" {};
+
+      port = lib.mkOption {
+        type = lib.types.ints.u16;
+        default = 4444;
+        description = "Port to run the service on";
+      };
+
+      user = lib.mkOption {
+        type = lib.types.str;
+        default = "degoog";
+        description = "User account under which Degoog runs.";
+      };
+
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = "degoog";
+        description = "Group under which Degoog runs.";
+      };
+
+      dataDir = lib.mkOption {
+        type = lib.types.path;
+        default = "/var/lib/degoog";
+        description = ''
+          Base data directory.
+        '';
+      };
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    systemd = {
+      tmpfiles.settings.degoog = {
+        ${cfg.dataDir}."d" = {
+          mode = "700";
+          inherit (cfg) user group;
+        };
+      };
+
+      services.degoog = {
+        description = "Search engine aggregator with a comprehensive plugin/extension system ";
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+
+        path = with pkgs; [git];
+
+        environment = {
+          DEGOOG_PORT = toString cfg.port;
+          DEGOOG_DATA_DIR = toString cfg.dataDir;
+        };
+
+        serviceConfig = {
+          Type = "simple";
+
+          User = cfg.user;
+          Group = cfg.group;
+          UMask = "0077";
+
+          WorkingDirectory = cfg.dataDir;
+          ExecStart = lib.getExe cfg.package;
+          Restart = "on-failure";
+          TimeoutSec = 15;
+
+          NoNewPrivileges = true;
+          SystemCallArchitectures = "native";
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = !config.boot.isContainer;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          ProtectControlGroups = !config.boot.isContainer;
+          ProtectSystem = "strict";
+          ProtectHostname = true;
+          ProtectKernelLogs = !config.boot.isContainer;
+          ProtectKernelModules = !config.boot.isContainer;
+          ProtectKernelTunables = !config.boot.isContainer;
+          LockPersonality = true;
+          PrivateTmp = !config.boot.isContainer;
+          PrivateDevices = true;
+          PrivateUsers = true;
+          RemoveIPC = true;
+          ReadWritePaths = [cfg.dataDir];
+
+          SystemCallFilter = [
+            "~@clock"
+            "~@aio"
+            "~@chown"
+            "~@cpu-emulation"
+            "~@debug"
+            "~@keyring"
+            "~@memlock"
+            "~@module"
+            "~@mount"
+            "~@obsolete"
+            "~@privileged"
+            "~@raw-io"
+            "~@reboot"
+            "~@setuid"
+            "~@swap"
+          ];
+          SystemCallErrorNumber = "EPERM";
+        };
+      };
+    };
+
+    users.users = lib.mkIf (cfg.user == "degoog") {
+      degoog = {
+        inherit (cfg) group;
+        isSystemUser = true;
+      };
+    };
+
+    users.groups = lib.mkIf (cfg.group == "degoog") {
+      degoog = {};
+    };
+  };
+}
