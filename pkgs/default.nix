@@ -1,8 +1,9 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-{pkgs}: rec {
-  # example = pkgs.callPackage ./example { };
-
+{
+  pkgs,
+  bun2nix,
+}: rec {
   seerr = pkgs.callPackage ./seerr.nix {};
 
   samsung-jellyfin-installer = pkgs.callPackage ./samsung-jellyfin-installer {};
@@ -13,6 +14,7 @@
 
   caddy-with-plugins = pkgs.callPackage ./caddy-with-plugins.nix {};
   free-epic-games = pkgs.callPackage ./free-epic-games.nix {};
+  degoog = pkgs.callPackage ./degoog.nix {inherit bun2nix;};
 
   pythonPackages = import ./python {inherit pkgs;};
 
@@ -24,7 +26,7 @@
   jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
-    inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer;
+    inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer degoog;
     inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
     inherit (pythonPackages) romm;
     inherit (firefox.themes) blur mono;

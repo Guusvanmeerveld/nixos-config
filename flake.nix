@@ -149,6 +149,11 @@
 
       flake = false;
     };
+
+    bun2nix = {
+      url = "github:nix-community/bun2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -229,6 +234,7 @@
         system:
           (getAttr "export" (import ./pkgs {
             pkgs = nixpkgs.legacyPackages.${system};
+            bun2nix = inputs.bun2nix.packages.${system}.default;
           }))
           // {
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
