@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   bun2nix,
-  runCommand,
+  runCommandLocal,
   ...
 }:
 bun2nix.writeBunApplication rec {
@@ -25,7 +25,7 @@ bun2nix.writeBunApplication rec {
   '';
 
   bunDeps = bun2nix.fetchBunDeps {
-    bunNix = runCommand "fetch-degoog-deps" {} ''
+    bunNix = runCommandLocal "fetch-degoog-deps" {} ''
       ${lib.getExe bun2nix} --lock-file ${src}/bun.lock --output-file $out
     '';
   };
