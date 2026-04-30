@@ -33,7 +33,6 @@ bun2nix.writeBunApplication rec {
   meta = {
     description = "Search engine aggregator with a comprehensive plugin/extension system";
     homepage = "https://fccview.github.io/degoog/";
-    platforms = lib.platforms.x86_64;
     license = lib.licenses.mit;
   };
 }
