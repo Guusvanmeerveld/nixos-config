@@ -55,7 +55,7 @@ in {
         # Persistence
         persistence.enable = true;
 
-        transparent.enable = true;
+        # transparent.enable = true;
 
         # Search
         telescope = {
@@ -67,7 +67,7 @@ in {
         };
 
         # Tab bar
-        barbar.enable = true;
+        # barbar.enable = true;
 
         # Highlight language strings in nix files
         hmts.enable = true;
