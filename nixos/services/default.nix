@@ -30,7 +30,7 @@
     ./atuin.nix
     ./restic
     ./adguard.nix
-    ./jellyseerr.nix
+    ./seerr.nix
     ./free-epic-games.nix
     ./twitch-miner
     ./bazarr.nix
@@ -46,5 +46,6 @@
     ./murmur.nix
     ./dawarich.nix
     ./romm.nix
+    # ./degoog.nix
   ];
 }

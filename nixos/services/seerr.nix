@@ -1,16 +1,15 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
-  cfg = config.custom.services.jellyseerr;
+  cfg = config.custom.services.seerr;
 in {
   options = {
-    custom.services.jellyseerr = let
+    custom.services.seerr = let
       inherit (lib) mkEnableOption mkOption types;
     in {
-      enable = mkEnableOption "Enable the Jellyseerr service";
+      enable = mkEnableOption "Enable the Seerr service";
 
       port = mkOption {
         type = types.ints.u16;
@@ -30,25 +29,25 @@ in {
     inherit (lib) mkIf;
   in
     mkIf cfg.enable {
-      custom.services.restic.client.backups.jellyseerr = {
-        services = ["jellyseerr"];
+      custom.services.restic.client.backups.seerr = {
+        services = ["seerr"];
 
         files = [
-          "${config.services.jellyseerr.configDir}/settings.json"
-          "${config.services.jellyseerr.configDir}/db"
+          "${config.services.seerr.configDir}/settings.json"
+          "${config.services.seerr.configDir}/db"
         ];
       };
 
-      users.users.jellyseerr = {
-        group = "jellyseerr";
+      users.users.seerr = {
+        group = "seerr";
         isSystemUser = true;
       };
 
-      users.groups.jellyseerr = {};
+      users.groups.seerr = {};
 
-      systemd.services.jellyseerr.serviceConfig = {
+      systemd.services.seerr.serviceConfig = {
         DynamicUser = lib.mkForce false;
-        User = "jellyseerr";
+        User = "seerr";
       };
 
       services = {
@@ -57,16 +56,13 @@ in {
             "${cfg.caddy.url}" = {
               extraConfig = ''
                 reverse_proxy http://localhost:${toString cfg.port}
-
               '';
             };
           };
         };
 
-        jellyseerr = {
+        seerr = {
           enable = true;
-
-          package = pkgs.custom.seerr;
 
           inherit (cfg) port;
         };
