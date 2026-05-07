@@ -1,6 +1,4 @@
-_: let
-  primary-display = "DP-2";
-in {
+{lib, ...}: {
   imports = [
     ../../../home-manager
   ];
@@ -16,7 +14,6 @@ in {
 
         features = {
           wireguard = true;
-          hcfs = true;
         };
       };
 
@@ -27,10 +24,28 @@ in {
           "DP-3" = {
             mode = "3440x1440@164.900Hz";
             bg = "${../wallpaper.png} stretch";
+            pos = "2048 0";
+            scale = "1.25";
+          };
+
+          "HDMI-A-1" = {
+            mode = "2560x1440@59.951Hz";
+            bg = "${../wallpaper.png} stretch";
             pos = "0 0";
             scale = "1.25";
           };
         };
+
+        workspaceOutputAssign = [
+          {
+            output = "DP-3";
+            workspaces = lib.range 1 8;
+          }
+          {
+            output = "HDMI-A-1";
+            workspaces = [9];
+          }
+        ];
 
         input = {
           "type:pointer" = {
@@ -49,7 +64,7 @@ in {
         screencast = {
           max_fps = 60;
           chooser_type = "none";
-          output_name = primary-display;
+          output_name = "DP-3";
         };
       };
     };
