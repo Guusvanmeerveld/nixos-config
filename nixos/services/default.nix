@@ -47,5 +47,6 @@
     ./dawarich.nix
     ./romm.nix
     # ./degoog.nix
+    ./beszel
   ];
 }
