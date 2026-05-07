@@ -92,7 +92,7 @@ in {
           search = {
             force = true;
 
-            default = "ddg";
+            default = "degoog";
             engines = with lib;
               mkMerge [
                 {
@@ -116,6 +116,24 @@ in {
 
                     icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
                     definedAliases = ["@np"];
+                  };
+
+                  degoog = {
+                    name = "Degoog";
+                    urls = [
+                      {
+                        template = "https://degoog.sun.guusvanmeerveld.dev/search";
+                        params = [
+                          {
+                            name = "q";
+                            value = "{searchTerms}";
+                          }
+                        ];
+                      }
+                    ];
+
+                    # icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                    definedAliases = ["@deg"];
                   };
 
                   mynixos = {
