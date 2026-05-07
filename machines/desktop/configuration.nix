@@ -111,6 +111,12 @@ _: {
     };
 
     services = {
+      beszel.agent = {
+        enable = true;
+
+        openFirewall = true;
+      };
+
       gamemode.enable = true;
       gvfs.enable = true;
 
