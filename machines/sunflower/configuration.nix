@@ -85,7 +85,7 @@
 
     # Set max arc size to 6GB and minimum to 4GB
     kernelParams = [
-      "zfs.zfs_arc_max=${toString (6 * 1024 * 1024 * 1024)}"
+      "zfs.zfs_arc_max=${toString (5 * 1024 * 1024 * 1024)}"
       "zfs.zfs_arc_min=${toString (4 * 1024 * 1024 * 1024)}"
     ];
   };
@@ -238,6 +238,7 @@
               "dawarich"
               "cleanuparr"
               "immich"
+              "degoog"
             ];
 
             subDomain = "sun.guusvanmeerveld.dev";
@@ -260,7 +261,7 @@
         caddy.url = "https://jellyfin.sun.guusvanmeerveld.dev";
       };
 
-      jellyseerr = {
+      seerr = {
         enable = true;
 
         port = 8001;
@@ -498,21 +499,21 @@
         caddy.url = "https://forgejo.sun.guusvanmeerveld.dev";
       };
 
-      grafana = {
-        enable = true;
+      # grafana = {
+      #   enable = true;
 
-        port = 8024;
+      #   port = 8024;
 
-        caddy.url = "https://grafana.sun.guusvanmeerveld.dev";
-      };
+      #   caddy.url = "https://grafana.sun.guusvanmeerveld.dev";
+      # };
 
-      glance = {
-        enable = true;
+      # glance = {
+      #   enable = true;
 
-        port = 8025;
+      #   port = 8025;
 
-        caddy.url = "https://glance.sun.guusvanmeerveld.dev";
-      };
+      #   caddy.url = "https://glance.sun.guusvanmeerveld.dev";
+      # };
 
       cleanuparr = {
         enable = true;
@@ -528,6 +529,30 @@
         port = 8027;
 
         caddy.url = "https://romm.sun.guusvanmeerveld.dev";
+      };
+
+      beszel = {
+        hub = {
+          enable = true;
+
+          port = 8028;
+
+          caddy.url = "https://beszel.sun.guusvanmeerveld.dev";
+        };
+
+        agent = {
+          enable = true;
+
+          openFirewall = true;
+        };
+      };
+
+      degoog = {
+        enable = true;
+
+        port = 8029;
+
+        caddy.url = "https://degoog.sun.guusvanmeerveld.dev";
       };
     };
 

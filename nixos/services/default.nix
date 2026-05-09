@@ -46,7 +46,7 @@
     ./murmur.nix
     ./dawarich.nix
     ./romm.nix
-    # ./degoog.nix
+    ./degoog.nix
     ./beszel
   ];
 }

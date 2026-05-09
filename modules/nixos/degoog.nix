@@ -37,6 +37,13 @@ in {
           Base data directory.
         '';
       };
+
+      environmentFile = lib.mkOption {
+        type = lib.types.path;
+        description = ''
+          Path to environment file
+        '';
+      };
     };
   };
 
@@ -50,12 +57,12 @@ in {
       };
 
       services.degoog = {
-        description = "Search engine aggregator with a comprehensive plugin/extension system ";
+        description = "Search engine aggregator with a comprehensive plugin/extension system";
         after = ["network-online.target"];
         wants = ["network-online.target"];
         wantedBy = ["multi-user.target"];
 
-        path = with pkgs; [git];
+        path = with pkgs; [git curl-impersonate];
 
         environment = {
           DEGOOG_PORT = toString cfg.port;
@@ -89,6 +96,31 @@ in {
           ProtectKernelLogs = !config.boot.isContainer;
           ProtectKernelModules = !config.boot.isContainer;
           ProtectKernelTunables = !config.boot.isContainer;
+          ProtectClock = true;
+          ProtectProc = "noaccess";
+          ProcSubset = "pid";
+          ProtectHome = true;
+          CapabilityBoundingSet = [
+            "~CAP_NET_(BIND_SERVICE|BROADCAST|RAW)"
+            "~CAP_AUDIT_*"
+            "~CAP_SYS_ADMIN"
+            "~CAP_NET_ADMIN"
+            "~CAP_SYS_PACCT"
+            "~CAP_SYS_PTRACE"
+            "~CAP_KILL"
+            "~CAP_(DAC_*|FOWNER|IPC_OWNER)"
+            "~CAP_LINUX_IMMUTABLE"
+            "~CAP_IPC_LOCK"
+            "~CAP_BPF"
+            "~CAP_SYS_TTY_CONFIG"
+            "~CAP_SYS_BOOT"
+            "~CAP_SYS_CHROOT"
+            "~CAP_BLOCK_SUSPEND"
+            "~CAP_LEASE"
+            "~CAP_(CHOWN|FSETID|SETFCAP)"
+            "~CAP_SET(UID|GID|PCAP)"
+            "~CAP_MAC_*"
+          ];
           LockPersonality = true;
           PrivateTmp = !config.boot.isContainer;
           PrivateDevices = true;
@@ -112,6 +144,7 @@ in {
             "~@reboot"
             "~@setuid"
             "~@swap"
+            "~@resources"
           ];
           SystemCallErrorNumber = "EPERM";
         };
