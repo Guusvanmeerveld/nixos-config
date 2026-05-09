@@ -31,7 +31,7 @@
     ./restic
     ./adguard.nix
     ./seerr.nix
-    # ./free-epic-games.nix
+    ./free-epic-games.nix
     ./twitch-miner
     ./bazarr.nix
     ./mealie.nix

@@ -52,21 +52,19 @@ in {
                   };
                 };
 
-                include = [
-                  # Quality sizes (only needed once)
-                  {template = "radarr-quality-definition-movie";}
-
-                  # HD Bluray + WEB (1080p)
-                  {template = "radarr-quality-profile-hd-bluray-web";}
-                  {template = "radarr-custom-formats-hd-bluray-web";}
-
-                  # UHD Bluray + WEB (4K)
-                  {template = "radarr-quality-profile-uhd-bluray-web";}
-                  {template = "radarr-custom-formats-uhd-bluray-web";}
-
-                  # Remux-1080p - Anime
-                  {template = "radarr-quality-profile-anime";}
-                  {template = "radarr-custom-formats-anime";}
+                quality_profiles = [
+                  {
+                    trash_id = "d1d67249d3890e49bc12e275d989a7e9"; # HD Bluray + WEB
+                    reset_unmatched_scores.enabled = true;
+                  }
+                  {
+                    trash_id = "64fb5f9858489bdac2af690e27c8f42f"; # UHD Bluray + WEB
+                    reset_unmatched_scores.enabled = true;
+                  }
+                  {
+                    trash_id = "722b624f9af1e492284c4bc842153a38"; # [Anime] Remux-1080p
+                    reset_unmatched_scores.enabled = true;
+                  }
                 ];
 
                 # https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/
@@ -75,17 +73,30 @@ in {
                   {
                     assign_scores_to = [
                       {
-                        name = "HD Bluray + WEB";
+                        trash_id = "d1d67249d3890e49bc12e275d989a7e9";
                         score = -5;
                       }
                       {
-                        name = "Remux-1080p - Anime";
+                        trash_id = "722b624f9af1e492284c4bc842153a38";
                         score = -5;
                       }
                     ];
 
                     trash_ids = [
                       "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
+                    ];
+                  }
+                  # Boost HDR10 plus because I don't have DV support
+                  {
+                    assign_scores_to = [
+                      {
+                        trash_id = "64fb5f9858489bdac2af690e27c8f42f";
+                        score = 100;
+                      }
+                    ];
+
+                    trash_ids = [
+                      "caa37d0df9c348912df1fb1d88f9273a" # HDR10Plus Boost
                     ];
                   }
                 ];
@@ -116,16 +127,15 @@ in {
                   };
                 };
 
-                include = [
-                  {template = "sonarr-quality-definition-series";}
-
-                  # WEB-1080P
-                  {template = "sonarr-v4-quality-profile-web-1080p";}
-                  {template = "sonarr-v4-custom-formats-web-1080p";}
-
-                  # Remux 1080p - Anime
-                  {template = "sonarr-v4-quality-profile-anime";}
-                  {template = "sonarr-v4-custom-formats-anime";}
+                quality_profiles = [
+                  {
+                    trash_id = "72dae194fc92bf828f32cde7744e51a1"; # WEB-1080p
+                    reset_unmatched_scores.enabled = true;
+                  }
+                  {
+                    trash_id = "20e0fc959f1f1704bed501f23bdae76f"; # [Anime] Remux-1080p
+                    reset_unmatched_scores.enabled = true;
+                  }
                 ];
 
                 # https://trash-guides.info/Sonarr/sonarr-collection-of-custom-formats
@@ -134,11 +144,11 @@ in {
                   {
                     assign_scores_to = [
                       {
-                        name = "WEB-1080p";
+                        trash_id = "72dae194fc92bf828f32cde7744e51a1";
                         score = -10000;
                       }
                       {
-                        name = "Remux-1080p - Anime";
+                        trash_id = "20e0fc959f1f1704bed501f23bdae76f";
                         score = -10000;
                       }
                     ];
@@ -153,11 +163,11 @@ in {
                   {
                     assign_scores_to = [
                       {
-                        name = "WEB-1080p";
+                        trash_id = "72dae194fc92bf828f32cde7744e51a1";
                         score = -5;
                       }
                       {
-                        name = "Remux-1080p - Anime";
+                        trash_id = "20e0fc959f1f1704bed501f23bdae76f";
                         score = -5;
                       }
                     ];

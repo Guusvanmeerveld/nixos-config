@@ -5,5 +5,5 @@
   # my-module = import ./my-module.nix;
   cleanuparr = import ./cleanuparr.nix;
   degoog = import ./degoog.nix;
-  free-epic-games = import ./free-epic-games.nix;
+  # free-epic-games = import ./free-epic-games.nix;
 }
