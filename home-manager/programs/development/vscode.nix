@@ -29,7 +29,7 @@ in {
   config = lib.mkIf cfg.enable {
     custom.wm.applications = [
       {
-        inherit (config.programs.vscode) package;
+        inherit (config.programs.vscodium) package;
         appId = "codium";
         keybind = "$mod+d";
         workspace = 4;
@@ -50,9 +50,8 @@ in {
         };
       };
 
-      vscode = {
+      vscodium = {
         enable = true;
-        package = pkgs.vscodium;
 
         mutableExtensionsDir = false;
 
