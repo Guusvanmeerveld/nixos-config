@@ -1,13 +1,189 @@
 {
   lib,
   config,
+  pkgs,
   inputs,
   ...
 }: let
   cfg = config.custom.programs.cli.neovim;
-in {
-  imports = [inputs.nixvim.homeModules.nixvim];
 
+  configModule = {
+    config.vim = {
+      autocomplete.blink-cmp = {
+        enable = true;
+      };
+
+      binds.whichKey.enable = true;
+
+      clipboard = {
+        enable = true;
+        registers = "unnamedplus";
+
+        providers.wl-copy.enable = true;
+      };
+
+      formatter.conform-nvim.enable = true;
+
+      filetree.nvimTree.enable = true;
+
+      git = {
+        gitsigns.enable = true;
+        vim-fugitive.enable = true;
+      };
+
+      languages = {
+        enableTreesitter = true;
+        enableFormat = true;
+
+        rust.enable = true;
+        typescript.enable = true;
+        nix = {
+          enable = true;
+          lsp.servers = ["nixd"];
+        };
+        python.enable = true;
+        json.enable = true;
+        yaml.enable = true;
+      };
+
+      lsp = {
+        enable = true;
+        formatOnSave = true;
+      };
+
+      mini = {
+        icons.enable = true;
+        comment.enable = true;
+        sessions.enable = true;
+        splitjoin.enable = true;
+        starter.enable = true;
+        move.enable = true;
+        pairs.enable = true;
+      };
+
+      preventJunkFiles = true;
+
+      utility = {
+        direnv.enable = true;
+        multicursors.enable = true;
+      };
+
+      syntaxHighlighting = true;
+
+      statusline.lualine.enable = true;
+
+      tabline.nvimBufferline.enable = true;
+
+      telescope.enable = true;
+
+      terminal.toggleterm.enable = true;
+
+      theme = {
+        enable = true;
+
+        name = "onedark";
+        transparent = true;
+      };
+
+      treesitter.enable = true;
+
+      options = let
+        indent = 2;
+      in {
+        #  General
+        breakindent = true;
+        encoding = "utf-8";
+        fileencoding = "utf-8";
+        grepformat = "%f:%l:%c:%m";
+        grepprg = "rg --vimgrep --smart-case";
+        history = 500;
+        inccommand = "split";
+        lazyredraw = false; # deprecated; use eventignore when needed
+        mouse = "a";
+        redrawtime = 1500;
+        sessionoptions = "curdir,folds,globals,help,tabpages,terminal,winsize";
+        showmode = false;
+        sidescrolloff = 3;
+        timeoutlen = 250;
+        ttimeoutlen = 10;
+        updatetime = 100;
+
+        #  Indentation
+        autoindent = true;
+        expandtab = true;
+        shiftround = true;
+        shiftwidth = indent;
+        smartindent = true;
+        softtabstop = indent;
+        tabstop = indent;
+
+        # Search
+        hlsearch = true;
+        ignorecase = true;
+        smartcase = true;
+        # wildignore = ["*/node_modules/*" "*/.git/*" "*/vendor/*" "*/.hg/*" "*/.svn/*"];
+        wildmenu = true;
+
+        # UI
+        cmdheight = 0;
+        # completeopt = ["menu" "menuone" "noselect"];
+        cursorline = true;
+        laststatus = 3; # global statusline (more performant than 2);
+        number = true;
+        pumheight = 10;
+        scrolloff = 18;
+        showtabline = 2;
+        signcolumn = "yes";
+        # shortmess:append({ c = true, W = true, I = true });
+        splitbelow = true;
+        splitkeep = "cursor";
+        splitright = true;
+        winborder = "rounded";
+        winminwidth = 5;
+        wrap = true;
+
+        # List chars
+        list = true;
+        # listchars = {
+        #   tab = "┊ ";
+        #   trail = "·";
+        #   extends = "»";
+        #   precedes = "«";
+        #   nbsp = "×";
+        # };
+
+        # Backspace
+        # backspace = ["eol" "start" "indent"];
+
+        # Completion
+        complete = ".,w,b,kspell";
+      };
+
+      visuals = {
+        blink-indent = {
+          enable = true;
+
+          setupOpts = {
+            static = {
+              char = "┆";
+            };
+
+            scope = {
+              char = "┆";
+            };
+          };
+        };
+      };
+
+      undoFile.enable = true;
+    };
+  };
+
+  customNeovim = inputs.nvf.lib.neovimConfiguration {
+    inherit pkgs;
+    modules = [configModule];
+  };
+in {
   options = {
     custom.programs.cli.neovim = {
       enable = lib.mkEnableOption "Enable NeoVim text editor";
@@ -15,146 +191,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.nixvim = {
-      enable = true;
-
-      viAlias = true;
-      defaultEditor = true;
-
-      colorschemes.onedark.enable = true;
-
-      # Wayland clipboard
-      clipboard.providers.wl-copy.enable = true;
-
-      plugins = {
-        # Start screen
-        alpha = {
-          enable = true;
-          theme = "dashboard";
-        };
-
-        web-devicons.enable = true;
-
-        lightline.enable = true;
-
-        # Make `nvim .` look prettier
-        oil.enable = true;
-
-        # Includes all parsers for treesitter
-        treesitter.enable = true;
-
-        # Git integration
-        fugitive.enable = true;
-
-        # Auto-tagging
-        ts-autotag.enable = true;
-
-        # Autopairs for parenthesis, brackets, etc.
-        nvim-autopairs.enable = true;
-
-        # Persistence
-        persistence.enable = true;
-
-        # transparent.enable = true;
-
-        # Search
-        telescope = {
-          enable = true;
-
-          keymaps = {
-            "<leader>p" = "find_files";
-          };
-        };
-
-        # Tab bar
-        # barbar.enable = true;
-
-        # Highlight language strings in nix files
-        hmts.enable = true;
-
-        # Notification manager
-        notify.enable = true;
-
-        # Display errors nicely inline with code
-        trouble.enable = true;
-
-        commentary.enable = true;
-
-        # File tree
-        neo-tree = {
-          enable = true;
-
-          settings = {
-            auto_clean_after_session_restore = true;
-            close_if_last_window = true;
-
-            buffers = {
-              bind_to_cwd = false;
-              follow_current_file = {
-                enabled = true;
-              };
-            };
-
-            window = {
-              width = 40;
-              height = 15;
-              auto_expand_width = false;
-              mappings = {
-                "<space>" = "none";
-              };
-            };
-          };
-        };
-
-        # Linting
-        lint.enable = true;
-
-        # Language servers
-        lsp = {
-          enable = true;
-
-          servers = {
-            # Rust
-            # rust-analyzer = {
-            #   enable = true;
-            #   installRustc = true;
-            #   installCargo = true;
-            # };
-          };
-        };
-      };
-
-      # Set mapleader to space
-      globals.mapleader = " ";
-
-      opts = {
-        number = true;
-        relativenumber = true;
-
-        signcolumn = "yes";
-
-        ignorecase = true;
-        smartcase = true;
-
-        # Tab defaults (might get overwritten by an LSP server)
-        tabstop = 4;
-        shiftwidth = 4;
-        softtabstop = 0;
-        expandtab = true;
-        smarttab = true;
-
-        # Show line and column when searching
-        ruler = true;
-
-        mouse = "a";
-
-        # Highlight the current line
-        cursorline = true;
-
-        termguicolors = true;
-
-        clipboard = "unnamedplus";
-      };
-    };
+    home.packages = [customNeovim.neovim];
   };
 }

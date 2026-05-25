@@ -154,6 +154,11 @@
       url = "github:nix-community/bun2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
