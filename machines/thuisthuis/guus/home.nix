@@ -10,7 +10,6 @@ in {
       notifications.swaync.enable = true;
       lockscreens.gtklock.enable = true;
       launchers.rofi.enable = true;
-      widgets.eww.enable = true;
 
       bars.waybar = {
         enable = true;
