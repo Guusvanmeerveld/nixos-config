@@ -15,7 +15,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     custom.programs.development = {
-      vscode.enable = true;
+      # vscode.enable = true;
     };
   };
 }

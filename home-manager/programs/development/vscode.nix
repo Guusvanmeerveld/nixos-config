@@ -253,7 +253,7 @@ in {
 
               # LSPs
               scalameta.metals
-              ms-python.python
+              # ms-python.python
               # sqlfluff.vscode-sqlfluff
               twxs.cmake
               muhammad-sammy.csharp
