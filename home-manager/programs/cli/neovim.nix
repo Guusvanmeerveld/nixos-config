@@ -9,9 +9,7 @@
 
   configModule = {
     config.vim = {
-      autocomplete.blink-cmp = {
-        enable = true;
-      };
+      autocomplete.blink-cmp.enable = true;
 
       binds.whichKey.enable = true;
 
@@ -22,13 +20,27 @@
         providers.wl-copy.enable = true;
       };
 
+      extraPlugins = with pkgs.vimPlugins; {
+        eunuch.package = vim-eunuch;
+      };
+
       formatter.conform-nvim.enable = true;
 
-      filetree.nvimTree.enable = true;
+      filetree.nvimTree = {
+        enable = true;
+
+        setupOpts = {
+          diagnostics.enable = true;
+          git.enable = true;
+          hijack_cursor = true;
+          modified.enable = true;
+        };
+      };
 
       git = {
         gitsigns.enable = true;
-        vim-fugitive.enable = true;
+        # vim-fugitive.enable = true;
+        neogit.enable = true;
       };
 
       languages = {
@@ -44,6 +56,7 @@
         python.enable = true;
         json.enable = true;
         yaml.enable = true;
+        tex.enable = true;
       };
 
       lsp = {
@@ -54,7 +67,6 @@
       mini = {
         icons.enable = true;
         comment.enable = true;
-        sessions.enable = true;
         splitjoin.enable = true;
         starter.enable = true;
         move.enable = true;
@@ -67,6 +79,8 @@
         direnv.enable = true;
         multicursors.enable = true;
       };
+
+      session.nvim-session-manager.enable = true;
 
       syntaxHighlighting = true;
 
