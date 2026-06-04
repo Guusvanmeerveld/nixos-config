@@ -91,7 +91,7 @@ in {
     mkIf cfg.enable {
       custom.services.restic.client.backups.mail-server = {
         location = "mail-server";
-        files = [config.mailserver.mailDirectory];
+        files = [config.mailserver.storage.path];
       };
 
       services = {
@@ -120,14 +120,14 @@ in {
 
       mailserver = {
         enable = true;
-        stateVersion = 3;
+        stateVersion = 5;
 
         inherit (cfg) openFirewall;
 
         inherit fqdn;
         domains = [cfg.mailDomain];
 
-        loginAccounts = mapAttrs' (username: userOptions: let
+        accounts = mapAttrs' (username: userOptions: let
           folderMoves = userOptions.sieve.collect;
         in
           nameValuePair "${username}@${cfg.mailDomain}" {
