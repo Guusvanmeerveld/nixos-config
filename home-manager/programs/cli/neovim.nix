@@ -11,7 +11,10 @@
     config.vim = {
       autocomplete.blink-cmp.enable = true;
 
-      binds.whichKey.enable = true;
+      binds = {
+        whichKey.enable = true;
+        hardtime-nvim.enable = true;
+      };
 
       clipboard = {
         enable = true;
@@ -71,6 +74,14 @@
         starter.enable = true;
         move.enable = true;
         pairs.enable = true;
+      };
+
+      notify.nvim-notify = {
+        enable = true;
+        setupOpts = {
+          timeout = 5000;
+          background_color = "#000000";
+        };
       };
 
       preventJunkFiles = true;
