@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.programs.office;
 in {
-  imports = [./gimp.nix ./libreoffice.nix ./teams.nix ./latex.nix];
+  imports = [./gimp.nix ./libreoffice.nix ./teams.nix];
 
   options = {
     custom.programs.office = {
@@ -18,7 +18,6 @@ in {
       gimp.enable = true;
       libreoffice.enable = true;
       teams.enable = true;
-      latex.enable = true;
     };
   };
 }
