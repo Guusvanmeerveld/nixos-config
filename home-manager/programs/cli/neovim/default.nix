@@ -29,20 +29,20 @@
 
       formatter.conform-nvim.enable = true;
 
-      filetree.nvimTree = {
-        enable = true;
+      filetree = {
+        neo-tree = {
+          enable = true;
 
-        setupOpts = {
-          diagnostics.enable = true;
-          git.enable = true;
-          hijack_cursor = true;
-          modified.enable = true;
+          setupOpts = {
+            enable_cursor_hijack = true;
+            git_status_async = true;
+            filesystem.follow_current_file.enabled = true;
+          };
         };
       };
 
       git = {
         gitsigns.enable = true;
-        # vim-fugitive.enable = true;
         neogit.enable = true;
       };
 
@@ -62,9 +62,51 @@
         tex.enable = true;
       };
 
+      luaConfigPre = builtins.readFile ./utils.lua;
+
       lsp = {
         enable = true;
         formatOnSave = true;
+      };
+
+      maps = {
+        normal = {
+          "<leader>w" = {
+            action = ":write<CR>";
+            desc = "Write the buffer to disk";
+          };
+
+          "<leader>W" = {
+            action = ":SudoWrite<CR>";
+            desc = "Write the buffer to disk as sudo";
+          };
+
+          "<leader>bd" = {
+            # Use custom bufremove implementation from lazyvim
+            # Defined in utils.lua file
+            action = "bufremove";
+            lua = true;
+            desc = "Close buffer";
+          };
+
+          "<leader>q" = {
+            action = ":qa<CR>";
+            desc = "Quit application";
+          };
+
+          # Neotree
+          "<leader>e" = {
+            action = ":Neotree toggle<CR>";
+            desc = "Toggle Neotree";
+          };
+        };
+
+        terminal = {
+          "<Esc>j" = {
+            action = "<C-\\><C-n>";
+            desc = "Go back to normal mode";
+          };
+        };
       };
 
       mini = {
@@ -80,7 +122,7 @@
         enable = true;
         setupOpts = {
           timeout = 5000;
-          background_color = "#000000";
+          background_colour = "#000000";
         };
       };
 
@@ -89,6 +131,11 @@
       utility = {
         direnv.enable = true;
         multicursors.enable = true;
+        images.image-nvim = {
+          enable = true;
+          setupOpts.backend = "kitty";
+        };
+        outline.aerial-nvim.enable = true;
       };
 
       session.nvim-session-manager.enable = true;
@@ -110,7 +157,9 @@
         transparent = true;
       };
 
-      treesitter.enable = true;
+      treesitter = {
+        enable = true;
+      };
 
       options = let
         indent = 2;

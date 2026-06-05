@@ -10,7 +10,7 @@ in {
     ./zsh.nix
     ./atuin.nix
     ./git.nix
-    ./neovim.nix
+    ./neovim
     ./eza.nix
     ./utils.nix
     ./nix-index.nix

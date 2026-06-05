@@ -70,6 +70,8 @@ _: {
 
       timeout = 0;
     };
+
+    kernelModules = ["ntsync"];
   };
 
   custom = {
@@ -86,7 +88,7 @@ _: {
     security.keyring.enable = true;
     certificates.enable = true;
 
-    linux.cachyos.useKernel = true;
+    # linux.cachyos.useKernel = true;
 
     fs.zfs.enable = true;
 
@@ -124,6 +126,12 @@ _: {
     };
 
     services = {
+      beszel.agent = {
+        enable = true;
+
+        openFirewall = true;
+      };
+
       gamemode.enable = true;
       gvfs.enable = true;
 
@@ -158,7 +166,7 @@ _: {
 
       waydroid.enable = true;
 
-      docker.enable = true;
+      podman.enable = true;
     };
 
     alerts = {
