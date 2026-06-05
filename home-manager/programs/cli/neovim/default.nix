@@ -99,6 +99,11 @@
             action = ":Neotree toggle<CR>";
             desc = "Toggle Neotree";
           };
+
+          "<C-L>" = {
+            action = ":noh<CR>";
+            desc = "Clear search highlights";
+          };
         };
 
         terminal = {
@@ -110,10 +115,7 @@
       };
 
       mini = {
-        icons.enable = true;
         comment.enable = true;
-        splitjoin.enable = true;
-        starter.enable = true;
         move.enable = true;
         pairs.enable = true;
       };
@@ -136,9 +138,20 @@
           setupOpts.backend = "kitty";
         };
         outline.aerial-nvim.enable = true;
+        motion = {
+          precognition.enable = true;
+        };
+        sleuth.enable = true;
+        smart-splits.enable = true;
+        surround.enable = true;
       };
 
       session.nvim-session-manager.enable = true;
+
+      spellcheck = {
+        enable = true;
+        languages = ["en" "nl"];
+      };
 
       syntaxHighlighting = true;
 
@@ -169,7 +182,7 @@
         encoding = "utf-8";
         fileencoding = "utf-8";
         grepformat = "%f:%l:%c:%m";
-        grepprg = "rg --vimgrep --smart-case";
+        grepprg = "${lib.getExe pkgs.ripgrep} --vimgrep --smart-case";
         history = 500;
         inccommand = "split";
         lazyredraw = false; # deprecated; use eventignore when needed
