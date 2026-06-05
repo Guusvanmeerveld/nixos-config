@@ -124,7 +124,7 @@
       sudo-rs.enable = true;
     };
 
-    virtualisation.docker.enable = true;
+    virtualisation.podman.enable = true;
 
     services = {
       gvfs.enable = true;

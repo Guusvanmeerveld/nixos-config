@@ -1,3 +1,3 @@
 {
-  imports = [./docker.nix ./qemu.nix ./waydroid.nix];
+  imports = [./qemu.nix ./waydroid.nix ./podman.nix];
 }

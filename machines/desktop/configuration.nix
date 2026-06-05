@@ -145,7 +145,7 @@ _: {
         graphical = true;
       };
 
-      docker.enable = true;
+      podman.enable = true;
     };
 
     networking = {
