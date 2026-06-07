@@ -76,6 +76,16 @@
           address = "10.10.10.15";
           domains = ["*.lav.guusvanmeerveld.dev"];
         };
+
+        antelope = {
+          publicKey = "/M8h0RzVdsE7j9svlKGGXNxf7lFk7iR6Kt3mSZBp03k="; # pragma: allowlist secret
+          address = "10.10.10.16";
+        };
+
+        allium = {
+          publicKey = "I2dCa+Xi1KcT9bk14VWcv0r9uizOLraEN+twAIzBxHo="; # pragma: allowlist secret
+          address = "10.10.10.17";
+        };
       };
     };
 
