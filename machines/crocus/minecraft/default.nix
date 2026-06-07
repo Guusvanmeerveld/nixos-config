@@ -115,6 +115,16 @@
             hash = "sha256-HwedHcqW2UhPdxPNROKWUcwIxAp0kj0gSdB7/dX3bcA=";
           };
 
+          "mods/disconnect-packet-fix.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/rd9rKuJT/versions/Gv74xveQ/disconnect-packet-fix-fabric-2.0.0.jar";
+            hash = "sha256-KLUW2mtMbyMlv5hNBdIcE57e13kE7FJ1B26lxBUyvIM=";
+          };
+
+          "mods/dcintegration.jar" = pkgs.fetchurl {
+            url = "https://cdn.modrinth.com/data/rbJ7eS5V/versions/yGb7L3Am/dcintegration-fabric-MC1.21.11-3.1.0.2.jar";
+            hash = "sha256-rbf/RvLFaEil1+KHZajLyLEFezC0rvya2HqyLpoATEY=";
+          };
+
           # Libs
           "mods/fabric-api.jar" = pkgs.fetchurl {
             url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/i5tSkVBH/fabric-api-0.141.3%2B1.21.11.jar";
