@@ -142,9 +142,13 @@
         };
       };
 
+      beszel.agent = {
+        enable = true;
+        openFirewall = true;
+      };
+
       openssh.enable = true;
       fail2ban.enable = true;
-      autoUpgrade.enable = true;
 
       # Enable restic backups of all services that support it.
       restic.client.enable = true;
