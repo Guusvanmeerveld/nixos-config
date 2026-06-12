@@ -67,6 +67,9 @@ in {
         environment = {
           DEGOOG_PORT = toString cfg.port;
           DEGOOG_DATA_DIR = toString cfg.dataDir;
+          DEGOOG_WIZARD = "false";
+          BUN_INSTALL_CACHE_DIR = "/tmp/bun";
+          BUN_RUNTIME_TRANSPILER_CACHE_PATH = "0";
         };
 
         serviceConfig = {

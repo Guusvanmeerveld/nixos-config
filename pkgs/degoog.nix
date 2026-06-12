@@ -7,13 +7,13 @@
 }:
 bun2nix.writeBunApplication rec {
   pname = "degoog";
-  version = "0.15.0";
+  version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "degoog-org";
     repo = "degoog";
     tag = version;
-    hash = "sha256-fuWBlgNLlJNnLEjyAp0d4RtE/bFt+hfzsBkL0jCViUw=";
+    hash = "sha256-99DPnZcjhqGn4HdmufGzgkEKWYhXXwe5R8it0QS0qLY=";
   };
 
   buildPhase = ''
