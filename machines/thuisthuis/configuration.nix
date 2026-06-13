@@ -6,13 +6,6 @@ _: {
     ./hardware-configuration.nix
   ];
 
-  fileSystems = {
-    "/mnt/games" = {
-      device = "homework/games";
-      fsType = "zfs";
-    };
-  };
-
   powerManagement.cpuFreqGovernor = "performance";
 
   networking = {
@@ -135,25 +128,22 @@ _: {
       gamemode.enable = true;
       gvfs.enable = true;
 
-      restic.client.enable = true;
-
       kdeconnect.openFirewall = true;
 
-      caddy.enable = true;
       syncthing = {
         enable = true;
 
         folders = {
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
-          "music" = "~/Music";
           "games" = "~/Backups/Games";
           "seedvault-backup" = "~/Backups/Phone";
           "firefox-sync" = "~/Backups/Librewolf";
           "dictionaries" = "~/.config/dictionaries";
+          "documents" = "~/Documents";
+          "desktop-pictures" = "~/Pictures";
         };
 
-        caddy.url = "http://syncthing.thsths";
         openFirewall = true;
       };
     };

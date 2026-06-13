@@ -136,11 +136,12 @@
         folders = {
           "code" = "~/Code";
           "minecraft" = "~/Minecraft";
-          "music" = "~/Music";
           "games" = "~/Backups/Games";
           "seedvault-backup" = "~/Backups/Phone";
           "firefox-sync" = "~/Backups/Librewolf";
           "dictionaries" = "~/.config/dictionaries";
+          "documents" = "~/Documents";
+          "desktop-pictures" = "~/Pictures";
         };
 
         openFirewall = true;

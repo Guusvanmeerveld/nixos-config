@@ -385,11 +385,12 @@
         folders = {
           "code" = "${dataDir}/Code";
           "minecraft" = "${dataDir}/Minecraft";
-          "music" = "${dataDir}/Music";
           "games" = "${dataDir}/Games";
           "seedvault-backup" = "${dataDir}/Backups/Phone";
           "firefox-sync" = "${dataDir}/Backups/Librewolf";
           "dictionaries" = "${dataDir}/Dictionaries";
+          "documents" = "${dataDir}/Documents";
+          "desktop-pictures" = "${dataDir}/Desktop-Pictures";
         };
 
         caddy.url = "https://syncthing.sun.guusvanmeerveld.dev";

@@ -16,25 +16,10 @@
       addresses = ["tcp://10.10.10.6:22000"];
     };
 
-    "laptop" = {
-      id = "FYHUOAV-WN6KYQV-SLVAUIW-F5JZO65-3AWESRR-BEYDKGN-5XNLV67-AURU5A2";
-      addresses = ["tcp://10.10.10.3:22000"];
-    };
-
     "desktop" = {
       id = "TGVX2VH-ABGT3IS-X2C6DTF-UI3NFL4-LDQ337J-M2YQBV3-OBDJSMR-7U67NQH";
       addresses = ["tcp://10.10.10.2:22000"];
     };
-
-    "orchid" = {
-      id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
-      addresses = ["tcp://10.10.10.10:22000"];
-    };
-
-    # "crocus" = {
-    #   id = "DFTGINN-YXVURFW-5AOE36K-7O62WZB-KC6TVN5-PUCXPOI-BDNZW6L-HCQPSAW";
-    #   addresses = ["tcp://10.10.10.1:22000"];
-    # };
 
     "framework-13" = {
       id = "QBKBECQ-OW6BZ5K-RADYZVU-Y5YWXIX-TSQD3CD-PBTQA64-DTBYXQV-CEME4QK";
@@ -50,22 +35,17 @@
   folders = {
     "minecraft" = {
       label = "Minecraft";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
     };
 
     "code" = {
       label = "Code";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
     };
 
     "games" = {
       label = "Games";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
-    };
-
-    "music" = {
-      label = "Music";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "phone" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
     };
 
     "seedvault-backup" = {
@@ -75,12 +55,22 @@
 
     "dictionaries" = {
       label = "Word Dictionaries";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
     };
 
     "firefox-sync" = {
       label = "Firefox Sync";
-      devices = ["sunflower" "thuisthuis" "desktop" "laptop" "framework-13"];
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
+    };
+
+    "documents" = {
+      label = "Documents";
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
+    };
+
+    "desktop-pictures" = {
+      label = "Desktop Pictures";
+      devices = ["sunflower" "thuisthuis" "desktop" "framework-13"];
     };
   };
 in {
