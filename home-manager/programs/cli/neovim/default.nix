@@ -36,6 +36,7 @@
           setupOpts = {
             enable_cursor_hijack = true;
             git_status_async = true;
+            hijack_netrw_behavior = "open_current";
             filesystem.follow_current_file.enabled = true;
           };
         };
@@ -107,7 +108,7 @@
         };
 
         terminal = {
-          "<Esc>j" = {
+          "<Esc>" = {
             action = "<C-\\><C-n>";
             desc = "Go back to normal mode";
           };
