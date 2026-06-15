@@ -11,11 +11,11 @@
       ipRange = "10.10.10.0/24";
 
       server = {
-        publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ="; # pragma: allowlist secret
+        publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
         address = "10.10.10.1";
-        hostname = "crocus";
-        domains = ["*.crocus.guusvanmeerveld.dev"];
-        endpoint = "143.47.189.158";
+        hostname = "sunflower";
+        domains = ["*.sun.guusvanmeerveld.dev"];
+        endpoint = "wireguard.guusvanmeerveld.dev";
       };
 
       clients = {
@@ -58,12 +58,6 @@
         framework-13 = {
           publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs="; # pragma: allowlist secret
           address = "10.10.10.12";
-        };
-
-        sunflower = {
-          publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
-          address = "10.10.10.13";
-          domains = ["*.sun.guusvanmeerveld.dev"];
         };
 
         oribi = {
@@ -124,7 +118,7 @@ in {
       port = lib.mkOption {
         type = lib.types.port;
         description = "The port to use for Wireguard connections";
-        default = 49999;
+        default = 51820;
       };
 
       networks = lib.mkOption {
