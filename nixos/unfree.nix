@@ -26,6 +26,7 @@ in {
     config = {
       allowUnfreePredicate = p: elem (getName p) unfreePackages;
       allowUnfree = false;
+      permittedInsecurePackages = ["librewolf-unwrapped-151.0.2-1" "librewolf-151.0.2-1"];
     };
   };
 }
