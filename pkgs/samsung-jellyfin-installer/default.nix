@@ -7,14 +7,14 @@
   buildFHSEnv,
 }: let
   package = buildDotnetModule (finalAttrs: {
-    pname = "samsung-jellyfin-installer";
-    version = "2.2.0.3";
+    pname = "Apps2Samsung";
+    version = "2.5.6";
 
     src = fetchFromGitHub {
-      owner = "Jellyfin2Samsung";
-      repo = "Samsung-Jellyfin-Installer";
+      owner = "Apps2Samsung";
+      repo = "Apps2Samsung";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-pDzw2/cGpJAStnNOTiIvmyvRHNwEY2Ezz1JdDKwydYA=";
+      hash = "sha256-fD66Rx/OV7VAcIRJtUiIJ7JjYuERTMtRFMBy2uytZhM=";
     };
 
     postPatch = ''
@@ -22,10 +22,10 @@
     '';
 
     projectFile = [
-      "Jellyfin2Samsung-CrossOS/Jellyfin2Samsung.csproj"
+      "Jellyfin2Samsung-CrossOS/Apps2Samsung.csproj"
     ];
 
-    executables = ["Jellyfin2Samsung"];
+    executables = ["Apps2Samsung"];
 
     nugetDeps = ./deps.json;
 
@@ -34,26 +34,28 @@
       homepage = "https://github.com/Jellyfin2Samsung/Samsung-Jellyfin-Installer";
       license = lib.licenses.mit;
       # maintainers = with lib.maintainers; [];
-      mainProgram = "Jellyfin2Samsung";
+      mainProgram = "Apps2Samsung";
       platforms = lib.platforms.all;
     };
   });
 in
   buildFHSEnv {
     # Wrap in FHS env because program downloads a Tizen CLI tool which cannot natively be run in NixOS, but it essential to the functionality of the program.
-    name = "samsung2jellyfin";
+    name = "apps2samsung";
+
+    inherit (package) fetch-deps;
 
     targetPkgs = pkgs: (with pkgs; [
       zlib
       openssl
     ]);
 
-    runScript = writeScript "start-jellyfin2samsung" ''
-      export JELLYFIN2SAMSUNG_HOME="$HOME/.config/Jellyfin2Samsung"
+    runScript = writeScript "start-apps2samsung" ''
+      export JELLYFIN2SAMSUNG_HOME="$HOME/.config/Apps2Samsung"
 
       ${lib.getExe' coreutils "mkdir"} -p "$JELLYFIN2SAMSUNG_HOME"
 
-      ${lib.getExe' coreutils "cp"} -r "${package}/lib/samsung-jellyfin-installer/Assets" "$JELLYFIN2SAMSUNG_HOME"
+      ${lib.getExe' coreutils "cp"} -r "${package}/lib/Apps2Samsung/Assets" "$JELLYFIN2SAMSUNG_HOME"
 
       ${lib.getExe package}
     '';
