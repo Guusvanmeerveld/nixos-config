@@ -1,13 +1,13 @@
 {
   config,
   lib,
-  outputs,
+  inputs,
   ...
 }: let
   cfg = config.custom.services.degoog;
 in {
   imports = [
-    outputs.nixosModules.degoog
+    inputs.degoog.nixosModules.default
   ];
 
   options = {

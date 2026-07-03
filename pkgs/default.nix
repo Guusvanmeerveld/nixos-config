@@ -1,11 +1,6 @@
 # Custom packages, that can be defined similarly to ones from nixpkgs
 # You can build them using 'nix build .#example'
-{
-  pkgs,
-  bun2nix,
-}: rec {
-  seerr = pkgs.callPackage ./seerr.nix {};
-
+{pkgs}: rec {
   samsung-jellyfin-installer = pkgs.callPackage ./samsung-jellyfin-installer {};
 
   cleanuparr = pkgs.callPackage ./cleanuparr {};
@@ -14,7 +9,6 @@
 
   caddy-with-plugins = pkgs.callPackage ./caddy-with-plugins.nix {};
   free-epic-games = pkgs.callPackage ./free-epic-games.nix {};
-  degoog = pkgs.callPackage ./degoog.nix {inherit bun2nix;};
 
   pythonPackages = import ./python {inherit pkgs;};
 

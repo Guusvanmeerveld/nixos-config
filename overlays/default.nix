@@ -5,7 +5,6 @@
     custom =
       (import ../pkgs {
         pkgs = final;
-        bun2nix = inputs.bun2nix.packages.${final.system}.default;
       })
       // {
         scripts = import ../scripts {pkgs = final;};

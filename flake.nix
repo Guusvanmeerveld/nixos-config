@@ -150,13 +150,13 @@
       flake = false;
     };
 
-    bun2nix = {
-      url = "github:nix-community/bun2nix";
+    nvf = {
+      url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvf = {
-      url = "github:notashelf/nvf";
+    degoog = {
+      url = "github:guusvanmeerveld/degoog.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -239,7 +239,6 @@
         system:
           (getAttr "export" (import ./pkgs {
             pkgs = nixpkgs.legacyPackages.${system};
-            bun2nix = inputs.bun2nix.packages.${system}.default;
           }))
           // {
             hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
