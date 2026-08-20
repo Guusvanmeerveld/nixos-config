@@ -1,6 +1,6 @@
 {
   imports = [
-    ./vscode-server.nix
+    # ./vscode-server.nix
     ./mconnect.nix
     ./mpd.nix
     ./spotifyd.nix

@@ -32,6 +32,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.pointerCursor = {
+      enable = true;
+
       inherit (cfg.cursor) name;
       inherit (cfg.cursor) package;
 
