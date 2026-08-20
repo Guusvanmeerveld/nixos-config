@@ -4,13 +4,13 @@
 }:
 pkgs.stdenv.mkDerivation rec {
   pname = "firefox-mod-blur";
-  version = "2.30";
+  version = "2.64";
 
   src = fetchFromGitHub {
     owner = "datguypiko";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-394pnKOXWjxES3IkBcH8b2WD6qOSB4nE+njTbHunWZU=";
+    hash = "sha256-ENVVA77CleGVX2UzhwZoNhpTnGh7WyMCPYtFdamomas=";
   };
 
   buildPhase = ''
