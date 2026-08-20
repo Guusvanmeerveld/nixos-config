@@ -49,14 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-
-      inputs = {
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,11 +71,6 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
       };
-    };
-
-    vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     mconnect-nix = {
