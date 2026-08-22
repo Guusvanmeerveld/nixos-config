@@ -6,10 +6,6 @@
   home.packages = with pkgs; [libraspberrypi raspberrypi-eeprom i2c-tools];
 
   custom = {
-    services = {
-      vscode-server.enable = true;
-    };
-
     programs.cli = {
       default.enable = true;
     };

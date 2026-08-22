@@ -4,10 +4,6 @@
   ];
 
   custom = {
-    services = {
-      vscode-server.enable = true;
-    };
-
     programs.cli = {
       default.enable = true;
 

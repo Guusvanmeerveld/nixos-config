@@ -4,8 +4,6 @@
   ];
 
   custom = {
-    services.vscode-server.enable = true;
-
     programs.cli = {
       atuin.enable = true;
       tmux.enable = true;
