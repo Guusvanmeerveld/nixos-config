@@ -13,13 +13,23 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.podman = {
-      enable = true;
+    virtualisation = {
+      podman = {
+        enable = true;
 
-      dockerCompat = true;
-      autoPrune.enable = true;
+        dockerCompat = true;
+        autoPrune.enable = true;
+      };
+
+      containers.enable = true;
     };
 
-    environment.systemPackages = with pkgs; [ctop];
+    environment = {
+      sessionVariables = {
+        PODMAN_COMPOSE_PROVIDER = lib.getExe pkgs.docker-compose;
+      };
+
+      systemPackages = with pkgs; [ctop];
+    };
   };
 }

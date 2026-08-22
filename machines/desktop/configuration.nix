@@ -146,6 +146,8 @@ _: {
         graphical = true;
       };
 
+      waydroid.enable = true;
+
       podman.enable = true;
     };
 
