@@ -8,5 +8,6 @@
     ./kdeconnect.nix
     ./playerctld.nix
     ./ntfy-client.nix
+    ./gpu-screen-recorder.nix
   ];
 }

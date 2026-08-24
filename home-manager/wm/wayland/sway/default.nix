@@ -86,15 +86,6 @@ in {
           enable = true;
 
           xdgAutostart = true;
-
-          # extraCommands = [
-          #   "systemctl --user import-environment PATH"
-          #   "systemctl --user restart xdg-desktop-portal.service"
-          #   "systemctl --user reset-failed"
-          #   "systemctl --user start sway-session.target"
-          #   "swaymsg -mt subscribe '[]' || true"
-          #   "systemctl --user stop sway-session.target"
-          # ];
         };
 
         # Required to use the current nixpkgs version of swayfx.
@@ -364,7 +355,7 @@ in {
             })
             applications) (builtins.groupBy (application: toString application.workspace) (builtins.filter (application:
             application.workspace != null && application.appId != null)
-          config.custom.wm.applications));
+          (lib.filter (app: app.appId != null && app.workspace != null) config.custom.wm.applications)));
         };
       };
     };

@@ -72,6 +72,7 @@
     services = {
       kdeconnect.enable = true;
       playerctld.enable = true;
+      gpu-screen-recorder.enable = true;
     };
 
     programs = {
