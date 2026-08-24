@@ -72,6 +72,11 @@ _: {
     users."guus" = {
       isSuperUser = true;
 
+      ssh.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjJY76+LYXySgmmZfY4RwkWf9QYmouCKCbl19o3CGoo guus@phone"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGnHX/4kFaqNM6vRPZn8w6r/YlW6JI7m6+n79yl/EFRC guus@framework-13"
+      ];
+
       homeManager = {
         enable = true;
 
@@ -90,8 +95,6 @@ _: {
       bluetooth.enable = true;
 
       video.amd.enable = true;
-      power.thermald.enable = true;
-
       sound.pipewire.enable = true;
       input.logitech.enable = true;
 
@@ -119,6 +122,7 @@ _: {
 
       gamemode.enable = true;
       gvfs.enable = true;
+      openssh.enable = true;
 
       kdeconnect.openFirewall = true;
 

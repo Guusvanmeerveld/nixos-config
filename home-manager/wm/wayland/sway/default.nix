@@ -13,7 +13,7 @@
     then pkgs.swayfx
     else pkgs.sway;
 in {
-  imports = [./osd.nix ./idle.nix];
+  imports = [./osd.nix ./idle.nix ./wayvnc.nix];
 
   options = {
     custom.wm.wayland.sway = {

@@ -81,6 +81,8 @@
     users."guus" = {
       isSuperUser = true;
 
+      ssh.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHiourYGkKbqnMPrAVFVg0G3dfPOxUWJihI2YHN8NzEc guus@phone"];
+
       homeManager = {
         enable = true;
 
@@ -129,6 +131,7 @@
     services = {
       gvfs.enable = true;
       kdeconnect.openFirewall = true;
+      openssh.enable = true;
 
       syncthing = {
         enable = true;
