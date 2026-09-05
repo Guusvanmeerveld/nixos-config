@@ -69,12 +69,6 @@ in {
 
         wireguard = lib.mkEnableOption "Enable wireguard module";
 
-        mconnect = lib.mkOption {
-          type = lib.types.bool;
-          default = config.custom.services.mconnect.enable;
-          description = "Enable MConnect module";
-        };
-
         swaync = lib.mkOption {
           type = lib.types.bool;
           description = "Enable support for swaync notification hub";
@@ -178,7 +172,7 @@ in {
           background: ${status-color};
         }
 
-        #power-profiles-daemon, #privacy, #mpris, #custom-hcfs, #custom-mconnect, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-logout, #custom-reboot, #custom-swaync, #tray {
+        #power-profiles-daemon, #privacy, #mpris, #custom-hcfs, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-logout, #custom-reboot, #custom-swaync, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -251,7 +245,6 @@ in {
             orientation = "inherit";
             modules =
               lib.optional cfg.features.hcfs "custom/hcfs"
-              ++ lib.optional cfg.features.mconnect "custom/mconnect"
               ++ lib.optional cfg.features.wireguard "custom/wireguard"
               ++ lib.optional cfg.features.power-profiles "power-profiles-daemon"
               ++ lib.optional cfg.features.backlight "backlight"
@@ -260,29 +253,6 @@ in {
               ++ lib.optional cfg.features.swaync "custom/swaync"
               ++ ["group/power-drawer"];
           };
-
-          "custom/mconnect" = lib.mkIf cfg.features.mconnect (let
-            mconnectctl = "${pkgs.mconnect}/bin/mconnectctl";
-
-            get-primary-device = "${mconnectctl} list-devices | head -2 | tail -1 | awk '{print $1}'";
-            get-battery-level = "${mconnectctl} show-battery $(${get-primary-device}) | head -1 | awk '{print $2}'";
-          in {
-            exec = pkgs.writeShellScript "mconnect-waybar" ''
-              BATTERY=$(${get-battery-level})
-              INFO=$(${mconnectctl} show-device $(${get-primary-device}) | tail -8 | sed ':a;N;$!ba;s/\n/\\n/g')
-
-              printf '{"percentage": %s, "text": "%s"}\n' "$BATTERY" "$INFO"
-            '';
-
-            return-type = "json";
-
-            interval = 60;
-
-            format = "{icon}";
-            format-icons = ["󰤾" "󰤿" "󰥀" "󰥁" "󰥂" "󰥃" "󰥄" "󰥅" "󰥆" "󰥈"];
-
-            tooltip-format = "Battery: {percentage}%\n{}";
-          });
 
           "custom/wireguard" = lib.mkIf cfg.features.wireguard {
             format = "󰖂";

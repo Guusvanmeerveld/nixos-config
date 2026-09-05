@@ -43,25 +43,9 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Configure neovim in Nix
-    nixvim = {
-      url = "github:nix-community/nixvim";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
     };
 
     simple-nixos-mailserver = {
@@ -71,11 +55,6 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
       };
-    };
-
-    mconnect-nix = {
-      url = "github:guusvanmeerveld/mconnect-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     argonone-nix = {
