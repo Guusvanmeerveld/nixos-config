@@ -80,8 +80,6 @@ in {
           default = true;
           description = "Enable tray support";
         };
-
-        hcfs = lib.mkEnableOption "Enable support for the HyperX Cloud Flight series of headsets";
       };
     };
   };
@@ -172,7 +170,7 @@ in {
           background: ${status-color};
         }
 
-        #power-profiles-daemon, #privacy, #mpris, #custom-hcfs, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-logout, #custom-reboot, #custom-swaync, #tray {
+        #power-profiles-daemon, #privacy, #mpris, #custom-wireguard, #backlight, #pulseaudio, #network, #battery, #custom-power, #custom-lock, #custom-logout, #custom-reboot, #custom-swaync, #tray {
           font-size: 20px;
           padding: 0 10px;
         }
@@ -244,8 +242,7 @@ in {
           "group/status-modules" = {
             orientation = "inherit";
             modules =
-              lib.optional cfg.features.hcfs "custom/hcfs"
-              ++ lib.optional cfg.features.wireguard "custom/wireguard"
+              lib.optional cfg.features.wireguard "custom/wireguard"
               ++ lib.optional cfg.features.power-profiles "power-profiles-daemon"
               ++ lib.optional cfg.features.backlight "backlight"
               ++ ["pulseaudio" "network"]
@@ -264,25 +261,6 @@ in {
 
             signal = 6;
             interval = 60;
-          };
-
-          "custom/hcfs" = lib.mkIf cfg.features.hcfs {
-            tooltip = "{}";
-
-            format = "󰋎 {icon}";
-            format-icons = ["󰤾" "󰤿" "󰥀" "󰥁" "󰥂" "󰥃" "󰥄" "󰥅" "󰥆" "󰥈"];
-
-            exec = lib.getExe (pkgs.writeShellApplication {
-              name = "hcfs-waybar";
-
-              runtimeInputs = with pkgs; [jq hyperx-cloud-flight-s];
-
-              text = ''
-                hcfs daemon | jq --unbuffered --compact-output '{ percentage: .battery }'
-              '';
-            });
-
-            return-type = "json";
           };
 
           "power-profiles-daemon" = {

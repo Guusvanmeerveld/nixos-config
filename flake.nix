@@ -67,11 +67,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyperx-cloud-flight-s = {
-      url = "github:guusvanmeerveld/hyperx-cloud-flight-s";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid";
 
@@ -207,13 +202,9 @@
     # Accessible through 'nix build', 'nix shell', etc
     packages = forAllSystems (
       with lib; (
-        system:
-          (getAttr "export" (import ./pkgs {
-            pkgs = nixpkgs.legacyPackages.${system};
-          }))
-          // {
-            hyperx-cloud-flight-s = inputs.hyperx-cloud-flight-s.packages."${system}".default;
-          }
+        system: (getAttr "export" (import ./pkgs {
+          pkgs = nixpkgs.legacyPackages.${system};
+        }))
       )
     );
     # // {

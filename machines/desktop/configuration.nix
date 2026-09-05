@@ -97,8 +97,6 @@ _: {
       video.amd.enable = true;
       sound.pipewire.enable = true;
       input.logitech.enable = true;
-
-      hyperx.cloud-flight-s.enable = true;
     };
 
     programs = {
