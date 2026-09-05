@@ -50,9 +50,13 @@
       languages = {
         enableTreesitter = true;
         enableFormat = true;
+        enableExtraDiagnostics = true;
 
         rust.enable = true;
         typescript.enable = true;
+        tsx.enable = true;
+        html.enable = true;
+        css.enable = true;
         nix = {
           enable = true;
           lsp.servers = ["nixd"];
