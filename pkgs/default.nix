@@ -10,22 +10,17 @@
   caddy-with-plugins = pkgs.callPackage ./caddy-with-plugins.nix {};
   free-epic-games = pkgs.callPackage ./free-epic-games.nix {};
 
-  pythonPackages = import ./python {inherit pkgs;};
-
   dockerPackages = import ./docker {inherit pkgs;};
 
   kodiPackages = import ./kodi {inherit pkgs;};
 
   firefox = import ./firefox {inherit pkgs;};
-  jellyfin = import ./jellyfin {inherit pkgs;};
 
   export = {
     inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer;
-    inherit (jellyfin) intro-skipper trakt listenbrainz dlna lyrics;
-    inherit (pythonPackages) romm;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
 
-    # romm-docker = dockerPackages.romm;
+    romm-docker = dockerPackages.romm;
   };
 }
