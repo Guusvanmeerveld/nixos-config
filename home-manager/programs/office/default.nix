@@ -5,7 +5,7 @@
 }: let
   cfg = config.custom.programs.office;
 in {
-  imports = [./gimp.nix ./libreoffice.nix ./teams.nix];
+  imports = [./gimp.nix ./libreoffice.nix ./teams.nix ./trilium-desktop.nix];
 
   options = {
     custom.programs.office = {
@@ -18,6 +18,7 @@ in {
       gimp.enable = true;
       libreoffice.enable = true;
       teams.enable = true;
+      trilium-desktop.enable = true;
     };
   };
 }
