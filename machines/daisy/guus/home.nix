@@ -1,17 +1,9 @@
-{...}: {
+{lib, ...}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
-  custom = {
-    programs.cli = {
-      atuin.enable = true;
-      tmux.enable = true;
-      zsh.enable = true;
-      starship.enable = true;
-      git.enable = true;
-    };
-  };
+  custom.programs.cli.default-apps.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";

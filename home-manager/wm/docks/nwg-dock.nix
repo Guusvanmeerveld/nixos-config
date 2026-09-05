@@ -46,7 +46,7 @@ in {
 
         style = ''
           window {
-            background-color: ${pkgs.custom.utils.makeTransparent "#${config.colorScheme.palette.base00}" 0.8};
+            background-color: ${pkgs.custom.lib.makeTransparent "#${config.colorScheme.palette.base00}" 0.8};
           	border-radius: 15px;
           	border-style: none;
           	border-width: 1px;

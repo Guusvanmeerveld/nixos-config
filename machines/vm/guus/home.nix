@@ -1,6 +1,6 @@
-{...}: {
+{lib, ...}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
   custom = {
@@ -30,14 +30,10 @@
     };
 
     programs = {
-      cli = {
-        default.enable = true;
-      };
-
-      default.enable = true;
-
-      office.enable = true;
-      development.enable = true;
+      default-apps.enable = true;
+      cli.default-apps.enable = true;
+      office.default-apps.enable = true;
+      theming.default-apps.enable = true;
     };
   };
 

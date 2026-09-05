@@ -3,7 +3,12 @@
   lib,
   ...
 }: {
-  imports = [./wm ./xdg ./programs ./services ./colors.nix];
+  imports = lib.custom.umport {
+    paths = [
+      ./.
+    ];
+    exclude = [./default.nix];
+  };
 
   options = {
     custom.nixConfigLocation = lib.mkOption {

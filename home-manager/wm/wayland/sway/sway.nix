@@ -13,8 +13,6 @@
     then pkgs.swayfx
     else pkgs.sway;
 in {
-  imports = [./osd.nix ./idle.nix ./wayvnc.nix];
-
   options = {
     custom.wm.wayland.sway = {
       enable = lib.mkEnableOption "Enable sway window manager";
@@ -75,8 +73,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     wayland = {
-      systemd.target = "sway-session.target";
-
       windowManager.sway = {
         enable = true;
 

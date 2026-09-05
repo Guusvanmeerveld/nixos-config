@@ -1,20 +1,12 @@
-{...}: {
+{lib, ...}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
-  custom = {
-    programs.cli = {
-      default.enable = true;
+  custom.programs.cli = {
+    default-apps.enable = true;
 
-      gpg.enable = true;
-
-      beets = {
-        enable = true;
-
-        musicDirectory = "/mnt/bigdata/media/music";
-      };
-    };
+    gpg.enable = true;
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

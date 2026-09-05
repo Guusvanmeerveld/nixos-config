@@ -9,12 +9,10 @@
   theme-package = cfg.theme;
   theme-path = "${theme-package}/share/firefox";
 in {
-  options = {
-    custom.programs.librewolf = {
-      enable = lib.mkEnableOption "Enable Librewolf browser";
+  options.custom.programs.librewolf = {
+    enable = lib.mkEnableOption "Enable Librewolf browser";
 
-      theme = lib.mkPackageOption pkgs.custom.firefox.themes "blur" {};
-    };
+    theme = lib.mkPackageOption pkgs.custom.firefox.themes "blur" {};
   };
 
   config = lib.mkIf cfg.enable {

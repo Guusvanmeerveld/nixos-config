@@ -173,11 +173,16 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
     inherit (self) outputs;
-    inherit (nixpkgs) lib;
+    lib = nixpkgs.lib.extend (self: _super: {
+      custom = import ./lib {
+        lib = self;
+        inherit inputs;
+      };
+    });
 
     shared = import ./shared;
 
-    specialArgs = {inherit inputs outputs shared;};
+    specialArgs = {inherit lib inputs outputs shared;};
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
       checks = lib.getAttrs ["x86_64-linux"] self.packages;

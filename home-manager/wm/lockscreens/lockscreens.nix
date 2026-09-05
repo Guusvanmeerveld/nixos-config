@@ -1,6 +1,4 @@
 {lib, ...}: {
-  imports = [./swaylock.nix ./gtklock.nix];
-
   options = {
     custom.wm.lockscreens.default = {
       keybind = lib.mkOption {

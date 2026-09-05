@@ -8,11 +8,7 @@
 in {
   options = {
     custom.programs.theming.qt = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.programs.theming.enable;
-        description = "Enable Qt theming";
-      };
+      enable = lib.mkEnableOption "Enable Qt theming";
 
       style = {
         name = lib.mkOption {

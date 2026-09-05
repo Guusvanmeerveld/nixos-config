@@ -1,6 +1,4 @@
 {lib, ...}: {
-  imports = [./X11 ./wayland ./bars ./lockscreens ./notifications ./docks ./launchers];
-
   options = {
     custom.wm = {
       applications = with lib;

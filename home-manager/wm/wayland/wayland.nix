@@ -6,8 +6,6 @@
 }: let
   cfg = config. custom.wm.wayland;
 in {
-  imports = [./sway ./cliphist.nix];
-
   options = {
     custom.wm.wayland = {
       enable = lib.mkOption {

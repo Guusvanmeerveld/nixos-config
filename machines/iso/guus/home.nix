@@ -1,12 +1,16 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
   home.packages = with pkgs; [perl];
 
   custom.programs.cli = {
-    default.enable = true;
+    default-apps.enable = true;
     atuin.enable = false;
   };
 

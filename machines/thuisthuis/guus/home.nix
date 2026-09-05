@@ -2,7 +2,7 @@
   primary-display = "DP-3";
 in {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
   custom = {
@@ -64,7 +64,7 @@ in {
       wlr.settings = {
         # Configure main display to automatically get picked.
         screencast = {
-          max_fps = 60;
+          max_fps = toString 60;
           chooser_type = "none";
           output_name = primary-display;
         };
@@ -88,26 +88,17 @@ in {
     };
 
     programs = {
-      default.enable = true;
-
-      messaging.enable = true;
-
-      games = {
-        enable = true;
-        scarab.enable = true;
-      };
-
-      theming.enable = true;
-
-      office.enable = true;
-
-      development = {
-        enable = true;
-      };
-
+      default-apps.enable = true;
+      messaging.default-apps.enable = true;
+      theming.default-apps.enable = true;
+      office.default-apps.enable = true;
       cli = {
-        default.enable = true;
+        default-apps.enable = true;
         gpg.enable = true;
+      };
+      games = {
+        default-apps.enable = true;
+        scarab.enable = true;
       };
 
       parsec.enable = true;

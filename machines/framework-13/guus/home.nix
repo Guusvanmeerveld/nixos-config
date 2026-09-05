@@ -1,6 +1,10 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
   home.packages = with pkgs; [powertop];
@@ -63,24 +67,16 @@
     };
 
     programs = {
-      default.enable = true;
-
-      theming.enable = true;
-      messaging.enable = true;
-      office.enable = true;
-
-      development = {
-        enable = true;
-      };
-
-      games.minecraft.enable = true;
-
+      default-apps.enable = true;
+      theming.default-apps.enable = true;
+      messaging.default-apps.enable = true;
+      office.default-apps.enable = true;
       cli = {
-        default.enable = true;
+        default-apps.enable = true;
         gpg.enable = true;
       };
 
-      eduvpn.enable = true;
+      games.minecraft.enable = true;
     };
   };
 

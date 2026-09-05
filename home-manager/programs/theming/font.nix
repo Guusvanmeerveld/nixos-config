@@ -11,11 +11,7 @@ in {
     custom.programs.theming.font = let
       defaultFontOptions = shared.theming.font;
     in {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.programs.theming.enable;
-        description = "Enable font theming";
-      };
+      enable = lib.mkEnableOption "Enable font theming";
 
       serif = {
         package = lib.mkPackageOption pkgs defaultFontOptions.serif.package {};

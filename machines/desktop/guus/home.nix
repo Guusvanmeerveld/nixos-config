@@ -1,6 +1,6 @@
 {lib, ...}: {
   imports = [
-    ../../../home-manager
+    (lib.custom.relativeToRoot "home-manager")
   ];
 
   custom = {
@@ -76,36 +76,23 @@
     };
 
     programs = {
-      default.enable = true;
-
-      messaging.enable = true;
-
-      games = {
-        enable = true;
-
-        scarab.enable = true;
-
-        emulators = {
-          ryujinx.enable = true;
-          desmume.enable = true;
-        };
-      };
-
-      theming.enable = true;
-
-      office.enable = true;
-
-      development = {
-        enable = true;
-      };
+      default-apps.enable = true;
+      theming.default-apps.enable = true;
+      messaging.default-apps.enable = true;
+      office.default-apps.enable = true;
 
       cli = {
-        default.enable = true;
+        default-apps.enable = true;
         gpg.enable = true;
       };
 
+      games = {
+        default-apps.enable = true;
+        scarab.enable = true;
+        emulators.ryujinx.enable = true;
+      };
+
       parsec.enable = true;
-      eduvpn.enable = true;
 
       freetube = {
         enable = true;

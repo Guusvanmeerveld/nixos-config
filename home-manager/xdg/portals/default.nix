@@ -6,8 +6,6 @@
 }: let
   cfg = config.custom.xdg.portals;
 in {
-  imports = [./wlr.nix];
-
   options = {
     custom.xdg.portals = {
       enable = lib.mkEnableOption "Enable XDG portals configuration";

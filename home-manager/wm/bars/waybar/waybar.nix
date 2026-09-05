@@ -106,7 +106,7 @@ in {
       enable = true;
 
       style = let
-        bg-color = pkgs.custom.utils.makeTransparent "#${config.colorScheme.palette.base00}" 0.95;
+        bg-color = lib.custom.makeTransparent "#${config.colorScheme.palette.base00}" 0.95;
         alt-bg-color = "#${config.colorScheme.palette.base01}";
 
         font-color = "#${config.colorScheme.palette.base06}";

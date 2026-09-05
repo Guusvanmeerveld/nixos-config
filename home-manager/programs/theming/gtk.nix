@@ -8,11 +8,7 @@
 in {
   options = {
     custom.programs.theming.gtk = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.programs.theming.enable;
-        description = "Enable GTK 3/4 theming";
-      };
+      enable = lib.mkEnableOption "Enable GTK 3/4 theming";
 
       theme = {
         name = lib.mkOption {

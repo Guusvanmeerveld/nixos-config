@@ -5,32 +5,9 @@
 }: let
   cfg = config.custom.programs.cli;
 in {
-  imports = [
-    ./gpg
-    ./zsh.nix
-    ./atuin.nix
-    ./git.nix
-    ./neovim
-    ./eza.nix
-    ./utils.nix
-    ./nix-index.nix
-    ./fastfetch.nix
-    ./tealdeer.nix
-    ./starship.nix
-    ./direnv.nix
-    ./tmux.nix
-    ./bat.nix
-    ./rbw.nix
-    ./beets.nix
-  ];
+  options.custom.programs.cli.default-apps.enable = lib.mkEnableOption "Enable default shell applications";
 
-  options = {
-    custom.programs.cli = {
-      default.enable = lib.mkEnableOption "Enable default shell applications";
-    };
-  };
-
-  config = lib.mkIf cfg.default.enable {
+  config = lib.mkIf cfg.default-apps.enable {
     custom.programs.cli = {
       atuin.enable = lib.mkDefault true;
       eza.enable = lib.mkDefault true;

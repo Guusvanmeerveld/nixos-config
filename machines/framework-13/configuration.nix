@@ -114,11 +114,6 @@
       video.amd.enable = true;
     };
 
-    alerts = {
-      disk-space.enable = true;
-      power.enable = true;
-    };
-
     programs = {
       zsh.enable = true;
       adb.enable = true;

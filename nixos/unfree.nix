@@ -5,20 +5,11 @@
   unfreePackages = [
     "parsec-bin"
     "unityhub"
-    "spotify"
-    "tidal-hifi"
-    "castlabs-electron"
     "apple_cursor"
     "steam"
     "steam-unwrapped"
     "teamviewer"
-    "nvidia-x11"
-    "nvidia-settings"
-    "nvidia-persistenced"
-    "unifi-controller"
-    "mongodb"
     "intel-ocl"
-    "vscode-extension-ms-vscode-remote-remote-containers"
     "minecraft-server"
   ];
 in {

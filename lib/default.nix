@@ -1,4 +1,7 @@
-_: rec {
+{lib, ...} @ params:
+rec {
+  relativeToRoot = lib.path.append ../.;
+
   hexToDecimal = hex: (fromTOML "a = 0x${hex}").a;
 
   makeTransparent = hex: transparancy: let
@@ -8,3 +11,4 @@ _: rec {
     a = transparancy; # Set your desired alpha value here (0.0 to 1.0)
   in "rgba(${toString r}, ${toString g}, ${toString b}, ${toString a})";
 }
+// (import ./umport.nix params)

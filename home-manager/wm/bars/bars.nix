@@ -1,6 +1,4 @@
 {lib, ...}: {
-  imports = [./waybar];
-
   options = {
     custom.wm.bars.bars = with lib;
       mkOption {
