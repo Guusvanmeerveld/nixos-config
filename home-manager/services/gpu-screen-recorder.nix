@@ -6,8 +6,6 @@
 }: let
   cfg = config.custom.services.gpu-screen-recorder;
 
-  pactl = lib.getExe' pkgs.pulseaudio "pactl";
-
   saveReplayScript = pkgs.writeShellApplication {
     name = "gsr-save-replay";
 
@@ -46,9 +44,9 @@ in {
         };
 
         quality = lib.mkOption {
-          type = lib.types.enum ["medium" "high" "very_high" "ultra"];
+          type = lib.types.oneOf [(lib.types.enum ["medium" "high" "very_high" "ultra"]) lib.types.number];
           description = "The video quality to record at";
-          default = "very_high";
+          default = 15 * 1024;
         };
 
         format = lib.mkOption {
@@ -66,7 +64,7 @@ in {
         audio = lib.mkOption {
           type = lib.types.listOf lib.types.str;
           description = "The audio devices to capture";
-          default = ["$(${pactl} get-default-sink).monitor" "$(${pactl} get-default-source)"];
+          default = ["game_sink.monitor" "default_input"];
         };
 
         audioCodec = lib.mkOption {
@@ -82,12 +80,6 @@ in {
             default = true;
           };
 
-          organize = lib.mkOption {
-            type = lib.types.bool;
-            description = "Whether to automatically organise replays in folders";
-            default = true;
-          };
-
           bufferSize = lib.mkOption {
             type = lib.types.ints.unsigned;
             description = "How large of a buffer (in seconds) to store of the recording at each moment";
@@ -96,6 +88,15 @@ in {
         };
 
         verbose = lib.mkEnableOption "Whether to verbosely print logs";
+
+        systemdTarget = lib.mkOption {
+          type = lib.types.str;
+          default = config.wayland.systemd.target;
+          defaultText = lib.literalExpression "config.wayland.systemd.target";
+          description = ''
+            Systemd target to bind to.
+          '';
+        };
       };
     };
   };
@@ -108,13 +109,36 @@ in {
       }
     ];
 
+    services.pipewire = {
+      enable = true;
+
+      configs = {
+        "10-coupled-streams" = {
+          "context.modules" = [
+            {
+              name = "libpipewire-module-loopback";
+              args = {
+                "audio.position" = ["FL" "FR"];
+                "capture.props" = {
+                  "media.class" = "Audio/Sink";
+                  "node.name" = "game_sink";
+                  "node.description" = "Virtual game sink";
+                };
+              };
+            }
+          ];
+        };
+      };
+    };
+
     systemd.user.services.gpu-screen-recorder = {
       Unit = {
         Description = "GPU Screen Recorder Service";
         Documentation = "https://git.dec05eba.com/gpu-screen-recorder/about/";
 
-        After = ["pipewire.service" "xdg-desktop-portal.service"];
-        Wants = ["pipewire.service" "xdg-desktop-portal.service"];
+        After = [cfg.options.systemdTarget];
+        PartOf = [cfg.options.systemdTarget];
+        Before = ["sleep.target"];
       };
 
       Service = {
@@ -131,6 +155,12 @@ in {
             -ac ${cfg.options.audioCodec} \
             -o ${cfg.options.outputDir} \
             -f ${toString cfg.options.framerate} \
+            -bm cbr \
+            -fm ${
+            if cfg.options.window == "portal"
+            then "content"
+            else "vfr"
+          } \
             -w ${cfg.options.window} \
             -restore-portal-session ${
             if cfg.options.window == "portal"
@@ -138,7 +168,7 @@ in {
             else "no"
           } \
             -c ${cfg.options.format} \
-            -q ${cfg.options.quality} \
+            -q ${toString cfg.options.quality} \
             -v ${
             if cfg.options.verbose
             then "yes"
@@ -148,9 +178,7 @@ in {
         '';
       };
 
-      Install = {
-        WantedBy = ["graphical-session.target"];
-      };
+      Install.WantedBy = [cfg.options.systemdTarget];
     };
   };
 }
