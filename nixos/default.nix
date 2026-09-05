@@ -1,23 +1,9 @@
-{
-  imports = [
-    ./services
-    ./virtualisation
-    ./programs
-    ./networking
-    ./wm
-    ./dm
-    ./hardware
-    ./fs
-    ./certificates
-    ./nixos.nix
-    ./users.nix
-    ./locale.nix
-    ./journald.nix
-    ./security.nix
-    ./unfree.nix
-    ./builders.nix
-    ./overlays.nix
-    ./uptime.nix
-    ./linux.nix
-  ];
+{lib, ...}: {
+  imports = lib.custom.umport {
+    paths = [
+      ../modules/nixos
+      ./.
+    ];
+    exclude = [./default.nix];
+  };
 }

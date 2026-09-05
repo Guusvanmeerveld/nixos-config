@@ -1,13 +1,10 @@
 {
   config,
-  outputs,
   lib,
   ...
 }: let
   cfg = config.custom.services.cleanuparr;
 in {
-  imports = [outputs.nixosModules.cleanuparr];
-
   options = {
     custom.services.cleanuparr = let
       inherit (lib) mkEnableOption mkOption types;
