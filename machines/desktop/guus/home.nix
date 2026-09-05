@@ -62,7 +62,7 @@
       wlr.settings = {
         # Configure main display to automatically get picked.
         screencast = {
-          max_fps = 60;
+          max_fps = toString 60;
           chooser_type = "none";
           output_name = "DP-3";
         };

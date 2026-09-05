@@ -4,6 +4,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   cleanuparr = import ./cleanuparr.nix;
-  # romm = import ./romm.nix;
   # free-epic-games = import ./free-epic-games.nix;
 }

@@ -1,15 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.custom.wm.wayland.sway;
-
-  package =
-    if cfg.useSwayFx
-    then pkgs.swayfx
-    else pkgs.sway;
 in {
   imports = [./osd.nix];
 
@@ -25,11 +19,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.sway = {
-      inherit package;
-
-      enable = true;
-    };
+    environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
     environment.sessionVariables = {
       NIXOS_OZONE_WL = "1";
