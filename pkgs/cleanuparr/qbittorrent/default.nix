@@ -7,7 +7,7 @@
 buildDotnetModule rec {
   pname = "qbittorrent-net-client";
 
-  version = "1.5.0";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "Cleanuparr";

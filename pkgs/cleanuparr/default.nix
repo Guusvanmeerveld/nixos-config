@@ -10,13 +10,13 @@
   qbittorrentClient = pkgs.callPackage ./qbittorrent {};
   transmissionClient = pkgs.callPackage ./transmission {};
 
-  version = "2.9.3";
+  version = "2.10.5";
 
   src = fetchFromGitHub {
     owner = "cleanuparr";
     repo = "cleanuparr";
     tag = "v${version}";
-    hash = "sha256-x3bwNMovtP4g40fRA6FpYW1kO4badlhvcl+HH145WBE=";
+    hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
   };
 
   frontend = buildNpmPackage {
@@ -24,7 +24,7 @@
     inherit version;
 
     src = "${src}/code/frontend";
-    npmDepsHash = "sha256-lhhyLGLsl2hoQEBFilhti93wJUj17RoOvUl6EzDn+r4=";
+    npmDepsHash = "sha256-HVA869ahw3PS9/a9JLhHS8KieioHAdRYjp2U47WcmVU=";
 
     buildPhase = ''
       npm run build
