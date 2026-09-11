@@ -62,15 +62,6 @@
       };
     };
 
-    adguardhome.settings.dns = {
-      # Bind only to Wireguard garden interface, since we want systemd-resolved to still run on 0.0.0.0:53
-      bind_hosts = ["10.10.10.1"];
-
-      # Use same upstream DNS servers as system
-      upstream_dns = config.networking.nameservers;
-      enable_dnssec = true;
-    };
-
     caddy.virtualHosts =
       # Configure TLS certificates for all subdomains
       {
@@ -107,7 +98,6 @@
 
     networking.wireguard = {
       enable = true;
-      openFirewall = true;
 
       networks = {
         "garden" = {
@@ -130,10 +120,6 @@
           virtualHosts = let
             whitelist = ["10.10.10.2" "10.10.10.4" "10.10.10.6" "10.10.10.12"];
           in [
-            {
-              inherit whitelist;
-              domain = "https://adguard.crocus.guusvanmeerveld.dev";
-            }
             {
               inherit whitelist;
               domain = "https://uptime.crocus.guusvanmeerveld.dev";
@@ -184,16 +170,6 @@
 
           secretsFile = "/secrets/mail-server/relay";
         };
-      };
-
-      adguard = {
-        enable = true;
-
-        openFirewall = true;
-
-        port = 8000;
-
-        caddy.url = "https://adguard.crocus.guusvanmeerveld.dev";
       };
 
       uptime-kuma = {

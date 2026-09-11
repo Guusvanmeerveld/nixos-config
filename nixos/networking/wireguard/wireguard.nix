@@ -80,6 +80,11 @@
           publicKey = "I2dCa+Xi1KcT9bk14VWcv0r9uizOLraEN+twAIzBxHo="; # pragma: allowlist secret
           address = "10.10.10.17";
         };
+
+        crocus = {
+          publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ="; # pragma: allowlist secret
+          address = "10.10.10.18";
+        };
       };
     };
 
