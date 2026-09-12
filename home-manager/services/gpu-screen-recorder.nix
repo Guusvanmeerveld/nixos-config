@@ -46,7 +46,7 @@ in {
         quality = lib.mkOption {
           type = lib.types.oneOf [(lib.types.enum ["medium" "high" "very_high" "ultra"]) lib.types.number];
           description = "The video quality to record at";
-          default = 15 * 1024;
+          default = 25 * 1024;
         };
 
         format = lib.mkOption {

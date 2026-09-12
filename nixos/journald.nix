@@ -1,9 +1,7 @@
 _: {
   config = {
-    services.journald = {
-      extraConfig = ''
-        SystemMaxUse=200M
-      '';
+    services.journald.settings.Journal = {
+      SystemMaxUse = "200M";
     };
   };
 }

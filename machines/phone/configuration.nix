@@ -2,7 +2,6 @@
   pkgs,
   inputs,
   outputs,
-  shared,
   lib,
   ...
 }: {
@@ -37,7 +36,7 @@
   home-manager = {
     config = ./guus/home.nix;
     backupFileExtension = "hm-bak";
-    extraSpecialArgs = {inherit inputs outputs shared;};
+    extraSpecialArgs = {inherit inputs outputs;};
     useGlobalPkgs = true;
   };
 

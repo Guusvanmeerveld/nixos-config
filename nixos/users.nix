@@ -3,7 +3,6 @@
   lib,
   inputs,
   outputs,
-  shared,
   ...
 }: let
   cfg = config.custom.users;
@@ -60,7 +59,7 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
 
-      extraSpecialArgs = {inherit inputs outputs shared;};
+      extraSpecialArgs = {inherit inputs outputs;};
 
       users = lib.mapAttrs (_username: config: {imports = [config.homeManager.config];}) usersWithHomeManager;
     };

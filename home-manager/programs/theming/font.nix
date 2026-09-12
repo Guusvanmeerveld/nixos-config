@@ -1,20 +1,21 @@
 {
   lib,
   config,
-  pkgs,
-  shared,
   ...
 }: let
   cfg = config.custom.programs.theming.font;
 in {
   options = {
     custom.programs.theming.font = let
-      defaultFontOptions = shared.theming.font;
+      defaultFontOptions = config.custom.shared.theming.fonts;
     in {
       enable = lib.mkEnableOption "Enable font theming";
 
       serif = {
-        package = lib.mkPackageOption pkgs defaultFontOptions.serif.package {};
+        package = lib.mkOption {
+          default = defaultFontOptions.serif.package;
+          type = lib.types.package;
+        };
 
         name = lib.mkOption {
           type = lib.types.str;
@@ -27,7 +28,7 @@ in {
       monospace = {
         package = lib.mkOption {
           type = lib.types.package;
-          default = defaultFontOptions.monospace.package pkgs;
+          default = defaultFontOptions.monospace.package;
         };
 
         name = lib.mkOption {
@@ -39,7 +40,10 @@ in {
       };
 
       emoji = {
-        package = lib.mkPackageOption pkgs defaultFontOptions.emoji.package {};
+        package = lib.mkOption {
+          default = defaultFontOptions.emoji.package;
+          type = lib.types.package;
+        };
 
         name = lib.mkOption {
           type = lib.types.str;

@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../nixos
+    (lib.custom.relativeToRoot "nixos")
   ];
 
   networking = {

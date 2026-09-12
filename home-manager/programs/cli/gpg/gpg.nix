@@ -23,7 +23,7 @@ in {
       ];
     };
 
-    home.packages = [pkgs.gcr];
+    home.packages = [pkgs.gcr_4];
 
     services.gpg-agent = let
       ttl = 365 * 24 * 60 * 60;

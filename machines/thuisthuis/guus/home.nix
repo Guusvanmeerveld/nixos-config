@@ -1,5 +1,5 @@
 {lib, ...}: let
-  primary-display = "DP-3";
+  primary-display = "DP-1";
 in {
   imports = [
     (lib.custom.relativeToRoot "home-manager")

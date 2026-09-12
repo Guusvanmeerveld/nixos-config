@@ -1,8 +1,6 @@
 {
-  pkgs,
   lib,
   config,
-  shared,
   ...
 }: let
   cfg = config.custom.programs.theming.default-apps;
@@ -11,14 +9,17 @@ in {
     enable = lib.mkEnableOption "Enable default theming options";
 
     cursor = let
-      defaultCursorOptions = shared.theming.cursor;
+      defaultCursorOptions = config.custom.shared.theming.cursor;
     in {
       name = lib.mkOption {
         type = lib.types.str;
         default = defaultCursorOptions.name;
       };
 
-      package = lib.mkPackageOption pkgs defaultCursorOptions.package {};
+      package = lib.mkOption {
+        default = defaultCursorOptions.package;
+        type = lib.types.package;
+      };
     };
   };
 

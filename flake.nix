@@ -154,9 +154,7 @@
       };
     });
 
-    shared = import ./shared;
-
-    specialArgs = {inherit lib inputs outputs shared;};
+    specialArgs = {inherit lib inputs outputs;};
   in {
     githubActions = nix-github-actions.lib.mkGithubMatrix {
       checks = lib.getAttrs ["x86_64-linux"] self.packages;
@@ -250,10 +248,6 @@
 
     # Your custom packages and modifications, exported as overlays
     overlays = import ./overlays {inherit inputs;};
-
-    # Reusable home-manager modules you might want to export
-    # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./modules/home-manager;
 
     nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
       extraSpecialArgs = specialArgs;

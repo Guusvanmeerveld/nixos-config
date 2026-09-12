@@ -1,14 +1,11 @@
 {
   lib,
   config,
-  outputs,
   pkgs,
   ...
 }: let
   cfg = config.custom.programs.messaging.whatsapp;
 in {
-  imports = [outputs.homeManagerModules.whatsie];
-
   options = {
     custom.programs.messaging.whatsapp = {
       enable = lib.mkEnableOption "Enable Whatsapp for Linux";

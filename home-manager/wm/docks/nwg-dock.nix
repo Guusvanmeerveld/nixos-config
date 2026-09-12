@@ -1,5 +1,4 @@
 {
-  outputs,
   lib,
   config,
   pkgs,
@@ -7,8 +6,6 @@
 }: let
   cfg = config.custom.wm.docks.nwg-dock;
 in {
-  imports = [outputs.homeManagerModules.nwg-dock];
-
   options = {
     custom.wm.docks.nwg-dock = {
       enable = lib.mkEnableOption "Enable NWG Dock";

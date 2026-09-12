@@ -1,6 +1,6 @@
-_: {
+{lib, ...}: {
   imports = [
-    ../../nixos
+    (lib.custom.relativeToRoot "nixos")
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix

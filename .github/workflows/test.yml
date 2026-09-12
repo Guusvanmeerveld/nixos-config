@@ -10,7 +10,6 @@ on:
       - "overlays/**"
       - "pkgs/**"
       - "scripts/**"
-      - "shared/**"
       - "utils/**"
       - "flake.nix"
       - "flake.lock"

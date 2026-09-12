@@ -7,7 +7,7 @@
   ...
 }: {
   imports = [
-    ../../nixos
+    (lib.custom.relativeToRoot "nixos")
 
     inputs.nixos-hardware.nixosModules.raspberry-pi-4
 

@@ -5,6 +5,8 @@
 }: {
   imports = lib.custom.umport {
     paths = [
+      (lib.custom.relativeToRoot "modules/home-manager")
+      (lib.custom.relativeToRoot "shared")
       ./.
     ];
     exclude = [./default.nix];

@@ -7,25 +7,33 @@
   cfg = config.custom.programs.theming.gtk;
 in {
   options = {
-    custom.programs.theming.gtk = {
+    custom.programs.theming.gtk = let
+      defaultGtkOptions = config.custom.shared.theming.gtk;
+    in {
       enable = lib.mkEnableOption "Enable GTK 3/4 theming";
 
       theme = {
         name = lib.mkOption {
           type = lib.types.str;
-          default = "WhiteSur-Dark";
+          default = defaultGtkOptions.theme.name;
         };
 
-        package = lib.mkPackageOption pkgs "whitesur-gtk-theme" {};
+        package = lib.mkOption {
+          default = defaultGtkOptions.theme.package;
+          type = lib.types.package;
+        };
       };
 
       iconTheme = {
         name = lib.mkOption {
           type = lib.types.str;
-          default = "WhiteSur-dark";
+          default = defaultGtkOptions.iconTheme.name;
         };
 
-        package = lib.mkPackageOption pkgs "whitesur-icon-theme" {};
+        package = lib.mkOption {
+          default = defaultGtkOptions.iconTheme.package;
+          type = lib.types.package;
+        };
       };
     };
   };

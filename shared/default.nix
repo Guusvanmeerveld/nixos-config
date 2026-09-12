@@ -1,3 +1,0 @@
-{
-  theming = import ./theming;
-}

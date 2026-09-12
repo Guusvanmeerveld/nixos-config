@@ -1,7 +1,8 @@
 {lib, ...}: {
   imports = lib.custom.umport {
     paths = [
-      ../modules/nixos
+      (lib.custom.relativeToRoot "modules/nixos")
+      (lib.custom.relativeToRoot "shared")
       ./.
     ];
     exclude = [./default.nix];

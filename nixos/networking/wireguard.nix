@@ -6,113 +6,7 @@
 }: let
   cfg = config.custom.networking.wireguard;
 
-  networks = {
-    garden = {
-      ipRange = "10.10.10.0/24";
-
-      server = {
-        publicKey = "cuSlka1YtuRd1GX3mVrbcI2Ig9plLt1lQtDf9Ehs0Bc="; # pragma: allowlist secret
-        address = "10.10.10.1";
-        hostname = "sunflower";
-        domains = ["*.sun.guusvanmeerveld.dev"];
-        endpoint = "wireguard.guusvanmeerveld.dev";
-      };
-
-      clients = {
-        desktop = {
-          publicKey = "dVOXBUprtiJSOMazEujx0zh7m86YEoXDdQ3muMpQIHw="; # pragma: allowlist secret
-          address = "10.10.10.2";
-        };
-
-        laptop = {
-          publicKey = "4cfYFYG7zvU+Hy1hVRT1rbNBbeVXCKy9GoRP6Mpv738="; # pragma: allowlist secret
-          address = "10.10.10.3";
-        };
-
-        phone = {
-          publicKey = "/JKDqqU3tVqKJP4tlcOol5VacFu0Ea4cLRwMjFbqj1M="; # pragma: allowlist secret
-          address = "10.10.10.4";
-        };
-
-        thuisthuis = {
-          publicKey = "6lNZjXUkvfdG1prJVJh7yl32yRU1j+2+Suhyq8XySmU="; # pragma: allowlist secret
-          address = "10.10.10.6";
-        };
-
-        daisy = {
-          publicKey = "WvESBhla1yU9irR4izmGRJuifyrFT47Qry1JsLgcXhY="; # pragma: allowlist secret
-          address = "10.10.10.7";
-          tld = ["*.daisy.guusvanmeerveld.dev"];
-        };
-
-        cattle = {
-          publicKey = "1QdndFE7pZAGA47U0O/1VErl3VNZnRFMNY+xksX9HAQ="; # pragma: allowlist secret
-          address = "10.10.10.9";
-        };
-
-        chimpanzee = {
-          publicKey = "NW5fh6w2GjK+gXlZvkIq1MrPNOhvTxHF7iKDiWiWEwg="; # pragma: allowlist secret
-          address = "10.10.10.11";
-        };
-
-        framework-13 = {
-          publicKey = "3UWmaWdtyboiSfib2i33TmUZcV6t6eogzsGv2BCIZXs="; # pragma: allowlist secret
-          address = "10.10.10.12";
-        };
-
-        oribi = {
-          publicKey = "0Ce9BqYxPmYjvf/y0ydZecx5S5UYMuYW/LtZoA3xjBE="; # pragma: allowlist secret
-          address = "10.10.10.14";
-        };
-
-        lavender = {
-          publicKey = "BLrQSVGvczwkxO5ufkLAK5z+FQLdSXqDTXArclNvzxc="; # pragma: allowlist secret
-          address = "10.10.10.15";
-          domains = ["*.lav.guusvanmeerveld.dev"];
-        };
-
-        antelope = {
-          publicKey = "/M8h0RzVdsE7j9svlKGGXNxf7lFk7iR6Kt3mSZBp03k="; # pragma: allowlist secret
-          address = "10.10.10.16";
-        };
-
-        allium = {
-          publicKey = "I2dCa+Xi1KcT9bk14VWcv0r9uizOLraEN+twAIzBxHo="; # pragma: allowlist secret
-          address = "10.10.10.17";
-        };
-
-        crocus = {
-          publicKey = "UjJqjYvUcSl4dGcfRgPWAyNHvHPqo51MApKixc+h3RQ="; # pragma: allowlist secret
-          address = "10.10.10.18";
-        };
-      };
-    };
-
-    shared-backups = {
-      ipRange = "10.11.12.0/24";
-
-      server = {
-        publicKey = "bRqHoLBezSYg2mYx1qHSdu/8c7ivuGMfnmzeJCRKZjQ="; # pragma: allowlist secret
-        address = "10.11.12.1";
-        hostname = "daisy";
-        domains = ["*.daisy.guusvanmeerveld.dev"];
-        endpoint = "141.148.241.201";
-      };
-
-      clients = {
-        sunflower = {
-          publicKey = "mvX0ZnLjNZH2X7qogQE84T9GEunSgwSgGQFHsUjgh34="; # pragma: allowlist secret
-          address = "10.11.12.2";
-          domains = ["*.sun.guusvanmeerveld.dev"];
-        };
-
-        earth = {
-          publicKey = "efXpAlCNOdHnyMK3ZgfD3/TZa1dZ4ACmoZx4XmHHP3E="; # pragma: allowlist secret
-          address = "10.11.12.3";
-        };
-      };
-    };
-  };
+  networks = config.custom.shared.wireguard-networks;
 in {
   options = {
     custom.networking.wireguard = {
@@ -171,7 +65,7 @@ in {
                     name = clientHostName;
                     ip = client.address;
                   })
-                  networkConfig.clients);
+                  networkConfig.peers);
             in
               lib.optionals network.enable (listToAttrs (map (peer: {
                   name = peer.ip;
@@ -192,7 +86,7 @@ in {
 
             peers =
               [networkConfig.server]
-              ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
+              ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.peers);
 
             peersWithDomains = filter (peer: (hasAttr "domains" peer) && (peer.domains != [])) peers;
           in
@@ -224,7 +118,7 @@ in {
 
           peers =
             if isServer
-            then mapAttrsToList (_clientHostName: client: client) networkConfig.clients
+            then mapAttrsToList (_clientHostName: client: client) networkConfig.peers
             else singleton networkConfig.server;
         in
           nameValuePair "10-${networkName}" (
@@ -280,14 +174,14 @@ in {
           # List of all peers
           peers =
             [networkConfig.server]
-            ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.clients);
+            ++ (mapAttrsToList (_clientHostName: client: client) networkConfig.peers);
 
           peersWithDomains = filter (peer: (hasAttr "domains" peer) && (peer.domains != [])) peers;
 
           clientConfig =
             if isServer
             then networkConfig.server
-            else networkConfig.clients.${config.networking.hostName};
+            else networkConfig.peers.${config.networking.hostName};
         in
           mkIf network.enable (mkMerge [
             {

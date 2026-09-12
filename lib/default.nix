@@ -2,6 +2,21 @@
 rec {
   relativeToRoot = lib.path.append ../.;
 
+  getDeviceWireguardIp = let
+    wireguardNetworks = import (relativeToRoot "shared/wireguard-networks.nix") {inherit lib;};
+    networks = wireguardNetworks.config.custom.shared.wireguard-networks;
+  in
+    network: device: let
+      peers =
+        networks.${network}.peers
+        // {
+          "${networks.${network}.server.hostname}" = {
+            inherit (networks.${network}.server) address;
+          };
+        };
+    in
+      peers.${device}.address;
+
   hexToDecimal = hex: (fromTOML "a = 0x${hex}").a;
 
   makeTransparent = hex: transparancy: let
