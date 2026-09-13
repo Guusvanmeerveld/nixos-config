@@ -120,6 +120,16 @@
       url = "github:guusvanmeerveld/degoog.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vicinae-extensions = {
+      url = "github:vicinaehq/extensions";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        flake-compat.follows = "flake-compat";
+      };
+    };
   };
 
   nixConfig = {

@@ -73,6 +73,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     wayland = {
+      systemd.target = "sway-session.target";
+
       windowManager.sway = {
         enable = true;
 

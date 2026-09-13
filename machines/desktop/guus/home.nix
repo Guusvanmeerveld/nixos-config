@@ -7,7 +7,7 @@
     wm = {
       notifications.swaync.enable = true;
       lockscreens.gtklock.enable = true;
-      launchers.rofi.enable = true;
+      launchers.vicinae.enable = true;
 
       bars.waybar = {
         enable = true;
