@@ -12,7 +12,7 @@
   services.easyeffects = {
     enable = true;
 
-    preset = "fw13-easy-effects";
+    preset.output = "fw13-easy-effects";
 
     extraPresets = {
       fw13-easy-effects = builtins.fromJSON (builtins.readFile ./fw13-easy-effects.json);
@@ -48,7 +48,18 @@
       };
     };
 
-    xdg.portals.enable = true;
+    xdg.portals = {
+      enable = true;
+
+      wlr.settings = {
+        # Configure main display to automatically get picked.
+        screencast = {
+          max_fps = toString 60;
+          chooser_type = "none";
+          output_name = "eDP-1";
+        };
+      };
+    };
 
     services = {
       kdeconnect.enable = true;
@@ -69,7 +80,10 @@
     programs = {
       default-apps.enable = true;
       theming.default-apps.enable = true;
-      messaging.default-apps.enable = true;
+      messaging = {
+        default-apps.enable = true;
+        vesktop.autostart = false;
+      };
       office.default-apps.enable = true;
       cli = {
         default-apps.enable = true;

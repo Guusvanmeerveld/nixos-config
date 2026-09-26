@@ -46,7 +46,10 @@
 
   networking = {
     hostName = "framework-13";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      plugins = with pkgs; [networkmanager-openconnect];
+    };
   };
 
   # Disable since networkmanager is responsible for managing main internet connection

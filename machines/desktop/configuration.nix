@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     (lib.custom.relativeToRoot "nixos")
 
@@ -9,26 +13,17 @@
   networking = {
     hostName = "desktop";
 
-    useDHCP = false;
-  };
-
-  systemd.network = {
-    enable = true;
-
-    networks."10-wan" = {
-      matchConfig.Name = "enp6s0";
-
-      networkConfig = {
-        DHCP = "ipv4";
-        IPv6AcceptRA = true;
-
-        DNSOverTLS = false;
-        DNSSEC = false;
-      };
-
-      linkConfig.RequiredForOnline = "routable";
+    networkmanager = {
+      enable = true;
+      plugins = with pkgs; [networkmanager-openconnect];
     };
   };
+
+  # Disable since networkmanager is responsible for managing main internet connection
+  # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
+  systemd.network.wait-online.enable = false;
+
+  zramSwap.enable = true;
 
   services.resolved = {
     enable = true;
@@ -40,9 +35,7 @@
 
   # Bootloader.
   boot = {
-    tmp = {
-      cleanOnBoot = true;
-    };
+    tmp.cleanOnBoot = true;
 
     loader = {
       efi = {

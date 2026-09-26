@@ -14,29 +14,14 @@
     # Required for ZFS
     hostId = "379d3527";
 
-    useDHCP = false;
+    networkmanager.enable = true;
   };
 
-  systemd.network = {
-    enable = true;
+  # Disable since networkmanager is responsible for managing main internet connection
+  # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
+  systemd.network.wait-online.enable = false;
 
-    networks."10-wan" = {
-      matchConfig.Name = "enp34s0";
-
-      networkConfig = {
-        DHCP = "ipv4";
-        IPv6AcceptRA = false;
-
-        DNSOverTLS = false;
-        DNSSEC = false;
-      };
-
-      # Route all DNS requests to this FQDN via network router
-      domains = ["~sun.guusvanmeerveld.dev" "~localdomain"];
-
-      linkConfig.RequiredForOnline = "routable";
-    };
-  };
+  zramSwap.enable = true;
 
   # Use SystemD's builtin DNS resolver
   services.resolved = {

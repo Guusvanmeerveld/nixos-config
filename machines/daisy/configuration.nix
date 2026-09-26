@@ -88,17 +88,6 @@
       sudo-rs.enable = true;
     };
 
-    networking.wireguard = {
-      enable = true;
-      openFirewall = true;
-
-      networks = {
-        "shared-backups" = {
-          enable = true;
-        };
-      };
-    };
-
     services = {
       openssh.enable = true;
       fail2ban.enable = true;
