@@ -7,6 +7,8 @@
   qbittorrent-net-client = pkgs.callPackage ./cleanuparr/qbittorrent {};
   transmission-net-client = pkgs.callPackage ./cleanuparr/transmission {};
 
+  openconnect-saml = pkgs.callPackage ./openconnect-saml.nix {};
+
   caddy-with-plugins = pkgs.callPackage ./caddy-with-plugins.nix {};
   free-epic-games = pkgs.callPackage ./free-epic-games.nix {};
 
@@ -17,7 +19,7 @@
   firefox = import ./firefox {inherit pkgs;};
 
   export = {
-    inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer;
+    inherit free-epic-games caddy-with-plugins cleanuparr qbittorrent-net-client transmission-net-client samsung-jellyfin-installer openconnect-saml;
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
 
