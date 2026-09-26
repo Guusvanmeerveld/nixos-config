@@ -61,6 +61,7 @@
           enable = true;
           lsp.servers = ["nixd"];
         };
+        clang.enable = true;
         python.enable = true;
         json.enable = true;
         yaml.enable = true;
@@ -284,5 +285,13 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [customNeovim.neovim];
+
+    custom.wm.applications = [
+      {
+        package = customNeovim.neovim;
+        keybind = "$mod+d";
+        workspace = 4;
+      }
+    ];
   };
 }
