@@ -23,6 +23,6 @@
     inherit (firefox.themes) blur mono;
     inherit (kodiPackages) hue-service;
 
-    romm-docker = dockerPackages.romm;
+    # romm-docker = dockerPackages.romm;
   };
 }
