@@ -9,13 +9,7 @@
       lockscreens.gtklock.enable = true;
       launchers.vicinae.enable = true;
 
-      bars.waybar = {
-        enable = true;
-
-        features = {
-          wireguard = true;
-        };
-      };
+      bars.waybar.enable = true;
 
       wayland.sway = {
         enable = true;
@@ -23,16 +17,18 @@
         output = {
           "DP-3" = {
             mode = "3440x1440@164.900Hz";
-            bg = "${../wallpaper.png} stretch";
             pos = "2048 0";
             scale = "1.25";
           };
 
           "HDMI-A-1" = {
             mode = "2560x1440@59.951Hz";
-            bg = "${../wallpaper.png} stretch";
             pos = "0 0";
             scale = "1.25";
+          };
+
+          "*" = {
+            bg = "${../wallpaper.png} stretch";
           };
         };
 

@@ -11,6 +11,7 @@
         jq
         home-manager
         git
+        subversionClient
       ])
       ++ (with pkgs.custom.scripts; [manage-secrets]);
   };

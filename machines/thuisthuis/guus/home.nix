@@ -11,13 +11,7 @@ in {
       lockscreens.gtklock.enable = true;
       launchers.vicinae.enable = true;
 
-      bars.waybar = {
-        enable = true;
-
-        features = {
-          wireguard = true;
-        };
-      };
+      bars.waybar.enable = true;
 
       wayland.sway = {
         enable = true;

@@ -27,11 +27,11 @@
 
       bars.waybar = {
         enable = true;
+
         features = {
           battery = true;
           backlight = true;
           power-profiles = true;
-          wireguard = true;
         };
       };
 
@@ -42,6 +42,9 @@
           "eDP-1" = {
             mode = "2256x1504@59.999Hz";
             scale = toString 1.5;
+          };
+
+          "*" = {
             bg = "${../wallpaper.png} stretch";
           };
         };
