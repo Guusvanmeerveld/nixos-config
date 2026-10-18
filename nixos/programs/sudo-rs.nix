@@ -16,7 +16,7 @@ in {
       enable = true;
 
       execWheelOnly = true;
-      wheelNeedsPassword = false;
+      wheelNeedsPassword = true;
     };
   };
 }
