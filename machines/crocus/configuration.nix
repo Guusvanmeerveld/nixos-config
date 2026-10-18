@@ -17,8 +17,6 @@
 
   boot.tmp.useTmpfs = true;
 
-  zramSwap.enable = true;
-
   networking = {
     hostName = "crocus";
 

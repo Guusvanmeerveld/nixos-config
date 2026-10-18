@@ -17,13 +17,7 @@
   };
 in {
   options = {
-    custom.wm.wayland.cliphist = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.wm.wayland.enable;
-        description = "Enable cliphist clipboard manager";
-      };
-    };
+    custom.wm.wayland.cliphist.enable = lib.mkEnableOption "Enable cliphist";
   };
 
   config = lib.mkIf cfg.enable {

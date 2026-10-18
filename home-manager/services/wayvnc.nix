@@ -3,17 +3,14 @@
   config,
   ...
 }: let
-  cfg = config.custom.wm.wayland.sway.vnc;
+  cfg = config.custom.services.wayvnc;
 in {
   options = {
-    custom.wm.wayland.sway.vnc = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.wm.wayland.sway.enable;
-        description = "Enable wayvnc";
-      };
+    custom.services.wayvnc = {
+      enable = lib.mkEnableOption "Enable wayvnc";
     };
   };
+
   config = lib.mkIf cfg.enable {
     services.wayvnc = {
       enable = true;
@@ -22,6 +19,9 @@ in {
       settings = {
         address = "localhost";
         port = 5901;
+
+        use_relative_paths = true;
+        rsa_private_key_file = "rsa_key.pem";
       };
     };
   };

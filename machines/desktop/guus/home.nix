@@ -4,50 +4,42 @@
   ];
 
   custom = {
-    wm = {
-      notifications.swaync.enable = true;
-      lockscreens.gtklock.enable = true;
-      launchers.vicinae.enable = true;
+    wm.wayland.sway = {
+      enable = true;
 
-      bars.waybar.enable = true;
-
-      wayland.sway = {
-        enable = true;
-
-        output = {
-          "DP-3" = {
-            mode = "3440x1440@164.900Hz";
-            pos = "2048 0";
-            scale = "1.25";
-          };
-
-          "HDMI-A-1" = {
-            mode = "2560x1440@59.951Hz";
-            pos = "0 0";
-            scale = "1.25";
-          };
-
-          "*" = {
-            bg = "${../wallpaper.png} stretch";
-          };
+      output = {
+        "DP-3" = {
+          mode = "3440x1440@164.900Hz";
+          pos = "2048 0";
+          scale = "1.25";
         };
 
-        workspaceOutputAssign = [
-          {
-            output = "DP-3";
-            workspaces = lib.range 1 8;
-          }
-          {
-            output = "HDMI-A-1";
-            workspaces = [9];
-          }
-        ];
+        "HDMI-A-1" = {
+          mode = "2560x1440@59.951Hz";
+          pos = "0 0";
+          scale = "1.25";
+        };
 
-        input = {
-          "type:pointer" = {
-            accel_profile = "flat";
-            pointer_accel = "-0.25";
-          };
+        "*" = {
+          bg = "${../wallpaper.png} stretch";
+        };
+      };
+
+      workspaceOutputAssign = [
+        {
+          output = "DP-3";
+          workspaces = lib.range 1 8;
+        }
+        {
+          output = "HDMI-A-1";
+          workspaces = [9];
+        }
+      ];
+
+      input = {
+        "type:pointer" = {
+          accel_profile = "flat";
+          pointer_accel = "-0.25";
         };
       };
     };
@@ -65,6 +57,8 @@
       };
     };
 
+    accounts.enable = true;
+
     services = {
       kdeconnect.enable = true;
       playerctld.enable = true;
@@ -72,6 +66,12 @@
     };
 
     programs = {
+      noctalia = {
+        enable = true;
+
+        wallpaper = "${../wallpaper.png}";
+      };
+
       default-apps.enable = true;
       theming.default-apps.enable = true;
       messaging.default-apps.enable = true;

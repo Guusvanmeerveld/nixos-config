@@ -20,33 +20,18 @@
   };
 
   custom = {
-    wm = {
-      notifications.swaync.enable = true;
-      lockscreens.gtklock.enable = true;
-      launchers.vicinae.enable = true;
+    wm.wayland.sway = {
+      enable = true;
 
-      bars.waybar = {
-        enable = true;
-
-        features = {
-          battery = true;
-          backlight = true;
-          power-profiles = true;
+      output = {
+        "eDP-1" = {
+          mode = "2256x1504@59.999Hz";
+          scale = toString 1.5;
+          color_profile = "icc ${./BOE_CQ_______NE135FBM_N41_03.icm}";
         };
-      };
 
-      wayland.sway = {
-        enable = true;
-
-        output = {
-          "eDP-1" = {
-            mode = "2256x1504@59.999Hz";
-            scale = toString 1.5;
-          };
-
-          "*" = {
-            bg = "${../wallpaper.png} stretch";
-          };
+        "*" = {
+          bg = "${../wallpaper.png} stretch";
         };
       };
     };
@@ -81,6 +66,12 @@
     };
 
     programs = {
+      noctalia = {
+        enable = true;
+
+        wallpaper = "${../wallpaper.png}";
+      };
+
       default-apps.enable = true;
       theming.default-apps.enable = true;
       messaging = {

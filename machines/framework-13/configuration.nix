@@ -46,10 +46,7 @@
 
   networking = {
     hostName = "framework-13";
-    networkmanager = {
-      enable = true;
-      plugins = with pkgs; [networkmanager-openconnect];
-    };
+    networkmanager.enable = true;
   };
 
   # Disable since networkmanager is responsible for managing main internet connection
@@ -75,9 +72,7 @@
       };
     };
 
-    logind.settings.Login.HandleLidSwitch = "poweroff";
-
-    colord.enable = true;
+    logind.settings.Login.HandleLidSwitch = "hibernate";
   };
 
   custom = {
@@ -92,8 +87,6 @@
         config = ./guus/home.nix;
       };
     };
-
-    linux.cachyos.useKernel = true;
 
     security.keyring.enable = true;
     certificates.enable = true;
@@ -124,7 +117,14 @@
       sudo-rs.enable = true;
     };
 
-    virtualisation.podman.enable = true;
+    virtualisation = {
+      qemu = {
+        enable = true;
+        graphical = true;
+      };
+
+      podman.enable = true;
+    };
 
     services = {
       gvfs.enable = true;
@@ -149,7 +149,22 @@
       };
     };
 
-    dm.greetd.enable = true;
+    dm.noctalia-greeter = {
+      enable = true;
+
+      output = {
+        name = "BOE 0x0BCA";
+
+        refresh_rate = 59.999;
+        width = 2256;
+        height = 1504;
+        scale = 1.5;
+      };
+
+      wallpaper = "${./wallpaper.png}";
+    };
+
+    de.noctalia.enable = true;
 
     wm = {
       wayland.sway.enable = true;

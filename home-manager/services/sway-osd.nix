@@ -4,19 +4,15 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.wm.wayland.sway.osd;
+  cfg = config.custom.services.sway-osd;
 
   package = pkgs.swayosd;
 
   swayosd-client = lib.getExe' package "swayosd-client";
 in {
   options = {
-    custom.wm.wayland.sway.osd = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = config.custom.wm.wayland.sway.enable;
-        description = "Enable sway osd";
-      };
+    custom.services.sway-osd = {
+      enable = lib.mkEnableOption "Enable sway osd";
     };
   };
 

@@ -1,0 +1,32 @@
+{
+  lib,
+  inputs,
+  ...
+}: {
+  config = {
+    nix = let
+      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
+    in {
+      settings = {
+        substituters = [
+          "https://guusvanmeerveld.cachix.org"
+          "https://nix-community.cachix.org"
+        ];
+
+        trusted-public-keys = [
+          "guusvanmeerveld.cachix.org-1:DphRuosSBmhUyz2kLc9cvdHFl8N4mQm0QSxWxahvFuc="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+
+        experimental-features = ["nix-command" "flakes"];
+        auto-optimise-store = true;
+        warn-dirty = false;
+        nix-path = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+      };
+
+      # Opinionated: make flake registry and nix path match flake inputs
+      registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
+      channel.enable = false;
+    };
+  };
+}

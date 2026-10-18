@@ -21,8 +21,6 @@
   # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
   systemd.network.wait-online.enable = false;
 
-  zramSwap.enable = true;
-
   # Use SystemD's builtin DNS resolver
   services.resolved = {
     enable = true;

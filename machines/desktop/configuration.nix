@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   imports = [
     (lib.custom.relativeToRoot "nixos")
 
@@ -12,18 +8,12 @@
 
   networking = {
     hostName = "desktop";
-
-    networkmanager = {
-      enable = true;
-      plugins = with pkgs; [networkmanager-openconnect];
-    };
+    networkmanager.enable = true;
   };
 
   # Disable since networkmanager is responsible for managing main internet connection
   # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
   systemd.network.wait-online.enable = false;
-
-  zramSwap.enable = true;
 
   services.resolved = {
     enable = true;
@@ -54,8 +44,6 @@
     kernelModules = ["ntsync"];
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
-
   # Prevent USB controller from awaking the system from suspend.
   services.udev.extraRules = ''
     ACTION=="add" SUBSYSTEM=="pci" ATTR{vendor}=="0x8086" ATTR{device}=="0x7a60" ATTR{power/wakeup}="disabled"
@@ -76,8 +64,6 @@
         config = ./guus/home.nix;
       };
     };
-
-    linux.cachyos.useKernel = true;
 
     security.keyring.enable = true;
     certificates.enable = true;
@@ -153,7 +139,22 @@
       };
     };
 
-    dm.greetd.enable = true;
+    dm.noctalia-greeter = {
+      enable = true;
+
+      output = {
+        name = "Dell Inc. AW3423DWF 6XPB2S3";
+
+        refresh_rate = 164.900;
+        width = 3440;
+        height = 1440;
+        scale = 1.25;
+      };
+
+      wallpaper = "${./wallpaper.png}";
+    };
+
+    de.noctalia.enable = true;
 
     wm = {
       lockscreens.gtklock.enable = true;

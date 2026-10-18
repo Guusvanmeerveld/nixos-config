@@ -248,8 +248,8 @@ in {
           keybindings = lib.mkMerge [
             (let
               pactl = lib.getExe' pkgs.pulseaudio "pactl";
-              light = lib.getExe pkgs.light;
               playerctl = lib.getExe pkgs.playerctl;
+              brightnessctl = lib.getExe pkgs.brightnessctl;
             in {
               # Directional focus
               "${modifier}+${left}" = "focus left";
@@ -280,21 +280,18 @@ in {
               "XF86AudioRaiseVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
               "XF86AudioLowerVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
 
-              "XF86AudioMute" = lib.mkDefault "exec ${pactl} set-sink-mute @DEFAULT_SINK@ true";
-              "XF86AudioMicMute" = lib.mkDefault "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ true";
+              "XF86MonBrightnessUp" = lib.mkDefault "exec ${brightnessctl} -A 5";
+              "XF86MonBrightnessDown" = lib.mkDefault "exec ${brightnessctl} -U 5";
 
-              # Screen backlight keybinds
-              "XF86MonBrightnessUp" = lib.mkDefault "exec ${light} -A 5";
-              "XF86MonBrightnessDown" = lib.mkDefault "exec ${light} -U 5";
+              "XF86AudioMute" = lib.mkDefault "exec ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
+              "XF86AudioMicMute" = lib.mkDefault "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
 
               # Music playback keybinds
-              "XF86AudioPlay" = lib.mkDefault "exec ${playerctl} play";
+              "XF86AudioPlay" = lib.mkDefault "exec ${playerctl} play-pause";
               "XF86AudioStop" = lib.mkDefault "exec ${playerctl} pause";
               "XF86AudioPause" = lib.mkDefault "exec ${playerctl} play-pause";
               "XF86AudioNext" = lib.mkDefault "exec ${playerctl} next";
               "XF86AudioPrev" = lib.mkDefault "exec ${playerctl} previous";
-
-              ${config.custom.wm.lockscreens.default.keybind} = "exec ${config.custom.wm.lockscreens.default.executable}";
             })
 
             # Workspace switchers

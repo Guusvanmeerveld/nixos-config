@@ -4,19 +4,15 @@
   pkgs,
   ...
 }: let
-  cfg = config.custom.wm.wayland.sway.idle;
+  cfg = config.custom.services.sway-idle;
 
   lockTimeout = 300;
   screenOffTimeout = lockTimeout + 60;
   suspendTimeout = screenOffTimeout + 300;
 in {
   options = {
-    custom.wm.wayland.sway.idle = with lib; {
-      enable = mkOption {
-        type = types.bool;
-        default = config.custom.wm.wayland.sway.enable;
-        description = "Enable swayidle";
-      };
+    custom.services.sway-idle = {
+      enable = lib.mkEnableOption "Enable swayidle";
     };
   };
 
@@ -25,10 +21,10 @@ in {
       enable = true;
 
       timeouts = [
-        {
+        (lib.mkIf (config.custom.wm.lockscreens.default.executable != null) {
           timeout = lockTimeout;
           command = config.custom.wm.lockscreens.default.executable;
-        }
+        })
         (let
           swaymsg = lib.getExe' config.wayland.windowManager.sway.package "swaymsg";
         in {

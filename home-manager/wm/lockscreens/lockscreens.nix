@@ -7,8 +7,9 @@
       };
 
       executable = lib.mkOption {
-        type = lib.types.path;
+        type = lib.types.nullOr lib.types.path;
         description = "The path to the lock screens executable file";
+        default = null;
       };
     };
   };

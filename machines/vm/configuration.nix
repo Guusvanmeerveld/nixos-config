@@ -6,9 +6,10 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "vm";
-
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "vm";
+    networkmanager.enable = true;
+  };
 
   hardware.graphics.enable = true;
 
