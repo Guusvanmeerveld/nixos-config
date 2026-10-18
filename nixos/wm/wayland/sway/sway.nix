@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom.wm.wayland.sway;
@@ -17,16 +18,20 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
+    environment = {
+      pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
-    environment.sessionVariables = {
-      NIXOS_OZONE_WL = "1";
-      SDL_VIDEODRIVER = "wayland";
-      QT_QPA_PLATFORM = "wayland";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      WLR_DRM_NO_MODIFIERS = "1";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
+      sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+        SDL_VIDEODRIVER = "wayland";
+        QT_QPA_PLATFORM = "wayland";
+        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        WLR_DRM_NO_MODIFIERS = "1";
+        _JAVA_AWT_WM_NONREPARENTING = "1";
+      };
     };
+
+    services.displayManager.sessionPackages = with pkgs; [sway];
 
     # Enabling realtime may improve latency and reduce stuttering, specially in high load scenarios.
     # Enabling this option allows any program run by the "users" group to request real-time priority.
