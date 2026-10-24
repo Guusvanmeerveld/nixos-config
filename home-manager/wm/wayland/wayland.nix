@@ -18,7 +18,5 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [wdisplays];
-
-    custom.programs.wayland-screenshot.enable = true;
   };
 }

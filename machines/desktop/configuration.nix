@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     (lib.custom.relativeToRoot "nixos")
 
@@ -15,13 +19,19 @@
   # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
   systemd.network.wait-online.enable = false;
 
-  services.resolved = {
-    enable = true;
+  services = {
+    udev.packages = [pkgs.headsetcontrol];
 
-    settings.Resolve.Cache = "yes";
+    resolved = {
+      enable = true;
+
+      settings.Resolve.Cache = "yes";
+    };
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  environment.systemPackages = [pkgs.headsetcontrol];
 
   # Bootloader.
   boot = {
@@ -155,11 +165,7 @@
     };
 
     de.noctalia.enable = true;
-
-    wm = {
-      lockscreens.gtklock.enable = true;
-      wayland.sway.enable = true;
-    };
+    wm.wayland.sway.enable = true;
   };
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

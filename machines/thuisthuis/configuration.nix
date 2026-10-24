@@ -6,8 +6,6 @@
     ./hardware-configuration.nix
   ];
 
-  powerManagement.cpuFreqGovernor = "performance";
-
   networking = {
     hostName = "thuisthuis";
 
@@ -63,8 +61,6 @@
 
     security.keyring.enable = true;
     certificates.enable = true;
-
-    # linux.cachyos.useKernel = true;
 
     fs.zfs.enable = true;
 
@@ -142,12 +138,22 @@
       podman.enable = true;
     };
 
-    dm.greetd.enable = true;
+    dm.noctalia-greeter = {
+      enable = true;
 
-    wm = {
-      wayland.sway.enable = true;
-      lockscreens.gtklock.enable = true;
+      output = {
+        name = "HDMI-A-1";
+
+        refresh_rate = 180.003;
+        width = 1920;
+        height = 1080;
+      };
+
+      wallpaper = "${./wallpaper-right.png}";
     };
+
+    de.noctalia.enable = true;
+    wm.wayland.sway.enable = true;
   };
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";

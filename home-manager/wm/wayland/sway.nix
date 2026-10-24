@@ -280,8 +280,8 @@ in {
               "XF86AudioRaiseVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ +5%";
               "XF86AudioLowerVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
 
-              "XF86MonBrightnessUp" = lib.mkDefault "exec ${brightnessctl} -A 5";
-              "XF86MonBrightnessDown" = lib.mkDefault "exec ${brightnessctl} -U 5";
+              "XF86MonBrightnessUp" = lib.mkDefault "exec ${brightnessctl} set +5%";
+              "XF86MonBrightnessDown" = lib.mkDefault "exec ${brightnessctl} set -5%";
 
               "XF86AudioMute" = lib.mkDefault "exec ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
               "XF86AudioMicMute" = lib.mkDefault "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";

@@ -15,7 +15,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    ./forgejo-runner.nix
     ./media.nix
   ];
 

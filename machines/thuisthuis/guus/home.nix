@@ -1,5 +1,5 @@
 {lib, ...}: let
-  primary-display = "DP-1";
+  primary-display = "HDMI-A-1";
 in {
   imports = [
     (lib.custom.relativeToRoot "home-manager")
@@ -7,12 +7,6 @@ in {
 
   custom = {
     wm = {
-      notifications.swaync.enable = true;
-      lockscreens.gtklock.enable = true;
-      launchers.vicinae.enable = true;
-
-      bars.waybar.enable = true;
-
       wayland.sway = {
         enable = true;
 
@@ -82,6 +76,11 @@ in {
     };
 
     programs = {
+      noctalia = {
+        enable = true;
+        wallpaper = "${../wallpaper-right.png}";
+      };
+
       default-apps.enable = true;
       messaging.default-apps.enable = true;
       theming.default-apps.enable = true;
