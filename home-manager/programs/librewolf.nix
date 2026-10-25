@@ -35,26 +35,120 @@ in {
       MOZ_USE_XINPUT2 = 1;
     };
 
-    programs.librewolf = {
+    programs.librewolf = let
+      settings = {
+        "browser.startup.homepage" = "about:home";
+
+        # Bookmarks
+        "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.bookmarks.addedImportButton" = false;
+        "browser.tabs.loadBookmarksInTabs" = true;
+
+        # QoL
+        "browser.tabs.closeWindowWithLastTab" = false;
+        "browser.tabs.warnOnClose" = false;
+        "browser.tabs.warnOnQuit" = false;
+        "browser.translations.automaticallyPopup" = false;
+
+        # Enable search suggestions
+        "browser.search.suggest.enabled" = true;
+
+        # Disable restore session
+        "browser.sessionstore.resume_from_crash" = false;
+        "browser.startup.couldRestoreSession.count" = 2;
+
+        "browser.download.useDownloadDir" = true;
+
+        # Disable the browser asking whether to enable installed extensions.
+        "extensions.autoDisableScopes" = 0;
+
+        "middlemouse.paste" = false;
+        "general.smoothScroll" = true;
+
+        # Open PDF's in browser.
+        "browser.download.open_pdf_attachments_inline" = true;
+        # PDF viewer zoom page-fit
+        "pdfjs.defaultZoomValue" = "page-fit";
+
+        "browser.tabs.loadInBackground" = false;
+
+        # Enable https first
+        "dom.security.https_first" = true;
+        "dom.security.https_only_mode" = false;
+
+        # Open devtools on the right
+        "devtools.toolbox.host" = "right";
+        # Configure devtools font size
+        "devtools.toolbox.zoomValue" = 1.3;
+        # Disable devtools simple highlight message
+        "devtools.inspector.simple-highlighters.message-dismissed" = true;
+
+        # Extension for webgl privacy is installed.
+        "webgl.disabled" = false;
+
+        "media.ffmpeg.vaapi.enabled" = true;
+
+        # Privacy
+        "privacy.clearOnShutdown.history" = false;
+        "privacy.clearOnShutdown.downloads" = false;
+        "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
+        "privacy.clearOnShutdown_v2.cache" = true;
+
+        "privacy.globalprivacycontrol.enabled" = true;
+        "privacy.donottrackheader.enabled" = true;
+        "privacy.clearOnShutdown.siteSettings" = true;
+        "network.cookie.lifetimePolicy" = 1;
+
+        "privacy.resistFingerprinting" = false;
+
+        # UI
+        "ui.prefersReducedMotion" = 1;
+        "toolkit.cosmeticAnimations.enabled" = false;
+        "browser.tabs.tabMinWidth" = 100;
+        "browser.compactmode.show" = true;
+
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "svg.context-properties.content.enabled" = true;
+
+        # Performance
+        "layers.acceleration.disabled" = false;
+
+        # Theme
+        "layout.css.prefers-color-scheme.content-override" = 0;
+        "ui.systemUsesDarkTheme" = 1;
+
+        # Media
+        "media.block-autoplay-until-in-foreground" = true;
+        "media.block-play-until-document-interaction" = true;
+        "media.block-play-until-visible" = true;
+        "media.autoplay.blocking_policy" = 2;
+      };
+
+      userChrome = ''
+        @import "${theme-path}/userChrome.css";
+      '';
+
+      userContent = ''
+        @import "${theme-path}/userContent.css";
+      '';
+    in {
       enable = true;
+
+      globalExtensions = with pkgs.nur.repos.rycee.firefox-addons; [ublock-origin canvasblocker];
 
       profiles = {
         default = {
-          isDefault = true;
+          inherit settings userChrome userContent;
 
           extensions = {
             force = true;
 
             packages = with pkgs.nur.repos.rycee.firefox-addons; [
-              ublock-origin
               bitwarden
               translate-web-pages
-              libredirect
               clearurls
               darkreader
-              canvasblocker
               buster-captcha-solver
-              react-devtools
               consent-o-matic
             ];
           };
@@ -69,6 +163,34 @@ in {
 
                 bookmarks = [
                   {
+                    name = "Beszel";
+                    url = "https://beszel.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "Jellyfin";
+                    url = "https://jellyfin.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "Immich";
+                    url = "https://immich.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "Dawarich";
+                    url = "https://dawarich.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "Sonarr";
+                    url = "https://sonarr.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "Radarr";
+                    url = "https://radarr.sun.guusvanmeerveld.dev";
+                  }
+                  {
+                    name = "qBittorrent";
+                    url = "https://qbittorrent.sun.guusvanmeerveld.dev";
+                  }
+                  {
                     name = "Syncthing";
                     url = "http://localhost:8384/";
                   }
@@ -80,13 +202,6 @@ in {
               }
             ];
           };
-
-          userChrome = ''
-            @import "${theme-path}/userChrome.css";
-          '';
-          userContent = ''
-            @import "${theme-path}/userContent.css";
-          '';
 
           search = {
             force = true;
@@ -196,96 +311,81 @@ in {
                   ]))
               ];
           };
+        };
 
-          settings = {
-            "browser.startup.homepage" = "about:home";
+        clipit = {
+          inherit settings userChrome userContent;
 
-            # Bookmarks
-            "browser.toolbars.bookmarks.visibility" = "never";
-            "browser.bookmarks.addedImportButton" = false;
+          id = 1;
 
-            # QoL
-            "browser.tabs.closeWindowWithLastTab" = false;
-            "browser.tabs.warnOnClose" = false;
-            "browser.tabs.warnOnQuit" = false;
+          bookmarks = {
+            force = true;
 
-            # Add ".tlp" to the domain suffix whitelist
-            "browser.fixup.domainsuffixwhitelist.tlp" = true;
+            settings = [
+              {
+                name = "TMS";
+                toolbar = true;
 
-            # Enable search suggestions
-            "browser.search.suggest.enabled" = true;
+                bookmarks = [
+                  {
+                    name = "Home";
+                    url = "https://tms.clipit.nl/tms/clipit/home.aspx";
+                  }
+                  {
+                    name = "Search";
+                    url = "https://tms.clipit.nl/tms/reportdefinition.aspx?report=clipit-searchnewssourcelink";
+                  }
+                  {
+                    name = "Grabber Log Tickets";
+                    url = "https://tms.clipit.nl/tms/clipit/grabberlogticketlist.aspx";
+                  }
+                  {
+                    name = "Missed messages";
+                    url = "https://tms.clipit.nl/tms/clipit/newssource.aspx?id=778271";
+                  }
+                  {
+                    name = "New newssource";
+                    url = "https://tms.clipit.nl/tms/clipit/newssource.aspx?newssourcetype=1";
+                  }
+                  {
+                    name = "Newsource ID lookup";
+                    url = "javascript:var%20n%20=%20window.prompt(%22Newssource%20ID%22,%22%22);if(n){document.location.href=%22http://tms.clipit.nl/tms/clipit/newssource.aspx?id=%22+n.replace(%27.%27,%27%27);}";
+                  }
+                ];
+              }
+              "separator"
+              {
+                name = "Tools";
+                toolbar = true;
 
-            # Disable restore session
-            "browser.sessionstore.resume_from_crash" = false;
-            "browser.startup.couldRestoreSession.count" = 2;
-
-            "browser.download.useDownloadDir" = true;
-
-            # Disable the browser asking whether to enable installed extensions.
-            "extensions.autoDisableScopes" = 0;
-
-            "middlemouse.paste" = false;
-            "general.smoothScroll" = true;
-
-            # Open PDF's in browser.
-            "browser.download.open_pdf_attachments_inline" = true;
-            # PDF viewer zoom page-fit
-            "pdfjs.defaultZoomValue" = "page-fit";
-
-            "browser.tabs.loadInBackground" = false;
-
-            # Enable https first
-            "dom.security.https_first" = true;
-            "dom.security.https_only_mode" = false;
-
-            # Open devtools on the right
-            "devtools.toolbox.host" = "right";
-            # Configure devtools font size
-            "devtools.toolbox.zoomValue" = 1.3;
-            # Disable devtools simple highlight message
-            "devtools.inspector.simple-highlighters.message-dismissed" = true;
-
-            # Extension for webgl privacy is installed.
-            "webgl.disabled" = false;
-
-            "media.ffmpeg.vaapi.enabled" = true;
-
-            # Privacy
-            "privacy.clearOnShutdown.history" = false;
-            "privacy.clearOnShutdown.downloads" = false;
-            "privacy.clearOnShutdown_v2.cookiesAndStorage" = true;
-            "privacy.clearOnShutdown_v2.cache" = true;
-
-            "privacy.globalprivacycontrol.enabled" = true;
-            "privacy.donottrackheader.enabled" = true;
-            "privacy.clearOnShutdown.siteSettings" = true;
-            "network.cookie.lifetimePolicy" = 1;
-
-            "privacy.resistFingerprinting" = false;
-
-            # UI
-            "ui.prefersReducedMotion" = 1;
-            "toolkit.cosmeticAnimations.enabled" = false;
-            "browser.tabs.tabMinWidth" = 100;
-            "browser.compactmode.show" = true;
-
-            # "browser.display.use_document_fonts" = 0;
-
-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-            "svg.context-properties.content.enabled" = true;
-
-            # Performance
-            "layers.acceleration.disabled" = false;
-
-            # Theme
-            "layout.css.prefers-color-scheme.content-override" = 0;
-            "ui.systemUsesDarkTheme" = 1;
-
-            # Media
-            "media.block-autoplay-until-in-foreground" = true;
-            "media.block-play-until-document-interaction" = true;
-            "media.block-play-until-visible" = true;
-            "media.autoplay.blocking_policy" = 2;
+                bookmarks = [
+                  {
+                    name = "Wiki";
+                    url = "https://sites.google.com/a/clipit.nl/wiki/home";
+                  }
+                  {
+                    name = "Workhours sheet";
+                    url = "https://docs.google.com/spreadsheets/d/14yVhMNHRE3vFTMoUOPPULK9S4q4uLMXox_C3-dYEUJo/edit";
+                  }
+                  {
+                    name = "MCP Issues";
+                    url = "https://docs.google.com/spreadsheets/d/1Lg97sp7OzyUxNC4ZnohPAMnGaBEhYCvhnIwoe6L6mNc/edit";
+                  }
+                  {
+                    name = "DEV vacations";
+                    url = "https://docs.google.com/spreadsheets/d/1sTW2HHNiqN5OTvxb9V7uVfPuwGdh4OIvPDaFRbWTg5s/edit";
+                  }
+                  {
+                    name = "XPath cheatsheet";
+                    url = "https://devhints.io/xpath";
+                  }
+                  {
+                    name = "RSS Lookup for current site";
+                    url = "javascript:(function(){var currentUrl=window.location.href; var encodedUrl=encodeURIComponent(currentUrl); var targetUrl='https://www.rsslookup.com/?url='+encodedUrl; window.open(targetUrl,'_blank','noreferrer');})();";
+                  }
+                ];
+              }
+            ];
           };
         };
       };
