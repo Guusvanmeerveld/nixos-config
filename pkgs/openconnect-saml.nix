@@ -5,7 +5,6 @@
   fetchFromGitHub,
   openconnect,
   qt6,
-  libfido2,
 }:
 python3Packages.buildPythonApplication rec {
   pname = "openconnect-saml";
@@ -40,17 +39,13 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = [qt6.wrapQtAppsHook];
   buildInputs = [qt6.qtbase];
   dontWrapQtApps = true;
-  preFixup = ''
-    makeWrapperArgs+=("''${qtWrapperArgs[@]}")
-  '';
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [openconnect]}"
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libfido2]}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [openconnect])
   ];
-
-  doCheck = false;
-  pythonImportsCheck = [];
 
   meta = {
     description = "OpenConnect wrapper adding Cisco SAML/SSO (Azure AD, Okta) authentication";
