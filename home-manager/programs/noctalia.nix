@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }: let
   cfg = config.custom.programs.noctalia;
@@ -11,7 +10,8 @@ in {
       enable = lib.mkEnableOption "Enable Noctalia desktop shell";
 
       wallpaper = lib.mkOption {
-        type = lib.types.str;
+        type = lib.types.nullOr lib.types.str;
+        default = null;
         description = "Path to wallpaper";
       };
 
@@ -21,103 +21,140 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [bitwarden-cli];
+    wayland.windowManager.sway.extraConfig = ''
+      include "${config.xdg.configHome}/sway/noctalia"
+    '';
 
-    programs.noctalia = {
-      enable = true;
+    programs = {
+      kitty.extraConfig = ''
+        include themes/noctalia.conf
+      '';
 
-      settings = {
-        theme = {
-          mode = "dark";
-          source = "builtin";
-          builtin = "Ayu";
-        };
+      vesktop.vencord.settings.enabledThemes = ["noctalia-material.theme.css"];
 
-        wallpaper = {
-          enabled = true;
-          default.path = cfg.wallpaper;
-        };
+      noctalia = {
+        enable = true;
 
-        shell = {
-          polkit_agent = true;
-          setup_wizard_enabled = false;
-          screen_time_enabled = true;
+        settings = {
+          theme = {
+            mode = "dark";
+            source = "wallpaper";
 
-          panel = {
-            transparency_mode = "glass";
+            templates = {
+              builtin_ids = ["kitty" "sway"];
 
-            control_center_placement = "floating";
-            wallpaper_placement = "floating";
-            session_placement = "floating";
-
-            open_near_click_control_center = true;
+              community_ids = ["feishin" "neovim" "heroiclauncher" "prismlauncher" "thunderbird" "discord" "libreoffice"];
+            };
           };
 
-          screen_corners = {
+          wallpaper = {
             enabled = true;
-            size = 20;
+
+            transition = ["fade" "zoom"];
+
+            directory = lib.custom.relativeToRoot "wallpapers";
+            directory_dark = lib.custom.relativeToRoot "wallpapers/dark";
+
+            automation = lib.mkIf (cfg.wallpaper == null) {
+              enabled = true;
+              pause_on_fullscreen = true;
+            };
+
+            default.path = lib.mkIf (cfg.wallpaper != null) cfg.wallpaper;
           };
-        };
 
-        bar.default = {
-          start = ["launcher" "workspaces" "media" "weather"];
-          center = ["clock"];
-          end =
-            ["privacy" "tray"]
-            ++ lib.optional cfg.homeassistant.enable "pozzoo/hassio:status"
-            ++ ["notifications" "clipboard" "network" "bluetooth" "volume" "brightness"]
-            ++ lib.optional cfg.headsetcontrol.enable "vavadik/headsetcontrol:widget"
-            ++ ["battery" "session"];
+          shell = {
+            polkit_agent = true;
+            setup_wizard_enabled = false;
+            screen_time_enabled = true;
 
-          background_opacity = 0.8;
+            launch_apps_as_systemd_services = true;
 
-          capsule = true;
-          capsule_opacity = 0.0;
-        };
+            panel = {
+              transparency_mode = "solid";
 
-        dock = {
-          enabled = true;
+              control_center_placement = "floating";
+              wallpaper_placement = "floating";
+              session_placement = "floating";
 
-          smart_auto_hide = true;
-          reserve_space = false;
+              open_near_click_control_center = true;
+            };
 
-          show_dots = true;
-        };
+            screen_corners = {
+              enabled = true;
+              size = 20;
+            };
 
-        idle.behavior = {
-          lock = {
-            timeout = 300;
-            action = "lock";
+            window_switcher = {
+              style = "compact";
+              mru = true;
+            };
+          };
+
+          bar.default = {
+            start = ["launcher" "workspaces" "media" "weather"];
+            center = ["clock"];
+            end =
+              ["privacy" "tray"]
+              ++ lib.optional cfg.homeassistant.enable "pozzoo/hassio:status"
+              ++ ["notifications" "clipboard" "network" "bluetooth" "volume" "brightness"]
+              ++ lib.optional cfg.headsetcontrol.enable "vavadik/headsetcontrol:widget"
+              ++ ["battery" "session"];
+
+            background_opacity = 0.6;
+
+            capsule = true;
+            capsule_opacity = 0.0;
+          };
+
+          dock = {
             enabled = true;
+
+            smart_auto_hide = true;
+            reserve_space = false;
+
+            show_dots = true;
+
+            launcher_position = "start";
+
+            pinned = ["vesktop" "feishin" "librewolf" "kitty"];
           };
 
-          screen-off = {
-            timeout = 360;
-            action = "screen_off";
-            enabled = true;
+          idle.behavior = {
+            lock = {
+              timeout = 300;
+              action = "lock";
+              enabled = true;
+            };
+
+            screen-off = {
+              timeout = 360;
+              action = "screen_off";
+              enabled = true;
+            };
+
+            suspend = {
+              timeout = 600;
+              action = "suspend";
+              enabled = true;
+            };
           };
 
-          suspend = {
-            timeout = 600;
-            action = "suspend";
+          lockscreen.blurred_desktop = true;
+          location.auto_locate = true;
+          nightlight.enabled = true;
+
+          calendar = {
             enabled = true;
+
+            week_numbers = true;
           };
+
+          plugins.enabled = lib.optional cfg.headsetcontrol.enable "vavadik/headsetcontrol" ++ lib.optional cfg.homeassistant.enable "pozzoo/hassio";
         };
 
-        lockscreen = {
-          blurred_desktop = true;
-        };
-
-        calendar.enabled = true;
-
-        location.auto_locate = true;
-
-        nightlight.enabled = true;
-
-        plugins.enabled = ["noctalia/bitwarden"] ++ lib.optional cfg.headsetcontrol.enable "vavadik/headsetcontrol" ++ lib.optional cfg.homeassistant.enable "pozzoo/hassio";
+        systemd.enable = true;
       };
-
-      systemd.enable = true;
     };
 
     custom.wm.applications = [
@@ -129,6 +166,10 @@ in {
       {
         executable = "${lib.getExe config.programs.noctalia.package} msg screenshot-region";
         keybind = "Print";
+      }
+      {
+        executable = "${lib.getExe config.programs.noctalia.package} msg window-switcher";
+        keybind = "Alt+Tab";
       }
     ];
   };

@@ -64,28 +64,32 @@ in {
         hardwareVideoAcceleration = true;
       };
 
-      vencord.settings = {
-        autoUpdate = false;
+      vencord = {
+        useSystem = true;
 
-        plugins = {
-          "BiggerStreamPreview".enabled = true;
-          "CallTimer".enabled = true;
-          "BetterSettings".enabled = true;
-          "AlwaysTrust".enabled = true;
-          "FriendsSince".enabled = true;
-          "MemberCount".enabled = true;
-          "NotificationVolume".enabled = true;
-          "NoTypingAnimation".enabled = true;
-          "NoF1".enabled = true;
-          "ShowHiddenThings".enabled = true;
-          "FakeNitro".enabled = true;
-          "OpenInApp".enabled = true;
-          "ReverseImageSearch".enabled = true;
-          "ServerInfo".enabled = true;
-          "ServerListIndicators".enabled = true;
-          "StartupTimings".enabled = true;
-          "VolumeBooster".enabled = true;
-          "ShikiCodeblocks".enabled = true;
+        settings = {
+          autoUpdate = false;
+
+          plugins = {
+            "BiggerStreamPreview".enabled = true;
+            "CallTimer".enabled = true;
+            "BetterSettings".enabled = true;
+            "AlwaysTrust".enabled = true;
+            "FriendsSince".enabled = true;
+            "MemberCount".enabled = true;
+            "NotificationVolume".enabled = true;
+            "NoTypingAnimation".enabled = true;
+            "NoF1".enabled = true;
+            "ShowHiddenThings".enabled = true;
+            "FakeNitro".enabled = true;
+            "OpenInApp".enabled = true;
+            "ReverseImageSearch".enabled = true;
+            "ServerInfo".enabled = true;
+            "ServerListIndicators".enabled = true;
+            "StartupTimings".enabled = true;
+            "VolumeBooster".enabled = true;
+            "ShikiCodeblocks".enabled = true;
+          };
         };
       };
     };

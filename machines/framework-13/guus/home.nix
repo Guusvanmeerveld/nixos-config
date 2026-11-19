@@ -7,7 +7,7 @@
     (lib.custom.relativeToRoot "home-manager")
   ];
 
-  home.packages = with pkgs; [powertop];
+  home.packages = with pkgs; [powertop custom.openconnect-saml];
 
   services.easyeffects = {
     enable = true;
@@ -28,10 +28,6 @@
           mode = "2256x1504@59.999Hz";
           scale = toString 1.5;
           color_profile = "icc ${./BOE_CQ_______NE135FBM_N41_03.icm}";
-        };
-
-        "*" = {
-          bg = "${../wallpaper.png} stretch";
         };
       };
     };
@@ -65,11 +61,13 @@
       };
     };
 
+    accounts.enable = true;
+
     programs = {
       noctalia = {
         enable = true;
 
-        wallpaper = "${../wallpaper.png}";
+        # wallpaper = "${../wallpaper.png}";
       };
 
       default-apps.enable = true;

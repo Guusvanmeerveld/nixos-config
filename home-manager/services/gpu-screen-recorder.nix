@@ -162,11 +162,6 @@ in {
             else "vfr"
           } \
             -w ${cfg.options.window} \
-            -restore-portal-session ${
-            if cfg.options.window == "portal"
-            then "yes"
-            else "no"
-          } \
             -c ${cfg.options.format} \
             -q ${toString cfg.options.quality} \
             -v ${

@@ -13,13 +13,11 @@ in {
         output = {
           "HDMI-A-1" = {
             mode = "1920x1080@180.003Hz";
-            bg = "${../wallpaper-right.png} stretch";
             pos = "1920 0";
           };
 
           "DP-1" = {
             mode = "2560x1440@74.968Hz";
-            bg = "${../wallpaper-left.png} stretch";
             pos = "0 0";
             scale = "1.33";
             adaptive_sync = "on";
@@ -62,7 +60,11 @@ in {
     services = {
       kdeconnect.enable = true;
       playerctld.enable = true;
-      gpu-screen-recorder.enable = true;
+      gpu-screen-recorder = {
+        enable = true;
+
+        options.window = primary-display;
+      };
       ntfy-client = {
         enable = true;
 
@@ -76,10 +78,7 @@ in {
     };
 
     programs = {
-      noctalia = {
-        enable = true;
-        wallpaper = "${../wallpaper-right.png}";
-      };
+      noctalia.enable = true;
 
       default-apps.enable = true;
       messaging.default-apps.enable = true;

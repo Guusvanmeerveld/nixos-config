@@ -3,6 +3,14 @@
     (lib.custom.relativeToRoot "home-manager")
   ];
 
+  home.sessionVariables = let
+    steamScale = 1.25;
+  in {
+    STEAM_FORCE_DESKTOPUI_SCALING = steamScale;
+    GDK_SCALE = steamScale;
+    GDK_DPI_SCALE = steamScale;
+  };
+
   custom = {
     wm.wayland.sway = {
       enable = true;
@@ -18,10 +26,6 @@
           mode = "2560x1440@59.951Hz";
           pos = "0 0";
           scale = "1.25";
-        };
-
-        "*" = {
-          bg = "${../wallpaper.png} stretch";
         };
       };
 
@@ -62,14 +66,18 @@
     services = {
       kdeconnect.enable = true;
       playerctld.enable = true;
-      gpu-screen-recorder.enable = true;
+      gpu-screen-recorder = {
+        enable = true;
+
+        options.window = "DP-3";
+      };
     };
 
     programs = {
       noctalia = {
         enable = true;
 
-        wallpaper = "${../wallpaper.png}";
+        headsetcontrol.enable = true;
       };
 
       default-apps.enable = true;

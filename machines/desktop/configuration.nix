@@ -19,6 +19,8 @@
   # https://mynixos.com/nixpkgs/option/systemd.network.wait-online.enable
   systemd.network.wait-online.enable = false;
 
+  programs.gpu-screen-recorder.enable = true;
+
   services = {
     udev.packages = [pkgs.headsetcontrol];
 
@@ -28,8 +30,6 @@
       settings.Resolve.Cache = "yes";
     };
   };
-
-  hardware.enableRedistributableFirmware = true;
 
   environment.systemPackages = [pkgs.headsetcontrol];
 

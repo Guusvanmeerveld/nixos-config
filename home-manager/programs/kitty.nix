@@ -29,8 +29,14 @@ in {
       }
     ];
 
-    home.sessionVariables = {
-      TERMINAL = lib.getExe package;
+    xdg.terminal-exec = {
+      enable = true;
+
+      settings = {
+        default = [
+          "kitty.desktop"
+        ];
+      };
     };
 
     programs.zsh.initContent = ''
@@ -45,22 +51,7 @@ in {
       enable = true;
 
       settings = {
-        foreground = "#${config.colorScheme.palette.base06}";
-        background = "#${config.colorScheme.palette.base00}";
-
-        background_opacity = "0.95";
-
-        selection_foreground = "#${config.colorScheme.palette.base07}";
-        selection_background = "#${config.colorScheme.palette.base0D}";
-
-        color0 = "#${config.colorScheme.palette.base01}";
-        color1 = "#${config.colorScheme.palette.base08}";
-        color2 = "#${config.colorScheme.palette.base0B}";
-        color3 = "#${config.colorScheme.palette.base0A}";
-        color4 = "#${config.colorScheme.palette.base0D}";
-        color5 = "#${config.colorScheme.palette.base0E}";
-        color6 = "#${config.colorScheme.palette.base0C}";
-        color7 = "#${config.colorScheme.palette.base07}";
+        background_opacity = 0.90;
       };
 
       font = {

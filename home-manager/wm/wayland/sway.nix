@@ -83,6 +83,8 @@ in {
         systemd = {
           enable = true;
 
+          variables = ["--all"];
+
           xdgAutostart = true;
         };
 
@@ -181,50 +183,6 @@ in {
             outer = gapSize;
           };
 
-          colors = let
-            bg-color = "#${config.colorScheme.palette.base00}";
-            alt-bg-color = "#${config.colorScheme.palette.base01}";
-
-            font-color = "#${config.colorScheme.palette.base05}";
-            alt-font-color = "#${config.colorScheme.palette.base04}";
-
-            urgent-color = "#${config.colorScheme.palette.base08}";
-          in {
-            background = bg-color;
-
-            focused = {
-              background = alt-bg-color;
-              border = alt-bg-color;
-              childBorder = alt-bg-color;
-              indicator = alt-bg-color;
-              text = alt-font-color;
-            };
-
-            focusedInactive = {
-              background = alt-bg-color;
-              border = alt-bg-color;
-              childBorder = alt-bg-color;
-              indicator = alt-bg-color;
-              text = alt-font-color;
-            };
-
-            unfocused = {
-              background = bg-color;
-              border = bg-color;
-              childBorder = bg-color;
-              indicator = bg-color;
-              text = font-color;
-            };
-
-            urgent = {
-              background = urgent-color;
-              border = urgent-color;
-              childBorder = urgent-color;
-              indicator = urgent-color;
-              text = font-color;
-            };
-          };
-
           modes = {
             present = let
               wl-present = "${pkgs.wl-mirror}/bin/wl-present";
@@ -281,7 +239,7 @@ in {
               "XF86AudioLowerVolume" = lib.mkDefault "exec ${pactl} set-sink-volume @DEFAULT_SINK@ -5%";
 
               "XF86MonBrightnessUp" = lib.mkDefault "exec ${brightnessctl} set +5%";
-              "XF86MonBrightnessDown" = lib.mkDefault "exec ${brightnessctl} set -5%";
+              "XF86MonBrightnessDown" = lib.mkDefault "exec ${brightnessctl} set 5%-";
 
               "XF86AudioMute" = lib.mkDefault "exec ${pactl} set-sink-mute @DEFAULT_SINK@ toggle";
               "XF86AudioMicMute" = lib.mkDefault "exec ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle";
